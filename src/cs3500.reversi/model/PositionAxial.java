@@ -57,4 +57,20 @@ public final class PositionAxial {
 
         return "NoCommonCoordinate";
     }
+
+    public boolean isNextTo(PositionAxial other) {
+        if (this.q == other.q && Math.abs(this.r - other.r) == 1 && Math.abs(this.s - other.s) == 1) {
+            return true;
+        }
+
+        if (this.r == other.r && Math.abs(this.q - other.q) == 1 && Math.abs(this.s - other.s) == 1) {
+            return true;
+        }
+
+        if (this.s == other.s && Math.abs(this.q - other.q) == 1 && Math.abs(this.r - other.r) == 1) {
+            return true;
+        }
+
+        return false;
+    }
 }

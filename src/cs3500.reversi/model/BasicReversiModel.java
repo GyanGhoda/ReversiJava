@@ -1,7 +1,10 @@
 package model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 public class BasicReversiModel implements ReversiModel {
 
@@ -27,11 +30,9 @@ public class BasicReversiModel implements ReversiModel {
         this.consectivePassedTurns = 0;
     }
 
-    public void playGame() {
+    public void startGame() {
         this.initializeBoard();
         this.addStartingPieces();
-
-        this.isGameOver();
     }
 
     private void initializeBoard() {
@@ -73,12 +74,12 @@ public class BasicReversiModel implements ReversiModel {
     }
 
     public void addPieceToCoordinates(PositionAxial posn) {
-        PositionAxial validTile = this.isValidMoveForPlayer(posn);
-        if (!(validTile == null)) {
+        List<PositionAxial> validTiles = this.isValidMoveForPlayer(posn);
+        if (!(validTiles.size() == 0)) {
             Cell playerCell = new GameCell(CellType.Player);
             playerCell.setCellToPlayer(this.players.get(this.currentPlayerIndex));
             this.board.put(posn, playerCell);
-            this.changeAllCellsBetween(posn, validTile);
+            this.changeAllCellsBetween(validTiles);
             this.changeTurns();
             this.consectivePassedTurns = 0;
         } else {
@@ -86,119 +87,154 @@ public class BasicReversiModel implements ReversiModel {
         }
     }
 
-    private PositionAxial isValidMoveForPlayer(PositionAxial givenPosn) {
+    private List<PositionAxial> isValidMoveForPlayer(PositionAxial givenPosn) {
         int q = givenPosn.getQ();
         int r = givenPosn.getR();
         int s = givenPosn.getS();
         Player otherPlayer = this.players.get(currentPlayerIndex + 1);
+        ArrayList<PositionAxial> allCellsBetween = new ArrayList<>();
 
-        for (PositionAxial posn : this.board.keySet()) {
-            boolean validMove = true;
-
-            if ((posn.containsCoordinate(q))
-                    && !posn.equals(givenPosn)) {
-                int startingPositionR = Math.min(givenPosn.getR(), posn.getR());
-                int endingPositonR = Math.max(givenPosn.getR(), posn.getR());
-                int startingPositionS = Math.max(givenPosn.getS(), posn.getS());
-
-                while (!(startingPositionR == endingPositonR)) {
-                    startingPositionR += 1;
-                    startingPositionS -= 1;
-                    if (!this.board.get(new PositionAxial(q, startingPositionR, startingPositionS))
-                            .getCellOwner().equals(otherPlayer)) {
-                        validMove = false;
-                        break;
-                    }
-                }
-
-                if (validMove) {
-                    return posn;
-                }
-            }
-
-            if ((posn.containsCoordinate(r))
-                    && !posn.equals(givenPosn)) {
-                int startingPositionQ = Math.min(givenPosn.getQ(), posn.getQ());
-                int endingPositonQ = Math.max(givenPosn.getQ(), posn.getQ());
-                int startingPositionS = Math.max(givenPosn.getS(), posn.getS());
-
-                while (!(startingPositionQ == endingPositonQ)) {
-                    startingPositionQ += 1;
-                    startingPositionS -= 1;
-                    if (!this.board.get(new PositionAxial(startingPositionQ, r, startingPositionS))
-                            .getCellOwner().equals(otherPlayer)) {
-                        validMove = false;
-                        break;
-                    }
-                }
-
-                if (validMove) {
-                    return posn;
-                }
-            }
-
-            if ((posn.containsCoordinate(s))
-                    && !posn.equals(givenPosn)) {
-                int startingPositionQ = Math.min(givenPosn.getQ(), posn.getQ());
-                int endingPositonQ = Math.max(givenPosn.getQ(), posn.getQ());
-                int startingPositionR = Math.max(givenPosn.getR(), posn.getR());
-
-                while (!(startingPositionQ == endingPositonQ)) {
-                    startingPositionQ += 1;
-                    startingPositionR -= 1;
-                    if (!this.board.get(new PositionAxial(startingPositionQ, startingPositionR, s))
-                            .getCellOwner().equals(otherPlayer)) {
-                        validMove = false;
-                        break;
-                    }
-                }
-
-                if (validMove) {
-                    return posn;
-                }
+        for (PositionAxial posn : this.getSurroundingCells(givenPosn)) {
+            if (this.board.get(posn).getCellOwner().equals(otherPlayer)) {
+                allCellsBetween.addAll(this.checkValidLineMade(givenPosn, posn, otherPlayer));
             }
         }
-        return null;
+
+        return allCellsBetween;
     }
 
-    private void changeAllCellsBetween(PositionAxial firstPosn, PositionAxial secondPosn) {
-        if (firstPosn.commonCoordinate(secondPosn).equals("q")) {
-            int startingPositionR = Math.min(firstPosn.getR(), secondPosn.getR());
-            int endingPositonR = Math.max(firstPosn.getR(), secondPosn.getR());
-            int startingPositionS = Math.max(firstPosn.getS(), secondPosn.getS());
+    // for (PositionAxial posn : this.board.keySet()) {
+    // boolean validMove = true;
 
-            while (!(startingPositionR == endingPositonR)) {
-                startingPositionR += 1;
-                startingPositionS -= 1;
-                this.board.get(new PositionAxial(firstPosn.getQ(), startingPositionR, startingPositionS))
-                        .setCellToPlayer(this.players.get(currentPlayerIndex));
-            }
-        }
+    // if ((posn.containsCoordinate(q))
+    // && !posn.equals(givenPosn)) {
+    // int startingPositionR = Math.min(givenPosn.getR(), posn.getR());
+    // int endingPositonR = Math.max(givenPosn.getR(), posn.getR());
+    // int startingPositionS = Math.max(givenPosn.getS(), posn.getS());
 
-        if (firstPosn.commonCoordinate(secondPosn).equals("r")) {
-            int startingPositionQ = Math.min(firstPosn.getQ(), secondPosn.getQ());
-            int endingPositonQ = Math.max(firstPosn.getQ(), secondPosn.getQ());
-            int startingPositionS = Math.max(firstPosn.getS(), secondPosn.getS());
+    // while (!(startingPositionR == endingPositonR)) {
+    // startingPositionR += 1;
+    // startingPositionS -= 1;
+    // if (!this.board.get(new PositionAxial(q, startingPositionR,
+    // startingPositionS))
+    // .getCellOwner().equals(otherPlayer)) {
+    // validMove = false;
+    // break;
+    // }
+    // }
+
+    // if (validMove) {
+    // return posn;
+    // }
+    // }
+
+    // if ((posn.containsCoordinate(r))
+    // && !posn.equals(givenPosn)) {
+    // int startingPositionQ = Math.min(givenPosn.getQ(), posn.getQ());
+    // int endingPositonQ = Math.max(givenPosn.getQ(), posn.getQ());
+    // int startingPositionS = Math.max(givenPosn.getS(), posn.getS());
+
+    // while (!(startingPositionQ == endingPositonQ)) {
+    // startingPositionQ += 1;
+    // startingPositionS -= 1;
+    // if (!this.board.get(new PositionAxial(startingPositionQ, r,
+    // startingPositionS))
+    // .getCellOwner().equals(otherPlayer)) {
+    // validMove = false;
+    // break;
+    // }
+    // }
+
+    // if (validMove) {
+    // return posn;
+    // }
+    // }
+
+    // if ((posn.containsCoordinate(s))
+    // && !posn.equals(givenPosn)) {
+    // int startingPositionQ = Math.min(givenPosn.getQ(), posn.getQ());
+    // int endingPositonQ = Math.max(givenPosn.getQ(), posn.getQ());
+    // int startingPositionR = Math.max(givenPosn.getR(), posn.getR());
+
+    // while (!(startingPositionQ == endingPositonQ)) {
+    // startingPositionQ += 1;
+    // startingPositionR -= 1;
+    // if (!this.board.get(new PositionAxial(startingPositionQ, startingPositionR,
+    // s))
+    // .getCellOwner().equals(otherPlayer)) {
+    // validMove = false;
+    // break;
+    // }
+    // }
+
+    // if (validMove) {
+    // return posn;
+    // }
+    // }
+    // }
+    // return null;
+    // }
+
+    private List<PositionAxial> checkValidLineMade(PositionAxial givenPosn, PositionAxial posn, Player otherPlayer) {
+        ArrayList<PositionAxial> cellsBetween = new ArrayList<>();
+
+        if (givenPosn.getQ() == posn.getQ()) {
+            int startingPositionQ = Math.min(givenPosn.getQ(), posn.getQ());
+            int endingPositonQ = Math.max(givenPosn.getQ(), posn.getQ());
+            int startingPositionS = Math.max(givenPosn.getS(), posn.getS());
 
             while (!(startingPositionQ == endingPositonQ)) {
                 startingPositionQ += 1;
                 startingPositionS -= 1;
-                this.board.get(new PositionAxial(startingPositionQ, firstPosn.getR(), startingPositionS))
-                        .setCellToPlayer(this.players.get(currentPlayerIndex));
+                if (!this.board.get(new PositionAxial(startingPositionQ, givenPosn.getR(), startingPositionS))
+                        .getCellOwner().equals(otherPlayer)) {
+                    cellsBetween.clear();
+                    break;
+                }
+                else {
+                    cellsBetween.add(new PositionAxial(startingPositionQ, givenPosn.getR(), startingPositionS);
+                }
             }
         }
 
-        if (firstPosn.commonCoordinate(secondPosn).equals("s")) {
-            int startingPositionQ = Math.min(firstPosn.getQ(), secondPosn.getQ());
-            int endingPositonQ = Math.max(firstPosn.getQ(), secondPosn.getQ());
-            int startingPositionR = Math.max(firstPosn.getR(), secondPosn.getR());
+        if (givenPosn.getS() == posn.getS()) {
+            int startingPositionQ = Math.min(givenPosn.getQ(), posn.getQ());
+            int endingPositonQ = Math.max(givenPosn.getQ(), posn.getQ());
+            int startingPositionR = Math.max(givenPosn.getR(), posn.getR());
 
             while (!(startingPositionQ == endingPositonQ)) {
                 startingPositionQ += 1;
                 startingPositionR -= 1;
-                this.board.get(new PositionAxial(startingPositionQ, firstPosn.getR(), startingPositionR))
-                        .setCellToPlayer(this.players.get(currentPlayerIndex));
+                if (!this.board.get(new PositionAxial(startingPositionQ, startingPositionR, givenPosn.getS()))
+                        .getCellOwner().equals(otherPlayer)) {
+                    cellsBetween.clear();
+                    break;
+                }
+                else {
+                    cellsBetween.add(new PositionAxial(startingPositionQ, startingPositionR, givenPosn.getS());
+                }
             }
+        }
+
+        return cellsBetween;
+    }
+
+    private List<PositionAxial> getSurroundingCells(PositionAxial givenPosn) {
+        ArrayList<PositionAxial> surroundingCells = new ArrayList<>();
+
+        for (PositionAxial posn : this.board.keySet()) {
+            if (posn.isNextTo(givenPosn)) {
+                surroundingCells.add(posn);
+
+            }
+        }
+
+        return surroundingCells;
+    }
+
+    private void changeAllCellsBetween(List<PositionAxial> posnBetween) {
+        for (PositionAxial posn : posnBetween) {
+            this.board.get(posn).setCellToPlayer(this.players.get(currentPlayerIndex));
         }
     }
 
