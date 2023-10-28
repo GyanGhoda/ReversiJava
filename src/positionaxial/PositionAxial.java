@@ -1,14 +1,14 @@
-import java.util.Objects;
+package positionaxial;
 
 /**
  * This class represents a 2D position
  */
 public final class PositionAxial {
-  private final double q;
-  private final double r;
-  private final double s;
+  private final int q;
+  private final int r;
+  private final int s;
 
-  PositionAxial(double q, double r, double s) {
+  public PositionAxial(int q, int r, int s) {
     this.q = q;
     this.r = r;
     this.s = s;
@@ -28,5 +28,17 @@ public final class PositionAxial {
 
   public boolean containsCoordinate(int coordinate) {
     return this.q == coordinate || this.r == coordinate || this.s == coordinate;
+  }
+
+  public int getQ() {
+    return this.q;
+  }
+
+  public int getR() {
+    return this.r;
+  }
+
+  public int getS() {
+    return this.s;
   }
 }

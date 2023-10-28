@@ -1,5 +1,13 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import cell.Cell;
+import cell.CellType;
+import cell.GameCell;
+import player.Player;
+import positionaxial.PositionAxial;
 
 public class BasicReversiModel implements ReversiModel {
 
@@ -28,6 +36,8 @@ public class BasicReversiModel implements ReversiModel {
     public void playGame() {
         this.initializeBoard();
         this.addStartingPieces();
+
+        this.isGameOver();
     }
 
     private void initializeBoard() {
@@ -55,12 +65,12 @@ public class BasicReversiModel implements ReversiModel {
 
     private void addStartingPieces() {
 
-        for (PositionAxial coordinate : this.board.keySet()) {
-            if (coordinate.containsCoordinate(1) && coordinate.containsCoordinate(-1)
-                    && coordinate.containsCoordinate(0)) {
+        for (PositionAxial posn : this.board.keySet()) {
+            if (posn.containsCoordinate(1) && posn.containsCoordinate(-1)
+                    && posn.containsCoordinate(0)) {
                 Cell playerCell = new GameCell(CellType.Player);
                 playerCell.setCellToPlayer(this.players.get(this.currentPlayerIndex % 2));
-                this.board.put(coordinate, playerCell);
+                this.board.put(posn, playerCell);
                 this.currentPlayerIndex += 1;
             }
         }
@@ -68,20 +78,45 @@ public class BasicReversiModel implements ReversiModel {
         this.currentPlayerIndex = 0;
     }
 
-    public void addPieceToCoordinates(int q, int r, int s) {
-        if (this.isValidMoveForPlayer(q, r, s)) {
+    public void addPieceToCoordinates(PositionAxial posn) {
+        PositionAxial validTile = this.isValidMoveForPlayer(posn);
+        if (!(validTile == null)) {
             Cell playerCell = new GameCell(CellType.Player);
             playerCell.setCellToPlayer(this.players.get(this.currentPlayerIndex));
-            this.board.put(new PositionAxial(q, r, s), playerCell);
+            this.board.put(posn, playerCell);
+            this.changeAllCellsBetween(posn, validTile);
             this.changeTurns();
-            this.passedTurns = 0;
+            this.consectivePassedTurns = 0;
         } else {
             throw new IllegalStateException("Move cannot be made");
         }
     }
 
-    private boolean isValidMoveForPlayer(int q, int r, int s) {
-        return true;
+    private PositionAxial isValidMoveForPlayer(PositionAxial givenPosn) {
+        int q = givenPosn.getQ();
+        int r = givenPosn.getR();
+        int s = givenPosn.getS();
+        Player otherPlayer = this.players.get(currentPlayerIndex + 1);
+
+        for (PositionAxial posn : this.board.keySet()) {
+            boolean validMove = true;
+
+            if ((posn.containsCoordinate(q))
+                    && !posn.equals(givenPosn)) {
+                int startingPositionR = Math.min(givenPosn.getR(), posn.getR());
+                int endingPositonR = Math.max(givenPosn.getR(), posn.getR());
+                int startingPositionS = Math.max(givenPosn.getS(), posn.getS());
+            }
+        }
+        return null;
+    }
+
+    private void changeAllCellsBetween(PositionAxial firstPosn, PositionAxial secondPosn) {
+        if (firstPosn.commonCoordinate(secondPosn).equals("q")) {
+            int startingPosition = Math.min(firstPosn.getQ(), secondPosn.getQ());
+            int endingPositon = Math.max(firstPosn.getQ(), secondPosn.getQ());
+
+        }
     }
 
     public void passTurn() {
@@ -97,13 +132,12 @@ public class BasicReversiModel implements ReversiModel {
     }
 
     private boolean isGameOver() {
-
         if (this.consectivePassedTurns == this.players.size()) {
             return true;
         }
 
-        for (PositionAxial coordinate : this.board.keySet()) {
-            if (this.board.get(coordinate).getCellType().equals(CellType.Empty)) {
+        for (PositionAxial posn : this.board.keySet()) {
+            if (this.board.get(posn).sameCellType(CellType.Empty) && this.isValidMoveForPlayer(posn)) {
                 return false;
             }
         }
