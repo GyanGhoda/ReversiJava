@@ -190,9 +190,8 @@ public class BasicReversiModel implements ReversiModel {
                         .getCellOwner().equals(otherPlayer)) {
                     cellsBetween.clear();
                     break;
-                }
-                else {
-                    cellsBetween.add(new PositionAxial(startingPositionQ, givenPosn.getR(), startingPositionS);
+                } else {
+                    cellsBetween.add(new PositionAxial(startingPositionQ, givenPosn.getR(), startingPositionS));
                 }
             }
         }
@@ -209,9 +208,8 @@ public class BasicReversiModel implements ReversiModel {
                         .getCellOwner().equals(otherPlayer)) {
                     cellsBetween.clear();
                     break;
-                }
-                else {
-                    cellsBetween.add(new PositionAxial(startingPositionQ, startingPositionR, givenPosn.getS());
+                } else {
+                    cellsBetween.add(new PositionAxial(startingPositionQ, startingPositionR, givenPosn.getS()));
                 }
             }
         }
