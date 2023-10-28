@@ -1,5 +1,5 @@
 public interface ReversiModel {
-  public void playGame();
 
-  
+  //
+  void playGame();
 }
