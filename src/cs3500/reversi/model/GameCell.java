@@ -1,9 +1,18 @@
 package cs3500.reversi.model;;
 
+/**
+ * The GameCell class represents a cell in a Reversi game board. It implements the Cell interface.
+ */
 public class GameCell implements Cell {
+
     private CellType type;
     private Player cellOwner;
 
+    /**
+     * Constructs a new GameCell with the given CellType.
+     *
+     * @param type The type of the cell, which can be Empty or Player.
+     */
     public GameCell(CellType type) {
         this.type = type;
     }
@@ -30,6 +39,11 @@ public class GameCell implements Cell {
 
     @Override
     public String toString() {
-        return this.cellOwner.toString();
+        if (this.type.equals(CellType.Player)) {
+            return this.cellOwner.toString();
+        }
+        else {
+            return "_ ";
+        }
     }
 }

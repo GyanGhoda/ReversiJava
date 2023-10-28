@@ -1,19 +1,33 @@
 package cs3500.reversi.model;
 
 /**
- * This class represents a 2D position
+ * This class represents a 2D position using axial coordinates.
+ * A position is defined by the values of 'q,' 'r,' and 's.'
  */
 public final class PositionAxial {
     private final int q;
     private final int r;
     private final int s;
 
+    /**
+     * Constructs a new PositionAxial object with the given axial coordinates.
+     *
+     * @param q The 'q' coordinate.
+     * @param r The 'r' coordinate.
+     * @param s The 's' coordinate.
+     */
     public PositionAxial(int q, int r, int s) {
         this.q = q;
         this.r = r;
         this.s = s;
     }
 
+    /**
+     * Checks if this PositionAxial is equal to the given object by comparing their axial coordinates.
+     *
+     * @param obj The object to compare with.
+     * @return true if the given object is a PositionAxial and has the same 'q,' 'r,' and 's' values; false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         // If the given object is an instance of PositionAxial
@@ -26,22 +40,49 @@ public final class PositionAxial {
         return false;
     }
 
+    /**
+     * Checks if this PositionAxial contains the specified coordinate value.
+     *
+     * @param coordinate The coordinate value to check.
+     * @return true if this PositionAxial contains the given coordinate; false otherwise.
+     */
     public boolean containsCoordinate(int coordinate) {
         return this.q == coordinate || this.r == coordinate || this.s == coordinate;
     }
 
+    /**
+     * Get the 'q' coordinate of this PositionAxial.
+     *
+     * @return The 'q' coordinate.
+     */
     public int getQ() {
         return this.q;
     }
 
+    /**
+     * Get the 'r' coordinate of this PositionAxial.
+     *
+     * @return The 'r' coordinate.
+     */
     public int getR() {
         return this.r;
     }
 
+    /**
+     * Get the 's' coordinate of this PositionAxial.
+     *
+     * @return The 's' coordinate.
+     */
     public int getS() {
         return this.s;
     }
 
+    /**
+     * Determines the common coordinate between this PositionAxial and another PositionAxial.
+     *
+     * @param other The other PositionAxial to compare with.
+     * @return The common coordinate, which can be "q," "r," or "s." If there is no common coordinate, it returns "NoCommonCoordinate."
+     */
     public String commonCoordinate(PositionAxial other) {
         if (this.getQ() == other.getQ()) {
             return "q";
@@ -58,6 +99,12 @@ public final class PositionAxial {
         return "NoCommonCoordinate";
     }
 
+    /**
+     * Checks if this PositionAxial is adjacent to another PositionAxial. Adjacency means sharing a side (not a corner).
+     *
+     * @param other The other PositionAxial to check adjacency with.
+     * @return true if this PositionAxial is adjacent to the other PositionAxial; false otherwise.
+     */
     public boolean isNextTo(PositionAxial other) {
         if (this.q == other.q && Math.abs(this.r - other.r) == 1 && Math.abs(this.s - other.s) == 1) {
             return true;
