@@ -1,4 +1,4 @@
 public interface ReversiModel {
   public void playGame();
-  huhuhuh
+  testANother
 }
