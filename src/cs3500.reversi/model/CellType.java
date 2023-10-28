@@ -1,4 +1,4 @@
-package cell;
+package model;
 
 public enum CellType {
     Empty,

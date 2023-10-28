@@ -1,6 +1,4 @@
-package cell;
-
-import player.Player;
+package model;
 
 public class GameCell implements Cell {
     private CellType type;
@@ -28,11 +26,5 @@ public class GameCell implements Cell {
     @Override
     public Player getCellOwner() {
         return this.cellOwner;
-    }
-
-    @Override
-    public void setCellToPlayer(Player player) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setCellToPlayer'");
     }
 }

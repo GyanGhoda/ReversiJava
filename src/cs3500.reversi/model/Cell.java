@@ -1,9 +1,9 @@
-package cell;
+package model;
 
 public interface Cell {
-    player.Player getCellOwner();
+    Player getCellOwner();
 
-    public void setCellToPlayer(player.Player player);
+    public void setCellToPlayer(Player player);
 
     public CellType getCellType();
 
