@@ -27,4 +27,9 @@ public class GameCell implements Cell {
     public Player getCellOwner() {
         return this.cellOwner;
     }
+
+    @Override
+    public String toString() {
+        return this.cellOwner.toString();
+    }
 }

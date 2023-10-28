@@ -248,7 +248,7 @@ public class BasicReversiModel implements ReversiModel {
         }
     }
 
-    private boolean isGameOver() {
+    public boolean isGameOver() {
         if (this.consectivePassedTurns == this.players.size()) {
             return true;
         }
@@ -260,5 +260,15 @@ public class BasicReversiModel implements ReversiModel {
         }
 
         return true;
+    }
+
+    @Override
+    public int getNumRows() {
+        return this.width;
+    }
+
+    @Override
+    public Cell getCellAt(int q, int r, int s) {
+        return this.board.get(new PositionAxial(q, r, s));
     }
 }
