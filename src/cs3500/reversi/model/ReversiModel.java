@@ -9,6 +9,8 @@ public interface ReversiModel {
 
   /**
     * Starts a new Reversi game, initializing the game board and players.
+    *
+    * @throws IllegalStateException    if the game has already started.
     */
   void startGame();
 

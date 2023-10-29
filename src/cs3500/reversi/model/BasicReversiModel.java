@@ -17,18 +17,27 @@ public class BasicReversiModel implements ReversiModel {
     private final int width;
     private int currentPlayerIndex;
     private int consectivePassedTurns;
+    private boolean gameStarted;
 
     /**
      * Constructs a new BasicReversiModel with the specified width.
+     * The game can only be played on a regular grid of cells, so the
+     * width needs to be an odd number. For a playable game, the width needs
+     * to be at least three.
      *
      * @param width The width of the game board.
+     * @throws IllegalArgumentException If the provided width is not an odd number or is less than three.
      */
     public BasicReversiModel(int width) {
+        if (width < 3 || width % 2 == 0) {
+            throw new IllegalArgumentException("Width must be odd and at least three.");
+        }
         this.board = new HashMap<>();
         this.players = new ArrayList<>();
         this.width = width;
         this.currentPlayerIndex = 0;
         this.consectivePassedTurns = 0;
+        this.gameStarted = false;
     }
 
     /**
@@ -40,14 +49,21 @@ public class BasicReversiModel implements ReversiModel {
         this.width = 11;
         this.currentPlayerIndex = 0;
         this.consectivePassedTurns = 0;
+        this.gameStarted = false;
     }
 
     @Override
     public void startGame() {
+
+        if (this.gameStarted) {
+            throw new IllegalStateException("Game has already been started");
+        }
+
         this.players.add(new GamePlayer(PlayerType.BLACK));
         this.players.add(new GamePlayer(PlayerType.WHITE));
         this.initializeBoard();
         this.addStartingPieces();
+        this.gameStarted = true;
     }
 
     /**
