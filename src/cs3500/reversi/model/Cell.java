@@ -1,4 +1,6 @@
-package cs3500.reversi.model;;
+package cs3500.reversi.model;
+
+;
 
 /**
  * Represents a cell in a Reversi game board. Each cell can be owned by a player
@@ -9,29 +11,31 @@ public interface Cell {
     /**
      * Get the owner of the cell.
      *
-     * @return The player that owns the cell, or null if the cell is empty.
+     * @return The player that owns the cell, or null if the cell is empty as a
+     *         String.
      */
-    Player getCellOwner();
+    String getCellOwner();
 
     /**
      * Set the owner of the cell.
      *
      * @param player The player to set as the owner of the cell.
      */
-    public void setCellToPlayer(Player player);
+    void setCellToPlayer(Player player);
 
     /**
      * Get the type of the cell.
      *
      * @return The type of the cell.
      */
-    public CellType getCellType();
+    CellType getCellType();
 
     /**
      * Check if the cell has the same type as the given CellType.
      *
      * @param otherType The CellType to compare with.
-     * @return true if the cell has the same type as the given CellType, false otherwise.
+     * @return true if the cell has the same type as the given CellType, false
+     *         otherwise.
      */
-    public boolean sameCellType(CellType Othertype);
+    boolean sameCellType(CellType Othertype);
 }
