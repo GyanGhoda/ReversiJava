@@ -99,31 +99,46 @@ public class BasicReversiModel implements ReversiModel {
      * positions.
      */
     private void addStartingPieces() {
+        Cell whiteCell = new GameCell(CellType.Player);
+        whiteCell.setCellToPlayer(new HumanPlayer(PlayerType.WHITE));
 
-        for (PositionAxial posn : this.board.keySet()) {
+        Cell blackCell = new GameCell(CellType.Player);
+        blackCell.setCellToPlayer(new HumanPlayer(PlayerType.BLACK));
 
-            // check if the current position meets the conditions for initial player
-            // placement.
-            if (posn.containsCoordinate(1) && posn.containsCoordinate(-1)
-                    && posn.containsCoordinate(0)) {
-                Cell playerCell = new GameCell(CellType.Player);
+        this.board.put(new PositionAxial(-1, 0, 1), whiteCell);
+        this.board.put(new PositionAxial(0, -1, 1), blackCell);
+        this.board.put(new PositionAxial(1, -1, 0), whiteCell);
+        this.board.put(new PositionAxial(1, 0, -1), blackCell);
+        this.board.put(new PositionAxial(0, 1, -1), whiteCell);
+        this.board.put(new PositionAxial(-1, 1, 0), blackCell);
 
-                // set the owner of the player cell to one of the players based on
-                // currentPlayerIndex.
-                playerCell.setCellToPlayer(this.players.get(this.currentPlayerIndex % 2));
+        // for (PositionAxial posn : this.board.keySet()) {
 
-                // place the player cell on the game board at the current position.
-                this.board.put(posn, playerCell);
+        // // check if the current position meets the conditions for initial player
+        // // placement.
 
-                // increment currentPlayerIndex to switch to the next player for the next
-                // placement.
-                this.currentPlayerIndex += 1;
-            }
-        }
+        // if (posn.containsCoordinate(1) && posn.containsCoordinate(-1)
+        // && posn.containsCoordinate(0)) {
+        // Cell playerCell = new GameCell(CellType.Player);
+
+        // if (posn.getR() == 0) {
+        // // set the owner of the player cell to one of the players based on
+        // // currentPlayerIndex.
+        // playerCell.setCellToPlayer(this.players.get(this.currentPlayerIndex % 2));
+        // }
+
+        // // place the player cell on the game board at the current position.
+        // this.board.put(posn, playerCell);
+
+        // // increment currentPlayerIndex to switch to the next player for the next
+        // // placement.
+        // this.currentPlayerIndex += 1;
+        // }
 
         // reset the currentPlayerIndex to ensure it starts from the first player for
         // subsequent moves.
         this.currentPlayerIndex = 0;
+
     }
 
     @Override
