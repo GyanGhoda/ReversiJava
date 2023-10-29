@@ -256,16 +256,23 @@ public class BasicReversiModel implements ReversiModel {
     private List<PositionAxial> checkValidLineMade(PositionAxial givenPosn, PositionAxial posn, Player otherPlayer) {
         ArrayList<PositionAxial> cellsBetween = new ArrayList<>();
 
+        // check if given and ending positions share Q coordinates
         if (givenPosn.getQ() == posn.getQ()) {
+
+            // determine the range of R and S coordinates between the two positions.
             int startingPositionR = Math.min(givenPosn.getR(), posn.getR());
             int endingPositonR = Math.max(givenPosn.getR(), posn.getR());
             int startingPositionS = Math.max(givenPosn.getS(), posn.getS());
 
+            // iterate through the range of coordinates and check for valid positions.
             while (!(startingPositionR == endingPositonR)) {
                 startingPositionR += 1;
                 startingPositionS -= 1;
                 PositionAxial currentPosition = new PositionAxial(givenPosn.getQ(), startingPositionR, startingPositionS);
 
+                // check if the position exists on the board and is owned by the other player.
+                // if so, clear the list
+                // if not, add the current position to the list
                 if (!this.board.containsKey(currentPosition) || !this.board.get(currentPosition).getCellOwner().equals(otherPlayer)) {
                     cellsBetween.clear();
                     break;
@@ -276,16 +283,23 @@ public class BasicReversiModel implements ReversiModel {
             }
         }
 
+        // check if given and ending positions share R coordinates
         if (givenPosn.getR() == posn.getR()) {
+
+            // determine the range of Q and S coordinates between the two positions.
             int startingPositionQ = Math.min(givenPosn.getQ(), posn.getQ());
             int endingPositonQ = Math.max(givenPosn.getQ(), posn.getQ());
             int startingPositionS = Math.max(givenPosn.getS(), posn.getS());
 
+            // iterate through the range of coordinates and check for valid positions.
             while (!(startingPositionQ == endingPositonQ)) {
                 startingPositionQ += 1;
                 startingPositionS -= 1;
                 PositionAxial currentPosition = new PositionAxial(endingPositonQ, givenPosn.getR(), startingPositionS);
 
+                // check if the position exists on the board and is owned by the other player.
+                // if so, clear the list
+                // if not, add the current position to the list
                 if (!this.board.containsKey(currentPosition) || !this.board.get(currentPosition).getCellOwner().equals(otherPlayer)) {
                     cellsBetween.clear();
                     break;
@@ -296,16 +310,24 @@ public class BasicReversiModel implements ReversiModel {
             }
         }
 
+        // check if given and ending positions share S coordinates
         if (givenPosn.getS() == posn.getS()) {
+
+            // determine the range of Q and R coordinates between the two positions.
             int startingPositionQ = Math.min(givenPosn.getQ(), posn.getQ());
             int endingPositonQ = Math.max(givenPosn.getQ(), posn.getQ());
             int startingPositionR = Math.max(givenPosn.getR(), posn.getR());
 
             PositionAxial currentPosition = new PositionAxial(startingPositionQ, startingPositionR, givenPosn.getS());
 
+            // iterate through the range of coordinates and check for valid positions.
             while (!(startingPositionQ == endingPositonQ)) {
                 startingPositionQ += 1;
                 startingPositionR -= 1;
+
+                // check if the position exists on the board and is owned by the other player.
+                // if so, clear the list
+                // if not, add the current position to the list
                 if (!this.board.containsKey(currentPosition) || !this.board.get(currentPosition).getCellOwner().equals(otherPlayer)) {
                     cellsBetween.clear();
                     break;

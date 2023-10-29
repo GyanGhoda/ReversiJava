@@ -41,6 +41,16 @@ public final class PositionAxial {
     }
 
     /**
+     * Returns a unique hashcode for every unique non-equal instance of a PositionAxial.
+     *
+     * @return the unique hashcode of this object as an int.
+     */
+    @Override 
+    public int hashCode() {
+        return Integer.valueOf(Integer.toString(this.q) + Integer.toString(this.r) + Integer.toString(this.s));
+    }
+
+    /**
      * Checks if this PositionAxial contains the specified coordinate value.
      *
      * @param coordinate The coordinate value to check.
