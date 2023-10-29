@@ -1,8 +1,5 @@
 package cs3500.reversi.textualview;
 
-import cs3500.reversi.model.CellType;
-import cs3500.reversi.model.GameCell;
-import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReversiModel;
 
 /**
@@ -17,7 +14,7 @@ public class ReversiTextualView implements TextualView {
      *
      * @param model The ReversiModel to be displayed in the textual view.
      */
-    ReversiTextualView(ReversiModel model) {
+    public ReversiTextualView(ReversiModel model) {
         this.model = model;
     }
 
@@ -51,7 +48,7 @@ public class ReversiTextualView implements TextualView {
      * Generates a string representation of a single row of the Reversi game board.
      *
      * @param currentGivenQ The initial Q-coordinate for the row.
-     * @param currentRow     The current row number.
+     * @param currentRow    The current row number.
      * @param currentGivenS The initial S-coordinate for the row.
      * @return A string representing a row of the Reversi game board.
      */
@@ -60,12 +57,13 @@ public class ReversiTextualView implements TextualView {
         int currentQ = currentGivenQ;
         int currentS = currentGivenS;
 
-        // add spaces to beginning of each row as necessary where there are no cells to display
+        // add spaces to beginning of each row as necessary where there are no cells to
+        // display
         for (int count = 0; count < Math.abs(currentRow); count += 1) {
             rowString = rowString.concat(" ");
         }
 
-        // go through the cells in a row and append each cell to the view 
+        // go through the cells in a row and append each cell to the view
         for (int count = 0; count <= (this.model.getNumRows() - 1) / 2; count += 1) {
             rowString = rowString.concat(this.model.getCellAt(currentQ, currentRow, currentS).toString()).concat(" ");
             currentQ += 1;

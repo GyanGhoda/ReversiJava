@@ -23,10 +23,12 @@ public final class PositionAxial {
     }
 
     /**
-     * Checks if this PositionAxial is equal to the given object by comparing their axial coordinates.
+     * Checks if this PositionAxial is equal to the given object by comparing their
+     * axial coordinates.
      *
      * @param obj The object to compare with.
-     * @return true if the given object is a PositionAxial and has the same 'q,' 'r,' and 's' values; false otherwise.
+     * @return true if the given object is a PositionAxial and has the same 'q,'
+     *         'r,' and 's' values; false otherwise.
      */
     @Override
     public boolean equals(Object obj) {
@@ -41,20 +43,23 @@ public final class PositionAxial {
     }
 
     /**
-     * Returns a unique hashcode for every unique non-equal instance of a PositionAxial.
+     * Returns a unique hashcode for every unique non-equal instance of a
+     * PositionAxial.
      *
      * @return the unique hashcode of this object as an int.
      */
-    @Override 
+    @Override
     public int hashCode() {
-        return Integer.valueOf(Integer.toString(this.q) + Integer.toString(this.r) + Integer.toString(this.s));
+        return 0;// Integer.valueOf(Integer.toString(this.q) + Integer.toString(this.r) +
+                 // Integer.toString(this.s));
     }
 
     /**
      * Checks if this PositionAxial contains the specified coordinate value.
      *
      * @param coordinate The coordinate value to check.
-     * @return true if this PositionAxial contains the given coordinate; false otherwise.
+     * @return true if this PositionAxial contains the given coordinate; false
+     *         otherwise.
      */
     public boolean containsCoordinate(int coordinate) {
         return this.q == coordinate || this.r == coordinate || this.s == coordinate;
@@ -88,10 +93,12 @@ public final class PositionAxial {
     }
 
     /**
-     * Determines the common coordinate between this PositionAxial and another PositionAxial.
+     * Determines the common coordinate between this PositionAxial and another
+     * PositionAxial.
      *
      * @param other The other PositionAxial to compare with.
-     * @return The common coordinate, which can be "q," "r," or "s." If there is no common coordinate, it returns "NoCommonCoordinate."
+     * @return The common coordinate, which can be "q," "r," or "s." If there is no
+     *         common coordinate, it returns "NoCommonCoordinate."
      */
     public String commonCoordinate(PositionAxial other) {
         if (this.getQ() == other.getQ()) {
@@ -110,10 +117,12 @@ public final class PositionAxial {
     }
 
     /**
-     * Checks if this PositionAxial is adjacent to another PositionAxial. Adjacency means sharing a side (not a corner).
+     * Checks if this PositionAxial is adjacent to another PositionAxial. Adjacency
+     * means sharing a side (not a corner).
      *
      * @param other The other PositionAxial to check adjacency with.
-     * @return true if this PositionAxial is adjacent to the other PositionAxial; false otherwise.
+     * @return true if this PositionAxial is adjacent to the other PositionAxial;
+     *         false otherwise.
      */
     public boolean isNextTo(PositionAxial other) {
         if (this.q == other.q && Math.abs(this.r - other.r) == 1 && Math.abs(this.s - other.s) == 1) {
