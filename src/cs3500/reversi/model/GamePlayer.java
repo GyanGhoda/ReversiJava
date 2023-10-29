@@ -4,7 +4,7 @@ package cs3500.reversi.model;
  * Represents a human player in a Reversi game. It implements the Player
  * interface.
  */
-public class HumanPlayer implements Player {
+public class GamePlayer implements Player {
 
     private final PlayerType type;
 
@@ -13,7 +13,7 @@ public class HumanPlayer implements Player {
      *
      * @param type The type of the player, which can be BLACK or WHITE.
      */
-    public HumanPlayer(PlayerType type) {
+    public GamePlayer(PlayerType type) {
         this.type = type;
     }
 

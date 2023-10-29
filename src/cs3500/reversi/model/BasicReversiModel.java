@@ -44,8 +44,8 @@ public class BasicReversiModel implements ReversiModel {
 
     @Override
     public void startGame() {
-        this.players.add(new HumanPlayer(PlayerType.BLACK));
-        this.players.add(new HumanPlayer(PlayerType.WHITE));
+        this.players.add(new GamePlayer(PlayerType.BLACK));
+        this.players.add(new GamePlayer(PlayerType.WHITE));
         this.initializeBoard();
         this.addStartingPieces();
     }
@@ -100,45 +100,26 @@ public class BasicReversiModel implements ReversiModel {
      */
     private void addStartingPieces() {
         Cell whiteCell = new GameCell(CellType.Player);
-        whiteCell.setCellToPlayer(new HumanPlayer(PlayerType.WHITE));
+        whiteCell.setCellToPlayer(new GamePlayer(PlayerType.WHITE));
 
         Cell blackCell = new GameCell(CellType.Player);
-        blackCell.setCellToPlayer(new HumanPlayer(PlayerType.BLACK));
+        blackCell.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
 
-        this.board.put(new PositionAxial(-1, 0, 1), whiteCell);
-        this.board.put(new PositionAxial(0, -1, 1), blackCell);
-        this.board.put(new PositionAxial(1, -1, 0), whiteCell);
-        this.board.put(new PositionAxial(1, 0, -1), blackCell);
-        this.board.put(new PositionAxial(0, 1, -1), whiteCell);
-        this.board.put(new PositionAxial(-1, 1, 0), blackCell);
-
-        // for (PositionAxial posn : this.board.keySet()) {
-
-        // // check if the current position meets the conditions for initial player
-        // // placement.
-
-        // if (posn.containsCoordinate(1) && posn.containsCoordinate(-1)
-        // && posn.containsCoordinate(0)) {
-        // Cell playerCell = new GameCell(CellType.Player);
-
-        // if (posn.getR() == 0) {
-        // // set the owner of the player cell to one of the players based on
-        // // currentPlayerIndex.
-        // playerCell.setCellToPlayer(this.players.get(this.currentPlayerIndex % 2));
-        // }
-
-        // // place the player cell on the game board at the current position.
-        // this.board.put(posn, playerCell);
-
-        // // increment currentPlayerIndex to switch to the next player for the next
-        // // placement.
-        // this.currentPlayerIndex += 1;
-        // }
+        this.initializeCell(-1, 0, 1, PlayerType.WHITE);
+        this.initializeCell(0, -1, 1, PlayerType.BLACK);
+        this.initializeCell(1, -1, 0, PlayerType.WHITE);
+        this.initializeCell(1, 0, -1, PlayerType.BLACK);
+        this.initializeCell(0, 1, -1, PlayerType.WHITE);
+        this.initializeCell(-1, 1, 0, PlayerType.BLACK);
 
         // reset the currentPlayerIndex to ensure it starts from the first player for
         // subsequent moves.
         this.currentPlayerIndex = 0;
+    }
 
+    private void initializeCell(int q, int r, int s, PlayerType type) {
+        this.board.put(new PositionAxial(q, r, s), new GameCell(CellType.Player));
+        this.board.get(new PositionAxial(q, r, s)).setCellToPlayer(new GamePlayer(type));
     }
 
     @Override
@@ -186,11 +167,11 @@ public class BasicReversiModel implements ReversiModel {
             // see if the cell at the surrounding position is owned by the other player
             // and if there is a valid line of cells after it, all cells in this line are
             // returned
-            if (this.board.get(posn).getCellOwner().equals(otherPlayer)) {
+            if (this.board.get(posn).getCellType().equals(CellType.Player)
+                    && this.board.get(posn).getCellOwner().toString().equals(otherPlayer.toString())) {
                 allCellsBetween.addAll(this.checkValidLineMade(givenPosn, posn, otherPlayer));
             }
         }
-
         return allCellsBetween;
     }
 
@@ -299,7 +280,7 @@ public class BasicReversiModel implements ReversiModel {
                 // if so, clear the list
                 // if not, add the current position to the list
                 if (!this.board.containsKey(currentPosition)
-                        || !this.board.get(currentPosition).getCellOwner().equals(otherPlayer)) {
+                        || !this.board.get(currentPosition).getCellOwner().toString().equals(otherPlayer.toString())) {
                     cellsBetween.clear();
                     break;
                 } else {
@@ -326,7 +307,7 @@ public class BasicReversiModel implements ReversiModel {
                 // if so, clear the list
                 // if not, add the current position to the list
                 if (!this.board.containsKey(currentPosition)
-                        || !this.board.get(currentPosition).getCellOwner().equals(otherPlayer)) {
+                        || !this.board.get(currentPosition).getCellOwner().toString().equals(otherPlayer.toString())) {
                     cellsBetween.clear();
                     break;
                 } else {
@@ -354,7 +335,7 @@ public class BasicReversiModel implements ReversiModel {
                 // if so, clear the list
                 // if not, add the current position to the list
                 if (!this.board.containsKey(currentPosition)
-                        || !this.board.get(currentPosition).getCellOwner().equals(otherPlayer)) {
+                        || !this.board.get(currentPosition).getCellOwner().toString().equals(otherPlayer.toString())) {
                     cellsBetween.clear();
                     break;
                 } else {
@@ -393,6 +374,7 @@ public class BasicReversiModel implements ReversiModel {
      *                    changed.
      */
     private void changeAllCellsBetween(List<PositionAxial> posnBetween) {
+
         for (PositionAxial posn : posnBetween) {
             this.board.get(posn).setCellToPlayer(this.players.get(currentPlayerIndex));
         }

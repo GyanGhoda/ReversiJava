@@ -21,8 +21,8 @@ public class TestModel {
         Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
                 "  _ _ _ _ _\n" + //
                 " _ _ X O _ _\n" + //
-                "_ _ X _ X _ _\n" + //
-                " _ _ O O _ _\n" + //
+                "_ _ O _ X _ _\n" + //
+                " _ _ X O _ _\n" + //
                 "  _ _ _ _ _\n" + //
                 "   _ _ _ _\n");
     }
@@ -38,10 +38,10 @@ public class TestModel {
         TextualView modelView = new ReversiTextualView(model);
 
         Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
-                "  _ _ _ _ _\n" + //
+                "  _ _ X _ _\n" + //
+                " _ _ X X _ _\n" + //
+                "_ _ O _ X _ _\n" + //
                 " _ _ X O _ _\n" + //
-                "_ _ X _ X _ _\n" + //
-                " _ _ O O _ _\n" + //
                 "  _ _ _ _ _\n" + //
                 "   _ _ _ _\n");
     }

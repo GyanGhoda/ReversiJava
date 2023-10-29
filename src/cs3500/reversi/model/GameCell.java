@@ -37,7 +37,11 @@ public class GameCell implements Cell {
 
     @Override
     public Player getCellOwner() {
-        return this.cellOwner;
+        if (this.type.equals(CellType.Player)) {
+            return this.cellOwner;
+        } else {
+            return null;
+        }
     }
 
     @Override
