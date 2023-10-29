@@ -1,4 +1,4 @@
-package cs3500.reversi.model;
+package cs3500.reversi.controller;
 
 /**
  * Represents a human player in a Reversi game. It implements the Player

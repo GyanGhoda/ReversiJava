@@ -1,4 +1,4 @@
-package cs3500.reversi.model;
+package cs3500.reversi.controller;
 
 /**
  * Represents the type of a player in a Reversi game. It can be either BLACK or

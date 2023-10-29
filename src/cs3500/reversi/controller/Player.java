@@ -1,4 +1,4 @@
-package cs3500.reversi.model;
+package cs3500.reversi.controller;
 
 /**
  * Represents a player in a Reversi game.

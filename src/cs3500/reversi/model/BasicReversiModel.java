@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import cs3500.reversi.controller.GamePlayer;
+import cs3500.reversi.controller.Player;
+import cs3500.reversi.controller.PlayerType;
+
 /**
  * Represents the model of a Reversi game.
  * Manages the game board, players, and game logic.
