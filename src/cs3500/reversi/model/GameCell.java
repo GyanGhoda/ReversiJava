@@ -1,7 +1,10 @@
-package cs3500.reversi.model;;
+package cs3500.reversi.model;
+
+;
 
 /**
- * The GameCell class represents a cell in a Reversi game board. It implements the Cell interface.
+ * The GameCell class represents a cell in a Reversi game board. It implements
+ * the Cell interface.
  */
 public class GameCell implements Cell {
 
@@ -41,9 +44,8 @@ public class GameCell implements Cell {
     public String toString() {
         if (this.type.equals(CellType.Player)) {
             return this.cellOwner.toString();
-        }
-        else {
-            return "_ ";
+        } else {
+            return "_";
         }
     }
 }

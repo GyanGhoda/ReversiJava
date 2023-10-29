@@ -1,7 +1,8 @@
 package cs3500.reversi.model;
 
 /**
- * Represents a human player in a Reversi game. It implements the Player interface.
+ * Represents a human player in a Reversi game. It implements the Player
+ * interface.
  */
 public class HumanPlayer implements Player {
 
@@ -19,7 +20,8 @@ public class HumanPlayer implements Player {
     /**
      * Returns a string representation of the player.
      *
-     * @return The string representation of the player, "X" for BLACK, and "O" for WHITE.
+     * @return The string representation of the player, "X" for BLACK, and "O" for
+     *         WHITE.
      */
     @Override
     public String toString() {

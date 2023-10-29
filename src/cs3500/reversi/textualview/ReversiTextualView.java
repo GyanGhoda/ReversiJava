@@ -34,7 +34,7 @@ public class ReversiTextualView implements TextualView {
         for (int currentRow = -maxR; currentRow <= maxR; currentRow += 1) {
             fullBoard = fullBoard.concat(this.rowToString(currentStartingQ, currentRow, currentStartingS)).concat("\n");
 
-            if (!(currentRow > maxR + 1)) {
+            if (currentRow < 0) {
                 currentStartingQ -= 1;
             } else {
                 currentStartingS -= 1;
@@ -63,8 +63,10 @@ public class ReversiTextualView implements TextualView {
             rowString = rowString.concat(" ");
         }
 
+        int amountOfCells = this.model.getNumRows() - Math.abs(currentRow);
+
         // go through the cells in a row and append each cell to the view
-        for (int count = 0; count <= (this.model.getNumRows() - 1) / 2; count += 1) {
+        for (int count = 0; count < amountOfCells; count += 1) {
             rowString = rowString.concat(this.model.getCellAt(currentQ, currentRow, currentS).toString()).concat(" ");
             currentQ += 1;
             currentS -= 1;

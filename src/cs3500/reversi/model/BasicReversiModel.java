@@ -72,9 +72,6 @@ public class BasicReversiModel implements ReversiModel {
             int currentQ = currentRowStartingQ;
 
             for (int currentS = currentRowStartingS; currentS >= currentRowStartingQ; currentS -= 1) {
-                System.out.println(currentQ);
-                System.out.println(currentR);
-                System.out.println(currentS);
                 // create empty cell and add it to the board at the current position
                 this.board.put(new PositionAxial(currentQ, currentR, currentS), new GameCell(CellType.Empty));
 
@@ -86,7 +83,7 @@ public class BasicReversiModel implements ReversiModel {
             // index.
             // decrease q for the upper part of the board
             // decrease s for the lower part of the board
-            if (!(rowsMade > middleY + 1)) {
+            if (rowsMade < middleY) {
                 currentRowStartingQ -= 1;
             } else {
                 currentRowStartingS -= 1;
