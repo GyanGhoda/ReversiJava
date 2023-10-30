@@ -1,5 +1,7 @@
 package cs3500.reversi.model;
 
+import cs3500.reversi.controller.Player;
+
 /**
  * Defines the contract for a Reversi game model.
  * Provides methods to start a game, retrieve information about the game state,
@@ -61,4 +63,11 @@ public interface ReversiModel {
    * Passes the turn to the next player.
    */
   void passTurn();
+
+  /**
+   * Gets the current winner of this Reversi game.
+   * 
+   * @return - The current Player who is winning the reversi game.
+   */
+  Player getCurrentWinner();
 }

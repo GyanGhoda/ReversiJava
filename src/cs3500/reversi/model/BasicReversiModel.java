@@ -228,57 +228,95 @@ public class BasicReversiModel implements ReversiModel {
         // check if given and ending positions share Q coordinates
         if (givenPosn.getQ() == posn.getQ()) {
 
-            // determine the range of R and S coordinates between the two positions.
-            int startingPositionR = Math.min(givenPosn.getR(), posn.getR());
-            int startingPositionS = Math.max(givenPosn.getS(), posn.getS());
-
-            this.goDownLine(startingPositionR, startingPositionS, cellsBetween, "q", givenPosn.getQ());
+            if (givenPosn.getR() < posn.getR()) {
+                // determine the range of R and S coordinates between the two positions.
+                int startingPositionR = Math.min(givenPosn.getR(), posn.getR());
+                int startingPositionS = Math.max(givenPosn.getS(), posn.getS());
+                this.goDownLine(startingPositionR, startingPositionS, cellsBetween, "q", givenPosn.getQ(), true);
+            } else {
+                int startingPositionR = Math.max(givenPosn.getR(), posn.getR());
+                int startingPositionS = Math.min(givenPosn.getS(), posn.getS());
+                this.goDownLine(startingPositionS, startingPositionR, cellsBetween, "q", givenPosn.getQ(), false);
+            }
         }
 
         // check if given and ending positions share R coordinates
         if (givenPosn.getR() == posn.getR()) {
-
-            // determine the range of Q and S coordinates between the two positions.
-            int startingPositionQ = Math.min(givenPosn.getQ(), posn.getQ());
-            int startingPositionS = Math.max(givenPosn.getS(), posn.getS());
-
-            this.goDownLine(startingPositionQ, startingPositionS, cellsBetween, "r", givenPosn.getR());
+            if (givenPosn.getQ() < posn.getQ()) {
+                // determine the range of Q and S coordinates between the two positions.
+                int startingPositionQ = Math.min(givenPosn.getQ(), posn.getQ());
+                int startingPositionS = Math.max(givenPosn.getS(), posn.getS());
+                this.goDownLine(startingPositionQ, startingPositionS, cellsBetween, "r", givenPosn.getR(), true);
+            } else {
+                int startingPositionQ = Math.max(givenPosn.getQ(), posn.getQ());
+                int startingPositionS = Math.min(givenPosn.getS(), posn.getS());
+                System.out.println("startq: " + startingPositionQ);
+                System.out.println("starts: " + startingPositionS);
+                this.goDownLine(startingPositionS, startingPositionQ, cellsBetween, "r", givenPosn.getR(), false);
+            }
         }
 
         // check if given and ending positions share S coordinates
         if (givenPosn.getS() == posn.getS()) {
-
-            // determine the range of Q and R coordinates between the two positions.
-            int startingPositionQ = Math.min(givenPosn.getQ(), posn.getQ());
-            int startingPositionR = Math.max(givenPosn.getR(), posn.getR());
-
-            this.goDownLine(startingPositionQ, startingPositionR, cellsBetween, "s", givenPosn.getS());
+            if (givenPosn.getQ() < posn.getQ()) {
+                // determine the range of Q and R coordinates between the two positions.
+                int startingPositionQ = Math.min(givenPosn.getQ(), posn.getQ());
+                int startingPositionR = Math.max(givenPosn.getR(), posn.getR());
+                this.goDownLine(startingPositionQ, startingPositionR, cellsBetween, "s", givenPosn.getS(), true);
+            } else {
+                int startingPositionQ = Math.max(givenPosn.getQ(), posn.getQ());
+                int startingPositionR = Math.min(givenPosn.getR(), posn.getR());
+                this.goDownLine(startingPositionR, startingPositionQ, cellsBetween, "s", givenPosn.getS(), false);
+            }
         }
 
         return cellsBetween;
     }
 
     private void goDownLine(int incrementStartingPostion, int decrementStartingPosition,
-            ArrayList<PositionAxial> cellsBetween, String row, int constantPosition) {
+            ArrayList<PositionAxial> cellsBetween, String row, int constantPosition, boolean foward) {
         // iterate through the range of coordinates and check for valid positions.
         while (true) {
             incrementStartingPostion += 1;
             decrementStartingPosition -= 1;
 
-            PositionAxial currentPosition;
+            System.out.println("startinc: " + incrementStartingPostion);
+            System.out.println("startdec " + decrementStartingPosition);
 
-            if (row.toLowerCase().equals("s")) {
-                currentPosition = new PositionAxial(incrementStartingPostion, decrementStartingPosition,
-                        constantPosition);
-            } else if (row.toLowerCase().equals("r")) {
-                currentPosition = new PositionAxial(incrementStartingPostion, constantPosition,
-                        decrementStartingPosition);
-            } else if (row.toLowerCase().equals("q")) {
-                currentPosition = new PositionAxial(constantPosition, incrementStartingPostion,
-                        decrementStartingPosition);
+            PositionAxial currentPosition = this.calculateStartingPosition(foward, row, incrementStartingPostion,
+                    decrementStartingPosition, constantPosition);
+
+            if (foward) {
+                if (row.toLowerCase().equals("s")) {
+                    currentPosition = new PositionAxial(incrementStartingPostion, decrementStartingPosition,
+                            constantPosition);
+                } else if (row.toLowerCase().equals("r")) {
+                    currentPosition = new PositionAxial(incrementStartingPostion, constantPosition,
+                            decrementStartingPosition);
+                } else if (row.toLowerCase().equals("q")) {
+                    currentPosition = new PositionAxial(constantPosition, incrementStartingPostion,
+                            decrementStartingPosition);
+                } else {
+                    throw new IllegalArgumentException("Invalid row given");
+                }
             } else {
-                throw new IllegalArgumentException("Invalid row given");
+                if (row.toLowerCase().equals("s")) {
+                    currentPosition = new PositionAxial(decrementStartingPosition, incrementStartingPostion,
+                            constantPosition);
+                } else if (row.toLowerCase().equals("r")) {
+                    currentPosition = new PositionAxial(decrementStartingPosition, constantPosition,
+                            incrementStartingPostion);
+                } else if (row.toLowerCase().equals("q")) {
+                    currentPosition = new PositionAxial(constantPosition, decrementStartingPosition,
+                            incrementStartingPostion);
+                } else {
+                    throw new IllegalArgumentException("Invalid row given");
+                }
             }
+
+            System.out.println("Q: " + currentPosition.getQ());
+            System.out.println("R: " + currentPosition.getR());
+            System.out.println("S: " + currentPosition.getS());
 
             // check if the position exists on the board and is owned by the other player.
             // if so, clear the list
@@ -297,6 +335,37 @@ public class BasicReversiModel implements ReversiModel {
                 }
             } else {
                 cellsBetween.add(currentPosition);
+            }
+        }
+    }
+
+    private PositionAxial calculateStartingPosition(boolean foward, String row, int incrementStartingPostion,
+            int decrementStartingPosition, int constantPosition) {
+        if (foward) {
+            if (row.toLowerCase().equals("s")) {
+                return new PositionAxial(incrementStartingPostion, decrementStartingPosition,
+                        constantPosition);
+            } else if (row.toLowerCase().equals("r")) {
+                return new PositionAxial(incrementStartingPostion, constantPosition,
+                        decrementStartingPosition);
+            } else if (row.toLowerCase().equals("q")) {
+                return new PositionAxial(constantPosition, incrementStartingPostion,
+                        decrementStartingPosition);
+            } else {
+                throw new IllegalArgumentException("Invalid row given");
+            }
+        } else {
+            if (row.toLowerCase().equals("s")) {
+                return new PositionAxial(decrementStartingPosition, incrementStartingPostion,
+                        constantPosition);
+            } else if (row.toLowerCase().equals("r")) {
+                return new PositionAxial(decrementStartingPosition, constantPosition,
+                        incrementStartingPostion);
+            } else if (row.toLowerCase().equals("q")) {
+                return new PositionAxial(constantPosition, decrementStartingPosition,
+                        incrementStartingPostion);
+            } else {
+                throw new IllegalArgumentException("Invalid row given");
             }
         }
     }
@@ -374,5 +443,27 @@ public class BasicReversiModel implements ReversiModel {
     @Override
     public Cell getCellAt(PositionAxial posn) {
         return this.board.get(posn);
+    }
+
+    @Override
+    public Player getCurrentWinner() {
+        int currentBlackPieces = 0;
+        int currentWhitePieces = 0;
+
+        for (Cell cell : this.board.values()) {
+            if (cell.getCellType().equals(CellType.Player)) {
+                if (cell.getCellOwner().equals(PlayerType.BLACK)) {
+                    currentBlackPieces += 1;
+                } else {
+                    currentWhitePieces += 1;
+                }
+            }
+        }
+
+        if (currentBlackPieces > currentWhitePieces) {
+            return new GamePlayer(PlayerType.BLACK);
+        } else {
+            return new GamePlayer(PlayerType.WHITE);
+        }
     }
 }
