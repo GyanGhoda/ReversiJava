@@ -45,11 +45,13 @@ public interface ReversiModel {
    *
    * @param posn The position to add the player's piece.
    * @throws IllegalStateException if the move cannot be made.
+   * @throws IllegalStateException if the game has not started.
    */
   void addPieceToCoordinates(PositionAxial posn);
 
   /**
    * Passes the turn to the next player.
+   * @throws IllegalStateException if the game has not started.
    */
   void passTurn();
 

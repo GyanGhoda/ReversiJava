@@ -144,6 +144,8 @@ public class BasicReversiModel implements ReversiModel {
     @Override
     public void addPieceToCoordinates(PositionAxial posn) {
 
+        gameStartedHelper();
+
         // Get the list of valid positions to add a piece to on this move.
         List<PositionAxial> validTiles = this.isValidMoveForPlayer(posn);
         if (!(validTiles.size() == 0)) {
@@ -396,6 +398,9 @@ public class BasicReversiModel implements ReversiModel {
 
     @Override
     public void passTurn() {
+        
+        gameStartedHelper();
+
         this.consectivePassedTurns += 1;
         this.currentPlayerIndex += 1;
     }
@@ -454,4 +459,12 @@ public class BasicReversiModel implements ReversiModel {
             return new GamePlayer(PlayerType.WHITE);
         }
     }
+
+    // helper for making sure game is started
+    private void gameStartedHelper() {
+        if (!gameStarted) {
+            throw new IllegalStateException("Game not started yet");
+        }
+    }
+
 }

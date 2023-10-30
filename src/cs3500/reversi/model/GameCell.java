@@ -1,5 +1,7 @@
 package cs3500.reversi.model;
 
+import java.util.Objects;
+
 import cs3500.reversi.controller.Player;
 
 /**
@@ -17,12 +19,12 @@ public class GameCell implements Cell {
      * @param type The type of the cell, which can be Empty or Player.
      */
     public GameCell(CellType type) {
-        this.type = type;
+        this.type = Objects.requireNonNull(type);
     }
 
     @Override
     public void setCellToPlayer(Player player) {
-        this.cellOwner = player;
+        this.cellOwner = Objects.requireNonNull(player);
     }
 
     @Override

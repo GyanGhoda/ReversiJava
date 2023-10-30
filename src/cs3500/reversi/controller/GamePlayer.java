@@ -1,5 +1,7 @@
 package cs3500.reversi.controller;
 
+import java.util.Objects;
+
 /**
  * Represents a human player in a Reversi game. It implements the Player
  * interface.
@@ -14,7 +16,7 @@ public class GamePlayer implements Player {
      * @param type The type of the player, which can be BLACK or WHITE.
      */
     public GamePlayer(PlayerType type) {
-        this.type = type;
+        this.type = Objects.requireNonNull(type);
     }
 
     /**
