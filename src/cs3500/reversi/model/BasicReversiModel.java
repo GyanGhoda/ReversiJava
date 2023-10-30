@@ -397,6 +397,7 @@ public class BasicReversiModel implements ReversiModel {
     @Override
     public void passTurn() {
         this.consectivePassedTurns += 1;
+        this.currentPlayerIndex += 1;
     }
 
     /**

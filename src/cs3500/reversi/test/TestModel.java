@@ -89,6 +89,43 @@ public class TestModel {
                 "   _ _ _ _\n");
     }
 
+    // Tests that passTurn correctly passes the turn from black to white without
+    // black placing a pieve.
+    @Test
+    public void testModelPassTurn() {
+        ReversiModel model = new BasicReversiModel(7);
+
+        model.startGame();
+
+        model.passTurn();
+        model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
+
+        TextualView modelView = new ReversiTextualView(model);
+
+        Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
+                "  _ _ _ _ _\n" + //
+                " _ _ X O _ _\n" + //
+                "_ _ O _ X _ _\n" + //
+                " _ O O O _ _\n" + //
+                "  _ _ _ _ _\n" + //
+                "   _ _ _ _\n");
+    }
+
+    // Since pass turn cannot be directly tested, it is tested with isGameOver to
+    // see
+    // if two passed turns correctly cause a game to end
+    @Test
+    public void testModelPassTurnWithIsGameOverWorks() {
+        ReversiModel model = new BasicReversiModel(7);
+
+        model.startGame();
+
+        model.passTurn();
+        model.passTurn();
+
+        Assert.assertEquals(model.isGameOver(), true);
+    }
+
     // Tests that isGameOver correctly realizes that the game is immedietly over
     @Test
     public void testModelIsGameOverAtStart() {
