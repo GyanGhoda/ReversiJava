@@ -2,8 +2,6 @@ package cs3500.reversi.model;
 
 import cs3500.reversi.controller.Player;
 
-;
-
 /**
  * The GameCell class represents a cell in a Reversi game board. It implements
  * the Cell interface.

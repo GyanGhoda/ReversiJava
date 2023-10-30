@@ -67,4 +67,19 @@ public class TestModel {
                 "  X _ _ _ _\n" + //
                 "   _ _ _ _\n");
     }
+
+    @Test
+    public void testModelIsGameOverAtStart() {
+        ReversiModel model = new BasicReversiModel(3);
+
+        model.startGame();
+
+        TextualView modelView = new ReversiTextualView(model);
+
+        Assert.assertEquals(modelView.toString(), " X O\n" + //
+                "O _ X\n" + //
+                " X O\n");
+
+        Assert.assertEquals(model.isGameOver(), true);
+    }
 }

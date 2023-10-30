@@ -283,8 +283,12 @@ public class BasicReversiModel implements ReversiModel {
             // check if the position exists on the board and is owned by the other player.
             // if so, clear the list
             // if not, add the current position to the list
-            if (!this.board.containsKey(currentPosition)
-                    || !this.getCellAt(currentPosition).getCellOwner().equals(this.getNextTurn().toString())) {
+            if (!this.board.containsKey(currentPosition)) {
+                cellsBetween.clear();
+                break;
+            }
+
+            if (!this.getCellAt(currentPosition).getCellOwner().equals(this.getNextTurn().toString())) {
                 if (this.getCellAt(currentPosition).getCellOwner().equals(this.getCurrentTurn().toString())) {
                     break;
                 } else {
@@ -349,7 +353,7 @@ public class BasicReversiModel implements ReversiModel {
         }
 
         for (PositionAxial posn : this.board.keySet()) {
-            if (this.getCellAt(posn).sameCellType(CellType.Empty) && !(this.isValidMoveForPlayer(posn) == null)) {
+            if (this.getCellAt(posn).sameCellType(CellType.Empty) && !(this.isValidMoveForPlayer(posn).size() == 0)) {
                 return false;
             }
         }
