@@ -14,8 +14,7 @@ import cs3500.reversi.textualview.TextualView;
  */
 public class TestTextualView {
     // Test that the TextualView has initialized correctly with a correct starting
-    // board
-    // of width 7.
+    // board of width 7.
     @Test
     public void testModelTextualViewIntialization7() {
         ReversiModel model = new BasicReversiModel(7);
