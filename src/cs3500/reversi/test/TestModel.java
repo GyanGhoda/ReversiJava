@@ -218,7 +218,7 @@ public class TestModel {
     }
 
     // Test that getNumRows correctly returns the number of rows in this game for a
-    // width of 7
+    // width of 7.
     @Test
     public void testModelGetNumRows7() {
         ReversiModel model = new BasicReversiModel(7);
@@ -229,7 +229,7 @@ public class TestModel {
     }
 
     // Test that getNumRows correctly returns the number of rows in this game for a
-    // width of 5
+    // width of 5.
     @Test
     public void testModelGetNumRows5() {
         ReversiModel model = new BasicReversiModel(5);
@@ -239,60 +239,77 @@ public class TestModel {
         Assert.assertEquals(model.getNumRows(), 5);
     }
 
-    // Test that getCellAt correctly returns an empty cell
+    // Test that getCellAt correctly returns an empty cell.
     @Test
     public void testModelGetCellAtEmpty() {
         ReversiModel model = new BasicReversiModel(5);
 
         model.startGame();
 
-        TextualView modelView = new ReversiTextualView(model);
-
-        System.out.println(modelView.toString());
-
         Assert.assertEquals(model.getCellAt(new PositionAxial(0, -2, 2)).toString(), "_");
     }
 
-    // Test that getCellAt correctly returns a black (X) cell
+    // Test that getCellAt correctly returns a black (X) cell.
     @Test
     public void testModelGetCellAtBlack() {
         ReversiModel model = new BasicReversiModel(5);
 
         model.startGame();
 
-        TextualView modelView = new ReversiTextualView(model);
-
-        System.out.println(modelView.toString());
-
         Assert.assertEquals(model.getCellAt(new PositionAxial(0, -1, 1)).toString(), "X");
     }
 
-    // Test that getCellAt correctly returns a white (O) cell
+    // Test that getCellAt correctly returns a white (O) cell.
     @Test
     public void testModelGetCellAtWhite() {
         ReversiModel model = new BasicReversiModel(5);
 
         model.startGame();
 
-        TextualView modelView = new ReversiTextualView(model);
-
-        System.out.println(modelView.toString());
-
         Assert.assertEquals(model.getCellAt(new PositionAxial(-1, 0, 1)).toString(), "O");
     }
 
-    // Test that PositionAxial correctly returns the correct position of the
-    // PositionAxial
+    // Test that PositionAxial returns that the common coordinate row and that
+    // there isnt a common coordinate if there is not.
     @Test
-    public void testModelGet() {
-        ReversiModel model = new BasicReversiModel(5);
+    public void testPositionAxialCommonCoordinate() {
+        PositionAxial posn = new PositionAxial(5, -5, 5);
+        PositionAxial posnCommon = new PositionAxial(10, 10, 5);
+        PositionAxial posnNotCommon = new PositionAxial(10, 10, 10);
 
-        model.startGame();
+        Assert.assertEquals(posn.commonCoordinate(posnCommon), "s");
+        Assert.assertEquals(posn.commonCoordinate(posnNotCommon), "NoCommonCoordinate");
+    }
 
-        TextualView modelView = new ReversiTextualView(model);
+    // Test that PositionAxial getQ, getR, and getS method work correctly.
+    @Test
+    public void testPositionAxialGetQGetRGetS() {
+        PositionAxial posn = new PositionAxial(5, -5, 10);
 
-        System.out.println(modelView.toString());
+        Assert.assertEquals(posn.getQ(), 5);
+        Assert.assertEquals(posn.getR(), -5);
+        Assert.assertEquals(posn.getS(), 10);
+    }
 
-        Assert.assertEquals(model.getCellAt(new PositionAxial(-1, 0, 1)).toString(), "O");
+    // Test that PositionAxial equals method works as intended.
+    @Test
+    public void testPositionAxialEquals() {
+        PositionAxial posn = new PositionAxial(5, -5, 10);
+        PositionAxial posnEqual = new PositionAxial(5, -5, 10);
+        PositionAxial posnNotEqual = new PositionAxial(5, 5, 10);
+
+        Assert.assertEquals(posn.equals(posnEqual), true);
+        Assert.assertEquals(posn.equals(posnNotEqual), false);
+    }
+
+    // Test that PositionAxial isNextTo works as intended.
+    @Test
+    public void testPositionAxialIsNextTo() {
+        PositionAxial posn = new PositionAxial(0, 0, 0);
+        PositionAxial posnNextTo = new PositionAxial(-1, 1, 0);
+        PositionAxial posnNotNotNextTo = new PositionAxial(-1, 1, 1);
+
+        Assert.assertEquals(posn.isNextTo(posnNextTo), true);
+        Assert.assertEquals(posn.isNextTo(posnNotNotNextTo), false);
     }
 }
