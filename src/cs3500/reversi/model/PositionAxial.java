@@ -50,8 +50,7 @@ public final class PositionAxial {
      */
     @Override
     public int hashCode() {
-        return 0;// Integer.valueOf(Integer.toString(this.q) + Integer.toString(this.r) +
-                 // Integer.toString(this.s));
+        return Integer.valueOf(Integer.toString(this.q * this.r * this.s - this.q - this.r - this.s));
     }
 
     /**

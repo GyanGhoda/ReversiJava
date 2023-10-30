@@ -280,4 +280,19 @@ public class TestModel {
 
         Assert.assertEquals(model.getCellAt(new PositionAxial(-1, 0, 1)).toString(), "O");
     }
+
+    // Test that PositionAxial correctly returns the correct position of the
+    // PositionAxial
+    @Test
+    public void testModelGet() {
+        ReversiModel model = new BasicReversiModel(5);
+
+        model.startGame();
+
+        TextualView modelView = new ReversiTextualView(model);
+
+        System.out.println(modelView.toString());
+
+        Assert.assertEquals(model.getCellAt(new PositionAxial(-1, 0, 1)).toString(), "O");
+    }
 }
