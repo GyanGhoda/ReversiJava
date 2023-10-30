@@ -11,6 +11,9 @@ import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.textualview.ReversiTextualView;
 import cs3500.reversi.textualview.TextualView;
 
+/**
+ * Tests the public methods in the model package.
+ */
 public class TestModel {
     // Test that the model has initialized correctly with a correct starting board
     // of width 7.
