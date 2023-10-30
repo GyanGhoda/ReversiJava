@@ -250,8 +250,6 @@ public class BasicReversiModel implements ReversiModel {
             } else {
                 int startingPositionQ = Math.max(givenPosn.getQ(), posn.getQ());
                 int startingPositionS = Math.min(givenPosn.getS(), posn.getS());
-                System.out.println("startq: " + startingPositionQ);
-                System.out.println("starts: " + startingPositionS);
                 this.goDownLine(startingPositionS, startingPositionQ, cellsBetween, "r", givenPosn.getR(), false);
             }
         }
@@ -279,9 +277,6 @@ public class BasicReversiModel implements ReversiModel {
         while (true) {
             incrementStartingPostion += 1;
             decrementStartingPosition -= 1;
-
-            System.out.println("startinc: " + incrementStartingPostion);
-            System.out.println("startdec " + decrementStartingPosition);
 
             PositionAxial currentPosition = this.calculateStartingPosition(foward, row, incrementStartingPostion,
                     decrementStartingPosition, constantPosition);
@@ -313,10 +308,6 @@ public class BasicReversiModel implements ReversiModel {
                     throw new IllegalArgumentException("Invalid row given");
                 }
             }
-
-            System.out.println("Q: " + currentPosition.getQ());
-            System.out.println("R: " + currentPosition.getR());
-            System.out.println("S: " + currentPosition.getS());
 
             // check if the position exists on the board and is owned by the other player.
             // if so, clear the list
@@ -436,11 +427,6 @@ public class BasicReversiModel implements ReversiModel {
     }
 
     @Override
-    public Cell getCellAt(int q, int r, int s) {
-        return this.board.get(new PositionAxial(q, r, s));
-    }
-
-    @Override
     public Cell getCellAt(PositionAxial posn) {
         return this.board.get(posn);
     }
@@ -452,7 +438,8 @@ public class BasicReversiModel implements ReversiModel {
 
         for (Cell cell : this.board.values()) {
             if (cell.getCellType().equals(CellType.Player)) {
-                if (cell.getCellOwner().equals(PlayerType.BLACK)) {
+                System.out.println(cell.getCellOwner());
+                if (cell.getCellOwner().equals(new GamePlayer(PlayerType.BLACK).toString())) {
                     currentBlackPieces += 1;
                 } else {
                     currentWhitePieces += 1;

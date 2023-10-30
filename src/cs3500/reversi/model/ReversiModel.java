@@ -31,17 +31,6 @@ public interface ReversiModel {
   boolean isGameOver();
 
   /**
-   * Gets the cell at the specified coordinates on the game board using q, r, and
-   * s.
-   *
-   * @param q The 'q' coordinate.
-   * @param r The 'r' coordinate.
-   * @param s The 's' coordinate.
-   * @return The cell at the specified coordinates.
-   */
-  Cell getCellAt(int q, int r, int s);
-
-  /**
    * Gets the cell at the specified coordinates on the game board using a
    * PositionAxial.
    *

@@ -1,5 +1,6 @@
 package cs3500.reversi.textualview;
 
+import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReversiModel;
 
 /**
@@ -67,7 +68,9 @@ public class ReversiTextualView implements TextualView {
 
         // go through the cells in a row and append each cell to the view
         for (int count = 0; count < amountOfCells; count += 1) {
-            rowString = rowString.concat(this.model.getCellAt(currentQ, currentRow, currentS).toString()).concat(" ");
+            rowString = rowString
+                    .concat(this.model.getCellAt(new PositionAxial(currentQ, currentRow, currentS)).toString())
+                    .concat(" ");
             currentQ += 1;
             currentS -= 1;
         }
