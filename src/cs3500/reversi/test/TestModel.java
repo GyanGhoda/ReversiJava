@@ -186,6 +186,21 @@ public class TestModel {
         Assert.assertEquals(model.isGameOver(), true);
     }
 
+    // Tests that isGameOver returns false when two passes are done with a move in
+    // the middle.
+    @Test
+    public void testModelIsGameNotOverWithTwoPasses() {
+        ReversiModel model = new BasicReversiModel(5);
+
+        model.startGame();
+
+        model.passTurn();
+        model.addPieceToCoordinates(new PositionAxial(2, -1, -1));
+        model.passTurn();
+
+        Assert.assertEquals(model.isGameOver(), false);
+    }
+
     // Test that getCurrentScore correctly returns the score of the game without
     // it being over.
     @Test
