@@ -2,8 +2,33 @@
 
 This codebase implements a Reversi (Othello) game following the Model-View-Controller (MVC) architecture. The game logic, user interaction, and textual representation are separated into distinct components to promote modularity and ease of maintenance.
 
+## Testing
+
+The codebase includes a test suite inside the test/cs3500/reversi directory. The test suite includes test cases for the model, controller, and textual view components. No package level tests were included in the test suite even at package level due to no protected methods existing at the current time. 
+
 ## Quick Start
 
+```
+// Test that can be used to play the game for the time being. An example move is provided along with an example pass turn.
+// More moves and passes can be played by the user in order to play a full game.
+@Test
+public void testModelExampleGame() {
+    ReversiModel model = new BasicReversiModel(7);  // Create a BasicReversiModel with a board size of your choosing.
+                                                    // A board size of 7 is used in this example.
+
+    model.startGame(); // Start the game.
+
+    model.addPieceToCoordinates(new PositionAxial(1, -2, 1)); // Add a piece to the board at the specified coordinates.
+                                                              // The piece will be added to the cell at the specified
+                                                              // coordinates.
+
+    model.passTurn(); // Pass the turn to the next player.
+
+    TextualView modelView = new ReversiTextualView(model); // Create a textual view of the model.
+
+    System.out.println(modelView.toString()); // Print the textual view of the model to see the game.
+}
+```
 
 ## Key Components and Subcomponents
 
