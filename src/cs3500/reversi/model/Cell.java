@@ -19,7 +19,7 @@ public interface Cell {
     String getCellOwner();
 
     /**
-     * Set the owner of the cell.
+     * Set the owner of the cell. Updates the cell type to Player.
      *
      * @param player The player to set as the owner of the cell.
      */
