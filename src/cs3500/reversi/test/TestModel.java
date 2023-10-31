@@ -186,10 +186,10 @@ public class TestModel {
         Assert.assertEquals(model.isGameOver(), true);
     }
 
-    // Test that getCurrentWinner correctly returns the winner of the game without
+    // Test that getCurrentScore correctly returns the score of the game without
     // it being over.
     @Test
-    public void testModelGetCurrentWinnerGameNotOver() {
+    public void testModelGetCurrentScoreGameNotOver() {
         ReversiModel model = new BasicReversiModel(7);
 
         model.startGame();
@@ -199,13 +199,14 @@ public class TestModel {
         model.addPieceToCoordinates(new PositionAxial(-3, 2, 1));
         model.addPieceToCoordinates(new PositionAxial(-3, 1, 2));
 
-        Assert.assertEquals(model.getCurrentWinner().toString(), new GamePlayer(PlayerType.BLACK).toString());
+        Assert.assertEquals(model.getCurrentScore(PlayerType.BLACK), 6);
+        Assert.assertEquals(model.getCurrentScore(PlayerType.WHITE), 4);
     }
 
-    // Test that getCurrentWinner correctly returns the winner of the game with
+    // Test that getCurrentScore correctly returns the score of the game with
     // it being over.
     @Test
-    public void testModelGetCurrentWinnerGameOver() {
+    public void testModelGetCurrentScoreGameOver() {
         ReversiModel model = new BasicReversiModel(5);
 
         model.startGame();
@@ -217,7 +218,8 @@ public class TestModel {
         model.addPieceToCoordinates(new PositionAxial(1, 1, -2));
         model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
 
-        Assert.assertEquals(model.getCurrentWinner().toString(), new GamePlayer(PlayerType.BLACK).toString());
+        Assert.assertEquals(model.getCurrentScore(PlayerType.BLACK), 7);
+        Assert.assertEquals(model.getCurrentScore(PlayerType.WHITE), 5);
     }
 
     // Test that getNumRows correctly returns the number of rows in this game for a
