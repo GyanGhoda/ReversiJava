@@ -13,7 +13,7 @@ public interface Cell {
     /**
      * Get the owner of the cell.
      *
-     * @return The player that owns the cell, or null if the cell is empty as a
+     * @return The player that owns the cell, or "" if the cell is empty as a
      *         String.
      */
     String getCellOwner();
