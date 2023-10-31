@@ -3,9 +3,8 @@ package cs3500.reversi.model;
 import cs3500.reversi.controller.PlayerType;
 
 /**
- * Defines the contract for a Reversi game model.
- * Provides methods to start a game, retrieve information about the game state,
- * access cells on the game board, and perform game actions.
+ * Defines the contract for a Reversi game model. Provides methods to start a game, retrieve
+ * information about the game state, access cells on the game board, and perform game actions.
  */
 public interface ReversiModel {
 
@@ -31,8 +30,7 @@ public interface ReversiModel {
   boolean isGameOver();
 
   /**
-   * Gets the cell at the specified coordinates on the game board using a
-   * PositionAxial.
+   * Gets the cell at the specified coordinates on the game board using a PositionAxial.
    *
    * @param posn The PositionAxial to get the cell at
    * @return The cell at the specified coordinates.
@@ -41,12 +39,11 @@ public interface ReversiModel {
   Cell getCellAt(PositionAxial posn);
 
   /**
-   * Adds a player's piece to the specified position on the board and updates the
-   * game state.
+   * Adds a player's piece to the specified position on the board and updates the game state.
    *
    * @param posn The position to add the player's piece.
-   * @throws IllegalStateException    if the move cannot be made.
-   * @throws IllegalStateException    if the game has not started.
+   * @throws IllegalStateException if the move cannot be made.
+   * @throws IllegalStateException if the game has not started.
    * @throws IllegalArgumentException if the position does not exist in this game.
    */
   void addPieceToCoordinates(PositionAxial posn);
@@ -59,7 +56,8 @@ public interface ReversiModel {
   void passTurn();
 
   /**
-   * Gets the current score of the given PlayerType of this Reversi game.
+   * Gets the current score of the given PlayerType of this Reversi game. Score is determined by the
+   * number of cells a player occupies.
    * 
    * @return - The score of the given PlayerType in this game.
    */
