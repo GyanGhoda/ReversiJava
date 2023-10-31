@@ -53,8 +53,8 @@ public class GameCell implements Cell {
    * @return true if the cell has the same type as the given CellType, false otherwise.
    */
   @Override
-  public boolean sameCellType(CellType Othertype) {
-    return this.type.equals(Othertype);
+  public boolean sameCellType(CellType otherType) {
+    return this.type.equals(otherType);
   }
 
   /**
@@ -73,7 +73,7 @@ public class GameCell implements Cell {
 
   /**
    * The string representation of the cell. If the cell is empty, it returns "_"
-   * 
+   *
    * @return The string representation of the cell, which is either "_" or the cellOwner as a String
    */
   @Override

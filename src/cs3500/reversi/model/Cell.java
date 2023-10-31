@@ -2,8 +2,6 @@ package cs3500.reversi.model;
 
 import cs3500.reversi.controller.Player;
 
-;
-
 /**
  * Represents a cell in a Reversi game board. Each cell can be owned by a player and has a cell
  * type.
@@ -37,5 +35,5 @@ public interface Cell {
    * @param otherType The CellType to compare with.
    * @return true if the cell has the same type as the given CellType, false otherwise.
    */
-  boolean sameCellType(CellType Othertype);
+  boolean sameCellType(CellType otherType);
 }

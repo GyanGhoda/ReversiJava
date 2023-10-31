@@ -34,7 +34,8 @@ public class ReversiTextualView implements TextualView {
 
     // goes row by row and adds the textual views to the full board
     for (int currentRow = -maxR; currentRow <= maxR; currentRow += 1) {
-      fullBoard = fullBoard.concat(this.rowToString(currentStartingQ, currentRow, currentStartingS)).concat("\n");
+      fullBoard = fullBoard.concat(this.rowToString(currentStartingQ,
+              currentRow, currentStartingS)).concat("\n");
 
       if (currentRow < 0) {
         currentStartingQ -= 1;

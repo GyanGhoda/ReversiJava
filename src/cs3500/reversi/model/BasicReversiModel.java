@@ -181,7 +181,7 @@ public class BasicReversiModel implements ReversiModel {
 
     // Get the list of valid positions to add a piece to on this move.
     List<PositionAxial> validTiles = this.isValidMoveForPlayer(posn);
-    if (!(validTiles.size() == 0)) {
+    if (!validTiles.isEmpty()) {
 
       // create a player cell to represent the player's piece.
       Cell playerCell = new GameCell(CellType.Player);
@@ -217,7 +217,7 @@ public class BasicReversiModel implements ReversiModel {
    *
    * @param givenPosn The position to check for a valid move.
    * @return A list of positions that represent valid moves, or an empty list if
-   * the move is invalid.
+   *     the move is invalid.
    */
   private List<PositionAxial> isValidMoveForPlayer(PositionAxial givenPosn) {
     Player otherPlayer = this.getNextTurn();
@@ -255,8 +255,7 @@ public class BasicReversiModel implements ReversiModel {
    * @param posn        The ending position.
    * @param otherPlayer The player to check for a valid line.
    * @return A list of positions forming a valid line between the given positions,
-   * or an empty
-   * list if no valid line exists.
+   *     or an empty list if no valid line exists.
    */
   private List<PositionAxial> checkValidLineMade(PositionAxial givenPosn, PositionAxial posn,
                                                  Player otherPlayer) {
@@ -356,7 +355,9 @@ public class BasicReversiModel implements ReversiModel {
   // return the starting position for the line being made, depending on direction
   // given
   private PositionAxial calculateStartingPosition(boolean foward, String row,
-                                                  int incrementStartingPostion, int decrementStartingPosition, int constantPosition) {
+                                                  int incrementStartingPostion,
+                                                  int decrementStartingPosition,
+                                                  int constantPosition) {
     // calculate current position based on forward direction
     if (foward) {
       if (row.toLowerCase().equals("s")) {
@@ -466,7 +467,7 @@ public class BasicReversiModel implements ReversiModel {
 
     for (PositionAxial posn : this.board.keySet()) {
       if (this.getCellAt(posn).sameCellType(CellType.Empty)
-              && !(this.isValidMoveForPlayer(posn).size() == 0)) {
+              && !(this.isValidMoveForPlayer(posn).isEmpty())) {
         return false;
       }
     }

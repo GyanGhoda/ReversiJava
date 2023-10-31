@@ -18,496 +18,496 @@ import cs3500.reversi.textualview.TextualView;
  * Tests the public methods in the model package.
  */
 public class TestModel {
-    // Test that the model has initialized correctly with a correct starting board
-    // of width 7.
-    @Test
-    public void testModelIntialization7() {
-        ReversiModel model = new BasicReversiModel(7);
-
-        model.startGame();
-
-        TextualView modelView = new ReversiTextualView(model);
-
-        Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
-                "  _ _ _ _ _\n" + //
-                " _ _ X O _ _\n" + //
-                "_ _ O _ X _ _\n" + //
-                " _ _ X O _ _\n" + //
-                "  _ _ _ _ _\n" + //
-                "   _ _ _ _\n");
-    }
-
-    // Test that the model has initialized correctly with a correct starting board
-    // of width 7.
-    @Test
-    public void testModelIntialization3() {
-        ReversiModel model = new BasicReversiModel(3);
-
-        model.startGame();
-
-        TextualView modelView = new ReversiTextualView(model);
-
-        Assert.assertEquals(modelView.toString(), " X O\n" + //
-                "O _ X\n" + //
-                " X O\n");
-    }
-
-    // Tests that one valid move made on the model correctly works as intended.
-    @Test
-    public void testModelMoveOneMove() {
-        ReversiModel model = new BasicReversiModel(7);
-
-        model.startGame();
-
-        model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
-
-        TextualView modelView = new ReversiTextualView(model);
-
-        Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
-                "  _ _ X _ _\n" + //
-                " _ _ X X _ _\n" + //
-                "_ _ O _ X _ _\n" + //
-                " _ _ X O _ _\n" + //
-                "  _ _ _ _ _\n" + //
-                "   _ _ _ _\n");
-    }
-
-    // Tests that multiple valid moves on the model work as intended.
-    @Test
-    public void testModelMoveMultipleMoves() {
-        ReversiModel model = new BasicReversiModel(7);
-
-        model.startGame();
-
-        model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
-        model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
-        model.addPieceToCoordinates(new PositionAxial(-3, 2, 1));
-        model.addPieceToCoordinates(new PositionAxial(-3, 1, 2));
-
-        TextualView modelView = new ReversiTextualView(model);
-
-        Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
-                "  _ _ X _ _\n" + //
-                " _ _ X X _ _\n" + //
-                "_ _ X _ X _ _\n" + //
-                " O O O O _ _\n" + //
-                "  X _ _ _ _\n" + //
-                "   _ _ _ _\n");
-    }
-
-    // Tests that passTurn correctly passes the turn from black to white without
-    // black placing a pieve.
-    @Test
-    public void testModelPassTurn() {
-        ReversiModel model = new BasicReversiModel(7);
-
-        model.startGame();
-
-        model.passTurn();
-        model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
-
-        TextualView modelView = new ReversiTextualView(model);
-
-        Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
-                "  _ _ _ _ _\n" + //
-                " _ _ X O _ _\n" + //
-                "_ _ O _ X _ _\n" + //
-                " _ O O O _ _\n" + //
-                "  _ _ _ _ _\n" + //
-                "   _ _ _ _\n");
-    }
-
-    // Since pass turn cannot be directly tested, it is tested with isGameOver to
-    // see
-    // if two passed turns correctly cause a game to end
-    @Test
-    public void testModelPassTurnWithIsGameOverWorks() {
-        ReversiModel model = new BasicReversiModel(7);
-
-        model.startGame();
+  // Test that the model has initialized correctly with a correct starting board
+  // of width 7.
+  @Test
+  public void testModelIntialization7() {
+    ReversiModel model = new BasicReversiModel(7);
+
+    model.startGame();
+
+    TextualView modelView = new ReversiTextualView(model);
+
+    Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
+            "  _ _ _ _ _\n" + //
+            " _ _ X O _ _\n" + //
+            "_ _ O _ X _ _\n" + //
+            " _ _ X O _ _\n" + //
+            "  _ _ _ _ _\n" + //
+            "   _ _ _ _\n");
+  }
+
+  // Test that the model has initialized correctly with a correct starting board
+  // of width 7.
+  @Test
+  public void testModelIntialization3() {
+    ReversiModel model = new BasicReversiModel(3);
+
+    model.startGame();
+
+    TextualView modelView = new ReversiTextualView(model);
+
+    Assert.assertEquals(modelView.toString(), " X O\n" + //
+            "O _ X\n" + //
+            " X O\n");
+  }
+
+  // Tests that one valid move made on the model correctly works as intended.
+  @Test
+  public void testModelMoveOneMove() {
+    ReversiModel model = new BasicReversiModel(7);
+
+    model.startGame();
+
+    model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
+
+    TextualView modelView = new ReversiTextualView(model);
+
+    Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
+            "  _ _ X _ _\n" + //
+            " _ _ X X _ _\n" + //
+            "_ _ O _ X _ _\n" + //
+            " _ _ X O _ _\n" + //
+            "  _ _ _ _ _\n" + //
+            "   _ _ _ _\n");
+  }
+
+  // Tests that multiple valid moves on the model work as intended.
+  @Test
+  public void testModelMoveMultipleMoves() {
+    ReversiModel model = new BasicReversiModel(7);
+
+    model.startGame();
+
+    model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
+    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
+    model.addPieceToCoordinates(new PositionAxial(-3, 2, 1));
+    model.addPieceToCoordinates(new PositionAxial(-3, 1, 2));
+
+    TextualView modelView = new ReversiTextualView(model);
+
+    Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
+            "  _ _ X _ _\n" + //
+            " _ _ X X _ _\n" + //
+            "_ _ X _ X _ _\n" + //
+            " O O O O _ _\n" + //
+            "  X _ _ _ _\n" + //
+            "   _ _ _ _\n");
+  }
+
+  // Tests that passTurn correctly passes the turn from black to white without
+  // black placing a pieve.
+  @Test
+  public void testModelPassTurn() {
+    ReversiModel model = new BasicReversiModel(7);
+
+    model.startGame();
+
+    model.passTurn();
+    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
+
+    TextualView modelView = new ReversiTextualView(model);
+
+    Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
+            "  _ _ _ _ _\n" + //
+            " _ _ X O _ _\n" + //
+            "_ _ O _ X _ _\n" + //
+            " _ O O O _ _\n" + //
+            "  _ _ _ _ _\n" + //
+            "   _ _ _ _\n");
+  }
+
+  // Since pass turn cannot be directly tested, it is tested with isGameOver to
+  // see
+  // if two passed turns correctly cause a game to end
+  @Test
+  public void testModelPassTurnWithIsGameOverWorks() {
+    ReversiModel model = new BasicReversiModel(7);
+
+    model.startGame();
 
-        model.passTurn();
-        model.passTurn();
+    model.passTurn();
+    model.passTurn();
 
-        Assert.assertEquals(model.isGameOver(), true);
-    }
-
-    // Tests that isGameOver correctly realizes that the game is immedietly over
-    @Test
-    public void testModelIsGameOverAtStart() {
-        ReversiModel model = new BasicReversiModel(3);
-
-        model.startGame();
+    Assert.assertEquals(model.isGameOver(), true);
+  }
+
+  // Tests that isGameOver correctly realizes that the game is immedietly over
+  @Test
+  public void testModelIsGameOverAtStart() {
+    ReversiModel model = new BasicReversiModel(3);
+
+    model.startGame();
 
-        Assert.assertEquals(model.isGameOver(), true);
-    }
-
-    // Tests that isGameOver correctly realizes that the game is not immedietly over
-    @Test
-    public void testModelIsNotGameOverAtStart() {
-        ReversiModel model = new BasicReversiModel(7);
+    Assert.assertEquals(model.isGameOver(), true);
+  }
+
+  // Tests that isGameOver correctly realizes that the game is not immedietly over
+  @Test
+  public void testModelIsNotGameOverAtStart() {
+    ReversiModel model = new BasicReversiModel(7);
 
-        model.startGame();
+    model.startGame();
 
-        Assert.assertEquals(model.isGameOver(), false);
-    }
-
-    // Test that isGameOver correctly realizes that the game is not over with
-    // multiple moves made.
-    @Test
-    public void testModelIsNotGameOverWithMoves() {
-        ReversiModel model = new BasicReversiModel(7);
+    Assert.assertEquals(model.isGameOver(), false);
+  }
+
+  // Test that isGameOver correctly realizes that the game is not over with
+  // multiple moves made.
+  @Test
+  public void testModelIsNotGameOverWithMoves() {
+    ReversiModel model = new BasicReversiModel(7);
 
-        model.startGame();
+    model.startGame();
 
-        model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
-        model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
-        model.addPieceToCoordinates(new PositionAxial(-3, 2, 1));
-        model.addPieceToCoordinates(new PositionAxial(-3, 1, 2));
+    model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
+    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
+    model.addPieceToCoordinates(new PositionAxial(-3, 2, 1));
+    model.addPieceToCoordinates(new PositionAxial(-3, 1, 2));
 
-        Assert.assertEquals(model.isGameOver(), false);
-    }
+    Assert.assertEquals(model.isGameOver(), false);
+  }
 
-    // Test that isGameOver correctly realizes that the game is over with multiple
-    // moves made.
-    @Test
-    public void testModelIsGameOverWithMoves() {
-        ReversiModel model = new BasicReversiModel(5);
+  // Test that isGameOver correctly realizes that the game is over with multiple
+  // moves made.
+  @Test
+  public void testModelIsGameOverWithMoves() {
+    ReversiModel model = new BasicReversiModel(5);
 
-        model.startGame();
+    model.startGame();
 
-        model.addPieceToCoordinates(new PositionAxial(2, -1, -1));
-        model.addPieceToCoordinates(new PositionAxial(-1, 2, -1));
-        model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
-        model.addPieceToCoordinates(new PositionAxial(-1, -1, 2));
-        model.addPieceToCoordinates(new PositionAxial(1, 1, -2));
-        model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
+    model.addPieceToCoordinates(new PositionAxial(2, -1, -1));
+    model.addPieceToCoordinates(new PositionAxial(-1, 2, -1));
+    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
+    model.addPieceToCoordinates(new PositionAxial(-1, -1, 2));
+    model.addPieceToCoordinates(new PositionAxial(1, 1, -2));
+    model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
 
-        Assert.assertEquals(model.isGameOver(), true);
-    }
+    Assert.assertEquals(model.isGameOver(), true);
+  }
 
-    // Tests that isGameOver returns false when two passes are done with a move in
-    // the middle.
-    @Test
-    public void testModelIsGameNotOverWithTwoPasses() {
-        ReversiModel model = new BasicReversiModel(5);
+  // Tests that isGameOver returns false when two passes are done with a move in
+  // the middle.
+  @Test
+  public void testModelIsGameNotOverWithTwoPasses() {
+    ReversiModel model = new BasicReversiModel(5);
 
-        model.startGame();
+    model.startGame();
 
-        model.passTurn();
-        model.addPieceToCoordinates(new PositionAxial(2, -1, -1));
-        model.passTurn();
+    model.passTurn();
+    model.addPieceToCoordinates(new PositionAxial(2, -1, -1));
+    model.passTurn();
 
-        Assert.assertEquals(model.isGameOver(), false);
-    }
+    Assert.assertEquals(model.isGameOver(), false);
+  }
 
-    // Test that getCurrentScore correctly returns the score of the game without
-    // it being over.
-    @Test
-    public void testModelGetCurrentScoreGameNotOver() {
-        ReversiModel model = new BasicReversiModel(7);
+  // Test that getCurrentScore correctly returns the score of the game without
+  // it being over.
+  @Test
+  public void testModelGetCurrentScoreGameNotOver() {
+    ReversiModel model = new BasicReversiModel(7);
 
-        model.startGame();
+    model.startGame();
 
-        model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
-        model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
-        model.addPieceToCoordinates(new PositionAxial(-3, 2, 1));
-        model.addPieceToCoordinates(new PositionAxial(-3, 1, 2));
+    model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
+    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
+    model.addPieceToCoordinates(new PositionAxial(-3, 2, 1));
+    model.addPieceToCoordinates(new PositionAxial(-3, 1, 2));
 
-        Assert.assertEquals(model.getCurrentScore(PlayerType.BLACK), 6);
-        Assert.assertEquals(model.getCurrentScore(PlayerType.WHITE), 4);
-    }
-
-    // Test that getCurrentScore correctly returns the score of the game with
-    // it being over.
-    @Test
-    public void testModelGetCurrentScoreGameOver() {
-        ReversiModel model = new BasicReversiModel(5);
-
-        model.startGame();
-
-        model.addPieceToCoordinates(new PositionAxial(2, -1, -1));
-        model.addPieceToCoordinates(new PositionAxial(-1, 2, -1));
-        model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
-        model.addPieceToCoordinates(new PositionAxial(-1, -1, 2));
-        model.addPieceToCoordinates(new PositionAxial(1, 1, -2));
-        model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
-
-        Assert.assertEquals(model.getCurrentScore(PlayerType.BLACK), 7);
-        Assert.assertEquals(model.getCurrentScore(PlayerType.WHITE), 5);
-    }
-
-    // Test that getNumRows correctly returns the number of rows in this game for a
-    // width of 7.
-    @Test
-    public void testModelGetNumRows7() {
-        ReversiModel model = new BasicReversiModel(7);
-
-        model.startGame();
-
-        Assert.assertEquals(model.getNumRows(), 7);
-    }
-
-    // Test that getNumRows correctly returns the number of rows in this game for a
-    // width of 5.
-    @Test
-    public void testModelGetNumRows5() {
-        ReversiModel model = new BasicReversiModel(5);
-
-        model.startGame();
-
-        Assert.assertEquals(model.getNumRows(), 5);
-    }
+    Assert.assertEquals(model.getCurrentScore(PlayerType.BLACK), 6);
+    Assert.assertEquals(model.getCurrentScore(PlayerType.WHITE), 4);
+  }
+
+  // Test that getCurrentScore correctly returns the score of the game with
+  // it being over.
+  @Test
+  public void testModelGetCurrentScoreGameOver() {
+    ReversiModel model = new BasicReversiModel(5);
+
+    model.startGame();
+
+    model.addPieceToCoordinates(new PositionAxial(2, -1, -1));
+    model.addPieceToCoordinates(new PositionAxial(-1, 2, -1));
+    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
+    model.addPieceToCoordinates(new PositionAxial(-1, -1, 2));
+    model.addPieceToCoordinates(new PositionAxial(1, 1, -2));
+    model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
+
+    Assert.assertEquals(model.getCurrentScore(PlayerType.BLACK), 7);
+    Assert.assertEquals(model.getCurrentScore(PlayerType.WHITE), 5);
+  }
+
+  // Test that getNumRows correctly returns the number of rows in this game for a
+  // width of 7.
+  @Test
+  public void testModelGetNumRows7() {
+    ReversiModel model = new BasicReversiModel(7);
+
+    model.startGame();
+
+    Assert.assertEquals(model.getNumRows(), 7);
+  }
+
+  // Test that getNumRows correctly returns the number of rows in this game for a
+  // width of 5.
+  @Test
+  public void testModelGetNumRows5() {
+    ReversiModel model = new BasicReversiModel(5);
+
+    model.startGame();
+
+    Assert.assertEquals(model.getNumRows(), 5);
+  }
 
-    // Test that getCellAt correctly returns an empty cell.
-    @Test
-    public void testModelGetCellAtEmpty() {
-        ReversiModel model = new BasicReversiModel(5);
+  // Test that getCellAt correctly returns an empty cell.
+  @Test
+  public void testModelGetCellAtEmpty() {
+    ReversiModel model = new BasicReversiModel(5);
 
-        model.startGame();
+    model.startGame();
 
-        Assert.assertEquals(model.getCellAt(new PositionAxial(0, -2, 2)).toString(), "_");
-    }
+    Assert.assertEquals(model.getCellAt(new PositionAxial(0, -2, 2)).toString(), "_");
+  }
 
-    // Test that getCellAt correctly returns a black (X) cell.
-    @Test
-    public void testModelGetCellAtBlack() {
-        ReversiModel model = new BasicReversiModel(5);
+  // Test that getCellAt correctly returns a black (X) cell.
+  @Test
+  public void testModelGetCellAtBlack() {
+    ReversiModel model = new BasicReversiModel(5);
 
-        model.startGame();
+    model.startGame();
 
-        Assert.assertEquals(model.getCellAt(new PositionAxial(0, -1, 1)).toString(), "X");
-    }
+    Assert.assertEquals(model.getCellAt(new PositionAxial(0, -1, 1)).toString(), "X");
+  }
 
-    // Test that getCellAt correctly returns a white (O) cell.
-    @Test
-    public void testModelGetCellAtWhite() {
-        ReversiModel model = new BasicReversiModel(5);
-
-        model.startGame();
+  // Test that getCellAt correctly returns a white (O) cell.
+  @Test
+  public void testModelGetCellAtWhite() {
+    ReversiModel model = new BasicReversiModel(5);
+
+    model.startGame();
 
-        Assert.assertEquals(model.getCellAt(new PositionAxial(-1, 0, 1)).toString(), "O");
-    }
-
-    // Test that PositionAxial returns that the common coordinate row and that
-    // there isnt a common coordinate if there is not.
-    @Test
-    public void testPositionAxialCommonCoordinate() {
-        PositionAxial posn = new PositionAxial(5, -5, 5);
-        PositionAxial posnCommon = new PositionAxial(10, 10, 5);
-        PositionAxial posnNotCommon = new PositionAxial(10, 10, 10);
+    Assert.assertEquals(model.getCellAt(new PositionAxial(-1, 0, 1)).toString(), "O");
+  }
+
+  // Test that PositionAxial returns that the common coordinate row and that
+  // there isnt a common coordinate if there is not.
+  @Test
+  public void testPositionAxialCommonCoordinate() {
+    PositionAxial posn = new PositionAxial(5, -5, 5);
+    PositionAxial posnCommon = new PositionAxial(10, 10, 5);
+    PositionAxial posnNotCommon = new PositionAxial(10, 10, 10);
 
-        Assert.assertEquals(posn.commonCoordinate(posnCommon), "s");
-        Assert.assertEquals(posn.commonCoordinate(posnNotCommon), "NoCommonCoordinate");
-    }
+    Assert.assertEquals(posn.commonCoordinate(posnCommon), "s");
+    Assert.assertEquals(posn.commonCoordinate(posnNotCommon), "NoCommonCoordinate");
+  }
 
-    // Test that PositionAxial getQ, getR, and getS method work correctly.
-    @Test
-    public void testPositionAxialGetQGetRGetS() {
-        PositionAxial posn = new PositionAxial(5, -5, 10);
+  // Test that PositionAxial getQ, getR, and getS method work correctly.
+  @Test
+  public void testPositionAxialGetQGetRGetS() {
+    PositionAxial posn = new PositionAxial(5, -5, 10);
 
-        Assert.assertEquals(posn.getQ(), 5);
-        Assert.assertEquals(posn.getR(), -5);
-        Assert.assertEquals(posn.getS(), 10);
-    }
+    Assert.assertEquals(posn.getQ(), 5);
+    Assert.assertEquals(posn.getR(), -5);
+    Assert.assertEquals(posn.getS(), 10);
+  }
 
-    // Test that PositionAxial equals method works as intended.
-    @Test
-    public void testPositionAxialEquals() {
-        PositionAxial posn = new PositionAxial(5, -5, 10);
-        PositionAxial posnEqual = new PositionAxial(5, -5, 10);
-        PositionAxial posnNotEqual = new PositionAxial(5, 5, 10);
+  // Test that PositionAxial equals method works as intended.
+  @Test
+  public void testPositionAxialEquals() {
+    PositionAxial posn = new PositionAxial(5, -5, 10);
+    PositionAxial posnEqual = new PositionAxial(5, -5, 10);
+    PositionAxial posnNotEqual = new PositionAxial(5, 5, 10);
 
-        Assert.assertEquals(posn.equals(posnEqual), true);
-        Assert.assertEquals(posn.equals(posnNotEqual), false);
-    }
+    Assert.assertEquals(posn.equals(posnEqual), true);
+    Assert.assertEquals(posn.equals(posnNotEqual), false);
+  }
 
-    // Test that PositionAxial isNextTo works as intended.
-    @Test
-    public void testPositionAxialIsNextTo() {
-        PositionAxial posn = new PositionAxial(0, 0, 0);
-        PositionAxial posnNextTo = new PositionAxial(-1, 1, 0);
-        PositionAxial posnNotNotNextTo = new PositionAxial(-1, 1, 1);
+  // Test that PositionAxial isNextTo works as intended.
+  @Test
+  public void testPositionAxialIsNextTo() {
+    PositionAxial posn = new PositionAxial(0, 0, 0);
+    PositionAxial posnNextTo = new PositionAxial(-1, 1, 0);
+    PositionAxial posnNotNotNextTo = new PositionAxial(-1, 1, 1);
 
-        Assert.assertEquals(posn.isNextTo(posnNextTo), true);
-        Assert.assertEquals(posn.isNextTo(posnNotNotNextTo), false);
-    }
+    Assert.assertEquals(posn.isNextTo(posnNextTo), true);
+    Assert.assertEquals(posn.isNextTo(posnNotNotNextTo), false);
+  }
 
-    // Test that cell toString returns the correct string based on the cell type.
-    @Test
-    public void testCellToString() {
-        Cell cellEmpty = new GameCell(CellType.Empty);
-        Cell cellPlayer = new GameCell(CellType.Player);
+  // Test that cell toString returns the correct string based on the cell type.
+  @Test
+  public void testCellToString() {
+    Cell cellEmpty = new GameCell(CellType.Empty);
+    Cell cellPlayer = new GameCell(CellType.Player);
 
-        cellPlayer.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
+    cellPlayer.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
 
-        Assert.assertEquals(cellEmpty.toString(), "_");
-        Assert.assertEquals(cellPlayer.toString(), "X");
+    Assert.assertEquals(cellEmpty.toString(), "_");
+    Assert.assertEquals(cellPlayer.toString(), "X");
 
-        cellPlayer.setCellToPlayer(new GamePlayer(PlayerType.WHITE));
+    cellPlayer.setCellToPlayer(new GamePlayer(PlayerType.WHITE));
 
-        Assert.assertEquals(cellPlayer.toString(), "O");
-    }
+    Assert.assertEquals(cellPlayer.toString(), "O");
+  }
 
-    // Test that the cell setCellToPlayer method works as intended.
-    @Test
-    public void testCellSetCellToPlayer() {
-        Cell cellPlayer = new GameCell(CellType.Player);
+  // Test that the cell setCellToPlayer method works as intended.
+  @Test
+  public void testCellSetCellToPlayer() {
+    Cell cellPlayer = new GameCell(CellType.Player);
 
-        cellPlayer.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
+    cellPlayer.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
 
-        Assert.assertEquals(cellPlayer.getCellOwner(), "X");
+    Assert.assertEquals(cellPlayer.getCellOwner(), "X");
 
-        cellPlayer.setCellToPlayer(new GamePlayer(PlayerType.WHITE));
+    cellPlayer.setCellToPlayer(new GamePlayer(PlayerType.WHITE));
 
-        Assert.assertEquals(cellPlayer.getCellOwner(), "O");
-    }
+    Assert.assertEquals(cellPlayer.getCellOwner(), "O");
+  }
 
-    // Test that the cell getCellType method works as intended.
-    @Test
-    public void testCellGetCellType() {
-        Cell cellEmpty = new GameCell(CellType.Empty);
-        Cell cellPlayer = new GameCell(CellType.Player);
+  // Test that the cell getCellType method works as intended.
+  @Test
+  public void testCellGetCellType() {
+    Cell cellEmpty = new GameCell(CellType.Empty);
+    Cell cellPlayer = new GameCell(CellType.Player);
 
-        Assert.assertEquals(cellEmpty.getCellType(), CellType.Empty);
-        Assert.assertEquals(cellPlayer.getCellType(), CellType.Player);
-    }
+    Assert.assertEquals(cellEmpty.getCellType(), CellType.Empty);
+    Assert.assertEquals(cellPlayer.getCellType(), CellType.Player);
+  }
 
-    // Test that the cell sameCellType method works as intended.
-    @Test
-    public void testCellSameCellType() {
-        Cell cellEmpty = new GameCell(CellType.Empty);
-        Cell cellPlayer = new GameCell(CellType.Player);
+  // Test that the cell sameCellType method works as intended.
+  @Test
+  public void testCellSameCellType() {
+    Cell cellEmpty = new GameCell(CellType.Empty);
+    Cell cellPlayer = new GameCell(CellType.Player);
 
-        Assert.assertEquals(cellEmpty.sameCellType(CellType.Empty), true);
-        Assert.assertEquals(cellPlayer.sameCellType(CellType.Player), true);
-        Assert.assertEquals(cellEmpty.sameCellType(CellType.Player), false);
-        Assert.assertEquals(cellPlayer.sameCellType(CellType.Empty), false);
-    }
+    Assert.assertEquals(cellEmpty.sameCellType(CellType.Empty), true);
+    Assert.assertEquals(cellPlayer.sameCellType(CellType.Player), true);
+    Assert.assertEquals(cellEmpty.sameCellType(CellType.Player), false);
+    Assert.assertEquals(cellPlayer.sameCellType(CellType.Empty), false);
+  }
 
-    // Test that the cell getCellOwner method works as intended.
-    @Test
-    public void testCellGetCellOwner() {
-        Cell cellEmpty = new GameCell(CellType.Empty);
-        Cell cellPlayer = new GameCell(CellType.Player);
+  // Test that the cell getCellOwner method works as intended.
+  @Test
+  public void testCellGetCellOwner() {
+    Cell cellEmpty = new GameCell(CellType.Empty);
+    Cell cellPlayer = new GameCell(CellType.Player);
 
-        Assert.assertEquals(cellEmpty.getCellOwner(), "");
+    Assert.assertEquals(cellEmpty.getCellOwner(), "");
 
-        cellPlayer.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
+    cellPlayer.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
 
-        Assert.assertEquals(cellPlayer.getCellOwner(), "X");
+    Assert.assertEquals(cellPlayer.getCellOwner(), "X");
 
-        cellPlayer.setCellToPlayer(new GamePlayer(PlayerType.WHITE));
+    cellPlayer.setCellToPlayer(new GamePlayer(PlayerType.WHITE));
 
-        Assert.assertEquals(cellPlayer.getCellOwner(), "O");
-    }
+    Assert.assertEquals(cellPlayer.getCellOwner(), "O");
+  }
 
-    // Test that BasicReversiModel constructor correctly throws illegal argument
-    // error for
-    // even width number
-    @Test
-    public void testModelConstructorErrorGivenEvenWidth() {
+  // Test that BasicReversiModel constructor correctly throws illegal argument
+  // error for
+  // even width number
+  @Test
+  public void testModelConstructorErrorGivenEvenWidth() {
 
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
-            ReversiModel model = new BasicReversiModel(6);
-        });
+    Assert.assertThrows(IllegalArgumentException.class, () -> {
+      ReversiModel model = new BasicReversiModel(6);
+    });
 
-    }
+  }
 
-    // Test that BasicReversiModel constructor correctly throws illegal argument
-    // error for
-    // low width number
-    @Test
-    public void testModelConstructorErrorGivenLowWidth() {
+  // Test that BasicReversiModel constructor correctly throws illegal argument
+  // error for
+  // low width number
+  @Test
+  public void testModelConstructorErrorGivenLowWidth() {
 
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
-            ReversiModel model = new BasicReversiModel(2);
-        });
+    Assert.assertThrows(IllegalArgumentException.class, () -> {
+      ReversiModel model = new BasicReversiModel(2);
+    });
 
-    }
+  }
 
-    // Test that BasicReversiModel constructor correctly throws illegal argument
-    // error for
-    // negative width number
-    @Test
-    public void testModelConstructorErrorGivenNegativeWidth() {
+  // Test that BasicReversiModel constructor correctly throws illegal argument
+  // error for
+  // negative width number
+  @Test
+  public void testModelConstructorErrorGivenNegativeWidth() {
 
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
-            ReversiModel model = new BasicReversiModel(-2);
-        });
+    Assert.assertThrows(IllegalArgumentException.class, () -> {
+      ReversiModel model = new BasicReversiModel(-2);
+    });
 
-    }
+  }
 
-    // Test that startgame throws error when game already started
-    @Test
-    public void testModelStartGameErrorGameAlreadyStarted() {
+  // Test that startgame throws error when game already started
+  @Test
+  public void testModelStartGameErrorGameAlreadyStarted() {
 
-        ReversiModel model = new BasicReversiModel(7);
+    ReversiModel model = new BasicReversiModel(7);
 
-        model.startGame();
+    model.startGame();
 
-        Assert.assertThrows(IllegalStateException.class, () -> {
-            model.startGame();
-        });
+    Assert.assertThrows(IllegalStateException.class, () -> {
+      model.startGame();
+    });
 
-    }
+  }
 
-    // Tests that addPieceToCoordinate throws error when game hasn't started yet.
-    @Test
-    public void testModelAddPieceToCoordinateGameNotStarted() {
-        ReversiModel model = new BasicReversiModel(7);
+  // Tests that addPieceToCoordinate throws error when game hasn't started yet.
+  @Test
+  public void testModelAddPieceToCoordinateGameNotStarted() {
+    ReversiModel model = new BasicReversiModel(7);
 
-        Assert.assertThrows(IllegalStateException.class, () -> {
-            model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
-        });
-    }
+    Assert.assertThrows(IllegalStateException.class, () -> {
+      model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
+    });
+  }
 
-    // Tests that addPieceToCoordinate throws error when given position doesn't
-    // exist.
-    @Test
-    public void testModelAddPieceToCoordinateNonExistingCoordinate() {
-        ReversiModel model = new BasicReversiModel(7);
+  // Tests that addPieceToCoordinate throws error when given position doesn't
+  // exist.
+  @Test
+  public void testModelAddPieceToCoordinateNonExistingCoordinate() {
+    ReversiModel model = new BasicReversiModel(7);
 
-        model.startGame();
+    model.startGame();
 
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
-            model.addPieceToCoordinates(new PositionAxial(10, -2, 1));
-        });
-    }
+    Assert.assertThrows(IllegalArgumentException.class, () -> {
+      model.addPieceToCoordinates(new PositionAxial(10, -2, 1));
+    });
+  }
 
-    // Tests that addPieceToCoordinate throws error when given illogical invalid
-    // move.
-    @Test
-    public void testModelAddPieceToCoordinateInvalidMove() {
-        ReversiModel model = new BasicReversiModel(7);
+  // Tests that addPieceToCoordinate throws error when given illogical invalid
+  // move.
+  @Test
+  public void testModelAddPieceToCoordinateInvalidMove() {
+    ReversiModel model = new BasicReversiModel(7);
 
-        model.startGame();
+    model.startGame();
 
-        Assert.assertThrows(IllegalStateException.class, () -> {
-            model.addPieceToCoordinates(new PositionAxial(0, -1, 1));
-        });
-    }
+    Assert.assertThrows(IllegalStateException.class, () -> {
+      model.addPieceToCoordinates(new PositionAxial(0, -1, 1));
+    });
+  }
 
-    // Tests that passTurn throws error when game hasn't started yet.
-    @Test
-    public void testModelPassTurnGameNotStarted() {
-        ReversiModel model = new BasicReversiModel(7);
+  // Tests that passTurn throws error when game hasn't started yet.
+  @Test
+  public void testModelPassTurnGameNotStarted() {
+    ReversiModel model = new BasicReversiModel(7);
 
-        Assert.assertThrows(IllegalStateException.class, () -> {
-            model.passTurn();
-        });
-    }
+    Assert.assertThrows(IllegalStateException.class, () -> {
+      model.passTurn();
+    });
+  }
 
-    // Tests that getCellAt throws error when given position doesn't exist.
-    @Test
-    public void testModelGetCellAtNonExistingCoordinate() {
-        ReversiModel model = new BasicReversiModel(7);
+  // Tests that getCellAt throws error when given position doesn't exist.
+  @Test
+  public void testModelGetCellAtNonExistingCoordinate() {
+    ReversiModel model = new BasicReversiModel(7);
 
-        model.startGame();
+    model.startGame();
 
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
-            model.getCellAt(new PositionAxial(10, -2, 1));
-        });
-    }
+    Assert.assertThrows(IllegalArgumentException.class, () -> {
+      model.getCellAt(new PositionAxial(10, -2, 1));
+    });
+  }
 
 }

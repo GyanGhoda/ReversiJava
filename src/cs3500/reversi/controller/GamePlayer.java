@@ -24,7 +24,7 @@ public class GamePlayer implements Player {
    * Returns a string representation of the player.
    *
    * @return The string representation of the player, "X" for BLACK, and "O" for
-   * WHITE.
+   *     WHITE.
    */
   @Override
   public String toString() {
