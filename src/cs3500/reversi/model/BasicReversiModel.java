@@ -10,9 +10,8 @@ import cs3500.reversi.controller.PlayerType;
 
 /**
  * Represents the model of a Reversi game. Manages the game board, players, and
- * game logic. In our
- * game, the grid is made up of hexagons. The game is played on a regular grid
- * of cells.
+ * game logic. In our game, the grid is made up of hexagons. The game is played
+ * on a regular grid of cells.
  */
 public class BasicReversiModel implements ReversiModel {
 
@@ -22,10 +21,22 @@ public class BasicReversiModel implements ReversiModel {
     private final Player playerBlack;
     private final Player playerWhite;
     // the width of the game board
+    // INVARIENT: Width must be odd and at least three. Enforced by constructor at
+    // construction
+    // of BasicReversiModel.
     private final int width;
     // the turn of the current player
+    // INVARIENT: currentPlayer must be either playerBlack or playerWhite. Enforced
+    // by changeTurns(),
+    // which is the only method to change currentPlayer. Also enforced by
+    // constructor at construction.
     private Player currentPlayer;
     // the number of consecutive passed turns
+    // INVARIENT: consectivePassedTurns must be a non-negative integer. Enforced by
+    // passTurn(),
+    // which only adds to the consectivePassedTurns counter. Also enforced by
+    // constructor at construction
+    // by instantiating consectivePassedTurns to 0.
     private int consectivePassedTurns;
     // whether or not the game has started
     private boolean gameStarted;
@@ -39,11 +50,10 @@ public class BasicReversiModel implements ReversiModel {
      *
      * @param width The width of the game board.
      * @throws IllegalArgumentException If the provided width is not an odd number
-     *                                  or is less than
-     *                                  three.
+     *                                  or is less than three.
      */
     public BasicReversiModel(int width) {
-        // check if width is odd and at least three
+        // Enforced invarient by checking if width is odd and at least three.
         if (width < 3 || width % 2 == 0) {
             throw new IllegalArgumentException("Width must be odd and at least three.");
         }
@@ -192,6 +202,9 @@ public class BasicReversiModel implements ReversiModel {
             // change the active player's turn and reset the consecutive passed turns
             // counter.
             this.changeTurns();
+
+            // reset consectivePassedTurns counter. Enforced invarient by being non-negative
+            // integer.
             this.consectivePassedTurns = 0;
         } else {
             throw new IllegalStateException("Move cannot be made");
@@ -208,8 +221,7 @@ public class BasicReversiModel implements ReversiModel {
      *
      * @param givenPosn The position to check for a valid move.
      * @return A list of positions that represent valid moves, or an empty list if
-     *         the move is
-     *         invalid.
+     *         the move is invalid.
      */
     private List<PositionAxial> isValidMoveForPlayer(PositionAxial givenPosn) {
         Player otherPlayer = this.getNextTurn();
@@ -241,8 +253,7 @@ public class BasicReversiModel implements ReversiModel {
 
     /**
      * Checks and retrieves a list of positions between the given position and
-     * another position that
-     * form a valid line made by the player.
+     * another position that form a valid line made by the player.
      *
      * @param givenPosn   The starting position.
      * @param posn        The ending position.
@@ -425,7 +436,11 @@ public class BasicReversiModel implements ReversiModel {
 
         gameStartedHelper();
 
+        // add to consectivePassedTurns counter. Enforced invarient by only adding a
+        // positive number.
         this.consectivePassedTurns += 1;
+
+        // change the active player's turn.
         this.changeTurns();
     }
 
@@ -433,6 +448,8 @@ public class BasicReversiModel implements ReversiModel {
      * Changes the active player's turn.
      */
     private void changeTurns() {
+        // change the active player's turn. Enforces the invarient by
+        // only changing currentPlayer to playerBlack or playerWhite.
         if (this.currentPlayer.equals(this.playerBlack)) {
             this.currentPlayer = this.playerWhite;
         } else {
@@ -488,8 +505,7 @@ public class BasicReversiModel implements ReversiModel {
 
     /**
      * Gets the current score of the given PlayerType of this Reversi game. Score is
-     * determined by
-     * the number of cells a player occupies.
+     * determined by the number of cells a player occupies.
      * 
      * @return - The score of the given PlayerType in this game.
      */
