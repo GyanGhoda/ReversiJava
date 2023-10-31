@@ -483,4 +483,26 @@ public class TestModel {
         });
     }
 
+    // Tests that passTurn throws error when game hasn't started yet.
+    @Test
+    public void testModelPassTurnGameNotStarted() {
+        ReversiModel model = new BasicReversiModel(7);
+
+        Assert.assertThrows(IllegalStateException.class, () -> {
+            model.passTurn();
+        });
+    }
+
+    // Tests that getCellAt throws error when given position doesn't exist.
+    @Test
+    public void testModelGetCellAtNonExistingCoordinate() {
+        ReversiModel model = new BasicReversiModel(7);
+
+        model.startGame();
+
+        Assert.assertThrows(IllegalArgumentException.class, () -> {
+            model.getCellAt(new PositionAxial(10, -2, 1));
+        });
+    }
+
 }
