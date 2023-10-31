@@ -4,7 +4,7 @@ import java.util.Objects;
 
 /**
  * Represents a human player in a Reversi game. It implements the Player
- * interface.
+ * interface. Generalized to allow for different types of players (AI and human)
  */
 public class GamePlayer implements Player {
 
