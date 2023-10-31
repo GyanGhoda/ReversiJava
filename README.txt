@@ -1,4 +1,4 @@
-## Overview
+# Overview
 
 This codebase implements a Reversi (Othello) game following the Model-View-Controller (MVC) architecture. The game logic, user interaction, and textual representation are separated into distinct components to promote modularity and ease of maintenance.
 
