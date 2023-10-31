@@ -10,34 +10,34 @@ import cs3500.reversi.controller.Player;
  */
 public interface Cell {
 
-    /**
-     * Get the owner of the cell.
-     *
-     * @return The player that owns the cell, or "" if the cell is empty as a
-     *         String.
-     */
-    String getCellOwner();
+  /**
+   * Get the owner of the cell.
+   *
+   * @return The player that owns the cell, or "" if the cell is empty as a
+   * String.
+   */
+  String getCellOwner();
 
-    /**
-     * Set the owner of the cell.
-     *
-     * @param player The player to set as the owner of the cell.
-     */
-    void setCellToPlayer(Player player);
+  /**
+   * Set the owner of the cell.
+   *
+   * @param player The player to set as the owner of the cell.
+   */
+  void setCellToPlayer(Player player);
 
-    /**
-     * Get the type of the cell.
-     *
-     * @return The type of the cell.
-     */
-    CellType getCellType();
+  /**
+   * Get the type of the cell.
+   *
+   * @return The type of the cell.
+   */
+  CellType getCellType();
 
-    /**
-     * Check if the cell has the same type as the given CellType.
-     *
-     * @param otherType The CellType to compare with.
-     * @return true if the cell has the same type as the given CellType, false
-     *         otherwise.
-     */
-    boolean sameCellType(CellType Othertype);
+  /**
+   * Check if the cell has the same type as the given CellType.
+   *
+   * @param otherType The CellType to compare with.
+   * @return true if the cell has the same type as the given CellType, false
+   * otherwise.
+   */
+  boolean sameCellType(CellType Othertype);
 }

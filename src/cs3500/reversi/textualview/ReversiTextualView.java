@@ -8,79 +8,79 @@ import cs3500.reversi.model.ReversiModel;
  */
 public class ReversiTextualView implements TextualView {
 
-    // the ReversiModel to be displayed in the textual view
-    private final ReversiModel model;
+  // the ReversiModel to be displayed in the textual view
+  private final ReversiModel model;
 
-    /**
-     * Constructs a ReversiTextualView with the given ReversiModel.
-     *
-     * @param model The ReversiModel to be displayed in the textual view.
-     */
-    public ReversiTextualView(ReversiModel model) {
-        this.model = model;
+  /**
+   * Constructs a ReversiTextualView with the given ReversiModel.
+   *
+   * @param model The ReversiModel to be displayed in the textual view.
+   */
+  public ReversiTextualView(ReversiModel model) {
+    this.model = model;
+  }
+
+  /**
+   * Generates a string representation of the entire Reversi game board.
+   *
+   * @return A string representing the Reversi game board.
+   */
+  @Override
+  public String toString() {
+    String fullBoard = "";
+    int currentStartingQ = 0;
+    int maxR = (this.model.getNumRows() - 1) / 2;
+    int currentStartingS = maxR;
+
+    // goes row by row and adds the textual views to the full board
+    for (int currentRow = -maxR; currentRow <= maxR; currentRow += 1) {
+      fullBoard = fullBoard.concat(this.rowToString(currentStartingQ, currentRow, currentStartingS)).concat("\n");
+
+      if (currentRow < 0) {
+        currentStartingQ -= 1;
+      } else {
+        currentStartingS -= 1;
+      }
     }
 
-    /**
-     * Generates a string representation of the entire Reversi game board.
-     *
-     * @return A string representing the Reversi game board.
-     */
-    @Override
-    public String toString() {
-        String fullBoard = "";
-        int currentStartingQ = 0;
-        int maxR = (this.model.getNumRows() - 1) / 2;
-        int currentStartingS = maxR;
+    return fullBoard;
+  }
 
-        // goes row by row and adds the textual views to the full board
-        for (int currentRow = -maxR; currentRow <= maxR; currentRow += 1) {
-            fullBoard = fullBoard.concat(this.rowToString(currentStartingQ, currentRow, currentStartingS)).concat("\n");
+  /**
+   * Generates a string representation of a single row of the Reversi game board.
+   *
+   * @param currentGivenQ The initial Q-coordinate for the row.
+   * @param currentRow    The current row number.
+   * @param currentGivenS The initial S-coordinate for the row.
+   * @return A string representing a row of the Reversi game board.
+   */
+  private String rowToString(int currentGivenQ, int currentRow, int currentGivenS) {
+    String rowString = "";
+    int currentQ = currentGivenQ;
+    int currentS = currentGivenS;
 
-            if (currentRow < 0) {
-                currentStartingQ -= 1;
-            } else {
-                currentStartingS -= 1;
-            }
-        }
-
-        return fullBoard;
+    // add spaces to beginning of each row as necessary where there are no cells to
+    // display
+    for (int count = 0; count < Math.abs(currentRow); count += 1) {
+      rowString = rowString.concat(" ");
     }
 
-    /**
-     * Generates a string representation of a single row of the Reversi game board.
-     *
-     * @param currentGivenQ The initial Q-coordinate for the row.
-     * @param currentRow    The current row number.
-     * @param currentGivenS The initial S-coordinate for the row.
-     * @return A string representing a row of the Reversi game board.
-     */
-    private String rowToString(int currentGivenQ, int currentRow, int currentGivenS) {
-        String rowString = "";
-        int currentQ = currentGivenQ;
-        int currentS = currentGivenS;
+    int amountOfCells = this.model.getNumRows() - Math.abs(currentRow);
 
-        // add spaces to beginning of each row as necessary where there are no cells to
-        // display
-        for (int count = 0; count < Math.abs(currentRow); count += 1) {
-            rowString = rowString.concat(" ");
-        }
-
-        int amountOfCells = this.model.getNumRows() - Math.abs(currentRow);
-
-        // go through the cells in a row and append each cell to the view
-        for (int count = 0; count < amountOfCells; count += 1) {
-            rowString = rowString
-                    .concat(this.model.getCellAt(new PositionAxial(currentQ, currentRow, currentS)).toString())
-                    .concat(" ");
-            currentQ += 1;
-            currentS -= 1;
-        }
-
-        // removes trailing space if applicable
-        if (rowString.endsWith(" ")) {
-            rowString = rowString.substring(0, rowString.length() - 1);
-        }
-
-        return rowString;
+    // go through the cells in a row and append each cell to the view
+    for (int count = 0; count < amountOfCells; count += 1) {
+      rowString = rowString
+              .concat(this.model.getCellAt(new PositionAxial(currentQ, currentRow, currentS)).toString())
+              .concat(" ");
+      currentQ += 1;
+      currentS -= 1;
     }
+
+    // removes trailing space if applicable
+    if (rowString.endsWith(" ")) {
+      rowString = rowString.substring(0, rowString.length() - 1);
+    }
+
+    return rowString;
+  }
 }
