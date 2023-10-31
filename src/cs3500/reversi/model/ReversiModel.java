@@ -36,6 +36,7 @@ public interface ReversiModel {
    *
    * @param posn The PositionAxial to get the cell at
    * @return The cell at the specified coordinates.
+   * @throws IllegalArgumentException if the position does not exist in this game.
    */
   Cell getCellAt(PositionAxial posn);
 
@@ -46,6 +47,7 @@ public interface ReversiModel {
    * @param posn The position to add the player's piece.
    * @throws IllegalStateException if the move cannot be made.
    * @throws IllegalStateException if the game has not started.
+   * @throws IllegalArgumentException if the position does not exist in this game.
    */
   void addPieceToCoordinates(PositionAxial posn);
 
