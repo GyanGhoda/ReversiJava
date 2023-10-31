@@ -9,27 +9,36 @@ import cs3500.reversi.controller.Player;
 import cs3500.reversi.controller.PlayerType;
 
 /**
- * Represents the model of a Reversi game. Manages the game board, players, and game logic. In our
- * game, the grid is made up of hexagons. The game is played on a regular grid of cells.
+ * Represents the model of a Reversi game. Manages the game board, players, and
+ * game logic. In our
+ * game, the grid is made up of hexagons. The game is played on a regular grid
+ * of cells.
  */
 public class BasicReversiModel implements ReversiModel {
 
+    // the game board, represented as a HashMap of positions to cells
     private final HashMap<PositionAxial, Cell> board;
+    // the players in the game
     private final Player playerBlack;
     private final Player playerWhite;
+    // the width of the game board
     private final int width;
-    private int currentPlayerIndex;
+    // the turn of the current player
+    private Player currentPlayer;
     private int consectivePassedTurns;
     private boolean gameStarted;
 
     /**
-     * Constructs a new BasicReversiModel with the specified width. The game can only be played on a
-     * regular grid of cells, so the width needs to be an odd number. For a playable game, the width
+     * Constructs a new BasicReversiModel with the specified width. The game can
+     * only be played on a
+     * regular grid of cells, so the width needs to be an odd number. For a playable
+     * game, the width
      * needs to be at least three.
      *
      * @param width The width of the game board.
-     * @throws IllegalArgumentException If the provided width is not an odd number or is less than
-     *         three.
+     * @throws IllegalArgumentException If the provided width is not an odd number
+     *                                  or is less than
+     *                                  three.
      */
     public BasicReversiModel(int width) {
         if (width < 3 || width % 2 == 0) {
@@ -39,7 +48,7 @@ public class BasicReversiModel implements ReversiModel {
         this.playerBlack = new GamePlayer(PlayerType.BLACK);
         this.playerWhite = new GamePlayer(PlayerType.WHITE);
         this.width = width;
-        this.currentPlayerIndex = 0;
+        this.currentPlayer = this.playerBlack;
         this.consectivePassedTurns = 0;
         this.gameStarted = false;
     }
@@ -52,7 +61,7 @@ public class BasicReversiModel implements ReversiModel {
         this.playerBlack = new GamePlayer(PlayerType.BLACK);
         this.playerWhite = new GamePlayer(PlayerType.WHITE);
         this.width = 11;
-        this.currentPlayerIndex = 0;
+        this.currentPlayer = this.playerBlack;
         this.consectivePassedTurns = 0;
         this.gameStarted = false;
     }
@@ -78,7 +87,8 @@ public class BasicReversiModel implements ReversiModel {
     }
 
     /**
-     * Initializes the game board by creating empty cells for all positions on the board.
+     * Initializes the game board by creating empty cells for all positions on the
+     * board.
      */
     private void initializeBoard() {
 
@@ -96,8 +106,7 @@ public class BasicReversiModel implements ReversiModel {
             // initialize q coordinate for current position
             int currentQ = currentRowStartingQ;
 
-            for (int currentS = currentRowStartingS; currentS >= currentRowStartingQ; currentS -=
-                    1) {
+            for (int currentS = currentRowStartingS; currentS >= currentRowStartingQ; currentS -= 1) {
                 // create empty cell and add it to the board at the current position
                 this.board.put(new PositionAxial(currentQ, currentR, currentS),
                         new GameCell(CellType.Empty));
@@ -121,7 +130,8 @@ public class BasicReversiModel implements ReversiModel {
     }
 
     /**
-     * Adds the starting pieces to the game board, setting the initial player positions.
+     * Adds the starting pieces to the game board, setting the initial player
+     * positions.
      */
     private void addStartingPieces() {
         Cell whiteCell = new GameCell(CellType.Player);
@@ -137,10 +147,6 @@ public class BasicReversiModel implements ReversiModel {
         this.initializeCell(1, 0, -1, PlayerType.BLACK);
         this.initializeCell(0, 1, -1, PlayerType.WHITE);
         this.initializeCell(-1, 1, 0, PlayerType.BLACK);
-
-        // reset the currentPlayerIndex to ensure it starts from the first player for
-        // subsequent moves.
-        this.currentPlayerIndex = 0;
     }
 
     // helper for initializing a cell to be occupied by a player
@@ -150,11 +156,12 @@ public class BasicReversiModel implements ReversiModel {
     }
 
     /**
-     * Adds a player's piece to the specified position on the board and updates the game state.
+     * Adds a player's piece to the specified position on the board and updates the
+     * game state.
      *
      * @param posn The position to add the player's piece.
-     * @throws IllegalStateException if the move cannot be made.
-     * @throws IllegalStateException if the game has not started.
+     * @throws IllegalStateException    if the move cannot be made.
+     * @throws IllegalStateException    if the game has not started.
      * @throws IllegalArgumentException if the position does not exist in this game.
      */
     @Override
@@ -190,18 +197,15 @@ public class BasicReversiModel implements ReversiModel {
 
     // return the player whose turn it currently is
     private Player getCurrentTurn() {
-        if (this.currentPlayerIndex % 2 == 0) {
-            return this.playerBlack;
-        } else {
-            return this.playerWhite;
-        }
+        return this.currentPlayer;
     }
 
     /**
      * Checks for cells that allow for valid moves for a player.
      *
      * @param givenPosn The position to check for a valid move.
-     * @return A list of positions that represent valid moves, or an empty list if the move is
+     * @return A list of positions that represent valid moves, or an empty list if
+     *         the move is
      *         invalid.
      */
     private List<PositionAxial> isValidMoveForPlayer(PositionAxial givenPosn) {
@@ -225,7 +229,7 @@ public class BasicReversiModel implements ReversiModel {
 
     // gets the player whose turn it is next
     private Player getNextTurn() {
-        if (this.currentPlayerIndex % 2 == 0) {
+        if (this.currentPlayer.equals(this.playerBlack)) {
             return this.playerWhite;
         } else {
             return this.playerBlack;
@@ -233,13 +237,15 @@ public class BasicReversiModel implements ReversiModel {
     }
 
     /**
-     * Checks and retrieves a list of positions between the given position and another position that
+     * Checks and retrieves a list of positions between the given position and
+     * another position that
      * form a valid line made by the player.
      *
-     * @param givenPosn The starting position.
-     * @param posn The ending position.
+     * @param givenPosn   The starting position.
+     * @param posn        The ending position.
      * @param otherPlayer The player to check for a valid line.
-     * @return A list of positions forming a valid line between the given positions, or an empty
+     * @return A list of positions forming a valid line between the given positions,
+     *         or an empty
      *         list if no valid line exists.
      */
     private List<PositionAxial> checkValidLineMade(PositionAxial givenPosn, PositionAxial posn,
@@ -390,9 +396,11 @@ public class BasicReversiModel implements ReversiModel {
     }
 
     /**
-     * Changes the ownership of all cells between the specified positions to the current player.
+     * Changes the ownership of all cells between the specified positions to the
+     * current player.
      *
-     * @param posnBetween A list of positions between which cell ownership should be changed.
+     * @param posnBetween A list of positions between which cell ownership should be
+     *                    changed.
      */
     private void changeAllCellsBetween(List<PositionAxial> posnBetween) {
 
@@ -412,14 +420,18 @@ public class BasicReversiModel implements ReversiModel {
         gameStartedHelper();
 
         this.consectivePassedTurns += 1;
-        this.currentPlayerIndex += 1;
+        this.changeTurns();
     }
 
     /**
      * Changes the active player's turn.
      */
     private void changeTurns() {
-        this.currentPlayerIndex += 1;
+        if (this.currentPlayer.equals(this.playerBlack)) {
+            this.currentPlayer = this.playerWhite;
+        } else {
+            this.currentPlayer = this.playerBlack;
+        }
     }
 
     /**
@@ -454,7 +466,8 @@ public class BasicReversiModel implements ReversiModel {
     }
 
     /**
-     * Gets the cell at the specified coordinates on the game board using a PositionAxial.
+     * Gets the cell at the specified coordinates on the game board using a
+     * PositionAxial.
      *
      * @param posn The PositionAxial to get the cell at
      * @return The cell at the specified coordinates.
@@ -468,7 +481,8 @@ public class BasicReversiModel implements ReversiModel {
     }
 
     /**
-     * Gets the current score of the given PlayerType of this Reversi game. Score is determined by
+     * Gets the current score of the given PlayerType of this Reversi game. Score is
+     * determined by
      * the number of cells a player occupies.
      * 
      * @return - The score of the given PlayerType in this game.
