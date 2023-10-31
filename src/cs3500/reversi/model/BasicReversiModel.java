@@ -43,6 +43,7 @@ public class BasicReversiModel implements ReversiModel {
      *                                  three.
      */
     public BasicReversiModel(int width) {
+        // check if width is odd and at least three
         if (width < 3 || width % 2 == 0) {
             throw new IllegalArgumentException("Width must be odd and at least three.");
         }
@@ -349,6 +350,7 @@ public class BasicReversiModel implements ReversiModel {
     // given
     private PositionAxial calculateStartingPosition(boolean foward, String row,
             int incrementStartingPostion, int decrementStartingPosition, int constantPosition) {
+        // calculate current position based on forward direction
         if (foward) {
             if (row.toLowerCase().equals("s")) {
                 return new PositionAxial(incrementStartingPostion, decrementStartingPosition,
@@ -362,7 +364,9 @@ public class BasicReversiModel implements ReversiModel {
             } else {
                 throw new IllegalArgumentException("Invalid row given");
             }
-        } else {
+        }
+        // calculate current position based on backward direction
+        else {
             if (row.toLowerCase().equals("s")) {
                 return new PositionAxial(decrementStartingPosition, incrementStartingPostion,
                         constantPosition);
