@@ -49,7 +49,8 @@ public void testModelExampleGame() {
 - `Player`: Represents a player, encapsulating player-specific data and behaviors.
 - `PlayerType`: Enumeration of player types (e.g., HUMAN, AI).
 
-### Test (`src/cs3500/reversi/test`)
+### Test (`test/cs3500/reversi/`)
+- `Examples`: Example objects for the model, controller, and textual view components.
 - `TestModel`: Test cases for the model component.
 - `TestController`: Test cases for the controller component.
 - `TestTextualView`: Test cases for the textual view component.
