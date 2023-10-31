@@ -25,7 +25,9 @@ public class BasicReversiModel implements ReversiModel {
     private final int width;
     // the turn of the current player
     private Player currentPlayer;
+    // the number of consecutive passed turns
     private int consectivePassedTurns;
+    // whether or not the game has started
     private boolean gameStarted;
 
     /**
