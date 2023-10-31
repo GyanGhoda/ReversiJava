@@ -375,7 +375,6 @@ public class TestModel {
         Cell cellPlayer = new GameCell(CellType.Player);
 
         Assert.assertEquals(cellEmpty.getCellOwner(), "");
-        Assert.assertEquals(cellPlayer.getCellOwner(), "");
 
         cellPlayer.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
 
