@@ -22,8 +22,7 @@ public class BasicReversiModel implements ReversiModel {
     private final Player playerWhite;
     // the width of the game board
     // INVARIENT: Width must be odd and at least three. Enforced by constructor at
-    // construction
-    // of BasicReversiModel.
+    // construction of BasicReversiModel.
     private final int width;
     // the turn of the current player
     // INVARIENT: currentPlayer must be either playerBlack or playerWhite. Enforced
@@ -31,22 +30,19 @@ public class BasicReversiModel implements ReversiModel {
     // which is the only method to change currentPlayer. Also enforced by
     // constructor at construction.
     private Player currentPlayer;
-    // the number of consecutive passed turns
+    // the number of consecutive passed turns.
     // INVARIENT: consectivePassedTurns must be a non-negative integer. Enforced by
-    // passTurn(),
-    // which only adds to the consectivePassedTurns counter. Also enforced by
-    // constructor at construction
-    // by instantiating consectivePassedTurns to 0.
+    // passTurn(), which only adds to the consectivePassedTurns counter. Also
+    // enforced by constructor at construction by instantiating
+    // consectivePassedTurns to 0.
     private int consectivePassedTurns;
     // whether or not the game has started
     private boolean gameStarted;
 
     /**
      * Constructs a new BasicReversiModel with the specified width. The game can
-     * only be played on a
-     * regular grid of cells, so the width needs to be an odd number. For a playable
-     * game, the width
-     * needs to be at least three.
+     * only be played on a regular grid of cells, so the width needs to be an odd
+     * number. For a playable game, the width needs to be at least three.
      *
      * @param width The width of the game board.
      * @throws IllegalArgumentException If the provided width is not an odd number
