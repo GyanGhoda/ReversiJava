@@ -1,4 +1,4 @@
-package cs3500.reversi.test;
+package cs3500.reversi;
 
 import org.junit.Assert;
 import org.junit.Test;

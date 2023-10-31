@@ -1,4 +1,4 @@
-package cs3500.reversi.test;
+package cs3500.reversi;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -402,7 +402,8 @@ public class TestModel {
         Assert.assertEquals(cellPlayer.getCellOwner(), "O");
     }
 
-    // Test that BasicReversiModel constructor correctly throws illegal argument error for
+    // Test that BasicReversiModel constructor correctly throws illegal argument
+    // error for
     // even width number
     @Test
     public void testModelConstructorErrorGivenEvenWidth() {
@@ -413,7 +414,8 @@ public class TestModel {
 
     }
 
-    // Test that BasicReversiModel constructor correctly throws illegal argument error for
+    // Test that BasicReversiModel constructor correctly throws illegal argument
+    // error for
     // low width number
     @Test
     public void testModelConstructorErrorGivenLowWidth() {
@@ -424,7 +426,8 @@ public class TestModel {
 
     }
 
-    // Test that BasicReversiModel constructor correctly throws illegal argument error for
+    // Test that BasicReversiModel constructor correctly throws illegal argument
+    // error for
     // negative width number
     @Test
     public void testModelConstructorErrorGivenNegativeWidth() {
@@ -459,7 +462,8 @@ public class TestModel {
         });
     }
 
-    // Tests that addPieceToCoordinate throws error when given position doesn't exist.
+    // Tests that addPieceToCoordinate throws error when given position doesn't
+    // exist.
     @Test
     public void testModelAddPieceToCoordinateNonExistingCoordinate() {
         ReversiModel model = new BasicReversiModel(7);
@@ -471,7 +475,8 @@ public class TestModel {
         });
     }
 
-    // Tests that addPieceToCoordinate throws error when given illogical invalid move.
+    // Tests that addPieceToCoordinate throws error when given illogical invalid
+    // move.
     @Test
     public void testModelAddPieceToCoordinateInvalidMove() {
         ReversiModel model = new BasicReversiModel(7);
