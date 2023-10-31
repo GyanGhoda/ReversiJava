@@ -6,6 +6,9 @@ import org.junit.Test;
 import cs3500.reversi.controller.GamePlayer;
 import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.BasicReversiModel;
+import cs3500.reversi.model.Cell;
+import cs3500.reversi.model.CellType;
+import cs3500.reversi.model.GameCell;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.textualview.ReversiTextualView;
@@ -311,5 +314,75 @@ public class TestModel {
 
         Assert.assertEquals(posn.isNextTo(posnNextTo), true);
         Assert.assertEquals(posn.isNextTo(posnNotNotNextTo), false);
+    }
+
+    // Test that cell toString returns the correct string based on the cell type.
+    @Test
+    public void testCellToString() {
+        Cell cellEmpty = new GameCell(CellType.Empty);
+        Cell cellPlayer = new GameCell(CellType.Player);
+
+        cellPlayer.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
+
+        Assert.assertEquals(cellEmpty.toString(), "_");
+        Assert.assertEquals(cellPlayer.toString(), "X");
+
+        cellPlayer.setCellToPlayer(new GamePlayer(PlayerType.WHITE));
+
+        Assert.assertEquals(cellPlayer.toString(), "O");
+    }
+
+    // Test that the cell setCellToPlayer method works as intended.
+    @Test
+    public void testCellSetCellToPlayer() {
+        Cell cellPlayer = new GameCell(CellType.Player);
+
+        cellPlayer.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
+
+        Assert.assertEquals(cellPlayer.getCellOwner(), "X");
+
+        cellPlayer.setCellToPlayer(new GamePlayer(PlayerType.WHITE));
+
+        Assert.assertEquals(cellPlayer.getCellOwner(), "O");
+    }
+
+    // Test that the cell getCellType method works as intended.
+    @Test
+    public void testCellGetCellType() {
+        Cell cellEmpty = new GameCell(CellType.Empty);
+        Cell cellPlayer = new GameCell(CellType.Player);
+
+        Assert.assertEquals(cellEmpty.getCellType(), CellType.Empty);
+        Assert.assertEquals(cellPlayer.getCellType(), CellType.Player);
+    }
+
+    // Test that the cell sameCellType method works as intended.
+    @Test
+    public void testCellSameCellType() {
+        Cell cellEmpty = new GameCell(CellType.Empty);
+        Cell cellPlayer = new GameCell(CellType.Player);
+
+        Assert.assertEquals(cellEmpty.sameCellType(CellType.Empty), true);
+        Assert.assertEquals(cellPlayer.sameCellType(CellType.Player), true);
+        Assert.assertEquals(cellEmpty.sameCellType(CellType.Player), false);
+        Assert.assertEquals(cellPlayer.sameCellType(CellType.Empty), false);
+    }
+
+    // Test that the cell getCellOwner method works as intended.
+    @Test
+    public void testCellGetCellOwner() {
+        Cell cellEmpty = new GameCell(CellType.Empty);
+        Cell cellPlayer = new GameCell(CellType.Player);
+
+        Assert.assertEquals(cellEmpty.getCellOwner(), "");
+        Assert.assertEquals(cellPlayer.getCellOwner(), "");
+
+        cellPlayer.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
+
+        Assert.assertEquals(cellPlayer.getCellOwner(), "X");
+
+        cellPlayer.setCellToPlayer(new GamePlayer(PlayerType.WHITE));
+
+        Assert.assertEquals(cellPlayer.getCellOwner(), "O");
     }
 }
