@@ -401,4 +401,86 @@ public class TestModel {
 
         Assert.assertEquals(cellPlayer.getCellOwner(), "O");
     }
+
+    // Test that BasicReversiModel constructor correctly throws illegal argument error for
+    // even width number
+    @Test
+    public void testModelConstructorErrorGivenEvenWidth() {
+
+        Assert.assertThrows(IllegalArgumentException.class, () -> {
+            ReversiModel model = new BasicReversiModel(6);
+        });
+
+    }
+
+    // Test that BasicReversiModel constructor correctly throws illegal argument error for
+    // low width number
+    @Test
+    public void testModelConstructorErrorGivenLowWidth() {
+
+        Assert.assertThrows(IllegalArgumentException.class, () -> {
+            ReversiModel model = new BasicReversiModel(2);
+        });
+
+    }
+
+    // Test that BasicReversiModel constructor correctly throws illegal argument error for
+    // negative width number
+    @Test
+    public void testModelConstructorErrorGivenNegativeWidth() {
+
+        Assert.assertThrows(IllegalArgumentException.class, () -> {
+            ReversiModel model = new BasicReversiModel(-2);
+        });
+
+    }
+
+    // Test that startgame throws error when game already started
+    @Test
+    public void testModelStartGameErrorGameAlreadyStarted() {
+
+        ReversiModel model = new BasicReversiModel(7);
+
+        model.startGame();
+
+        Assert.assertThrows(IllegalStateException.class, () -> {
+            model.startGame();
+        });
+
+    }
+
+    // Tests that addPieceToCoordinate throws error when game hasn't started yet.
+    @Test
+    public void testModelAddPieceToCoordinateGameNotStarted() {
+        ReversiModel model = new BasicReversiModel(7);
+
+        Assert.assertThrows(IllegalStateException.class, () -> {
+            model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
+        });
+    }
+
+    // Tests that addPieceToCoordinate throws error when given position doesn't exist.
+    @Test
+    public void testModelAddPieceToCoordinateNonExistingCoordinate() {
+        ReversiModel model = new BasicReversiModel(7);
+
+        model.startGame();
+
+        Assert.assertThrows(IllegalArgumentException.class, () -> {
+            model.addPieceToCoordinates(new PositionAxial(10, -2, 1));
+        });
+    }
+
+    // Tests that addPieceToCoordinate throws error when given illogical invalid move.
+    @Test
+    public void testModelAddPieceToCoordinateInvalidMove() {
+        ReversiModel model = new BasicReversiModel(7);
+
+        model.startGame();
+
+        Assert.assertThrows(IllegalStateException.class, () -> {
+            model.addPieceToCoordinates(new PositionAxial(0, -1, 1));
+        });
+    }
+
 }

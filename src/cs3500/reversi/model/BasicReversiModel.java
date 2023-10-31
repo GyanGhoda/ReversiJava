@@ -65,6 +65,10 @@ public class BasicReversiModel implements ReversiModel {
     @Override
     public void startGame() {
 
+        if (gameStarted) {
+            throw new IllegalStateException("Game already started");
+        }
+
         // initialize the board
         this.initializeBoard();
         // add the starting pieces
