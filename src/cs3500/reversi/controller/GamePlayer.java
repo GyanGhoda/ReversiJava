@@ -8,6 +8,7 @@ import java.util.Objects;
  */
 public class GamePlayer implements Player {
 
+    // The type of the player, which can be BLACK or WHITE.
     private final PlayerType type;
 
     /**

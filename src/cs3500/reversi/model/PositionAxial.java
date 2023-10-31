@@ -5,6 +5,8 @@ package cs3500.reversi.model;
  * A position is defined by the values of 'q,' 'r,' and 's.'
  */
 public final class PositionAxial {
+
+    // The axial coordinates of this PositionAxial
     private final int q;
     private final int r;
     private final int s;

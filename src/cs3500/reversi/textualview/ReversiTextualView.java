@@ -8,6 +8,7 @@ import cs3500.reversi.model.ReversiModel;
  */
 public class ReversiTextualView implements TextualView {
 
+    // the ReversiModel to be displayed in the textual view
     private final ReversiModel model;
 
     /**

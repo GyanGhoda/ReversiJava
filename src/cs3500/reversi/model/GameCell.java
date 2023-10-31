@@ -10,7 +10,9 @@ import cs3500.reversi.controller.Player;
  */
 public class GameCell implements Cell {
 
+    // The type of the cell, which can be Empty or Player.
     private CellType type;
+    // The player that owns the cell.
     private Player cellOwner;
 
     /**
