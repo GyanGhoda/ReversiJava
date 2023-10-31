@@ -33,16 +33,16 @@ public void testModelExampleGame() {
 ## Key Components and Subcomponents
 
 ### Model (`src/cs3500/reversi/model`)
-- `BasicReversiModel`: Implements game logic and state management. Methods include `makeMove` for making a move and `getCellAt` for retrieving the state of a specific cell.
+- `BasicReversiModel`: Implements game logic and state management. Methods include `addPieceToCoordinates` for making a move and `getCellAt` for retrieving the state of a specific cell.
 - `ReversiModel`: Interface defining essential game model methods.
-- `GameCell`: Represents a cell on the game board, extends `Cell`, and adds game-specific properties.
-- `CellType`: Enumeration of cell types (e.g., EMPTY, BLACK, WHITE).
+- `GameCell`: Represents a cell on the game board, implements `Cell`, and adds game-specific properties.
+- `CellType`: Enumeration of cell types (e.g., EMPTY, PLAYER).
 - `PositionAxial`: Represents positions in an axial coordinate system.
 - `Cell`: Represents a generic cell.
 
 ### View (`src/cs3500/reversi/textualview`)
-- `ReversiTextualView`: Renders a textual view of the Reversi game. Extends or implements `TextualView`.
-- `TextualView`: Interface or abstract class for textual views.
+- `ReversiTextualView`: Renders a textual view of the Reversi game. Implements `TextualView`.
+- `TextualView`: Interface for textual views.
 
 ### Controller (`src/cs3500/reversi/controller`)
 - `GamePlayer`: Manages players in the game, handling turns and interactions. Implements or extends `Player`.
@@ -59,5 +59,5 @@ public void testModelExampleGame() {
 
 The source code is organized as follows:
 - `src/cs3500/reversi/model`: Contains classes related to the game model.
-- `src/cs3500/reversi/view`: Contains classes related to the game view.
+- `src/cs3500/reversi/view`: Contains classes related to the game textual view.
 - `src/cs3500/reversi/controller`: Contains classes related to the game controller.
