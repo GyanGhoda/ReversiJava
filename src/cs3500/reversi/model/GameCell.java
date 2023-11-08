@@ -2,10 +2,13 @@ package cs3500.reversi.model;
 
 import java.util.Objects;
 
+import cs3500.reversi.controller.GamePlayer;
 import cs3500.reversi.controller.Player;
+import cs3500.reversi.controller.PlayerType;
 
 /**
- * The GameCell class represents a cell in a Reversi game board. It implements the Cell interface.
+ * The GameCell class represents a cell in a Reversi game board. It implements
+ * the Cell interface.
  */
 public class GameCell implements Cell {
 
@@ -50,7 +53,8 @@ public class GameCell implements Cell {
    * Check if the cell has the same type as the given CellType.
    *
    * @param otherType The CellType to compare with.
-   * @return true if the cell has the same type as the given CellType, false otherwise.
+   * @return true if the cell has the same type as the given CellType, false
+   *         otherwise.
    */
   @Override
   public boolean sameCellType(CellType otherType) {
@@ -60,7 +64,8 @@ public class GameCell implements Cell {
   /**
    * Get the owner of the cell.
    *
-   * @return The player that owns the cell, or "" if the cell is empty as a String.
+   * @return The player that owns the cell, or "" if the cell is empty as a
+   *         String.
    */
   @Override
   public String getCellOwner() {
@@ -74,7 +79,8 @@ public class GameCell implements Cell {
   /**
    * The string representation of the cell. If the cell is empty, it returns "_"
    *
-   * @return The string representation of the cell, which is either "_" or the cellOwner as a String
+   * @return The string representation of the cell, which is either "_" or the
+   *         cellOwner as a String
    */
   @Override
   public String toString() {
