@@ -61,3 +61,5 @@ The source code is organized as follows:
 - `src/cs3500/reversi/model`: Contains classes related to the game model.
 - `src/cs3500/reversi/view`: Contains classes related to the game textual view.
 - `src/cs3500/reversi/controller`: Contains classes related to the game controller.
+
+## Changes for Part 2
