@@ -476,6 +476,35 @@ public class BasicReversiModel implements ReversiModel {
   }
 
   /**
+   * Checks if the current player has any valid moves.
+   * 
+   * @return true if the current player has valid moves, false otherwise.
+   */
+  @Override
+  public boolean doesCurrentPlayerHaveValidMoves() {
+
+    for (PositionAxial posn : this.board.keySet()) {
+      if (this.getCellAt(posn).sameCellType(CellType.Empty)
+          && !(this.isValidMoveForPlayer(posn).isEmpty())) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * Checks if the current player has any valid moves at the given position.
+   * 
+   * @return true if the current player has valid moves at the given position,
+   *         false otherwise
+   */
+  @Override
+  public boolean doesCurrentPlayerHaveValidMovesPosn(PositionAxial posn) {
+    return !(this.isValidMoveForPlayer(posn).isEmpty());
+  }
+
+  /**
    * Gets the number of rows on the game board.
    *
    * @return The number of rows in the game board.

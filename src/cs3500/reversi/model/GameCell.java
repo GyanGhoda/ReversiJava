@@ -2,9 +2,7 @@ package cs3500.reversi.model;
 
 import java.util.Objects;
 
-import cs3500.reversi.controller.GamePlayer;
 import cs3500.reversi.controller.Player;
-import cs3500.reversi.controller.PlayerType;
 
 /**
  * The GameCell class represents a cell in a Reversi game board. It implements
