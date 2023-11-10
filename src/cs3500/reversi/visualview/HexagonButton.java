@@ -57,7 +57,7 @@ public class HexagonButton extends JButton {
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g); // Paint the button normally
-    hexagon = createHexagon(size); // Create the hexagon shape
+    hexagon = createHexagon(size, size); // Create the hexagon shape
 
     Graphics2D g2d = (Graphics2D) g;
 
@@ -79,10 +79,10 @@ public class HexagonButton extends JButton {
   }
 
   // Creates a hexagon shape with the given width and height
-  private Polygon createHexagon(int size) {
-    int centerX = size / 2;
-    int centerY = size / 2;
-    int buttonSize = size / 2;
+  private Polygon createHexagon(int width, int height) {
+    int centerX = width / 2;
+    int centerY = height / 2;
+    int size = width / 2;
 
     int[] xPoints = new int[6];
     int[] yPoints = new int[6];
