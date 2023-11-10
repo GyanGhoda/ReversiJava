@@ -116,11 +116,11 @@ public class HexagonalPanel extends JPanel implements MouseListener {
             HexagonSpace hexagon = entry.getValue();
             if (hexagon.contains(mouseX, mouseY)) {
                 toggleHexagonColor(hexagon);
-                repaint();
-                break;
+            } else {
+                hexagon.setColor(Color.LIGHT_GRAY);
             }
         }
-        System.out.println("Mouse clicked at: " + mouseX + ", " + mouseY);
+        repaint();
     }
 
     private void toggleHexagonColor(HexagonSpace hexagon) {
