@@ -3,20 +3,20 @@ package cs3500.reversi.visualview;
 import javax.swing.*;
 
 import cs3500.reversi.model.ReversiModel;
-import cs3500.reversi.model.CellType;
-import cs3500.reversi.model.GameCell;
 import cs3500.reversi.model.PositionAxial;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.awt.geom.Path2D;
 import java.util.HashMap;
 
 /**
  * Represents a panel of hexagonal buttons.
  */
 public class HexagonalPanel extends JPanel {
-    HashMap<PositionAxial, HexagonButton> hexagonButtons = new HashMap<PositionAxial, HexagonButton>();
+    HashMap<PositionAxial, HexagonSpace> hexagonButtons = new HashMap<PositionAxial, HexagonSpace>();
     ReversiModel model;
+    int width;
+    int height;
 
     /**
      * Constructs a new HexagonalPanel with the given number of rows and columns.
@@ -24,31 +24,24 @@ public class HexagonalPanel extends JPanel {
      * @param numRows The number of rows.
      * @param numCols The number of columns.
      */
-    public HexagonalPanel(ReversiModel model) {
+    public HexagonalPanel(ReversiModel model, int width, int height) {
         setLayout(null); // Use absolute positioning
         this.model = model;
-        this.initalizeGameBoard();
-
-        // for (int i = 0; i < numCells; i += 1) {
-        // HexagonButton button = new HexagonButton("Button " + (i + 1));
-        // hexagonButtons.add(button);
-        // add(button);
-        // }
-
-        // // Create and add hexagonal buttons
-        // for (int row = 0; row < numRows; row++) {
-        // for (int col = 0; col < numCols; col++) {
-        // HexagonButton button = new HexagonButton("Button " + (row * numCols + col +
-        // 1));
-        // hexagonButtons[row][col] = button;
-        // add(button);
-        // }
-        // }
+        this.width = width;
+        this.height = height;
     }
 
-    private void initalizeGameBoard() {
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
 
-        int buttonSize = 50;// this.getWidth() / this.model.getNumRows(); // The size of each button
+        Graphics2D g2d = (Graphics2D) g;
+
+        int distance = Math.min(this.width, this.height) / this.model.getNumRows();
+
+        int buttonSize = (int) (distance / Math.sqrt(3));
+
+        System.out.println(buttonSize);
 
         // calculate the middle row of the game board
         int middleY = (this.model.getNumRows() - 1) / 2;
@@ -64,18 +57,27 @@ public class HexagonalPanel extends JPanel {
             // initialize q coordinate for current position
             int currentQ = currentRowStartingQ;
 
-            int startingX = (buttonSize / 2) * Math.abs(currentR);
-            int startingY = (buttonSize) * (rowsMade + 1);
+            double startingX = (((buttonSize * Math.sqrt(3)) / 2) * Math.abs(currentR))
+                    + (((int) (buttonSize * Math.sqrt(3))) / 2);
+            double startingY = ((buttonSize * 3) / 2) * (rowsMade + 1);
 
             for (int currentS = currentRowStartingS; currentS >= currentRowStartingQ; currentS -= 1) {
+                HexagonSpace hexagon = new HexagonSpace(buttonSize, startingX, startingY);
+
+                g2d.setColor(Color.LIGHT_GRAY); // Set the color of the hexagon
+                g2d.fill(hexagon);
+
+                g2d.setColor(Color.BLACK); // Set the color of the border
+                g2d.draw(hexagon);
+
                 // create empty cell and add it to the board at the current position
                 this.hexagonButtons.put(new PositionAxial(currentQ, currentR, currentS),
-                        new HexagonButton("Button " + (currentQ) + " in row " + (currentR + 1), buttonSize));
+                        hexagon);
+
                 // move to the next q coordinate in the row
-                this.hexagonButtons.get(new PositionAxial(currentQ, currentR, currentS)).setBounds(startingX,
-                        startingY, buttonSize, buttonSize);
-                add(hexagonButtons.get(new PositionAxial(currentQ, currentR, currentS)));
-                startingX += buttonSize;
+                hexagon.moveTo(startingX, startingY);
+
+                startingX += Math.sqrt(3) * buttonSize;
                 currentQ += 1;
             }
 
@@ -93,33 +95,4 @@ public class HexagonalPanel extends JPanel {
             currentR += 1;
         }
     }
-
-    // @Override
-    // public void paintComponent(Graphics g) {
-    // super.paintComponent(g);
-
-    // int buttonSize = this.getWidth() / this.model.getNumRows(); // The size of
-    // each button
-    // int currentX = (buttonSize / 2) * Math.abs(this.model.getNumRows() / 2);
-    // int currentY = buttonSize * (((this.model.getNumRows() - 1) / 2) -
-    // Math.abs(this.model.getNumRows() / 2));
-    // }
-
-    // int buttonSize = Math.min(getWidth() / (this.model.getNumRows() *
-    // this.numCells), getHeight() / (this.model.getNumRows() * 3)); // The size of
-    // each button
-    // int startX = getWidth() / 2 - (int) (numCols * 1.5 * buttonSize);
-    // int startY = getHeight() / 2 - (int) (numRows * Math.sqrt(3) * buttonSize /
-    // 2);
-
-    // // Set the bounds of each button
-    // for (int row = 0; row < numRows; row++) {
-    // for (int col = 0; col < numCols; col++) {
-    // HexagonButton button = hexagonButtons[row][col];
-    // int x = startX + (int) (col * 3 * buttonSize);
-    // int y = startY + (int) (row * Math.sqrt(3) * buttonSize);
-    // button.setBounds(x, y, buttonSize, buttonSize);
-    // }
-    // }
-    // }
 }

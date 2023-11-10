@@ -1,5 +1,7 @@
 package cs3500.reversi.visualview;
 
+import java.awt.BorderLayout;
+
 import javax.swing.*;
 
 import cs3500.reversi.model.ReversiModel;
@@ -36,12 +38,12 @@ public class HexagonalFrame extends JFrame {
         setVisible(true); // Make the frame visible
 
         this.constructVisualBoard();
+
     }
 
     private void constructVisualBoard() {
-        HexagonalPanel panel = new HexagonalPanel(this.model); // Create a panel of hexagonal buttons
-        panel.setBounds(500, 500, 1000, 1000);
-        add(panel);
-
+        HexagonalPanel panel = new HexagonalPanel(this.model, 800, 800); // Create a panel of hexagonal buttons
+        panel.setBounds(500, 500, 800, 800);
+        add(panel, BorderLayout.CENTER);
     }
 }
