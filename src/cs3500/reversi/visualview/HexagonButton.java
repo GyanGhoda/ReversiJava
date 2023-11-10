@@ -1,6 +1,7 @@
 package cs3500.reversi.visualview;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,7 +28,7 @@ public class HexagonButton extends JButton {
     setOpaque(false); // Make the button transparent
     setContentAreaFilled(true); // Make the button content area transparent
     setBorderPainted(true); // Remove the border
-
+    
     this.size = size;
 
     addActionListener(new ActionListener() {
