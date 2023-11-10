@@ -1,4 +1,4 @@
-package cs3500.reversi.visualview;
+/*package cs3500.reversi.visualview;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -11,7 +11,7 @@ import java.awt.event.MouseEvent;
 /**
  * Represents a hexagonal button.
  */
-public class HexagonButton extends JButton {
+/*public class HexagonButton extends JButton {
 
   private Polygon hexagon; // The hexagon shape of the button
   private boolean isClicked = false; // Whether the button is clicked or not
@@ -23,7 +23,7 @@ public class HexagonButton extends JButton {
    *
    * @param label The label of the button.
    */
-  public HexagonButton(String label, int size) {
+  /*public HexagonButton(String label, int size) {
     super(label);
     setOpaque(false); // Make the button transparent
     setContentAreaFilled(true); // Make the button content area transparent
@@ -55,7 +55,7 @@ public class HexagonButton extends JButton {
    *
    * @param g The graphics object.
    */
-  @Override
+  /*@Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g); // Paint the button normally
     hexagon = createHexagon(); // Create the hexagon shape
@@ -70,7 +70,7 @@ public class HexagonButton extends JButton {
     if (isClicked) {
       g2d.setColor(Color.CYAN);
     } else {
-      g2d.setColor(Color.BLACK);
+      g2d.setColor(Color.lightGray);
     }
     g2d.fill(hexagon); // Fill the hexagon shape
   }
@@ -98,3 +98,4 @@ public class HexagonButton extends JButton {
   }
 
 }
+*/
