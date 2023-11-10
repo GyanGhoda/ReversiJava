@@ -39,14 +39,9 @@ public class HexagonalFrame extends JFrame {
     }
 
     private void constructVisualBoard() {
-        int maxRowNumber = (this.model.getNumRows() - 1) / 2;
+        HexagonalPanel panel = new HexagonalPanel(this.model); // Create a panel of hexagonal buttons
+        panel.setBounds(500, 500, 1000, 1000);
+        add(panel);
 
-        for (int i = -maxRowNumber; i < maxRowNumber; i += 1) {
-            System.out.println("yoyo");
-            HexagonalPanel panel = new HexagonalPanel(this.model.getNumRows() - Math.abs(i),
-                    i, this.model); // Create a panel of hexagonal buttons
-            add(panel);
-        }
     }
-
 }

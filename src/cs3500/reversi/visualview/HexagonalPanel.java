@@ -3,19 +3,20 @@ package cs3500.reversi.visualview;
 import javax.swing.*;
 
 import cs3500.reversi.model.ReversiModel;
+import cs3500.reversi.model.CellType;
+import cs3500.reversi.model.GameCell;
+import cs3500.reversi.model.PositionAxial;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 /**
  * Represents a panel of hexagonal buttons.
  */
 public class HexagonalPanel extends JPanel {
-    ArrayList<HexagonButton> hexagonButtons = new ArrayList<HexagonButton>();
+    HashMap<PositionAxial, HexagonButton> hexagonButtons = new HashMap<PositionAxial, HexagonButton>();
     ReversiModel model;
-    int numCells;
-    int rowNumber;
 
     /**
      * Constructs a new HexagonalPanel with the given number of rows and columns.
@@ -23,12 +24,10 @@ public class HexagonalPanel extends JPanel {
      * @param numRows The number of rows.
      * @param numCols The number of columns.
      */
-    public HexagonalPanel(int numCells, int rowNumber, ReversiModel model) {
+    public HexagonalPanel(ReversiModel model) {
         setLayout(null); // Use absolute positioning
-        this.numCells = numCells;
-        this.rowNumber = rowNumber;
         this.model = model;
-        this.constructRow();
+        this.initalizeGameBoard();
 
         // for (int i = 0; i < numCells; i += 1) {
         // HexagonButton button = new HexagonButton("Button " + (i + 1));
@@ -47,31 +46,64 @@ public class HexagonalPanel extends JPanel {
         // }
     }
 
-    public void constructRow() {
-        for (int i = 0; i < this.numCells; i += 1) {
-            HexagonButton button = new HexagonButton("Button " + (i + 1) + " in row " + this.rowNumber);
-            hexagonButtons.add(button);
-            add(button);
+    private void initalizeGameBoard() {
+
+        int buttonSize = 50;// this.getWidth() / this.model.getNumRows(); // The size of each button
+
+        // calculate the middle row of the game board
+        int middleY = (this.model.getNumRows() - 1) / 2;
+
+        // initialize starting q and s coordinates for the current row
+        int currentRowStartingQ = 0;
+        int currentRowStartingS = middleY;
+
+        // initialize the r coordinate for the current row
+        int currentR = -middleY;
+
+        for (int rowsMade = 0; rowsMade < this.model.getNumRows(); rowsMade += 1) {
+            // initialize q coordinate for current position
+            int currentQ = currentRowStartingQ;
+
+            int startingX = (buttonSize / 2) * Math.abs(currentR);
+            int startingY = (buttonSize) * (rowsMade + 1);
+
+            for (int currentS = currentRowStartingS; currentS >= currentRowStartingQ; currentS -= 1) {
+                // create empty cell and add it to the board at the current position
+                this.hexagonButtons.put(new PositionAxial(currentQ, currentR, currentS),
+                        new HexagonButton("Button " + (currentQ) + " in row " + (currentR + 1)));
+                // move to the next q coordinate in the row
+                this.hexagonButtons.get(new PositionAxial(currentQ, currentR, currentS)).setBounds(startingX,
+                        startingY, buttonSize, buttonSize);
+                add(hexagonButtons.get(new PositionAxial(currentQ, currentR, currentS)));
+                startingX += buttonSize;
+                currentQ += 1;
+            }
+
+            // adjust the starting q or s coordinate for the next row based on the row
+            // index.
+            // decrease q for the upper part of the board
+            // decrease s for the lower part of the board
+            if (rowsMade < middleY) {
+                currentRowStartingQ -= 1;
+            } else {
+                currentRowStartingS -= 1;
+            }
+
+            // move to the next r coordinate for the next row
+            currentR += 1;
         }
     }
 
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    // @Override
+    // public void paintComponent(Graphics g) {
+    // super.paintComponent(g);
 
-        int buttonSize = this.getWidth() / this.model.getNumRows(); // The size of each button
-        int startX = (buttonSize / 2) * Math.abs(this.rowNumber);
-        int startY = buttonSize * (((this.model.getNumRows() - 1) / 2) - Math.abs(this.rowNumber));
-
-        for (int i = 0; i < this.numCells; i += 1) {
-            System.out.println("size: " + buttonSize);
-            System.out.println("x: " + startX + " y: " + startY + "");
-            HexagonButton button = hexagonButtons.get(i);
-            button.setBounds(startX, startY, buttonSize, buttonSize);
-            startX += (buttonSize / 2);
-
-        }
-    }
+    // int buttonSize = this.getWidth() / this.model.getNumRows(); // The size of
+    // each button
+    // int currentX = (buttonSize / 2) * Math.abs(this.model.getNumRows() / 2);
+    // int currentY = buttonSize * (((this.model.getNumRows() - 1) / 2) -
+    // Math.abs(this.model.getNumRows() / 2));
+    // }
 
     // int buttonSize = Math.min(getWidth() / (this.model.getNumRows() *
     // this.numCells), getHeight() / (this.model.getNumRows() * 3)); // The size of

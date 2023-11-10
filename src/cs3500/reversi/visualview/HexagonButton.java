@@ -56,6 +56,12 @@ public class HexagonButton extends JButton {
     hexagon = createHexagon(getWidth(), getHeight()); // Create the hexagon shape
 
     Graphics2D g2d = (Graphics2D) g;
+
+    int centerX = getWidth() / 2;
+    int centerY = getHeight() / 2;
+
+    g2d.rotate(Math.toRadians(90), centerX, centerY);
+
     if (isClicked) {
       g2d.setColor(Color.CYAN);
     } else {
