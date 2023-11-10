@@ -65,7 +65,7 @@ public class HexagonalPanel extends JPanel {
             int currentQ = currentRowStartingQ;
 
             int startingX = (buttonSize / 2) * Math.abs(currentR);
-            int startingY = (buttonSize / 2) * (rowsMade + 1);
+            int startingY = (buttonSize) * (rowsMade + 1);
 
             for (int currentS = currentRowStartingS; currentS >= currentRowStartingQ; currentS -= 1) {
                 // create empty cell and add it to the board at the current position

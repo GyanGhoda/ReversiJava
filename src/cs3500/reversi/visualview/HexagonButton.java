@@ -25,8 +25,8 @@ public class HexagonButton extends JButton {
   public HexagonButton(String label, int size) {
     super(label);
     setOpaque(false); // Make the button transparent
-    setContentAreaFilled(false); // Make the button content area transparent
-    setBorderPainted(false); // Remove the border
+    setContentAreaFilled(true); // Make the button content area transparent
+    setBorderPainted(true); // Remove the border
 
     this.size = size;
 
