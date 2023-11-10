@@ -65,12 +65,12 @@ public class HexagonalPanel extends JPanel {
             int currentQ = currentRowStartingQ;
 
             int startingX = (buttonSize / 2) * Math.abs(currentR);
-            int startingY = (buttonSize) * (rowsMade + 1);
+            int startingY = (buttonSize / 2) * (rowsMade + 1);
 
             for (int currentS = currentRowStartingS; currentS >= currentRowStartingQ; currentS -= 1) {
                 // create empty cell and add it to the board at the current position
                 this.hexagonButtons.put(new PositionAxial(currentQ, currentR, currentS),
-                        new HexagonButton("Button " + (currentQ) + " in row " + (currentR + 1)));
+                        new HexagonButton("Button " + (currentQ) + " in row " + (currentR + 1), buttonSize));
                 // move to the next q coordinate in the row
                 this.hexagonButtons.get(new PositionAxial(currentQ, currentR, currentS)).setBounds(startingX,
                         startingY, buttonSize, buttonSize);

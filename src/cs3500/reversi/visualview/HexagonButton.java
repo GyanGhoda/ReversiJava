@@ -15,16 +15,20 @@ public class HexagonButton extends JButton {
   private Polygon hexagon; // The hexagon shape of the button
   private boolean isClicked = false; // Whether the button is clicked or not
 
+  private int size;
+
   /**
    * Constructs a new HexagonButton with the given label.
    *
    * @param label The label of the button.
    */
-  public HexagonButton(String label) {
+  public HexagonButton(String label, int size) {
     super(label);
     setOpaque(false); // Make the button transparent
     setContentAreaFilled(false); // Make the button content area transparent
     setBorderPainted(false); // Remove the border
+
+    this.size = size;
 
     addActionListener(new ActionListener() {
       @Override
@@ -53,7 +57,7 @@ public class HexagonButton extends JButton {
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g); // Paint the button normally
-    hexagon = createHexagon(getWidth(), getHeight()); // Create the hexagon shape
+    hexagon = createHexagon(size); // Create the hexagon shape
 
     Graphics2D g2d = (Graphics2D) g;
 
@@ -75,10 +79,10 @@ public class HexagonButton extends JButton {
   }
 
   // Creates a hexagon shape with the given width and height
-  private Polygon createHexagon(int width, int height) {
-    int centerX = width / 2;
-    int centerY = height / 2;
-    int size = Math.min(width, height) / 2;
+  private Polygon createHexagon(int size) {
+    int centerX = size / 2;
+    int centerY = size / 2;
+    int buttonSize = size / 2;
 
     int[] xPoints = new int[6];
     int[] yPoints = new int[6];
