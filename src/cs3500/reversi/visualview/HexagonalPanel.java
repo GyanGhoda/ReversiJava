@@ -44,7 +44,7 @@ public class HexagonalPanel extends JPanel implements MouseListener {
      */
     private void initializeHexagons() {
         int distance = Math.min(this.width, this.height) / this.model.getNumRows();
-        int buttonSize = (int) (distance / Math.sqrt(3));
+        double buttonSize = (distance / Math.sqrt(3));
 
         // calculate the middle row of the game board
         int middleY = (this.model.getNumRows() - 1) / 2;
@@ -57,7 +57,7 @@ public class HexagonalPanel extends JPanel implements MouseListener {
         int currentR = -middleY;
 
         for (int rowsMade = 0; rowsMade < this.model.getNumRows(); rowsMade += 1) {
-            
+
             // initialize q coordinate for current position
             int currentQ = currentRowStartingQ;
 
@@ -65,8 +65,7 @@ public class HexagonalPanel extends JPanel implements MouseListener {
                     + (((int) (buttonSize * Math.sqrt(3))) / 2);
             double startingY = ((buttonSize * 3) / 2) * (rowsMade + 1);
 
-            for (int currentS = currentRowStartingS; currentS >= currentRowStartingQ; currentS -=
-                    1) {
+            for (int currentS = currentRowStartingS; currentS >= currentRowStartingQ; currentS -= 1) {
                 HexagonSpace hexagon = new HexagonSpace(buttonSize, startingX, startingY);
 
                 // create empty cell and add it to the board at the current poisiton
@@ -126,7 +125,6 @@ public class HexagonalPanel extends JPanel implements MouseListener {
     private void toggleHexagonColor(HexagonSpace hexagon) {
         hexagon.setColor(Color.CYAN);
     }
-
 
     @Override
     public void mousePressed(MouseEvent e) {

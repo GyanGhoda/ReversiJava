@@ -42,8 +42,8 @@ public class HexagonalFrame extends JFrame {
     }
 
     private void constructVisualBoard() {
-        HexagonalPanel panel = new HexagonalPanel(this.model, 800, 800); // Create a panel of hexagonal buttons
-        panel.setBounds(500, 500, 800, 800);
+        HexagonalPanel panel = new HexagonalPanel(this.model, 1000, 1000); // Create a panel of hexagonal buttons
+        panel.setBounds(500, 500, 1000, 1000);
         add(panel, BorderLayout.CENTER);
     }
 }

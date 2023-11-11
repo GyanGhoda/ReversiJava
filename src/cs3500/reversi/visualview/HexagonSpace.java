@@ -1,16 +1,15 @@
 package cs3500.reversi.visualview;
 
 import java.awt.Color;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 
 public class HexagonSpace extends Path2D.Double {
-    int size;
+    double size;
     double currentX;
     double currentY;
     private Color color;
 
-    public HexagonSpace(int size, double currentX, double currentY) {
+    public HexagonSpace(double size, double currentX, double currentY) {
         this.size = size;
         this.currentX = currentX;
         this.currentY = currentY;
