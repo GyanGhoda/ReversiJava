@@ -70,8 +70,6 @@ public class HexagonalPanel extends JPanel implements MouseListener {
                 // create a new position for the current hexagon
                 PositionAxial posn = new PositionAxial(currentQ, currentR, currentS);
 
-                System.out.println("Q: " + posn.getQ() + " R: " + posn.getR() + " S: " + posn.getS());
-
                 // create a new hexagon button
                 HexagonSpace hexagon = new HexagonSpace(buttonSize, startingX, startingY, this.model.getCellAt(posn));
 
