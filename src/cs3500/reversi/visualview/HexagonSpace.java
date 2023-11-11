@@ -51,6 +51,10 @@ public class HexagonSpace extends Path2D.Double {
         this.isHighlighted = state;
     }
 
+    public boolean getState() {
+        return this.isHighlighted;
+    }
+
     public void drawSpaceOwner(Graphics2D g2d) {
 
         if (!representingCell.getCellType().equals(CellType.Empty)) {
