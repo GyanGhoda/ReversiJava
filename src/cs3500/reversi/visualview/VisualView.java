@@ -2,6 +2,8 @@ package cs3500.reversi.visualview;
 
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
+//NOT NEEDED
+
 public class VisualView {
     ReadOnlyReversiModel model;
 
