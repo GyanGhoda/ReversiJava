@@ -58,4 +58,6 @@ public interface ReadOnlyReversiModel {
    *         false otherwise.
    */
   boolean doesCurrentPlayerHaveValidMovesPosn(PositionAxial posn);
+
+  int getBoardSize();
 }

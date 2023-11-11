@@ -4,14 +4,15 @@ import java.awt.BorderLayout;
 
 import javax.swing.*;
 
+import cs3500.reversi.model.ReadOnlyReversiModel;
 import cs3500.reversi.model.ReversiModel;
 
 /**
  * Represents a frame of hexagonal buttons.
  */
-public class HexagonalFrame extends JFrame {
+public class HexagonalFrame extends JFrame implements ReversiVisualView {
 
-    ReversiModel model;
+    ReadOnlyReversiModel model;
 
     /**
      * Constructs a new HexagonalFrame.
@@ -29,21 +30,24 @@ public class HexagonalFrame extends JFrame {
         setVisible(true); // Make the frame visible
     }
 
-    public HexagonalFrame(ReversiModel model) {
+    public HexagonalFrame(ReadOnlyReversiModel model) {
         this.model = model;
         setTitle("2 Player Reversi Game"); // Set the title
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close the program when the frame is closed
-        setSize(1000, 1000); // Set the size of the frame
+        setSize(800, 800); // Set the size of the frame
         setLocationRelativeTo(null); // Center the frame
         setVisible(true); // Make the frame visible
 
-        this.constructVisualBoard();
-
+        this.render(); // Render the frame
     }
 
-    private void constructVisualBoard() {
-        HexagonalPanel panel = new HexagonalPanel(this.model, 1000, 1000); // Create a panel of hexagonal buttons
-        panel.setBounds(500, 500, 1000, 1000);
+    public void render() {
+        HexagonalPanel panel = new HexagonalPanel(this.model, 800, 800); // Create a panel of hexagonal buttons
+        panel.setBounds(400, 400, 800, 800);
         add(panel, BorderLayout.CENTER);
+    }
+
+    public void makeVisible() {
+        this.setVisible(true);
     }
 }

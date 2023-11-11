@@ -4,6 +4,8 @@ import javax.swing.*;
 
 import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.model.PositionAxial;
+import cs3500.reversi.model.ReadOnlyReversiModel;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -15,7 +17,7 @@ import java.util.HashMap;
  */
 public class HexagonalPanel extends JPanel implements MouseListener {
     HashMap<PositionAxial, HexagonSpace> hexagonButtons = new HashMap<PositionAxial, HexagonSpace>();
-    ReversiModel model;
+    ReadOnlyReversiModel model;
     int width;
     int height;
 
@@ -25,7 +27,7 @@ public class HexagonalPanel extends JPanel implements MouseListener {
      * @param numRows The number of rows.
      * @param numCols The number of columns.
      */
-    public HexagonalPanel(ReversiModel model, int width, int height) {
+    public HexagonalPanel(ReadOnlyReversiModel model, int width, int height) {
         setLayout(null); // Use absolute positioning
         if (model == null) {
             throw new IllegalArgumentException("Model cannot be null");
@@ -35,7 +37,7 @@ public class HexagonalPanel extends JPanel implements MouseListener {
         this.height = height;
         addMouseListener(this);
 
-        initializeHexagons();
+        this.initializeHexagons();
     }
 
     /**
@@ -65,14 +67,21 @@ public class HexagonalPanel extends JPanel implements MouseListener {
             double startingY = ((buttonSize * 3) / 2) * (rowsMade + 1);
 
             for (int currentS = currentRowStartingS; currentS >= currentRowStartingQ; currentS -= 1) {
-                HexagonSpace hexagon = new HexagonSpace(buttonSize, startingX, startingY);
+                // create a new position for the current hexagon
+                PositionAxial posn = new PositionAxial(currentQ, currentR, currentS);
+
+                System.out.println("Q: " + posn.getQ() + " R: " + posn.getR() + " S: " + posn.getS());
+
+                // create a new hexagon button
+                HexagonSpace hexagon = new HexagonSpace(buttonSize, startingX, startingY, this.model.getCellAt(posn));
 
                 // create empty cell and add it to the board at the current poisiton
-                hexagonButtons.put(new PositionAxial(currentQ, currentR, currentS), hexagon);
+                hexagonButtons.put(posn, hexagon);
 
-                // move to the next q coordinate in the row
+                // move the hexagon to the correct position
                 hexagon.moveTo(startingX, startingY);
 
+                // move to the next set of coordinates for the next hexagon
                 startingX += Math.sqrt(3) * buttonSize;
                 currentQ += 1;
             }
@@ -95,13 +104,19 @@ public class HexagonalPanel extends JPanel implements MouseListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         Graphics2D g2d = (Graphics2D) g;
+
+        g2d.setColor(Color.darkGray);
+        g2d.fill(new Rectangle(this.width, this.height));
 
         for (HexagonSpace hexagon : hexagonButtons.values()) {
             g2d.setColor(hexagon.getColor());
             g2d.fill(hexagon);
             g2d.setColor(Color.BLACK);
             g2d.draw(hexagon);
+
+            hexagon.drawSpaceOwner(g2d);
         }
     }
 
@@ -117,14 +132,14 @@ public class HexagonalPanel extends JPanel implements MouseListener {
                         + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
                 toggleHexagonColor(hexagon);
             } else {
-                hexagon.setColor(Color.LIGHT_GRAY);
+                hexagon.setState(false);
             }
         }
         repaint();
     }
 
     private void toggleHexagonColor(HexagonSpace hexagon) {
-        hexagon.setColor(Color.CYAN);
+        hexagon.setState(true);
     }
 
     @Override

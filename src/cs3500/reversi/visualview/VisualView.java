@@ -1,11 +1,11 @@
 package cs3500.reversi.visualview;
 
-import cs3500.reversi.model.ReversiModel;
+import cs3500.reversi.model.ReadOnlyReversiModel;
 
-public class VisualView implements ReversiVisualView {
-    ReversiModel model;
+public class VisualView {
+    ReadOnlyReversiModel model;
 
-    public VisualView(ReversiModel model) {
+    public VisualView(ReadOnlyReversiModel model) {
         this.model = model;
     }
 

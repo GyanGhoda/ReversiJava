@@ -60,6 +60,8 @@ public class BasicReversiModel implements ReversiModel {
     this.currentPlayer = this.playerBlack;
     this.consectivePassedTurns = 0;
     this.gameStarted = false;
+
+    this.startGame();
   }
 
   /**
@@ -73,6 +75,8 @@ public class BasicReversiModel implements ReversiModel {
     this.currentPlayer = this.playerBlack;
     this.consectivePassedTurns = 0;
     this.gameStarted = false;
+
+    this.startGame();
   }
 
   /**
@@ -577,4 +581,13 @@ public class BasicReversiModel implements ReversiModel {
     }
   }
 
+  /**
+   * Gets the size of the game board.
+   * 
+   * @return The size of the game board.
+   */
+  @Override
+  public int getBoardSize() {
+    return this.board.size();
+  }
 }
