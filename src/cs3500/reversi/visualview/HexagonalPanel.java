@@ -8,7 +8,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import java.awt.*;
-import java.awt.geom.Path2D;
 import java.util.HashMap;
 
 /**
@@ -114,6 +113,8 @@ public class HexagonalPanel extends JPanel implements MouseListener {
         for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
             HexagonSpace hexagon = entry.getValue();
             if (hexagon.contains(mouseX, mouseY)) {
+                System.out.println("Clicked on hexagon at:\nQ: " + entry.getKey().getQ() + "\nR: "
+                        + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
                 toggleHexagonColor(hexagon);
             } else {
                 hexagon.setColor(Color.LIGHT_GRAY);
