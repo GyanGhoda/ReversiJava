@@ -57,7 +57,7 @@ public class HexagonSpace extends Path2D.Double {
 
     public void drawSpaceOwner(Graphics2D g2d) {
 
-        if (!representingCell.getCellType().equals(CellType.Empty)) {
+        if (!representingCell.sameCellType(CellType.Empty)) {
 
             Path2D.Double circlePath = new Path2D.Double();
 

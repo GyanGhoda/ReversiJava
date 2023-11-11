@@ -169,6 +169,32 @@ public class BasicReversiModel implements ReversiModel {
   }
 
   /**
+   * Creates a copy of the board of this Reversi game.
+   */
+  @Override
+  public HashMap<PositionAxial, Cell> getBoardCopy() {
+    HashMap<PositionAxial, Cell> boardCopy = new HashMap<>();
+
+    for (PositionAxial posn : this.board.keySet()) {
+      PositionAxial posnCopy = new PositionAxial(posn.getQ(), posn.getR(), posn.getS());
+      Cell cell = this.board.get(posn);
+      Cell cellCopy = new GameCell(cell.getCellType());
+
+      if (cell.sameCellType(CellType.Player)) {
+        if (cell.getCellOwner().equals("X")) {
+          cellCopy.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
+        } else {
+          cellCopy.setCellToPlayer(new GamePlayer(PlayerType.WHITE));
+        }
+      }
+
+      boardCopy.put(posnCopy, cellCopy);
+    }
+
+    return boardCopy;
+  }
+
+  /**
    * Adds a player's piece to the specified position on the board and updates the
    * game state.
    *
