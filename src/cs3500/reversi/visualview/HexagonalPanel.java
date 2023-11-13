@@ -11,9 +11,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.ComponentListener;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.event.ComponentEvent;
 
-import java.awt.*;
-import java.awt.Taskbar.Feature;
 import java.util.HashMap;
 
 /**
@@ -22,8 +26,8 @@ import java.util.HashMap;
 public class HexagonalPanel extends JPanel implements ReversiPanel {
     private final HashMap<PositionAxial, HexagonSpace> hexagonButtons = new HashMap<PositionAxial, HexagonSpace>();
     private final ReadOnlyReversiModel model;
-    private final int width;
-    private final int height;
+    private int width;
+    private int height;
     private final Features features;
 
     /**
@@ -44,6 +48,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
 
         addMouseListener(new MouseListenerReversi());
         addKeyListener(new KeyListenerReversi());
+        addComponentListener(new ComponentListenerReversi());
 
         setFocusable(true);
         requestFocusInWindow();
@@ -58,54 +63,42 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
         int distance = Math.min(this.width, this.height) / this.model.getNumRows();
         double buttonSize = (distance / Math.sqrt(3));
 
-        // calculate the middle row of the game board
-        int middleY = (this.model.getNumRows() - 1) / 2;
+        // Total grid width and height
+        double totalGridWidth = (this.model.getNumRows()) * buttonSize * Math.sqrt(3);
+        double totalGridHeight = (this.model.getNumRows() * 1.5 + 0.5) * buttonSize;
 
-        // initialize starting q and s coordinates for the current row
+        // Calculate offsets to center the grid
+        double offsetX = (this.width - totalGridWidth) / 2;
+        double offsetY = (this.height - totalGridHeight) / 2;
+
+        int middleY = (this.model.getNumRows() - 1) / 2;
         int currentRowStartingQ = 0;
         int currentRowStartingS = middleY;
-
-        // initialize r coordinate for current row
         int currentR = -middleY;
 
         for (int rowsMade = 0; rowsMade < this.model.getNumRows(); rowsMade += 1) {
-
-            // initialize q coordinate for current position
             int currentQ = currentRowStartingQ;
 
-            double startingX = (((buttonSize * Math.sqrt(3)) / 2) * Math.abs(currentR))
-                    + (((int) (buttonSize * Math.sqrt(3))) / 2);
-            double startingY = ((buttonSize * 3) / 2) * (rowsMade + 1);
+            // Adjust starting positions with offsets
+            double startingX = offsetX + (((buttonSize * Math.sqrt(3)) / 2) * Math.abs(currentR))
+                    + (((buttonSize * Math.sqrt(3))) / 2);
+            double startingY = offsetY + ((buttonSize * 3) / 2) * (rowsMade + 1);
 
             for (int currentS = currentRowStartingS; currentS >= currentRowStartingQ; currentS -= 1) {
-                // create a new position for the current hexagon
                 PositionAxial posn = new PositionAxial(currentQ, currentR, currentS);
-
-                // create a new hexagon button
                 HexagonSpace hexagon = new HexagonSpace(buttonSize, startingX, startingY, this.model.getCellAt(posn));
-
-                // create empty cell and add it to the board at the current poisiton
                 hexagonButtons.put(posn, hexagon);
-
-                // move the hexagon to the correct position
                 hexagon.moveTo(startingX, startingY);
 
-                // move to the next set of coordinates for the next hexagon
                 startingX += Math.sqrt(3) * buttonSize;
                 currentQ += 1;
             }
 
-            // adjust the starting q or s coordinate for the next row based on the row
-            // index.
-            // decrease q for the upper part of the board
-            // decrease s for the lower part of the board
             if (rowsMade < middleY) {
                 currentRowStartingQ -= 1;
             } else {
                 currentRowStartingS -= 1;
             }
-
-            // move to the next r coordinate for the next row
             currentR += 1;
         }
     }
@@ -200,6 +193,34 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
         public void keyReleased(KeyEvent e) {
             // TODO Auto-generated method stub
         }
+    }
 
+    private class ComponentListenerReversi implements ComponentListener {
+
+        @Override
+        public void componentResized(ComponentEvent e) {
+            // Update the panel size
+            width = getWidth();
+            height = getHeight();
+
+            hexagonButtons.clear(); // Clear existing hexagons
+            initializeHexagons(); // Reinitialize hexagons with the new size
+            repaint(); // Repaint the panel
+        }
+
+        @Override
+        public void componentMoved(ComponentEvent e) {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void componentShown(ComponentEvent e) {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void componentHidden(ComponentEvent e) {
+            // TODO Auto-generated method stub
+        }
     }
 }

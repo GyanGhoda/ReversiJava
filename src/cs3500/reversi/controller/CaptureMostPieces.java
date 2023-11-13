@@ -9,5 +9,4 @@ public class CaptureMostPieces implements ReversiStrategy {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'chooseMove'");
     }
-
 }
