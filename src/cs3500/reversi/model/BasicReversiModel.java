@@ -78,7 +78,7 @@ public class BasicReversiModel implements ReversiModel {
 
     this.startGame();
   }
-  
+
   private void startGame() {
 
     if (gameStarted) {
@@ -171,6 +171,7 @@ public class BasicReversiModel implements ReversiModel {
   public HashMap<PositionAxial, Cell> getBoardCopy() {
     HashMap<PositionAxial, Cell> boardCopy = new HashMap<>();
 
+    // iterate over the board and create a deep copy of each cell
     for (PositionAxial posn : this.board.keySet()) {
       PositionAxial posnCopy = new PositionAxial(posn.getQ(), posn.getR(), posn.getS());
       Cell cell = this.board.get(posn);
