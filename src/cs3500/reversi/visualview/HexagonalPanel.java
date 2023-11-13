@@ -6,6 +6,8 @@ import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -21,6 +23,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     int width;
     int height;
     MouseListenerReversi mouseListenerReversi;
+    KeyListenerReversi keyListenerReversi;
 
     /**
      * Constructs a new HexagonalPanel with the given number of rows and columns.
@@ -38,6 +41,11 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
         this.height = height;
         this.mouseListenerReversi = new MouseListenerReversi();
         addMouseListener(mouseListenerReversi);
+        this.keyListenerReversi = new KeyListenerReversi();
+        addKeyListener(keyListenerReversi);
+
+        setFocusable(true);
+        requestFocusInWindow();
 
         this.initializeHexagons();
     }
@@ -160,6 +168,39 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
         public void mouseExited(MouseEvent e) {
             // TODO Auto-generated method stub
         }
+    }
+
+    private class KeyListenerReversi implements KeyListener {
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_M) {
+                for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
+                    HexagonSpace hexagon = entry.getValue();
+                    if (hexagon.getState()) {
+                        // Add method here to make a move. Will be implemented in the controller.
+                        System.out.println("User has requested to move to:\nQ: " + entry.getKey().getQ() + "\nR: "
+                                + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
+                    }
+                }
+            }
+
+            if (e.getKeyCode() == KeyEvent.VK_P) {
+                // Add method here to pass turn. Will be implemented in the controller.
+                System.out.println("User has requested to pass turn.");
+            }
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            // TODO Auto-generated method stub
+        }
+
     }
 
     private void toggleHexagonColor(HexagonSpace hexagon) {
