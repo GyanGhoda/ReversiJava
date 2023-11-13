@@ -17,12 +17,12 @@ import java.util.HashMap;
  * Represents a panel of hexagonal buttons.
  */
 public class HexagonalPanel extends JPanel implements ReversiPanel {
-    HashMap<PositionAxial, HexagonSpace> hexagonButtons = new HashMap<PositionAxial, HexagonSpace>();
-    ReadOnlyReversiModel model;
-    int width;
-    int height;
-    MouseListenerReversi mouseListenerReversi;
-    KeyListenerReversi keyListenerReversi;
+    private final HashMap<PositionAxial, HexagonSpace> hexagonButtons = new HashMap<PositionAxial, HexagonSpace>();
+    private final ReadOnlyReversiModel model;
+    private final int width;
+    private final int height;
+    private final MouseListenerReversi mouseListenerReversi;
+    private final KeyListenerReversi keyListenerReversi;
 
     /**
      * Constructs a new HexagonalPanel with the given number of rows and columns.

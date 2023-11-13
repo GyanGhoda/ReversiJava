@@ -8,9 +8,9 @@ import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.CellType;
 
 public class HexagonSpace extends Path2D.Double {
-    double size;
-    double currentX;
-    double currentY;
+    private final double size;
+    private final double currentX;
+    private final double currentY;
     private boolean isHighlighted;
     private Cell representingCell;
 
