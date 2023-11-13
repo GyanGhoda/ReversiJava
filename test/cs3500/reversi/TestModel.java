@@ -24,8 +24,6 @@ public class TestModel {
   public void testModelIntialization7() {
     ReversiModel model = new BasicReversiModel(7);
 
-    model.startGame();
-
     TextualView modelView = new ReversiTextualView(model);
 
     Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
@@ -43,8 +41,6 @@ public class TestModel {
   public void testModelIntialization3() {
     ReversiModel model = new BasicReversiModel(3);
 
-    model.startGame();
-
     TextualView modelView = new ReversiTextualView(model);
 
     Assert.assertEquals(modelView.toString(), " X O\n" + //
@@ -56,8 +52,6 @@ public class TestModel {
   @Test
   public void testModelMoveOneMove() {
     ReversiModel model = new BasicReversiModel(7);
-
-    model.startGame();
 
     model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
 
@@ -77,8 +71,6 @@ public class TestModel {
   public void testModelMoveMultipleMoves() {
     ReversiModel model = new BasicReversiModel(7);
 
-    model.startGame();
-
     model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
     model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
     model.addPieceToCoordinates(new PositionAxial(-3, 2, 1));
@@ -96,12 +88,10 @@ public class TestModel {
   }
 
   // Tests that passTurn correctly passes the turn from black to white without
-  // black placing a pieve.
+  // black placing a piece.
   @Test
   public void testModelPassTurn() {
     ReversiModel model = new BasicReversiModel(7);
-
-    model.startGame();
 
     model.passTurn();
     model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
@@ -124,30 +114,24 @@ public class TestModel {
   public void testModelPassTurnWithIsGameOverWorks() {
     ReversiModel model = new BasicReversiModel(7);
 
-    model.startGame();
-
     model.passTurn();
     model.passTurn();
 
     Assert.assertEquals(model.isGameOver(), true);
   }
 
-  // Tests that isGameOver correctly realizes that the game is immedietly over
+  // Tests that isGameOver correctly realizes that the game is immediately over
   @Test
   public void testModelIsGameOverAtStart() {
     ReversiModel model = new BasicReversiModel(3);
 
-    model.startGame();
-
     Assert.assertEquals(model.isGameOver(), true);
   }
 
-  // Tests that isGameOver correctly realizes that the game is not immedietly over
+  // Tests that isGameOver correctly realizes that the game is not immediately over
   @Test
   public void testModelIsNotGameOverAtStart() {
     ReversiModel model = new BasicReversiModel(7);
-
-    model.startGame();
 
     Assert.assertEquals(model.isGameOver(), false);
   }
@@ -157,8 +141,6 @@ public class TestModel {
   @Test
   public void testModelIsNotGameOverWithMoves() {
     ReversiModel model = new BasicReversiModel(7);
-
-    model.startGame();
 
     model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
     model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
@@ -173,8 +155,6 @@ public class TestModel {
   @Test
   public void testModelIsGameOverWithMoves() {
     ReversiModel model = new BasicReversiModel(5);
-
-    model.startGame();
 
     model.addPieceToCoordinates(new PositionAxial(2, -1, -1));
     model.addPieceToCoordinates(new PositionAxial(-1, 2, -1));
@@ -192,8 +172,6 @@ public class TestModel {
   public void testModelIsGameNotOverWithTwoPasses() {
     ReversiModel model = new BasicReversiModel(5);
 
-    model.startGame();
-
     model.passTurn();
     model.addPieceToCoordinates(new PositionAxial(2, -1, -1));
     model.passTurn();
@@ -206,8 +184,6 @@ public class TestModel {
   @Test
   public void testModelGetCurrentScoreGameNotOver() {
     ReversiModel model = new BasicReversiModel(7);
-
-    model.startGame();
 
     model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
     model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
@@ -223,8 +199,6 @@ public class TestModel {
   @Test
   public void testModelGetCurrentScoreGameOver() {
     ReversiModel model = new BasicReversiModel(5);
-
-    model.startGame();
 
     model.addPieceToCoordinates(new PositionAxial(2, -1, -1));
     model.addPieceToCoordinates(new PositionAxial(-1, 2, -1));
@@ -243,8 +217,6 @@ public class TestModel {
   public void testModelGetNumRows7() {
     ReversiModel model = new BasicReversiModel(7);
 
-    model.startGame();
-
     Assert.assertEquals(model.getNumRows(), 7);
   }
 
@@ -254,8 +226,6 @@ public class TestModel {
   public void testModelGetNumRows5() {
     ReversiModel model = new BasicReversiModel(5);
 
-    model.startGame();
-
     Assert.assertEquals(model.getNumRows(), 5);
   }
 
@@ -263,8 +233,6 @@ public class TestModel {
   @Test
   public void testModelGetCellAtEmpty() {
     ReversiModel model = new BasicReversiModel(5);
-
-    model.startGame();
 
     Assert.assertEquals(model.getCellAt(new PositionAxial(0, -2, 2)).toString(), "_");
   }
@@ -274,8 +242,6 @@ public class TestModel {
   public void testModelGetCellAtBlack() {
     ReversiModel model = new BasicReversiModel(5);
 
-    model.startGame();
-
     Assert.assertEquals(model.getCellAt(new PositionAxial(0, -1, 1)).toString(), "X");
   }
 
@@ -283,8 +249,6 @@ public class TestModel {
   @Test
   public void testModelGetCellAtWhite() {
     ReversiModel model = new BasicReversiModel(5);
-
-    model.startGame();
 
     Assert.assertEquals(model.getCellAt(new PositionAxial(-1, 0, 1)).toString(), "O");
   }
@@ -444,22 +408,10 @@ public class TestModel {
 
     ReversiModel model = new BasicReversiModel(7);
 
-    model.startGame();
-
     Assert.assertThrows(IllegalStateException.class, () -> {
       model.startGame();
     });
 
-  }
-
-  // Tests that addPieceToCoordinate throws error when game hasn't started yet.
-  @Test
-  public void testModelAddPieceToCoordinateGameNotStarted() {
-    ReversiModel model = new BasicReversiModel(7);
-
-    Assert.assertThrows(IllegalStateException.class, () -> {
-      model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
-    });
   }
 
   // Tests that addPieceToCoordinate throws error when given position doesn't
@@ -467,8 +419,6 @@ public class TestModel {
   @Test
   public void testModelAddPieceToCoordinateNonExistingCoordinate() {
     ReversiModel model = new BasicReversiModel(7);
-
-    model.startGame();
 
     Assert.assertThrows(IllegalArgumentException.class, () -> {
       model.addPieceToCoordinates(new PositionAxial(10, -2, 1));
@@ -481,20 +431,8 @@ public class TestModel {
   public void testModelAddPieceToCoordinateInvalidMove() {
     ReversiModel model = new BasicReversiModel(7);
 
-    model.startGame();
-
     Assert.assertThrows(IllegalStateException.class, () -> {
       model.addPieceToCoordinates(new PositionAxial(0, -1, 1));
-    });
-  }
-
-  // Tests that passTurn throws error when game hasn't started yet.
-  @Test
-  public void testModelPassTurnGameNotStarted() {
-    ReversiModel model = new BasicReversiModel(7);
-
-    Assert.assertThrows(IllegalStateException.class, () -> {
-      model.passTurn();
     });
   }
 
@@ -502,8 +440,6 @@ public class TestModel {
   @Test
   public void testModelGetCellAtNonExistingCoordinate() {
     ReversiModel model = new BasicReversiModel(7);
-
-    model.startGame();
 
     Assert.assertThrows(IllegalArgumentException.class, () -> {
       model.getCellAt(new PositionAxial(10, -2, 1));
