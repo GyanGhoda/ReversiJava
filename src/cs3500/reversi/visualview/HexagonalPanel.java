@@ -39,11 +39,13 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
         this.width = width;
         this.height = height;
 
+        // Add mouse and key listeners
         this.mouseListenerReversi = new MouseListenerReversi();
         addMouseListener(mouseListenerReversi);
         this.keyListenerReversi = new KeyListenerReversi();
         addKeyListener(keyListenerReversi);
 
+        // Set the panel to be focusable
         setFocusable(true);
         requestFocusInWindow();
 
@@ -67,21 +69,26 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
         // initialize r coordinate for current row
         int currentR = -middleY;
 
+        // create the hexagons for each row
         for (int rowsMade = 0; rowsMade < this.model.getNumRows(); rowsMade += 1) {
 
             // initialize q coordinate for current position
             int currentQ = currentRowStartingQ;
 
+            // calculate the starting x and y coordinates for the current row
             double startingX = (((buttonSize * Math.sqrt(3)) / 2) * Math.abs(currentR))
                     + (((int) (buttonSize * Math.sqrt(3))) / 2);
             double startingY = ((buttonSize * 3) / 2) * (rowsMade + 1);
 
-            for (int currentS = currentRowStartingS; currentS >= currentRowStartingQ; currentS -= 1) {
+            // create the hexagons for the current row
+            for (int currentS = currentRowStartingS; currentS >= currentRowStartingQ; currentS -=
+                    1) {
                 // create a new position for the current hexagon
                 PositionAxial posn = new PositionAxial(currentQ, currentR, currentS);
 
                 // create a new hexagon button
-                HexagonSpace hexagon = new HexagonSpace(buttonSize, startingX, startingY, this.model.getCellAt(posn));
+                HexagonSpace hexagon = new HexagonSpace(buttonSize, startingX, startingY,
+                        this.model.getCellAt(posn));
 
                 // create empty cell and add it to the board at the current poisiton
                 hexagonButtons.put(posn, hexagon);
@@ -109,6 +116,11 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
         }
     }
 
+    /**
+     * Paints the panel.
+     *
+     * @param g The graphics object.
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -118,6 +130,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
         g2d.setColor(Color.darkGray);
         g2d.fill(new Rectangle(this.width, this.height));
 
+        // Draw the hexagons
         for (HexagonSpace hexagon : hexagonButtons.values()) {
             g2d.setColor(hexagon.getColor());
             g2d.fill(hexagon);
@@ -128,18 +141,29 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
         }
     }
 
+    /**
+     * Updates the panel according to mouse actions.
+     */
     private class MouseListenerReversi implements MouseListener {
 
+        /**
+         * Handles mouse clicks.
+         *
+         * @param e The mouse event.
+         */
         @Override
         public void mouseClicked(MouseEvent e) {
             int mouseX = e.getX();
             int mouseY = e.getY();
 
+            // Check if the mouse click is inside a hexagon and highlight it accordingly
             for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
                 HexagonSpace hexagon = entry.getValue();
+
+                // print out the coordinates of the hexagon that was clicked on
                 if (hexagon.contains(mouseX, mouseY) && !hexagon.getState()) {
-                    System.out.println("Clicked on hexagon at:\nQ: " + entry.getKey().getQ() + "\nR: "
-                            + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
+                    System.out.println("Clicked on hexagon at:\nQ: " + entry.getKey().getQ()
+                            + "\nR: " + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
                     hexagon.setState(!hexagon.getState());
                 } else {
                     hexagon.setState(false);
@@ -170,21 +194,32 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
         }
     }
 
+    /**
+     * Updates the panel according to key actions.
+     */
     private class KeyListenerReversi implements KeyListener {
 
+        /**
+         * Handles key presses.
+         *
+         * @param e The key event.
+         */
         @Override
         public void keyPressed(KeyEvent e) {
+            // Check if the user has pressed the 'm' key, which makes a move
             if (e.getKeyCode() == KeyEvent.VK_M) {
                 for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
                     HexagonSpace hexagon = entry.getValue();
                     if (hexagon.getState()) {
                         // Add method here to make a move. Will be implemented in the controller.
-                        System.out.println("User has requested to move to:\nQ: " + entry.getKey().getQ() + "\nR: "
-                                + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
+                        System.out.println("User has requested to move to:\nQ: "
+                                + entry.getKey().getQ() + "\nR: " + entry.getKey().getR() + "\nS: "
+                                + entry.getKey().getS());
                     }
                 }
             }
 
+            // Check if the user has pressed the 'p' key, which passes the turn
             if (e.getKeyCode() == KeyEvent.VK_P) {
                 // Add method here to pass turn. Will be implemented in the controller.
                 System.out.println("User has requested to pass turn.");
