@@ -446,4 +446,70 @@ public class TestModel {
     });
   }
 
+  // Tests that getBoardSize returns the correct board size with width 7.
+  @Test
+  public void testModelGetBoardSizeWidthSeven() {
+    ReversiModel model = new BasicReversiModel(7);
+
+    Assert.assertEquals(model.getBoardSize(), 37);
+  }
+
+  // Tests that getBoardSize returns the correct board size with width 11.
+  @Test
+  public void testModelGetBoardSizeWidthEleven() {
+    ReversiModel model = new BasicReversiModel(11);
+
+    Assert.assertEquals(model.getBoardSize(), 91);
+  }
+
+  // Tests that doesCurrentPlayerHaveValidMoves returns true when the current 
+  // player has valid moves.
+  @Test
+  public void testModelDoesCurrentPlayerHaveValidMovesTrue() {
+    ReversiModel model = new BasicReversiModel(7);
+
+    Assert.assertEquals(model.doesCurrentPlayerHaveValidMoves(), true);
+  }
+
+  // Tests that doesCurrentPlayerHaveValidMoves returns false when the current 
+  // player does not have valid moves.
+  @Test
+  public void testModelDoesCurrentPlayerHaveValidMovesFalse() {
+    ReversiModel model = new BasicReversiModel(5);
+
+    model.addPieceToCoordinates(new PositionAxial(2, -1, -1));
+    model.addPieceToCoordinates(new PositionAxial(-1, 2, -1));
+    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
+    model.addPieceToCoordinates(new PositionAxial(-1, -1, 2));
+    model.addPieceToCoordinates(new PositionAxial(1, 1, -2));
+    model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
+
+    Assert.assertEquals(model.doesCurrentPlayerHaveValidMoves(), false);
+  }
+
+  // Tests that doesCurrentPlayerHaveValidMovesPosn returns true when the current 
+  // player has a valid move at the position.
+  @Test
+  public void testModelDoesCurrentPlayerHaveValidMovesPosnTrue() {
+    ReversiModel model = new BasicReversiModel(7);
+
+    Assert.assertEquals(model.doesCurrentPlayerHaveValidMovesPosn(new PositionAxial(2, -1, -1)), true);
+  }
+
+  // Tests that doesCurrentPlayerHaveValidMovesPosn returns false when the current 
+  // player does not have valid moves.
+  @Test
+  public void testModelDoesCurrentPlayerHaveValidMovesPosnFalse() {
+    ReversiModel model = new BasicReversiModel(5);
+
+    model.addPieceToCoordinates(new PositionAxial(2, -1, -1));
+    model.addPieceToCoordinates(new PositionAxial(-1, 2, -1));
+    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
+    model.addPieceToCoordinates(new PositionAxial(-1, -1, 2));
+    model.addPieceToCoordinates(new PositionAxial(1, 1, -2));
+    model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
+
+    Assert.assertEquals(model.doesCurrentPlayerHaveValidMovesPosn(new PositionAxial(0, 0, 0)), false);
+  }
+
 }
