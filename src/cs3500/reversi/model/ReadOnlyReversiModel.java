@@ -59,5 +59,10 @@ public interface ReadOnlyReversiModel {
    */
   boolean doesCurrentPlayerHaveValidMovesPosn(PositionAxial posn);
 
+  /**
+   * Gets the size of the board (number of cells).
+   * 
+   * @return The size of the board as an int.
+   */
   int getBoardSize();
 }
