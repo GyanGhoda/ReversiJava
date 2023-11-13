@@ -78,14 +78,8 @@ public class BasicReversiModel implements ReversiModel {
 
     this.startGame();
   }
-
-  /**
-   * Starts a new Reversi game, initializing the game board and players.
-   *
-   * @throws IllegalStateException if the game has already started.
-   */
-  @Override
-  public void startGame() {
+  
+  private void startGame() {
 
     if (gameStarted) {
       throw new IllegalStateException("Game already started");

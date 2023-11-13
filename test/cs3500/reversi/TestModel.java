@@ -402,18 +402,6 @@ public class TestModel {
 
   }
 
-  // Test that startgame throws error when game already started
-  @Test
-  public void testModelStartGameErrorGameAlreadyStarted() {
-
-    ReversiModel model = new BasicReversiModel(7);
-
-    Assert.assertThrows(IllegalStateException.class, () -> {
-      model.startGame();
-    });
-
-  }
-
   // Tests that addPieceToCoordinate throws error when given position doesn't
   // exist.
   @Test
@@ -509,7 +497,26 @@ public class TestModel {
     model.addPieceToCoordinates(new PositionAxial(1, 1, -2));
     model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
 
-    Assert.assertEquals(model.doesCurrentPlayerHaveValidMovesPosn(new PositionAxial(0, 0, 0)), false);
+    Assert.assertEquals(model.doesCurrentPlayerHaveValidMovesPosn(new PositionAxial(0, 0, 0)),
+        false);
   }
 
+  // Tests that getBoardCopy returns a copy of the board.
+  @Test
+  public void testModelGetBoardCopy() {
+    ReversiModel model = new BasicReversiModel(5);
+
+    model.addPieceToCoordinates(new PositionAxial(2, -1, -1));
+    model.addPieceToCoordinates(new PositionAxial(-1, 2, -1));
+    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
+    model.addPieceToCoordinates(new PositionAxial(-1, -1, 2));
+    model.addPieceToCoordinates(new PositionAxial(1, 1, -2));
+    model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
+
+    Assert.assertEquals(model.getBoardCopy().get(new PositionAxial(2, -1, -1)).toString(), "X");
+    Assert.assertEquals(model.getBoardCopy().get(new PositionAxial(-1, 2, -1)).toString(), "O");
+    Assert.assertEquals(model.getBoardCopy().get(new PositionAxial(0, 0, 0)).toString(), "_");
+
+
+  }
 }

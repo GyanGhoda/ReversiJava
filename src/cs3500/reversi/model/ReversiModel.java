@@ -17,13 +17,6 @@ public interface ReversiModel extends ReadOnlyReversiModel {
   HashMap<PositionAxial, Cell> getBoardCopy();
 
   /**
-   * Starts a new Reversi game, initializing the game board and players.
-   *
-   * @throws IllegalStateException if the game has already started.
-   */
-  void startGame();
-
-  /**
    * Adds a player's piece to the specified position on the board and updates the
    * game state.
    *
