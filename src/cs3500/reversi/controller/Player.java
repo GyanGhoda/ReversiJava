@@ -6,6 +6,5 @@ package cs3500.reversi.controller;
  * (AI and human) to be implemented into a game of Reversi.
  */
 public interface Player {
-  // Represents a generic player. Not implemented yet due to controller not being
-  // implemented.
+
 }

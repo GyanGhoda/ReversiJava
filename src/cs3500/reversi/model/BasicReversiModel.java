@@ -169,7 +169,9 @@ public class BasicReversiModel implements ReversiModel {
   }
 
   /**
-   * Creates a copy of the board of this Reversi game.
+   * Creates a deep copy of the board of this Reversi game.
+   * 
+   * @return A deep copy of the board of this Reversi game.
    */
   @Override
   public HashMap<PositionAxial, Cell> getBoardCopy() {
@@ -574,6 +576,16 @@ public class BasicReversiModel implements ReversiModel {
   }
 
   /**
+   * Gets the size of the game board (number of cells).
+   * 
+   * @return The size of the game board.
+   */
+  @Override
+  public int getBoardSize() {
+    return this.board.size();
+  }
+
+  /**
    * Gets the current score of the given PlayerType of this Reversi game. Score is
    * determined by the number of cells a player occupies.
    *
@@ -607,13 +619,4 @@ public class BasicReversiModel implements ReversiModel {
     }
   }
 
-  /**
-   * Gets the size of the game board.
-   * 
-   * @return The size of the game board.
-   */
-  @Override
-  public int getBoardSize() {
-    return this.board.size();
-  }
 }

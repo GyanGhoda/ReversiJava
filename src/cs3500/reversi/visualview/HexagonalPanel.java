@@ -2,6 +2,8 @@ package cs3500.reversi.visualview;
 
 import javax.swing.*;
 
+import cs3500.reversi.controller.Features;
+import cs3500.reversi.controller.ReversiFeatures;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
@@ -11,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import java.awt.*;
+import java.awt.Taskbar.Feature;
 import java.util.HashMap;
 
 /**
@@ -21,8 +24,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     private final ReadOnlyReversiModel model;
     private final int width;
     private final int height;
-    private final MouseListenerReversi mouseListenerReversi;
-    private final KeyListenerReversi keyListenerReversi;
+    private final Features features;
 
     /**
      * Constructs a new HexagonalPanel with the given number of rows and columns.
@@ -38,12 +40,10 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
         this.model = model;
         this.width = width;
         this.height = height;
+        this.features = new ReversiFeatures();
 
-        // Add mouse and key listeners
-        this.mouseListenerReversi = new MouseListenerReversi();
-        addMouseListener(mouseListenerReversi);
-        this.keyListenerReversi = new KeyListenerReversi();
-        addKeyListener(keyListenerReversi);
+        addMouseListener(new MouseListenerReversi());
+        addKeyListener(new KeyListenerReversi());
 
         // Set the panel to be focusable
         setFocusable(true);
@@ -211,19 +211,17 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
                 for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
                     HexagonSpace hexagon = entry.getValue();
                     if (hexagon.getState()) {
-                        // Add method here to make a move. Will be implemented in the controller.
-                        System.out.println("User has requested to move to:\nQ: "
-                                + entry.getKey().getQ() + "\nR: " + entry.getKey().getR() + "\nS: "
-                                + entry.getKey().getS());
+                        features.moveToCoordinate(entry.getKey());
                     }
                 }
             }
 
             // Check if the user has pressed the 'p' key, which passes the turn
             if (e.getKeyCode() == KeyEvent.VK_P) {
-                // Add method here to pass turn. Will be implemented in the controller.
-                System.out.println("User has requested to pass turn.");
+                features.passTurn();
             }
+
+            repaint();
         }
 
         @Override
