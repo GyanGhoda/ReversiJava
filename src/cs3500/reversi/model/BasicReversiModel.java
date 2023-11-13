@@ -79,13 +79,7 @@ public class BasicReversiModel implements ReversiModel {
     this.startGame();
   }
 
-  /**
-   * Starts a new Reversi game, initializing the game board and players.
-   *
-   * @throws IllegalStateException if the game has already started.
-   */
-  @Override
-  public void startGame() {
+  private void startGame() {
 
     if (gameStarted) {
       throw new IllegalStateException("Game already started");
@@ -177,6 +171,7 @@ public class BasicReversiModel implements ReversiModel {
   public HashMap<PositionAxial, Cell> getBoardCopy() {
     HashMap<PositionAxial, Cell> boardCopy = new HashMap<>();
 
+    // iterate over the board and create a deep copy of each cell
     for (PositionAxial posn : this.board.keySet()) {
       PositionAxial posnCopy = new PositionAxial(posn.getQ(), posn.getR(), posn.getS());
       Cell cell = this.board.get(posn);
