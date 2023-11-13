@@ -15,7 +15,7 @@ import java.util.HashMap;
 /**
  * Represents a panel of hexagonal buttons.
  */
-public class HexagonalPanel extends JPanel implements MouseListener {
+public class HexagonalPanel extends JPanel implements MouseListener, ReversiPanel {
     HashMap<PositionAxial, HexagonSpace> hexagonButtons = new HashMap<PositionAxial, HexagonSpace>();
     ReadOnlyReversiModel model;
     int width;
