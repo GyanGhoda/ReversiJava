@@ -15,11 +15,12 @@ import java.util.HashMap;
 /**
  * Represents a panel of hexagonal buttons.
  */
-public class HexagonalPanel extends JPanel implements MouseListener, ReversiPanel {
+public class HexagonalPanel extends JPanel implements ReversiPanel {
     HashMap<PositionAxial, HexagonSpace> hexagonButtons = new HashMap<PositionAxial, HexagonSpace>();
     ReadOnlyReversiModel model;
     int width;
     int height;
+    MouseListenerReversi mouseListenerReversi;
 
     /**
      * Constructs a new HexagonalPanel with the given number of rows and columns.
@@ -35,7 +36,8 @@ public class HexagonalPanel extends JPanel implements MouseListener, ReversiPane
         this.model = model;
         this.width = width;
         this.height = height;
-        addMouseListener(this);
+        this.mouseListenerReversi = new MouseListenerReversi();
+        addMouseListener(mouseListenerReversi);
 
         this.initializeHexagons();
     }
@@ -118,41 +120,49 @@ public class HexagonalPanel extends JPanel implements MouseListener, ReversiPane
         }
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        int mouseX = e.getX();
-        int mouseY = e.getY();
+    private class MouseListenerReversi implements MouseListener {
 
-        for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
-            HexagonSpace hexagon = entry.getValue();
-            if (hexagon.contains(mouseX, mouseY) && !hexagon.getState()) {
-                System.out.println("Clicked on hexagon at:\nQ: " + entry.getKey().getQ() + "\nR: "
-                        + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
-                toggleHexagonColor(hexagon);
-            } else {
-                hexagon.setState(false);
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            int mouseX = e.getX();
+            int mouseY = e.getY();
+
+            for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
+                HexagonSpace hexagon = entry.getValue();
+                if (hexagon.contains(mouseX, mouseY) && !hexagon.getState()) {
+                    System.out.println("Clicked on hexagon at:\nQ: " + entry.getKey().getQ() + "\nR: "
+                            + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
+                    hexagon.setState(!hexagon.getState());
+                } else {
+                    hexagon.setState(false);
+                }
             }
+            repaint();
         }
-        repaint();
+
+        // Other mouse event methods...
+        @Override
+        public void mousePressed(MouseEvent e) {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            // TODO Auto-generated method stub
+        }
     }
 
     private void toggleHexagonColor(HexagonSpace hexagon) {
         hexagon.setState(true);
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
     }
 }
