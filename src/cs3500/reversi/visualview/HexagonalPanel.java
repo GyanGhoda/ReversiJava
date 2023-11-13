@@ -2,7 +2,6 @@ package cs3500.reversi.visualview;
 
 import javax.swing.*;
 
-import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
@@ -39,6 +38,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
         this.model = model;
         this.width = width;
         this.height = height;
+
         this.mouseListenerReversi = new MouseListenerReversi();
         addMouseListener(mouseListenerReversi);
         this.keyListenerReversi = new KeyListenerReversi();
@@ -201,9 +201,5 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
             // TODO Auto-generated method stub
         }
 
-    }
-
-    private void toggleHexagonColor(HexagonSpace hexagon) {
-        hexagon.setState(true);
     }
 }

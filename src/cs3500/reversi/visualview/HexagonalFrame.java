@@ -5,7 +5,6 @@ import java.awt.BorderLayout;
 import javax.swing.*;
 
 import cs3500.reversi.model.ReadOnlyReversiModel;
-import cs3500.reversi.model.ReversiModel;
 
 /**
  * Represents a frame of hexagonal buttons.
