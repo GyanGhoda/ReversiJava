@@ -54,14 +54,8 @@ public class CaptureCellsInCorner implements ReversiStrategy {
     private boolean isCorner(ReversiModel model, PositionAxial posn) {
         int middleY = (model.getNumRows() - 1) / 2;
 
-        if (Math.abs(posn.getQ()) == middleY && Math.abs(posn.getS()) == middleY && posn.getR() == 0) {
-            return true;
-        } else if (Math.abs(posn.getS()) == middleY && Math.abs(posn.getR()) == middleY && posn.getQ() == 0) {
-            return true;
-        } else if (Math.abs(posn.getR()) == middleY && Math.abs(posn.getQ()) == middleY && posn.getS() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return (Math.abs(posn.getQ()) == middleY && Math.abs(posn.getS()) == middleY && posn.getR() == 0) ||
+                (Math.abs(posn.getS()) == middleY && Math.abs(posn.getR()) == middleY && posn.getQ() == 0) ||
+                (Math.abs(posn.getR()) == middleY && Math.abs(posn.getQ()) == middleY && posn.getS() == 0);
     }
 }

@@ -54,16 +54,12 @@ public class AvoidCellsNextToCorner implements ReversiStrategy {
     private boolean isNextToCorner(ReversiModel model, PositionAxial posn) {
         int middleY = (model.getNumRows() - 1) / 2;
 
-        if (posn.getQ() == middleY - 1 || posn.getS() == middleY - 1 && posn.getR() >= 0) {
-            return true;
-        } else if (posn.getQ() == -middleY + 1 || posn.getS() == -middleY + 1 && posn.getR() < 0) {
-            return true;
-        } else if (posn.getR() == middleY - 1 && posn.getQ() != -middleY && posn.getS() != -middleY) {
-            return true;
-        } else if (posn.getR() == -middleY + 1 && posn.getQ() != middleY && posn.getS() != middleY) {
-            return true;
-        } else {
-            return false;
-        }
+        // Check if the position is next to any of the six corners
+        return (posn.getQ() == middleY && Math.abs(posn.getR()) == middleY - 1) ||
+                (posn.getR() == middleY && Math.abs(posn.getS()) == middleY - 1) ||
+                (posn.getS() == middleY && Math.abs(posn.getQ()) == middleY - 1) ||
+                (posn.getQ() == -middleY && Math.abs(posn.getR()) == middleY - 1) ||
+                (posn.getR() == -middleY && Math.abs(posn.getS()) == middleY - 1) ||
+                (posn.getS() == -middleY && Math.abs(posn.getQ()) == middleY - 1);
     }
 }
