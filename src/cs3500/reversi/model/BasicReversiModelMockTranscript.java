@@ -630,4 +630,8 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
             throw new IllegalArgumentException("Nonexistant position in this game");
         }
     }
+
+    public String getLog() {
+        return this.log.toString();
+    }
 }
