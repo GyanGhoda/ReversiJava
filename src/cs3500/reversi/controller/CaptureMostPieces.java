@@ -9,6 +9,7 @@ import cs3500.reversi.model.ReversiModel;
 
 /**
  * A strategy that chooses the move that will capture the most pieces.
+ * The strategy breaks ties by choosing the uppermost-leftmost move.
  */
 public class CaptureMostPieces implements ReversiStrategy {
 
