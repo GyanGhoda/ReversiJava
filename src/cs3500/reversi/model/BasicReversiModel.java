@@ -70,7 +70,7 @@ public class BasicReversiModel implements ReversiModel {
    * number. For a playable game, the width needs to be at least three. Players
    * are taken as parameters for testing purposes.
    *
-   * @param width The width of the game board.
+   * @param width       The width of the game board.
    * @param playerBlack The black player.
    * @param playerWhite The white player.
    * @throws IllegalArgumentException If the provided width is not an odd number
@@ -93,10 +93,14 @@ public class BasicReversiModel implements ReversiModel {
   }
 
   /**
-   * Constructs a new BasicReversiModel with the specified width and a hashmap of posns to cells. 
-   * The game can only be played on a regular grid of cells, so the width needs to be an odd
-   * number. For a playable game, the width needs to be at least three. The purpose of the hashmap
-   * is to allow for the model to be constructed with a board that is in the middle of a game.
+   * Constructs a new BasicReversiModel with the specified width and a hashmap of
+   * posns to cells.
+   * The game can only be played on a regular grid of cells, so the width needs to
+   * be an odd
+   * number. For a playable game, the width needs to be at least three. The
+   * purpose of the hashmap
+   * is to allow for the model to be constructed with a board that is in the
+   * middle of a game.
    *
    * @param width The width of the game board.
    * @param board The hashmap of posns to cells that represents the board.
@@ -253,13 +257,15 @@ public class BasicReversiModel implements ReversiModel {
   }
 
   /**
-   * Adds a player's piece to the specified position on the board and updates the game state.
+   * Adds a player's piece to the specified position on the board and updates the
+   * game state.
    *
-   * @param posn The position to add the player's piece.
+   * @param posn   The position to add the player's piece.
    * @param player The player to add the piece for.
-   * @throws IllegalStateException if the move cannot be made.
-   * @throws IllegalStateException if the game has not started.
-   * @throws IllegalStateException if the player given is not currently up for a move.
+   * @throws IllegalStateException    if the move cannot be made.
+   * @throws IllegalStateException    if the game has not started.
+   * @throws IllegalStateException    if the player given is not currently up for
+   *                                  a move.
    * @throws IllegalArgumentException if the position does not exist in this game.
    */
   @Override
@@ -270,7 +276,7 @@ public class BasicReversiModel implements ReversiModel {
     doesPosnExist(posn);
 
     // Get the list of valid positions to add a piece to on this move.
-    List<PositionAxial> validTiles = this.isValidMoveForPlayer(posn);
+    List<PositionAxial> validTiles = this.isValidMoveForPlayer(posn, player);
 
     if (!validTiles.isEmpty()) {
 
@@ -306,12 +312,13 @@ public class BasicReversiModel implements ReversiModel {
   /**
    * Checks for cells that allow for valid moves for a player.
    *
-   * @param givenPosn The position to check for a valid move.
+   * @param givenPosn  The position to check for a valid move.
+   * @param playerTurn
    * @return A list of positions that represent valid moves, or an empty list if
    *         the move is invalid.
    */
-  private List<PositionAxial> isValidMoveForPlayer(PositionAxial givenPosn) {
-    Player otherPlayer = this.getNextTurn();
+  private List<PositionAxial> isValidMoveForPlayer(PositionAxial givenPosn, Player playerTurn) {
+    Player otherPlayer = playerTurn.getOppositePlayer();
     ArrayList<PositionAxial> allCellsBetween = new ArrayList<>();
     List<PositionAxial> surroundingCells = this.getSurroundingCells(givenPosn);
 
@@ -559,7 +566,7 @@ public class BasicReversiModel implements ReversiModel {
 
     for (PositionAxial posn : this.board.keySet()) {
       if (this.getCellAt(posn).sameCellType(CellType.Empty)
-          && !(this.isValidMoveForPlayer(posn).isEmpty())) {
+          && !(this.isValidMoveForPlayer(posn, this.getCurrentTurn()).isEmpty())) {
         return false;
       }
     }
@@ -578,7 +585,7 @@ public class BasicReversiModel implements ReversiModel {
     // moves
     for (PositionAxial posn : this.board.keySet()) {
       if (this.getCellAt(posn).sameCellType(CellType.Empty)
-          && !(this.isValidMoveForPlayer(posn).isEmpty())) {
+          && !(this.isValidMoveForPlayer(posn, this.getCurrentTurn()).isEmpty())) {
         // if the current player has a valid move, return true
         return true;
       }
@@ -595,11 +602,10 @@ public class BasicReversiModel implements ReversiModel {
    *         false otherwise
    */
   @Override
-  public boolean doesCurrentPlayerHaveValidMovesPosn(PositionAxial posn) {
+  public boolean doesCurrentPlayerHaveValidMovesPosn(PositionAxial posn, Player playerTurn) {
     if (this.getCellAt(posn).sameCellType(CellType.Empty)) {
-      return !(this.isValidMoveForPlayer(posn).isEmpty());
-    }
-    else {
+      return !(this.isValidMoveForPlayer(posn, playerTurn).isEmpty());
+    } else {
       return false;
     }
   }
@@ -629,7 +635,8 @@ public class BasicReversiModel implements ReversiModel {
     Cell cellAtPosn = this.board.get(posn);
     Cell cellToReturn = new GameCell(cellAtPosn.getCellType());
 
-    // if the cell at the given position is a player cell, set the cell to the proper player
+    // if the cell at the given position is a player cell, set the cell to the
+    // proper player
     if (cellAtPosn.sameCellType(CellType.Player)) {
       if (cellAtPosn.getCellOwner().equals("X")) {
         cellToReturn.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
@@ -675,7 +682,7 @@ public class BasicReversiModel implements ReversiModel {
   @Override
   public int getScoreForMove(PositionAxial posn) {
     // Get the list of valid positions to add a piece to on this move.
-    List<PositionAxial> validTiles = this.isValidMoveForPlayer(posn);
+    List<PositionAxial> validTiles = this.isValidMoveForPlayer(posn, this.getCurrentTurn());
 
     return validTiles.size();
   }

@@ -63,7 +63,7 @@ public class TestModel {
   // Tests that one valid move made on the model correctly works as intended.
   @Test
   public void testModelMoveOneMove() {
-    
+
     ReversiModel model = new BasicReversiModel(7, playerBlack, playerWhite);
 
     model.addPieceToCoordinates(new PositionAxial(1, -2, 1), playerBlack);
@@ -141,7 +141,8 @@ public class TestModel {
     Assert.assertEquals(model.isGameOver(), true);
   }
 
-  // Tests that isGameOver correctly realizes that the game is not immediately over
+  // Tests that isGameOver correctly realizes that the game is not immediately
+  // over
   @Test
   public void testModelIsNotGameOverAtStart() {
     ReversiModel model = new BasicReversiModel(7);
@@ -463,7 +464,7 @@ public class TestModel {
     Assert.assertEquals(model.getBoardSize(), 91);
   }
 
-  // Tests that doesCurrentPlayerHaveValidMoves returns true when the current 
+  // Tests that doesCurrentPlayerHaveValidMoves returns true when the current
   // player has valid moves.
   @Test
   public void testModelDoesCurrentPlayerHaveValidMovesTrue() {
@@ -472,7 +473,7 @@ public class TestModel {
     Assert.assertEquals(model.doesCurrentPlayerHaveValidMoves(), true);
   }
 
-  // Tests that doesCurrentPlayerHaveValidMoves returns false when the current 
+  // Tests that doesCurrentPlayerHaveValidMoves returns false when the current
   // player does not have valid moves.
   @Test
   public void testModelDoesCurrentPlayerHaveValidMovesFalse() {
@@ -488,16 +489,16 @@ public class TestModel {
     Assert.assertEquals(model.doesCurrentPlayerHaveValidMoves(), false);
   }
 
-  // Tests that doesCurrentPlayerHaveValidMovesPosn returns true when the current 
+  // Tests that doesCurrentPlayerHaveValidMovesPosn returns true when the current
   // player has a valid move at the position.
   @Test
   public void testModelDoesCurrentPlayerHaveValidMovesPosnTrue() {
     ReversiModel model = new BasicReversiModel(7);
 
-    Assert.assertEquals(model.doesCurrentPlayerHaveValidMovesPosn(new PositionAxial(2, -1, -1)), true);
+    Assert.assertEquals(model.doesCurrentPlayerHaveValidMovesPosn(new PositionAxial(2, -1, -1), playerBlack), true);
   }
 
-  // Tests that doesCurrentPlayerHaveValidMovesPosn returns false when the current 
+  // Tests that doesCurrentPlayerHaveValidMovesPosn returns false when the current
   // player does not have valid moves.
   @Test
   public void testModelDoesCurrentPlayerHaveValidMovesPosnFalse() {
@@ -510,7 +511,7 @@ public class TestModel {
     model.addPieceToCoordinates(new PositionAxial(1, 1, -2), playerBlack);
     model.addPieceToCoordinates(new PositionAxial(1, -2, 1), playerWhite);
 
-    Assert.assertEquals(model.doesCurrentPlayerHaveValidMovesPosn(new PositionAxial(0, 0, 0)),
+    Assert.assertEquals(model.doesCurrentPlayerHaveValidMovesPosn(new PositionAxial(0, 0, 0), playerBlack),
         false);
   }
 
@@ -530,10 +531,10 @@ public class TestModel {
     Assert.assertEquals(model.getBoardCopy().get(new PositionAxial(-1, 2, -1)).toString(), "O");
     Assert.assertEquals(model.getBoardCopy().get(new PositionAxial(0, 0, 0)).toString(), "_");
 
-
   }
 
-  // Tests that getScoreForMove returns the correct score (one) for the given move.
+  // Tests that getScoreForMove returns the correct score (one) for the given
+  // move.
   @Test
   public void testModelGetScoreForMoveOne() {
 
@@ -542,7 +543,8 @@ public class TestModel {
     Assert.assertEquals(model.getScoreForMove(new PositionAxial(2, -1, -1)), 1);
   }
 
-  // Tests that getScoreForMove returns the correct score (zero) for the given move.
+  // Tests that getScoreForMove returns the correct score (zero) for the given
+  // move.
   @Test
   public void testModelGetScoreForMoveZero() {
 
@@ -553,17 +555,18 @@ public class TestModel {
     Assert.assertEquals(model.getScoreForMove(new PositionAxial(2, -2, 0)), 0);
 
   }
-  
-  // Tests that getScoreForMove returns the correct score (two) for the given move.
+
+  // Tests that getScoreForMove returns the correct score (two) for the given
+  // move.
   @Test
   public void testModelGetScoreForMoveTwo() {
-    
+
     ReversiModel model = new BasicReversiModel(5, playerBlack, playerWhite);
-    
+
     model.addPieceToCoordinates(new PositionAxial(1, -2, 1), playerBlack);
 
     Assert.assertEquals(model.getScoreForMove(new PositionAxial(2, -3, 1)), 2);
-  
+
   }
 
 }

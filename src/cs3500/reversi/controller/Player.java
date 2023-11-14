@@ -16,4 +16,11 @@ public interface Player {
    * @return the position that is chosen to move to
    */
   public PositionAxial playMove(ReversiModel model);
+
+  /**
+   * Returns a Player that is the the other player.
+   * 
+   * @return the opposite player
+   */
+  public Player getOppositePlayer();
 }

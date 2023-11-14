@@ -83,7 +83,7 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
      * @throws IllegalArgumentException If the provided width is not an odd number
      *                                  or is less than three.
      */
-    public BasicReversiModelMockTranscript(int width, HashMap<PositionAxial, Cell> board, 
+    public BasicReversiModelMockTranscript(int width, HashMap<PositionAxial, Cell> board,
             Player currentPlayer) {
 
         // Enforced invarient by checking if width is odd and at least three.
@@ -236,18 +236,20 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
     }
 
     /**
-     * Adds a player's piece to the specified position on the board and updates the game state.
+     * Adds a player's piece to the specified position on the board and updates the
+     * game state.
      *
-     * @param posn The position to add the player's piece.
+     * @param posn   The position to add the player's piece.
      * @param player The player to add the piece for.
-     * @throws IllegalStateException if the move cannot be made.
-     * @throws IllegalStateException if the game has not started.
-     * @throws IllegalStateException if the player given is not currently up for a move.
+     * @throws IllegalStateException    if the move cannot be made.
+     * @throws IllegalStateException    if the game has not started.
+     * @throws IllegalStateException    if the player given is not currently up for
+     *                                  a move.
      * @throws IllegalArgumentException if the position does not exist in this game.
      */
     @Override
     public void addPieceToCoordinates(PositionAxial posn, Player player) {
-        //Empty due to mock not needing it
+        // Empty due to mock not needing it
     }
 
     // return the player whose turn it currently is
@@ -258,12 +260,13 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
     /**
      * Checks for cells that allow for valid moves for a player.
      *
-     * @param givenPosn The position to check for a valid move.
+     * @param givenPosn  The position to check for a valid move.
+     * @param playerTurn
      * @return A list of positions that represent valid moves, or an empty list if
      *         the move is invalid.
      */
-    private List<PositionAxial> isValidMoveForPlayer(PositionAxial givenPosn) {
-        Player otherPlayer = this.getNextTurn();
+    private List<PositionAxial> isValidMoveForPlayer(PositionAxial givenPosn, Player playerTurn) {
+        Player otherPlayer = playerTurn.getOppositePlayer();
         ArrayList<PositionAxial> allCellsBetween = new ArrayList<>();
         List<PositionAxial> surroundingCells = this.getSurroundingCells(givenPosn);
 
@@ -511,7 +514,7 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
 
         for (PositionAxial posn : this.board.keySet()) {
             if (this.getCellAt(posn).sameCellType(CellType.Empty)
-                    && !(this.isValidMoveForPlayer(posn).isEmpty())) {
+                    && !(this.isValidMoveForPlayer(posn, this.getCurrentTurn()).isEmpty())) {
                 return false;
             }
         }
@@ -530,7 +533,7 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
         // moves
         for (PositionAxial posn : this.board.keySet()) {
             if (this.getCellAt(posn).sameCellType(CellType.Empty)
-                    && !(this.isValidMoveForPlayer(posn).isEmpty())) {
+                    && !(this.isValidMoveForPlayer(posn, this.getCurrentTurn()).isEmpty())) {
                 // if the current player has a valid move, return true
                 return true;
             }
@@ -547,9 +550,9 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
      *         false otherwise
      */
     @Override
-    public boolean doesCurrentPlayerHaveValidMovesPosn(PositionAxial posn) {
+    public boolean doesCurrentPlayerHaveValidMovesPosn(PositionAxial posn, Player playerTurn) {
         if (this.getCellAt(posn).sameCellType(CellType.Empty)) {
-            return !(this.isValidMoveForPlayer(posn).isEmpty());
+            return !(this.isValidMoveForPlayer(posn, playerTurn).isEmpty());
         } else {
             return false;
         }
@@ -580,7 +583,8 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
         Cell cellAtPosn = this.board.get(posn);
         Cell cellToReturn = new GameCell(cellAtPosn.getCellType());
 
-        // if the cell at the given position is owned by a player, set the cell to the proper player
+        // if the cell at the given position is owned by a player, set the cell to the
+        // proper player
         if (cellAtPosn.sameCellType(CellType.Player)) {
             if (cellAtPosn.getCellOwner().equals("X")) {
                 cellToReturn.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
@@ -628,7 +632,7 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
         this.log.append("getScoreForMove(" + posn.toString() + ")\n");
 
         // Get the list of valid positions to add a piece to on this move.
-        List<PositionAxial> validTiles = this.isValidMoveForPlayer(posn);
+        List<PositionAxial> validTiles = this.isValidMoveForPlayer(posn, this.getCurrentTurn());
 
         return validTiles.size();
     }

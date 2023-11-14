@@ -1,5 +1,6 @@
 package cs3500.reversi.model;
 
+import cs3500.reversi.controller.Player;
 import cs3500.reversi.controller.PlayerType;
 
 /**
@@ -57,7 +58,7 @@ public interface ReadOnlyReversiModel {
    * @return true if the current player has valid moves at the given position,
    *         false otherwise.
    */
-  boolean doesCurrentPlayerHaveValidMovesPosn(PositionAxial posn);
+  boolean doesCurrentPlayerHaveValidMovesPosn(PositionAxial posn, Player playerTurn);
 
   /**
    * Gets the size of the game board (number of cells).

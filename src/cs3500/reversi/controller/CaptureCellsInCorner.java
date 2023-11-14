@@ -11,11 +11,11 @@ import cs3500.reversi.model.ReversiModel;
  * The strategy breaks ties by choosing the uppermost-leftmost move.
  * The strategy also avoids the corner.
  */
-public class AvoidCellsNextToCorner implements ReversiStrategy {
+public class CaptureCellsInCorner implements ReversiStrategy {
 
     /**
-     * Chooses the move that will capture the most pieces while avoiding the cells
-     * next to a corner.
+     * Chooses the move that will capture the most pieces while capturing the
+     * corner.
      *
      * @param model      the model to choose a move from
      * @param playerTurn the player whose turn it is
@@ -41,7 +41,13 @@ public class AvoidCellsNextToCorner implements ReversiStrategy {
             }
         }
 
-        PositionAxial bestPosn = new CaptureMostPieces().getHighestScore(scoresNoCorners);
+        PositionAxial bestPosn = new PositionAxial(0, 0, 0);
+
+        if (scoresNoCorners.isEmpty()) {
+            bestPosn = new CaptureMostPieces().chooseMove(model, playerTurn);
+        } else {
+            bestPosn = new CaptureMostPieces().getHighestScore(scoresNoCorners);
+        }
 
         return bestPosn;
     }

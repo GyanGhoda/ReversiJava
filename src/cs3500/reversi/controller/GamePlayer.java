@@ -61,4 +61,46 @@ public class GamePlayer implements Player {
       return "O";
     }
   }
+
+  /**
+   * Overrides the equals method to check if the given object is the same Player
+   * 
+   * @return true if the given object is the same Player, false otherwise
+   */
+  @Override
+  public boolean equals(Object other) {
+    if (!(other instanceof GamePlayer)) {
+      return false;
+    } else {
+      GamePlayer that = (GamePlayer) other;
+      return this.type.equals(that.type);
+    }
+  }
+
+  /**
+   * Overrides the hashCode method to return the hashCode of the Player
+   * 
+   * @return the hashCode of the Player
+   */
+  @Override
+  public int hashCode() {
+    if (this.type.equals(PlayerType.BLACK)) {
+      return 1;
+    } else {
+      return 2;
+    }
+  }
+
+  /**
+   * Returns a Player that is the the other player.
+   * 
+   * @return the opposite player
+   */
+  public Player getOppositePlayer() {
+    if (this.type.equals(PlayerType.BLACK)) {
+      return new GamePlayer(PlayerType.WHITE);
+    } else {
+      return new GamePlayer(PlayerType.BLACK);
+    }
+  }
 }
