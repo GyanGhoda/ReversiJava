@@ -83,7 +83,7 @@ public class CaptureMostPieces implements ReversiStrategy {
     }
 
     // Gets the left uppermost positionaxial from the given list of positions axial
-    protected PositionAxial getLeftUpperMost(ArrayList<PositionAxial> bestPosns) {
+    private PositionAxial getLeftUpperMost(ArrayList<PositionAxial> bestPosns) {
         PositionAxial leftUpperMost = bestPosns.get(0);
 
         for (PositionAxial posn : bestPosns) {
