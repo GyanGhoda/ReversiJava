@@ -41,7 +41,11 @@ public class AvoidCellsNextToCorner implements ReversiStrategy {
             }
         }
 
-        PositionAxial bestPosn = new CaptureMostPieces().getHighestScore(scoresNoCorners);
+        PositionAxial bestPosn = new PositionAxial(model.getBoardSize(), model.getBoardSize(), model.getBoardSize());
+
+        if (!scoresNoCorners.isEmpty()) {
+            bestPosn = new CaptureMostPieces().getHighestScore(scoresNoCorners);
+        }
 
         return bestPosn;
     }

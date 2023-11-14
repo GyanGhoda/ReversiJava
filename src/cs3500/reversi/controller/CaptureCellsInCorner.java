@@ -33,36 +33,32 @@ public class CaptureCellsInCorner implements ReversiStrategy {
             }
         }
 
-        HashMap<PositionAxial, Integer> scoresNoCorners = new HashMap<PositionAxial, Integer>(scores);
+        HashMap<PositionAxial, Integer> scoresCorners = new HashMap<PositionAxial, Integer>(scores);
 
         for (PositionAxial posn : scores.keySet()) {
-            if (!this.isNextToCorner(model, posn)) {
-                scoresNoCorners.put(posn, scores.get(posn));
+            if (this.isCorner(model, posn)) {
+                scoresCorners.put(posn, scores.get(posn));
             }
         }
 
-        PositionAxial bestPosn = new PositionAxial(0, 0, 0);
+        PositionAxial bestPosn = new PositionAxial(model.getBoardSize(), model.getBoardSize(), model.getBoardSize());
 
-        if (scoresNoCorners.isEmpty()) {
-            bestPosn = new CaptureMostPieces().chooseMove(model, playerTurn);
-        } else {
-            bestPosn = new CaptureMostPieces().getHighestScore(scoresNoCorners);
+        if (scoresCorners.isEmpty()) {
+            bestPosn = new CaptureMostPieces().getHighestScore(scoresCorners);
         }
 
         return bestPosn;
     }
 
-    // Returns true if the given position is next to a corner position
-    private boolean isNextToCorner(ReversiModel model, PositionAxial posn) {
+    // Returns true if the given position is a corner position
+    private boolean isCorner(ReversiModel model, PositionAxial posn) {
         int middleY = (model.getNumRows() - 1) / 2;
 
-        if (posn.getQ() == middleY - 1 || posn.getS() == middleY - 1 && posn.getR() >= 0) {
+        if (posn.getQ() == middleY || posn.getS() == middleY && posn.getR() >= 0) {
             return true;
-        } else if (posn.getQ() == -middleY + 1 || posn.getS() == -middleY + 1 && posn.getR() < 0) {
+        } else if (posn.getQ() == -middleY || posn.getS() == -middleY && posn.getR() < 0) {
             return true;
-        } else if (posn.getR() == middleY - 1 && posn.getQ() != -middleY && posn.getS() != -middleY) {
-            return true;
-        } else if (posn.getR() == -middleY + 1 && posn.getQ() != middleY && posn.getS() != middleY) {
+        } else if (Math.abs(posn.getR()) == middleY) {
             return true;
         } else {
             return false;
