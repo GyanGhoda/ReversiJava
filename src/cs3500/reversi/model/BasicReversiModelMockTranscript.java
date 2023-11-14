@@ -576,7 +576,11 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
      */
     @Override
     public boolean doesCurrentPlayerHaveValidMovesPosn(PositionAxial posn) {
-        return !(this.isValidMoveForPlayer(posn).isEmpty());
+        if (this.getCellAt(posn).sameCellType(CellType.Empty)) {
+            return !(this.isValidMoveForPlayer(posn).isEmpty());
+        } else {
+            return false;
+        }
     }
 
     /**

@@ -32,6 +32,7 @@ public class AvoidCellsNextToCorner implements ReversiStrategy {
                 scores.put(posn, 0);
             }
         }
+        return null;
 
         // DO NOT KNOW WHAT TO DO HERE
     }

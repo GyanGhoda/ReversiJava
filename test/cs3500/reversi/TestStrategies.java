@@ -53,18 +53,13 @@ public class TestStrategies {
     boardToAdd.put(new PositionAxial(1, -2, 1), blackCell);
 
     BasicReversiModelMockTranscript model = new BasicReversiModelMockTranscript(7, boardToAdd);
-
-    ReversiVisualView view = new HexagonalFrame(model);
-
-    view.makeVisible();
-
+    
     ReversiStrategy strat = new CaptureMostPieces();
 
     PositionAxial stratPosn = strat.chooseMove(model, PlayerType.WHITE);
 
     Assert.assertEquals(model.getLog(),
-        "getScoreForMove(Q: 1, R: 0, S: -1)\n" + "getScoreForMove(Q: 1, R: -2, S: 1)\n"
-            + "getScoreForMove(Q: -2, R: 1, S: 1)\n" + "getScoreForMove(Q: 1, R: 1, S: -2)\n"
+          "getScoreForMove(Q: -2, R: 1, S: 1)\n" + "getScoreForMove(Q: 1, R: 1, S: -2)\n"
             + "getScoreForMove(Q: -1, R: -1, S: 2)\n" + "getScoreForMove(Q: 2, R: -1, S: -1)\n"
             + "getScoreForMove(Q: -1, R: 2, S: -1)\n");
     Assert.assertEquals(stratPosn, new PositionAxial(2, -3, 1));

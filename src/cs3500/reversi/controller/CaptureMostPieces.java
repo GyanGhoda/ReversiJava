@@ -22,6 +22,8 @@ public class CaptureMostPieces implements ReversiStrategy {
      */
     @Override
     public PositionAxial chooseMove(ReversiModel model, PlayerType playerTurn) {
+
+        System.out.println("hello");
        
         HashMap<PositionAxial, Cell> board = model.getBoardCopy();
         HashMap<PositionAxial, Integer> scores = new HashMap<PositionAxial, Integer>();
