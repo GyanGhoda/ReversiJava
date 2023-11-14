@@ -65,6 +65,39 @@ public class BasicReversiModel implements ReversiModel {
   }
 
   /**
+   * Constructs a new BasicReversiModel with the specified width and a hashmap of posns to cells. 
+   * The game can only be played on a regular grid of cells, so the width needs to be an odd
+   * number. For a playable game, the width needs to be at least three. The purpose of the hashmap
+   * is to allow for the model to be constructed with a board that is in the middle of a game.
+   *
+   * @param width The width of the game board.
+   * @param board The hashmap of posns to cells that represents the board.
+   * @throws IllegalArgumentException If the provided width is not an odd number
+   *                                  or is less than three.
+   */
+  public BasicReversiModel(int width, HashMap<PositionAxial, Cell> board) {
+
+    // Enforced invarient by checking if width is odd and at least three.
+    if (width < 3 || width % 2 == 0) {
+      throw new IllegalArgumentException("Width must be odd and at least three.");
+    }
+
+    this.board = new HashMap<>();
+    this.playerBlack = new GamePlayer(PlayerType.BLACK);
+    this.playerWhite = new GamePlayer(PlayerType.WHITE);
+    this.width = width;
+    this.currentPlayer = this.playerBlack;
+    this.consectivePassedTurns = 0;
+    this.gameStarted = false;
+
+    this.startGame();
+
+    for (PositionAxial posn : board.keySet()) {
+      this.board.put(posn, board.get(posn));
+    }
+  }
+
+  /**
    * Constructs a new BasicReversiModel with a default width of 11.
    */
   public BasicReversiModel() {
@@ -603,7 +636,7 @@ public class BasicReversiModel implements ReversiModel {
   }
 
   @Override
-  public Integer getScoreForMove(PositionAxial posn) {
+  public int getScoreForMove(PositionAxial posn) {
     // Get the list of valid positions to add a piece to on this move.
     List<PositionAxial> validTiles = this.isValidMoveForPlayer(posn);
 

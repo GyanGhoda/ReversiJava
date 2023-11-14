@@ -34,5 +34,10 @@ public interface ReversiModel extends ReadOnlyReversiModel {
    */
   void passTurn();
 
-  Integer getScoreForMove(PositionAxial posn);
+  /**
+   * Gets the score for the given move if it was played.
+   * 
+   * @param posn The position to get the score for.
+   */
+  int getScoreForMove(PositionAxial posn);
 }
