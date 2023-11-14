@@ -1,7 +1,5 @@
 package cs3500.reversi.controller;
 
-import javax.swing.text.Position;
-
 import cs3500.reversi.model.PositionAxial;
 
 public interface Features {
