@@ -561,8 +561,6 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
      */
     @Override
     public Cell getCellAt(PositionAxial posn) {
-        this.log.append("getCellAt(" + posn.toString() + ")\n");
-
         doesPosnExist(posn);
 
         Cell cellAtPosn = this.board.get(posn);
@@ -611,6 +609,8 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
 
     @Override
     public Integer getScoreForMove(PositionAxial posn) {
+        this.log.append("getScoreForMove(" + posn.toString() + ")\n");
+
         // Get the list of valid positions to add a piece to on this move.
         List<PositionAxial> validTiles = this.isValidMoveForPlayer(posn);
 
