@@ -33,7 +33,7 @@ public class CaptureCellsInCorner implements ReversiStrategy {
             }
         }
 
-        HashMap<PositionAxial, Integer> scoresCorners = new HashMap<PositionAxial, Integer>(scores);
+        HashMap<PositionAxial, Integer> scoresCorners = new HashMap<PositionAxial, Integer>();
 
         for (PositionAxial posn : scores.keySet()) {
             if (this.isCorner(model, posn)) {
@@ -43,7 +43,7 @@ public class CaptureCellsInCorner implements ReversiStrategy {
 
         PositionAxial bestPosn = new PositionAxial(model.getBoardSize(), model.getBoardSize(), model.getBoardSize());
 
-        if (scoresCorners.isEmpty()) {
+        if (!scoresCorners.isEmpty()) {
             bestPosn = new CaptureMostPieces().getHighestScore(scoresCorners);
         }
 
