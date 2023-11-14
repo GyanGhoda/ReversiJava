@@ -83,7 +83,8 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
      * @throws IllegalArgumentException If the provided width is not an odd number
      *                                  or is less than three.
      */
-    public BasicReversiModelMockTranscript(int width, HashMap<PositionAxial, Cell> board) {
+    public BasicReversiModelMockTranscript(int width, HashMap<PositionAxial, Cell> board, 
+            Player currentPlayer) {
 
         // Enforced invarient by checking if width is odd and at least three.
         if (width < 3 || width % 2 == 0) {
@@ -94,7 +95,7 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
         this.playerBlack = new GamePlayer(PlayerType.BLACK);
         this.playerWhite = new GamePlayer(PlayerType.WHITE);
         this.width = width;
-        this.currentPlayer = this.playerBlack;
+        this.currentPlayer = currentPlayer;
         this.consectivePassedTurns = 0;
         this.gameStarted = false;
         this.log = new StringBuilder();

@@ -53,7 +53,7 @@ public class TestStrategies {
     boardToAdd.put(new PositionAxial(1, -2, 1), blackCell);
 
     BasicReversiModelMockTranscript model = new BasicReversiModelMockTranscript(7, boardToAdd);
-    
+
     ReversiStrategy strat = new CaptureMostPieces();
 
     PositionAxial stratPosn = strat.chooseMove(model, PlayerType.WHITE);

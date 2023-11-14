@@ -40,4 +40,11 @@ public interface ReversiModel extends ReadOnlyReversiModel {
    * @param posn The position to get the score for.
    */
   int getScoreForMove(PositionAxial posn);
+
+  /**
+   * Gets the size of the game board (number of cells).
+   * 
+   * @return The size of the game board.
+   */
+  int getBoardSize();
 }
