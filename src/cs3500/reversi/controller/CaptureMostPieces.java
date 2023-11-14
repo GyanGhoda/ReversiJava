@@ -49,9 +49,6 @@ public class CaptureMostPieces implements ReversiStrategy {
         
         // Get the highest score
         for (PositionAxial posn : scores.keySet()) {
-            System.out.println("posn: " + posn.getQ() + " " + posn.getR() + " " + posn.getS() + "\n");
-            System.out.println("score: " + scores.get(posn) + "\n");
-
             if (scores.get(posn) > bestScore) {
                 bestScore = scores.get(posn);
                 bestPosn = posn;

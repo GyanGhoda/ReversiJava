@@ -52,16 +52,20 @@ public class TestStrategies {
     HashMap<PositionAxial, Cell> boardToAdd = new HashMap<PositionAxial, Cell>();
     boardToAdd.put(new PositionAxial(1, -2, 1), blackCell);
 
-    BasicReversiModelMockTranscript model = new BasicReversiModelMockTranscript(7, boardToAdd);
+    BasicReversiModelMockTranscript model = new BasicReversiModelMockTranscript(7, boardToAdd, new GamePlayer(PlayerType.WHITE));
 
     ReversiStrategy strat = new CaptureMostPieces();
 
     PositionAxial stratPosn = strat.chooseMove(model, PlayerType.WHITE);
 
     Assert.assertEquals(model.getLog(),
-          "getScoreForMove(Q: -2, R: 1, S: 1)\n" + "getScoreForMove(Q: 1, R: 1, S: -2)\n"
-            + "getScoreForMove(Q: -1, R: -1, S: 2)\n" + "getScoreForMove(Q: 2, R: -1, S: -1)\n"
-            + "getScoreForMove(Q: -1, R: 2, S: -1)\n");
+          "getScoreForMove(Q: -2, R: 1, S: 1)\n" + 
+              "getScoreForMove(Q: 1, R: 1, S: -2)\n" + 
+              "getScoreForMove(Q: -1, R: -1, S: 2)\n" + 
+              "getScoreForMove(Q: 2, R: -1, S: -1)\n" + 
+              "getScoreForMove(Q: -1, R: 2, S: -1)\n" + 
+              "getScoreForMove(Q: 1, R: -3, S: 2)\n" + 
+              "getScoreForMove(Q: 2, R: -3, S: 1)\n");
     Assert.assertEquals(stratPosn, new PositionAxial(2, -3, 1));
   }
 }
