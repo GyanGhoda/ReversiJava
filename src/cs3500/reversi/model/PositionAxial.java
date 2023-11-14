@@ -138,6 +138,6 @@ public final class PositionAxial {
   }
 
   public String toString() {
-    return "Q: " + this.q + "\nR: " + this.r + "\nS: " + this.s;
+    return "Q: " + this.q + ", R: " + this.r + ", S: " + this.s;
   }
 }

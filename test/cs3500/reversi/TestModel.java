@@ -519,4 +519,38 @@ public class TestModel {
 
 
   }
+
+  // Tests that getScoreForMove returns the correct score (one) for the given move.
+  @Test
+  public void testModelGetScoreForMoveOne() {
+
+    ReversiModel model = new BasicReversiModel(5);
+
+    Assert.assertEquals(model.getScoreForMove(new PositionAxial(2, -1, -1)), 1);
+  }
+
+  // Tests that getScoreForMove returns the correct score (zero) for the given move.
+  @Test
+  public void testModelGetScoreForMoveZero() {
+
+    ReversiModel model = new BasicReversiModel(5);
+
+    model.addPieceToCoordinates(new PositionAxial(2, -1, -1));
+
+    Assert.assertEquals(model.getScoreForMove(new PositionAxial(2, -2, 0)), 0);
+
+  }
+  
+  // Tests that getScoreForMove returns the correct score (two) for the given move.
+  @Test
+  public void testModelGetScoreForMoveTwo() {
+    
+    ReversiModel model = new BasicReversiModel(5);
+    
+    model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
+
+    Assert.assertEquals(model.getScoreForMove(new PositionAxial(2, -3, 1)), 2);
+  
+  }
+
 }
