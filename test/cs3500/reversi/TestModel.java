@@ -1,9 +1,11 @@
 package cs3500.reversi;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import cs3500.reversi.controller.GamePlayer;
+import cs3500.reversi.controller.Player;
 import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.BasicReversiModel;
 import cs3500.reversi.model.Cell;
@@ -18,6 +20,16 @@ import cs3500.reversi.textualview.TextualView;
  * Tests the public methods in the model package.
  */
 public class TestModel {
+
+  private Player playerBlack;
+  private Player playerWhite;
+
+  @Before
+  public void init() {
+    playerBlack = new GamePlayer(PlayerType.BLACK);
+    playerWhite = new GamePlayer(PlayerType.WHITE);
+  }
+
   // Test that the model has initialized correctly with a correct starting board
   // of width 7.
   @Test
@@ -51,9 +63,10 @@ public class TestModel {
   // Tests that one valid move made on the model correctly works as intended.
   @Test
   public void testModelMoveOneMove() {
-    ReversiModel model = new BasicReversiModel(7);
+    
+    ReversiModel model = new BasicReversiModel(7, playerBlack, playerWhite);
 
-    model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
+    model.addPieceToCoordinates(new PositionAxial(1, -2, 1), playerBlack);
 
     TextualView modelView = new ReversiTextualView(model);
 
@@ -69,12 +82,12 @@ public class TestModel {
   // Tests that multiple valid moves on the model work as intended.
   @Test
   public void testModelMoveMultipleMoves() {
-    ReversiModel model = new BasicReversiModel(7);
+    ReversiModel model = new BasicReversiModel(7, playerBlack, playerWhite);
 
-    model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
-    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
-    model.addPieceToCoordinates(new PositionAxial(-3, 2, 1));
-    model.addPieceToCoordinates(new PositionAxial(-3, 1, 2));
+    model.addPieceToCoordinates(new PositionAxial(1, -2, 1), playerBlack);
+    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1), playerWhite);
+    model.addPieceToCoordinates(new PositionAxial(-3, 2, 1), playerBlack);
+    model.addPieceToCoordinates(new PositionAxial(-3, 1, 2), playerWhite);
 
     TextualView modelView = new ReversiTextualView(model);
 
@@ -91,10 +104,10 @@ public class TestModel {
   // black placing a piece.
   @Test
   public void testModelPassTurn() {
-    ReversiModel model = new BasicReversiModel(7);
+    ReversiModel model = new BasicReversiModel(7, playerBlack, playerWhite);
 
     model.passTurn();
-    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
+    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1), playerWhite);
 
     TextualView modelView = new ReversiTextualView(model);
 
@@ -140,12 +153,12 @@ public class TestModel {
   // multiple moves made.
   @Test
   public void testModelIsNotGameOverWithMoves() {
-    ReversiModel model = new BasicReversiModel(7);
+    ReversiModel model = new BasicReversiModel(7, playerBlack, playerWhite);
 
-    model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
-    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
-    model.addPieceToCoordinates(new PositionAxial(-3, 2, 1));
-    model.addPieceToCoordinates(new PositionAxial(-3, 1, 2));
+    model.addPieceToCoordinates(new PositionAxial(1, -2, 1), playerBlack);
+    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1), playerWhite);
+    model.addPieceToCoordinates(new PositionAxial(-3, 2, 1), playerBlack);
+    model.addPieceToCoordinates(new PositionAxial(-3, 1, 2), playerWhite);
 
     Assert.assertEquals(model.isGameOver(), false);
   }
@@ -154,14 +167,14 @@ public class TestModel {
   // moves made.
   @Test
   public void testModelIsGameOverWithMoves() {
-    ReversiModel model = new BasicReversiModel(5);
+    ReversiModel model = new BasicReversiModel(5, playerBlack, playerWhite);
 
-    model.addPieceToCoordinates(new PositionAxial(2, -1, -1));
-    model.addPieceToCoordinates(new PositionAxial(-1, 2, -1));
-    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
-    model.addPieceToCoordinates(new PositionAxial(-1, -1, 2));
-    model.addPieceToCoordinates(new PositionAxial(1, 1, -2));
-    model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
+    model.addPieceToCoordinates(new PositionAxial(2, -1, -1), playerBlack);
+    model.addPieceToCoordinates(new PositionAxial(-1, 2, -1), playerWhite);
+    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1), playerBlack);
+    model.addPieceToCoordinates(new PositionAxial(-1, -1, 2), playerWhite);
+    model.addPieceToCoordinates(new PositionAxial(1, 1, -2), playerBlack);
+    model.addPieceToCoordinates(new PositionAxial(1, -2, 1), playerWhite);
 
     Assert.assertEquals(model.isGameOver(), true);
   }
@@ -170,10 +183,10 @@ public class TestModel {
   // the middle.
   @Test
   public void testModelIsGameNotOverWithTwoPasses() {
-    ReversiModel model = new BasicReversiModel(5);
+    ReversiModel model = new BasicReversiModel(5, playerBlack, playerWhite);
 
     model.passTurn();
-    model.addPieceToCoordinates(new PositionAxial(2, -1, -1));
+    model.addPieceToCoordinates(new PositionAxial(2, -1, -1), playerWhite);
     model.passTurn();
 
     Assert.assertEquals(model.isGameOver(), false);
@@ -183,12 +196,12 @@ public class TestModel {
   // it being over.
   @Test
   public void testModelGetCurrentScoreGameNotOver() {
-    ReversiModel model = new BasicReversiModel(7);
+    ReversiModel model = new BasicReversiModel(7, playerBlack, playerWhite);
 
-    model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
-    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
-    model.addPieceToCoordinates(new PositionAxial(-3, 2, 1));
-    model.addPieceToCoordinates(new PositionAxial(-3, 1, 2));
+    model.addPieceToCoordinates(new PositionAxial(1, -2, 1), playerBlack);
+    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1), playerWhite);
+    model.addPieceToCoordinates(new PositionAxial(-3, 2, 1), playerBlack);
+    model.addPieceToCoordinates(new PositionAxial(-3, 1, 2), playerWhite);
 
     Assert.assertEquals(model.getCurrentScore(PlayerType.BLACK), 6);
     Assert.assertEquals(model.getCurrentScore(PlayerType.WHITE), 4);
@@ -198,14 +211,14 @@ public class TestModel {
   // it being over.
   @Test
   public void testModelGetCurrentScoreGameOver() {
-    ReversiModel model = new BasicReversiModel(5);
+    ReversiModel model = new BasicReversiModel(5, playerBlack, playerWhite);
 
-    model.addPieceToCoordinates(new PositionAxial(2, -1, -1));
-    model.addPieceToCoordinates(new PositionAxial(-1, 2, -1));
-    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
-    model.addPieceToCoordinates(new PositionAxial(-1, -1, 2));
-    model.addPieceToCoordinates(new PositionAxial(1, 1, -2));
-    model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
+    model.addPieceToCoordinates(new PositionAxial(2, -1, -1), playerBlack);
+    model.addPieceToCoordinates(new PositionAxial(-1, 2, -1), playerWhite);
+    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1), playerBlack);
+    model.addPieceToCoordinates(new PositionAxial(-1, -1, 2), playerWhite);
+    model.addPieceToCoordinates(new PositionAxial(1, 1, -2), playerBlack);
+    model.addPieceToCoordinates(new PositionAxial(1, -2, 1), playerWhite);
 
     Assert.assertEquals(model.getCurrentScore(PlayerType.BLACK), 7);
     Assert.assertEquals(model.getCurrentScore(PlayerType.WHITE), 5);
@@ -406,10 +419,10 @@ public class TestModel {
   // exist.
   @Test
   public void testModelAddPieceToCoordinateNonExistingCoordinate() {
-    ReversiModel model = new BasicReversiModel(7);
+    ReversiModel model = new BasicReversiModel(7, playerBlack, playerWhite);
 
     Assert.assertThrows(IllegalArgumentException.class, () -> {
-      model.addPieceToCoordinates(new PositionAxial(10, -2, 1));
+      model.addPieceToCoordinates(new PositionAxial(10, -2, 1), playerBlack);
     });
   }
 
@@ -420,7 +433,7 @@ public class TestModel {
     ReversiModel model = new BasicReversiModel(7);
 
     Assert.assertThrows(IllegalStateException.class, () -> {
-      model.addPieceToCoordinates(new PositionAxial(0, -1, 1));
+      model.addPieceToCoordinates(new PositionAxial(0, -1, 1), new GamePlayer(PlayerType.BLACK));
     });
   }
 
@@ -463,14 +476,14 @@ public class TestModel {
   // player does not have valid moves.
   @Test
   public void testModelDoesCurrentPlayerHaveValidMovesFalse() {
-    ReversiModel model = new BasicReversiModel(5);
+    ReversiModel model = new BasicReversiModel(5, playerBlack, playerWhite);
 
-    model.addPieceToCoordinates(new PositionAxial(2, -1, -1));
-    model.addPieceToCoordinates(new PositionAxial(-1, 2, -1));
-    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
-    model.addPieceToCoordinates(new PositionAxial(-1, -1, 2));
-    model.addPieceToCoordinates(new PositionAxial(1, 1, -2));
-    model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
+    model.addPieceToCoordinates(new PositionAxial(2, -1, -1), playerBlack);
+    model.addPieceToCoordinates(new PositionAxial(-1, 2, -1), playerWhite);
+    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1), playerBlack);
+    model.addPieceToCoordinates(new PositionAxial(-1, -1, 2), playerWhite);
+    model.addPieceToCoordinates(new PositionAxial(1, 1, -2), playerBlack);
+    model.addPieceToCoordinates(new PositionAxial(1, -2, 1), playerWhite);
 
     Assert.assertEquals(model.doesCurrentPlayerHaveValidMoves(), false);
   }
@@ -488,14 +501,14 @@ public class TestModel {
   // player does not have valid moves.
   @Test
   public void testModelDoesCurrentPlayerHaveValidMovesPosnFalse() {
-    ReversiModel model = new BasicReversiModel(5);
+    ReversiModel model = new BasicReversiModel(5, playerBlack, playerWhite);
 
-    model.addPieceToCoordinates(new PositionAxial(2, -1, -1));
-    model.addPieceToCoordinates(new PositionAxial(-1, 2, -1));
-    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
-    model.addPieceToCoordinates(new PositionAxial(-1, -1, 2));
-    model.addPieceToCoordinates(new PositionAxial(1, 1, -2));
-    model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
+    model.addPieceToCoordinates(new PositionAxial(2, -1, -1), playerBlack);
+    model.addPieceToCoordinates(new PositionAxial(-1, 2, -1), playerWhite);
+    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1), playerBlack);
+    model.addPieceToCoordinates(new PositionAxial(-1, -1, 2), playerWhite);
+    model.addPieceToCoordinates(new PositionAxial(1, 1, -2), playerBlack);
+    model.addPieceToCoordinates(new PositionAxial(1, -2, 1), playerWhite);
 
     Assert.assertEquals(model.doesCurrentPlayerHaveValidMovesPosn(new PositionAxial(0, 0, 0)),
         false);
@@ -504,14 +517,14 @@ public class TestModel {
   // Tests that getBoardCopy returns a copy of the board.
   @Test
   public void testModelGetBoardCopy() {
-    ReversiModel model = new BasicReversiModel(5);
+    ReversiModel model = new BasicReversiModel(5, playerBlack, playerWhite);
 
-    model.addPieceToCoordinates(new PositionAxial(2, -1, -1));
-    model.addPieceToCoordinates(new PositionAxial(-1, 2, -1));
-    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1));
-    model.addPieceToCoordinates(new PositionAxial(-1, -1, 2));
-    model.addPieceToCoordinates(new PositionAxial(1, 1, -2));
-    model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
+    model.addPieceToCoordinates(new PositionAxial(2, -1, -1), playerBlack);
+    model.addPieceToCoordinates(new PositionAxial(-1, 2, -1), playerWhite);
+    model.addPieceToCoordinates(new PositionAxial(-2, 1, 1), playerBlack);
+    model.addPieceToCoordinates(new PositionAxial(-1, -1, 2), playerWhite);
+    model.addPieceToCoordinates(new PositionAxial(1, 1, -2), playerBlack);
+    model.addPieceToCoordinates(new PositionAxial(1, -2, 1), playerWhite);
 
     Assert.assertEquals(model.getBoardCopy().get(new PositionAxial(2, -1, -1)).toString(), "X");
     Assert.assertEquals(model.getBoardCopy().get(new PositionAxial(-1, 2, -1)).toString(), "O");
@@ -533,9 +546,9 @@ public class TestModel {
   @Test
   public void testModelGetScoreForMoveZero() {
 
-    ReversiModel model = new BasicReversiModel(5);
+    ReversiModel model = new BasicReversiModel(5, playerBlack, playerWhite);
 
-    model.addPieceToCoordinates(new PositionAxial(2, -1, -1));
+    model.addPieceToCoordinates(new PositionAxial(2, -1, -1), playerBlack);
 
     Assert.assertEquals(model.getScoreForMove(new PositionAxial(2, -2, 0)), 0);
 
@@ -545,9 +558,9 @@ public class TestModel {
   @Test
   public void testModelGetScoreForMoveTwo() {
     
-    ReversiModel model = new BasicReversiModel(5);
+    ReversiModel model = new BasicReversiModel(5, playerBlack, playerWhite);
     
-    model.addPieceToCoordinates(new PositionAxial(1, -2, 1));
+    model.addPieceToCoordinates(new PositionAxial(1, -2, 1), playerBlack);
 
     Assert.assertEquals(model.getScoreForMove(new PositionAxial(2, -3, 1)), 2);
   
