@@ -208,6 +208,7 @@ public class BasicReversiModel implements ReversiModel {
 
     // Get the list of valid positions to add a piece to on this move.
     List<PositionAxial> validTiles = this.isValidMoveForPlayer(posn);
+
     if (!validTiles.isEmpty()) {
 
       // create a player cell to represent the player's piece.
@@ -262,6 +263,7 @@ public class BasicReversiModel implements ReversiModel {
         allCellsBetween.addAll(this.checkValidLineMade(givenPosn, posn, otherPlayer));
       }
     }
+
     return allCellsBetween;
   }
 
@@ -600,6 +602,14 @@ public class BasicReversiModel implements ReversiModel {
     return score;
   }
 
+  @Override
+  public Integer getScoreForMove(PositionAxial posn) {
+    // Get the list of valid positions to add a piece to on this move.
+    List<PositionAxial> validTiles = this.isValidMoveForPlayer(posn);
+
+    return validTiles.size();
+  }
+
   // helper for making sure game is started
   private void gameStartedHelper() {
     if (!gameStarted) {
@@ -613,5 +623,4 @@ public class BasicReversiModel implements ReversiModel {
       throw new IllegalArgumentException("Nonexistant position in this game");
     }
   }
-
 }

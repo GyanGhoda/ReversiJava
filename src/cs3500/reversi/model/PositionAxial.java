@@ -30,7 +30,7 @@ public final class PositionAxial {
    *
    * @param obj The object to compare with.
    * @return true if the given object is a PositionAxial and has the same 'q,'
-   *     'r,' and 's' values; false otherwise.
+   *         'r,' and 's' values; false otherwise.
    */
   @Override
   public boolean equals(Object obj) {
@@ -38,7 +38,7 @@ public final class PositionAxial {
     if (obj instanceof PositionAxial) {
       // Return whether they have the same value and symbol
       return ((PositionAxial) obj).q == this.q && ((PositionAxial) obj).r == this.r
-              && ((PositionAxial) obj).s == this.s;
+          && ((PositionAxial) obj).s == this.s;
     }
     // Return false if the given object is not a PositionAxial
     return false;
@@ -60,7 +60,7 @@ public final class PositionAxial {
    *
    * @param coordinate The coordinate value to check.
    * @return true if this PositionAxial contains the given coordinate; false
-   *     otherwise.
+   *         otherwise.
    */
   public boolean containsCoordinate(int coordinate) {
     return this.q == coordinate || this.r == coordinate || this.s == coordinate;
@@ -99,7 +99,7 @@ public final class PositionAxial {
    *
    * @param other The other PositionAxial to compare with.
    * @return The common coordinate, which can be "q," "r," or "s." If there is no
-   *     common coordinate, it returns "NoCommonCoordinate."
+   *         common coordinate, it returns "NoCommonCoordinate."
    */
   public String commonCoordinate(PositionAxial other) {
     if (this.getQ() == other.getQ()) {
@@ -123,7 +123,7 @@ public final class PositionAxial {
    *
    * @param other The other PositionAxial to check adjacency with.
    * @return true if this PositionAxial is adjacent to the other PositionAxial;
-   *     false otherwise.
+   *         false otherwise.
    */
   public boolean isNextTo(PositionAxial other) {
     if (this.q == other.q && Math.abs(this.r - other.r) == 1 && Math.abs(this.s - other.s) == 1) {
@@ -135,5 +135,9 @@ public final class PositionAxial {
     }
 
     return this.s == other.s && Math.abs(this.q - other.q) == 1 && Math.abs(this.r - other.r) == 1;
+  }
+
+  public String toString() {
+    return "Q: " + this.q + "\nR: " + this.r + "\nS: " + this.s;
   }
 }

@@ -33,4 +33,6 @@ public interface ReversiModel extends ReadOnlyReversiModel {
    * @throws IllegalStateException if the game has not started.
    */
   void passTurn();
+
+  Integer getScoreForMove(PositionAxial posn);
 }

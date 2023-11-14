@@ -1,6 +1,7 @@
 package cs3500.reversi.controller;
 
 import cs3500.reversi.model.PositionAxial;
+import cs3500.reversi.model.ReversiModel;
 
 public interface ReversiStrategy {
 
@@ -9,5 +10,5 @@ public interface ReversiStrategy {
      * 
      * @return the position that is chosen to move to
      */
-    public PositionAxial chooseMove();
+    public PositionAxial chooseMove(ReversiModel model, PlayerType playerTurn);
 }
