@@ -70,7 +70,7 @@ public class TestStrategies {
   }
   
   // Test that the strategy that avoids cells next to the corner works as intended with one 
-  // move to make
+  // move to make that is next to the corner
   @Test
   public void testAvoidCellsNextToCornerOneMoveStartGame() {
 
@@ -147,7 +147,7 @@ public class TestStrategies {
             + "getScoreForMove(Q: -2, R: 1, S: 1)\n" + "getScoreForMove(Q: 1, R: 1, S: -2)\n"
             + "getScoreForMove(Q: -1, R: -1, S: 2)\n" + "getScoreForMove(Q: 2, R: -1, S: -1)\n"
             + "getScoreForMove(Q: -1, R: 2, S: -1)\n");
-    Assert.assertEquals(stratPosn, new PositionAxial(2, -3, 1));
+    Assert.assertEquals(stratPosn, new PositionAxial(3, -3, 0));
   }
 
   
