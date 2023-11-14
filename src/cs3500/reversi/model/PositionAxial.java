@@ -137,6 +137,11 @@ public final class PositionAxial {
     return this.s == other.s && Math.abs(this.q - other.q) == 1 && Math.abs(this.r - other.r) == 1;
   }
 
+  /**
+   * Returns the axial coordinates of this PositionAxial as a String in Q R S format.
+   * 
+   * @return The axial coordinates of this PositionAxial as a String.
+   */
   public String toString() {
     return "Q: " + this.q + ", R: " + this.r + ", S: " + this.s;
   }

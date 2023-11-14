@@ -3,6 +3,9 @@ package cs3500.reversi.controller;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReversiModel;
 
+/**
+ * Represents a strategy for playing Reversi.
+ */
 public interface ReversiStrategy {
 
     /**

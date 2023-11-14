@@ -236,47 +236,18 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
     }
 
     /**
-     * Adds a player's piece to the specified position on the board and updates the
-     * game state.
+     * Adds a player's piece to the specified position on the board and updates the game state.
      *
      * @param posn The position to add the player's piece.
-     * @throws IllegalStateException    if the move cannot be made.
-     * @throws IllegalStateException    if the game has not started.
+     * @param player The player to add the piece for.
+     * @throws IllegalStateException if the move cannot be made.
+     * @throws IllegalStateException if the game has not started.
+     * @throws IllegalStateException if the player given is not currently up for a move.
      * @throws IllegalArgumentException if the position does not exist in this game.
      */
     @Override
-    public void addPieceToCoordinates(PositionAxial posn) {
-
-        gameStartedHelper();
-        doesPosnExist(posn);
-
-        // Get the list of valid positions to add a piece to on this move.
-        List<PositionAxial> validTiles = this.isValidMoveForPlayer(posn);
-
-        if (!validTiles.isEmpty()) {
-
-            // create a player cell to represent the player's piece.
-            Cell playerCell = new GameCell(CellType.Player);
-
-            // set the owner of the player cell to the current player.
-            playerCell.setCellToPlayer(this.getCurrentTurn());
-
-            // place the player cell on the game board at the specified position.
-            this.board.put(posn, playerCell);
-
-            // change the ownership of cells between the specified positions.
-            this.changeAllCellsBetween(validTiles);
-
-            // change the active player's turn and reset the consecutive passed turns
-            // counter.
-            this.changeTurns();
-
-            // reset consectivePassedTurns counter. Enforced invarient by being non-negative
-            // integer.
-            this.consectivePassedTurns = 0;
-        } else {
-            throw new IllegalStateException("Move cannot be made");
-        }
+    public void addPieceToCoordinates(PositionAxial posn, Player player) {
+        //Empty due to mock not needing it
     }
 
     // return the player whose turn it currently is
@@ -609,6 +580,7 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
         Cell cellAtPosn = this.board.get(posn);
         Cell cellToReturn = new GameCell(cellAtPosn.getCellType());
 
+        // if the cell at the given position is owned by a player, set the cell to the proper player
         if (cellAtPosn.sameCellType(CellType.Player)) {
             if (cellAtPosn.getCellOwner().equals("X")) {
                 cellToReturn.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
@@ -640,6 +612,7 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
     public int getCurrentScore(PlayerType playerType) {
         int score = 0;
 
+        // iterate over the board and count the number of cells owned by the given
         for (Cell cell : this.board.values()) {
             if (cell.getCellType().equals(CellType.Player)
                     && cell.getCellOwner().equals(new GamePlayer(playerType).toString())) {
@@ -674,6 +647,11 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
         }
     }
 
+    /**
+     * Gets the log of the game.
+     * 
+     * @return The log of the game.
+     */
     public String getLog() {
         return this.log.toString();
     }

@@ -225,17 +225,19 @@ public class BasicReversiModel implements ReversiModel {
   }
 
   /**
-   * Adds a player's piece to the specified position on the board and updates the
-   * game state.
+   * Adds a player's piece to the specified position on the board and updates the game state.
    *
    * @param posn The position to add the player's piece.
-   * @throws IllegalStateException    if the move cannot be made.
-   * @throws IllegalStateException    if the game has not started.
+   * @param player The player to add the piece for.
+   * @throws IllegalStateException if the move cannot be made.
+   * @throws IllegalStateException if the game has not started.
+   * @throws IllegalStateException if the player given is not currently up for a move.
    * @throws IllegalArgumentException if the position does not exist in this game.
    */
   @Override
-  public void addPieceToCoordinates(PositionAxial posn) {
+  public void addPieceToCoordinates(PositionAxial posn, Player player) {
 
+    currentTurnCorrect(player);
     gameStartedHelper();
     doesPosnExist(posn);
 
@@ -599,6 +601,7 @@ public class BasicReversiModel implements ReversiModel {
     Cell cellAtPosn = this.board.get(posn);
     Cell cellToReturn = new GameCell(cellAtPosn.getCellType());
 
+    // if the cell at the given position is a player cell, set the cell to the proper player
     if (cellAtPosn.sameCellType(CellType.Player)) {
       if (cellAtPosn.getCellOwner().equals("X")) {
         cellToReturn.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
@@ -630,6 +633,7 @@ public class BasicReversiModel implements ReversiModel {
   public int getCurrentScore(PlayerType playerType) {
     int score = 0;
 
+    // iterate over the board and count the number of cells owned by the given
     for (Cell cell : this.board.values()) {
       if (cell.getCellType().equals(CellType.Player)
           && cell.getCellOwner().equals(new GamePlayer(playerType).toString())) {
@@ -652,6 +656,13 @@ public class BasicReversiModel implements ReversiModel {
   private void gameStartedHelper() {
     if (!gameStarted) {
       throw new IllegalStateException("Game not started yet");
+    }
+  }
+
+  // helper for making sure it is the given player's turn
+  private void currentTurnCorrect(Player player) {
+    if (!player.equals(this.currentPlayer)) {
+      throw new IllegalStateException("Not current player's turn");
     }
   }
 

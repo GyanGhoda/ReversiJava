@@ -13,6 +13,11 @@ public class HexagonalFrame extends JFrame implements ReversiVisualView {
 
     private final ReadOnlyReversiModel model;
 
+    /**
+     * Constructs a frame of hexagonal buttons.
+     * 
+     * @param model the model to render
+     */
     public HexagonalFrame(ReadOnlyReversiModel model) {
         this.model = model;
         setTitle("2 Player Reversi Game"); // Set the title

@@ -6,6 +6,11 @@ import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReversiModel;
 
+/**
+ * A strategy that chooses the move that will capture the most pieces.
+ * The strategy breaks ties by choosing the uppermost-leftmost move.
+ * The strategy also avoids the corner.
+ */
 public class AvoidCellsNextToCorner implements ReversiStrategy {
 
     /**
@@ -37,6 +42,7 @@ public class AvoidCellsNextToCorner implements ReversiStrategy {
         // DO NOT KNOW WHAT TO DO HERE
     }
 
+    // Returns true if the given position is a corner position
     private boolean isCorner(ReversiModel model, PositionAxial posn) {
         int middleY = (model.getNumRows() - 1) / 2;
 

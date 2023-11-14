@@ -46,7 +46,7 @@ public class CaptureMostPieces implements ReversiStrategy {
 
         int bestScore = 0;
         PositionAxial bestPosn = new PositionAxial(0, 0, 0);
-        
+
         // Get the highest score
         for (PositionAxial posn : scores.keySet()) {
             if (scores.get(posn) > bestScore) {
@@ -58,6 +58,7 @@ public class CaptureMostPieces implements ReversiStrategy {
         int count = 0;
         ArrayList<PositionAxial> bestPosns = new ArrayList<PositionAxial>();
 
+        // Get the positions with the highest score 
         for (HashMap.Entry<PositionAxial, Integer> entry : scores.entrySet()) {
             if (entry.getValue() == bestScore) {
                 bestPosns.add(entry.getKey());
@@ -67,12 +68,12 @@ public class CaptureMostPieces implements ReversiStrategy {
 
         if (count < 2) {
             return bestPosn;
-        }
-        else {
+        } else {
             return this.getLeftUpperMost(bestPosns);
         }
     }
 
+    // Gets the left uppermost positionaxial from the given list of positions axial
     private PositionAxial getLeftUpperMost(ArrayList<PositionAxial> bestPosns) {
         PositionAxial leftUpperMost = bestPosns.get(0);
 

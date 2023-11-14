@@ -37,6 +37,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
      * @param numCols The number of columns.
      */
     public HexagonalPanel(ReadOnlyReversiModel model, int width, int height) {
+        
         setLayout(null); // Use absolute positioning
         if (model == null) {
             throw new IllegalArgumentException("Model cannot be null");
