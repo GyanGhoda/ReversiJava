@@ -32,7 +32,7 @@ public class HexagonalFrame extends JFrame implements ReversiVisualView {
     /**
      * Renders the frame.
      */
-    public void render() {
+    private void render() {
         HexagonalPanel panel = new HexagonalPanel(this.model, 800, 800); // Create a panel of hexagonal buttons
         panel.setBounds(400, 400, 800, 800);
         add(panel, BorderLayout.CENTER);
