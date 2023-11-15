@@ -1,3 +1,23 @@
+## Extra credit:
+
+### Strategies (`src/cs3500/reversi/strategies`)
+- `AvoidCellsNextToCorner`: Strategy that avoids cells next to the corner and breaks ties by choosing the uppermost-leftmost move.
+- `CaptureCellsInCorner`: Strategy that only focuses on capturing cells in the corner.
+- `CaptureMostPieces`: Strategy that captures the most pieces and breaks ties by choosing the uppermost-leftmost move.
+- `MinimizeNextOpponentMove`: Strategy that minimizes the effectiveness of opponents future moves.
+- `ReversiStrategy`: Interface representing a strategy for playing Reversi.
+- `TryTwoStrategies`: Chains strategies together to form strategies of varying sophistication.
+
+## Changes for Part 2 from initial design:
+
+### Model (`src/cs3500/reversi/model`)
+- 'ReversiModel': Added four new observation methods to the interface: 'getBoardSize', 'doesCurrentPlayerHaveValidMovesPosn', 'doesCurrentPlayerHaveValidMoves', and 'getBoardCopy'.
+
+### Controller (`src/cs3500/reversi/controller`)
+- 'GamePlayer': Overrode 'equals' method to compare the player type only. Overrode hashCode as well.
+
+No other changes were made to the initial design. All other changes involved adding new classes, interfaces, and packages as per the assignment instructions. The details of those can be viewed below in the Key Components and Subcomponents section.
+
 ## Overview
 
 This codebase implements a Reversi (Othello) game following the Model-View-Controller (MVC) architecture. The game logic, user interaction, and textual representation are separated into distinct components to promote modularity and ease of maintenance.
@@ -86,7 +106,3 @@ The source code is organized as follows:
 - `src/cs3500/reversi/strategies`: Contains classes related to the strategies of gameplay.
 - `src/cs3500/reversi/visualview`: Contains classes related to the game GUI.
 - `src/cs3500/reversi/Reversi.java`: Main class.
-
-## Changes for Part 2
-
-## Extra credit: found in the strategies package

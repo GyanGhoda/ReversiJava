@@ -15,6 +15,8 @@ public interface ReversiModel extends ReadOnlyReversiModel {
 
   /**
    * Creates a deep copy of the board of this Reversi game.
+   * 
+   * @return a deep copy of the board of this Reversi game.
    */
   HashMap<PositionAxial, Cell> getBoardCopy();
 
