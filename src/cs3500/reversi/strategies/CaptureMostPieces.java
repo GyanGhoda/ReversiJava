@@ -1,8 +1,10 @@
-package cs3500.reversi.controller;
+package cs3500.reversi.strategies;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cs3500.reversi.controller.GamePlayer;
+import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReversiModel;
