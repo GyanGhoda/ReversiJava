@@ -25,8 +25,9 @@ public class AvoidCellsNextToCorner implements ReversiStrategy {
      */
     @Override
     public PositionAxial chooseMove(ReversiModel model, PlayerType playerTurn) {
-        HashMap<PositionAxial, Cell> board = model.getBoardCopy();
-        HashMap<PositionAxial, Integer> scores = new HashMap<PositionAxial, Integer>();
+        
+        HashMap<PositionAxial, Cell> board = model.getBoardCopy(); // Get the board
+        HashMap<PositionAxial, Integer> scores = new HashMap<PositionAxial, Integer>(); 
 
         // Get the scores for each move
         for (PositionAxial posn : board.keySet()) {
@@ -35,18 +36,24 @@ public class AvoidCellsNextToCorner implements ReversiStrategy {
             }
         }
 
-        HashMap<PositionAxial, Integer> scoresNoCorners = new HashMap<PositionAxial, Integer>();
+        // getting rid of moves next to corners
+        HashMap<PositionAxial, Integer> scoresNoNextToCorners =
+                new HashMap<PositionAxial, Integer>();
 
         for (PositionAxial posn : scores.keySet()) {
             if (!this.isNextToCorner(model, posn)) {
-                scoresNoCorners.put(posn, scores.get(posn));
+                scoresNoNextToCorners.put(posn, scores.get(posn));
             }
         }
 
-        PositionAxial bestPosn = new PositionAxial(model.getBoardSize(), model.getBoardSize(), model.getBoardSize());
+        // Passing is represented by returning the boardsize for each coordinate
+        PositionAxial bestPosn =
+                new PositionAxial(model.getBoardSize(), model.getBoardSize(), model.getBoardSize());
 
-        if (!scoresNoCorners.isEmpty()) {
-            bestPosn = new CaptureMostPieces().getHighestScorePosn(scoresNoCorners);
+
+        // choose the best move of those not next to the corner
+        if (!scoresNoNextToCorners.isEmpty()) {
+            bestPosn = new CaptureMostPieces().getHighestScorePosn(scoresNoNextToCorners);
         }
 
         return bestPosn;
