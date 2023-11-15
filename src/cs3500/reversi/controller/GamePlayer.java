@@ -4,6 +4,8 @@ import java.util.Objects;
 
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReversiModel;
+import cs3500.reversi.strategies.CaptureMostPieces;
+import cs3500.reversi.strategies.ReversiStrategy;
 
 /**
  * Represents a human player in a Reversi game. It implements the Player

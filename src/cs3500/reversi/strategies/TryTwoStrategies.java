@@ -1,5 +1,6 @@
-package cs3500.reversi.controller;
+package cs3500.reversi.strategies;
 
+import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReversiModel;
 
