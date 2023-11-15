@@ -44,7 +44,7 @@ public class CaptureMostPieces implements ReversiStrategy {
             return new PositionAxial(model.getBoardSize(), model.getBoardSize(), model.getBoardSize());
         }
 
-        return this.getHighestScore(scores);
+        return this.getHighestScorePosn(scores);
     }
 
     /**
@@ -53,7 +53,7 @@ public class CaptureMostPieces implements ReversiStrategy {
      * @param scores the scores of the moves
      * @return the position axial with the highest score
      */
-    protected PositionAxial getHighestScore(HashMap<PositionAxial, Integer> scores) {
+    protected PositionAxial getHighestScorePosn(HashMap<PositionAxial, Integer> scores) {
 
         int bestScore = 0;
         PositionAxial bestPosn = new PositionAxial(0, 0, 0);

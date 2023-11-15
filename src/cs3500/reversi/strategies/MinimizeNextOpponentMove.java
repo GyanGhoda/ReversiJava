@@ -36,27 +36,18 @@ public class MinimizeNextOpponentMove implements ReversiStrategy {
 
             futureBoard.put(posn, cellToAdd);
 
-            for (PositionAxial futurePosn : futureBoard.keySet()) {
-                if (model.doesCurrentPlayerHaveValidMovesPosn(futurePosn,
-                        new GamePlayer(playerTurn).getOppositePlayer())) {
-                    futureScores.put(futurePosn, model.getScoreForMove(futurePosn));
-                }
-            }
+            PositionAxial bestNextTurn = new TryTwoStrategies(new CaptureCellsInCorner(),
+                    new TryTwoStrategies(new AvoidCellsNextToCorner(), new CaptureMostPieces()))
+                    .chooseMove(model, this.getOppositePlayerType(playerTurn));
 
-            if (this.getHighestScoreTemp(futureScores) < lowestScore) {
-                lowestScore = this.getHighestScoreTemp(futureScores);
+            if (this.getHighestScore(futureScores) < lowestScore) {
+                lowestScore = this.getHighestScore(futureScores);
                 bestPosn = posn;
             }
-
         }
-
-        PositionAxial bestNextTurn = new TryTwoStrategies(new CaptureCellsInCorner(),
-                new TryTwoStrategies(new AvoidCellsNextToCorner(), new CaptureMostPieces()))
-                .chooseMove(model, playerTurn);
-
     }
 
-    private int getHighestScoreTemp(HashMap<PositionAxial, Integer> scores) {
+    private int getHighestScore(HashMap<PositionAxial, Integer> scores) {
         int highestScore = 0;
 
         for (PositionAxial posn : scores.keySet()) {
@@ -66,6 +57,14 @@ public class MinimizeNextOpponentMove implements ReversiStrategy {
         }
 
         return highestScore;
+    }
+
+    private PlayerType getOppositePlayerType(PlayerType playerTurn) {
+        if (playerTurn.equals(PlayerType.BLACK)) {
+            return PlayerType.WHITE;
+        } else {
+            return PlayerType.BLACK;
+        }
     }
 
 }

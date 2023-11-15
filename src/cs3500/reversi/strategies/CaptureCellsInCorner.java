@@ -46,7 +46,7 @@ public class CaptureCellsInCorner implements ReversiStrategy {
         PositionAxial bestPosn = new PositionAxial(model.getBoardSize(), model.getBoardSize(), model.getBoardSize());
 
         if (!scoresCorners.isEmpty()) {
-            bestPosn = new CaptureMostPieces().getHighestScore(scoresCorners);
+            bestPosn = new CaptureMostPieces().getHighestScorePosn(scoresCorners);
         }
 
         return bestPosn;
