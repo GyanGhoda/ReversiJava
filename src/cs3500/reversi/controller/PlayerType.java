@@ -5,6 +5,6 @@ package cs3500.reversi.controller;
  * WHITE.
  */
 public enum PlayerType {
-    BLACK,
-    WHITE
+  BLACK,
+  WHITE
 }

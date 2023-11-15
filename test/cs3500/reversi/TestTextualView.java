@@ -2,6 +2,7 @@ package cs3500.reversi;
 
 import org.junit.Assert;
 import org.junit.Test;
+
 import cs3500.reversi.controller.GamePlayer;
 import cs3500.reversi.controller.Player;
 import cs3500.reversi.controller.PlayerType;
@@ -24,12 +25,12 @@ public class TestTextualView {
     TextualView modelView = new ReversiTextualView(model);
 
     Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
-        "  _ _ _ _ _\n" + //
-        " _ _ X O _ _\n" + //
-        "_ _ O _ X _ _\n" + //
-        " _ _ X O _ _\n" + //
-        "  _ _ _ _ _\n" + //
-        "   _ _ _ _\n");
+            "  _ _ _ _ _\n" + //
+            " _ _ X O _ _\n" + //
+            "_ _ O _ X _ _\n" + //
+            " _ _ X O _ _\n" + //
+            "  _ _ _ _ _\n" + //
+            "   _ _ _ _\n");
   }
 
   // Test that the TextualView has initialized correctly with a correct starting
@@ -42,8 +43,8 @@ public class TestTextualView {
     TextualView modelView = new ReversiTextualView(model);
 
     Assert.assertEquals(modelView.toString(), " X O\n" + //
-        "O _ X\n" + //
-        " X O\n");
+            "O _ X\n" + //
+            " X O\n");
   }
 
   // Test that the TextualView has rendered the board correctly with a starting
@@ -60,12 +61,12 @@ public class TestTextualView {
     TextualView modelView = new ReversiTextualView(model);
 
     Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
-        "  _ _ X _ _\n" + //
-        " _ _ X X _ _\n" + //
-        "_ _ O _ X _ _\n" + //
-        " _ _ X O _ _\n" + //
-        "  _ _ _ _ _\n" + //
-        "   _ _ _ _\n");
+            "  _ _ X _ _\n" + //
+            " _ _ X X _ _\n" + //
+            "_ _ O _ X _ _\n" + //
+            " _ _ X O _ _\n" + //
+            "  _ _ _ _ _\n" + //
+            "   _ _ _ _\n");
   }
 
   // Test that the TextualView has rendered the board correctly with a starting
@@ -86,11 +87,11 @@ public class TestTextualView {
     TextualView modelView = new ReversiTextualView(model);
 
     Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
-        "  _ _ X _ _\n" + //
-        " _ _ X X _ _\n" + //
-        "_ _ X _ X _ _\n" + //
-        " O O O O _ _\n" + //
-        "  X _ _ _ _\n" + //
-        "   _ _ _ _\n");
+            "  _ _ X _ _\n" + //
+            " _ _ X X _ _\n" + //
+            "_ _ X _ X _ _\n" + //
+            " O O O O _ _\n" + //
+            "  X _ _ _ _\n" + //
+            "   _ _ _ _\n");
   }
 }

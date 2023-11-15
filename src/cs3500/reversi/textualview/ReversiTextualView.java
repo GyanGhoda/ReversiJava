@@ -35,7 +35,7 @@ public class ReversiTextualView implements TextualView {
     // goes row by row and adds the textual views to the full board
     for (int currentRow = -maxR; currentRow <= maxR; currentRow += 1) {
       fullBoard = fullBoard.concat(this.rowToString(currentStartingQ, currentRow, currentStartingS))
-          .concat("\n");
+              .concat("\n");
 
       if (currentRow < 0) {
         currentStartingQ -= 1;
@@ -51,7 +51,7 @@ public class ReversiTextualView implements TextualView {
    * Generates a string representation of a single row of the Reversi game board.
    *
    * @param currentGivenQ The initial Q-coordinate for the row.
-   * @param currentRow The current row number.
+   * @param currentRow    The current row number.
    * @param currentGivenS The initial S-coordinate for the row.
    * @return A string representing a row of the Reversi game board.
    */
@@ -71,8 +71,8 @@ public class ReversiTextualView implements TextualView {
     // go through the cells in a row and append each cell to the view
     for (int count = 0; count < amountOfCells; count += 1) {
       rowString = rowString
-          .concat(this.model.getCellAt(new PositionAxial(currentQ,
-                  currentRow, currentS)).toString()).concat(" ");
+              .concat(this.model.getCellAt(new PositionAxial(currentQ,
+                      currentRow, currentS)).toString()).concat(" ");
       currentQ += 1;
       currentS -= 1;
     }

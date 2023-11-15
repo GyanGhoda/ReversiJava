@@ -13,7 +13,7 @@ public interface Cell {
    * Get the owner of the cell.
    *
    * @return The player that owns the cell, or "" if the cell is empty as a
-   *         String.
+   * String.
    */
   String getCellOwner();
 
@@ -36,7 +36,7 @@ public interface Cell {
    *
    * @param otherType The CellType to compare with.
    * @return true if the cell has the same type as the given CellType, false
-   *         otherwise.
+   * otherwise.
    */
   boolean sameCellType(CellType otherType);
 }

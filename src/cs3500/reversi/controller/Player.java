@@ -11,7 +11,7 @@ import cs3500.reversi.model.ReversiModel;
 public interface Player {
   /**
    * Plays a move for the player using the strategy given to the player.
-   * 
+   *
    * @param model - the model to play the move on
    * @return the position that is chosen to move to
    */
@@ -19,7 +19,7 @@ public interface Player {
 
   /**
    * Returns a Player that is the the other player.
-   * 
+   *
    * @return the opposite player
    */
   public Player getOppositePlayer();

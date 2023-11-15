@@ -46,23 +46,23 @@ public interface ReadOnlyReversiModel {
 
   /**
    * Checks if the current player has any valid moves.
-   * 
+   *
    * @return true if the current player has valid moves, false otherwise.
    */
   boolean doesCurrentPlayerHaveValidMoves();
 
   /**
    * Checks if the current player has any valid moves at the given position.
-   * 
+   *
    * @param posn The position to check for valid moves.
    * @return true if the current player has valid moves at the given position,
-   *         false otherwise.
+   * false otherwise.
    */
   boolean doesCurrentPlayerHaveValidMovesPosn(PositionAxial posn, Player playerTurn);
 
   /**
    * Gets the size of the game board (number of cells).
-   * 
+   *
    * @return The size of the game board.
    */
   int getBoardSize();

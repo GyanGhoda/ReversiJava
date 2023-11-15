@@ -1,6 +1,7 @@
 package cs3500.reversi.model;
 
 import java.util.HashMap;
+
 import cs3500.reversi.controller.Player;
 import cs3500.reversi.controller.PlayerType;
 
@@ -9,13 +10,12 @@ import cs3500.reversi.controller.PlayerType;
  * Provides the mutator methods for a Reversi game model, which include the
  * following:
  * startGame, addPieceToCoordinates, and passTurn.
- *
  */
 public interface ReversiModel extends ReadOnlyReversiModel {
 
   /**
    * Creates a deep copy of the board of this Reversi game.
-   * 
+   *
    * @return a deep copy of the board of this Reversi game.
    */
   HashMap<PositionAxial, Cell> getBoardCopy();
@@ -36,37 +36,37 @@ public interface ReversiModel extends ReadOnlyReversiModel {
 
   /**
    * Passes the turn to the next player.
-   * 
+   *
    * @throws IllegalStateException if the game has not started.
    */
   void passTurn();
 
   /**
    * Checks if the current player has any valid moves.
-   * 
+   *
    * @return true if the current player has valid moves, false otherwise.
    */
   boolean doesCurrentPlayerHaveValidMoves();
 
   /**
    * Checks if the current player has any valid moves at the given position.
-   * 
+   *
    * @param posn The position to check for valid moves.
    * @return true if the current player has valid moves at the given position,
-   *         false otherwise.
+   * false otherwise.
    */
   boolean doesCurrentPlayerHaveValidMovesPosn(PositionAxial posn, Player playerTurn);
 
   /**
    * Gets the score for the given move if it was played.
-   * 
+   *
    * @param posn The position to get the score for.
    */
   int getScoreForMove(PositionAxial posn);
 
   /**
    * Gets the size of the game board (number of cells).
-   * 
+   *
    * @return The size of the game board.
    */
   int getBoardSize();

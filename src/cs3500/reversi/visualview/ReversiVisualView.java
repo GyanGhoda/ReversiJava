@@ -6,8 +6,8 @@ package cs3500.reversi.visualview;
  * includes rendering and making the view visible.
  */
 public interface ReversiVisualView {
-    /**
-     * Makes the view visible.
-     */
-    void makeVisible();
+  /**
+   * Makes the view visible.
+   */
+  void makeVisible();
 }

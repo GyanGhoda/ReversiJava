@@ -5,6 +5,6 @@ package cs3500.reversi.model;
  * can be either Empty or owned by a Player.
  */
 public enum CellType {
-    Empty,
-    Player
+  Empty,
+  Player
 }

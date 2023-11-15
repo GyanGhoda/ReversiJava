@@ -40,7 +40,7 @@ public class GamePlayer implements Player {
 
   /**
    * Plays a move for the player using the strategy given to the player.
-   * 
+   *
    * @param model - the model to play the move on
    * @return the position that is chosen to move to
    */
@@ -53,7 +53,7 @@ public class GamePlayer implements Player {
    * Returns a string representation of the player.
    *
    * @return The string representation of the player, "X" for BLACK, and "O" for
-   *         WHITE.
+   * WHITE.
    */
   @Override
   public String toString() {
@@ -66,7 +66,7 @@ public class GamePlayer implements Player {
 
   /**
    * Overrides the equals method to check if the given object is the same Player
-   * 
+   *
    * @return true if the given object is the same Player, false otherwise
    */
   @Override
@@ -81,7 +81,7 @@ public class GamePlayer implements Player {
 
   /**
    * Overrides the hashCode method to return the hashCode of the Player
-   * 
+   *
    * @return the hashCode of the Player
    */
   @Override
@@ -95,7 +95,7 @@ public class GamePlayer implements Player {
 
   /**
    * Returns a Player that is the the other player.
-   * 
+   *
    * @return the opposite player
    */
   public Player getOppositePlayer() {
