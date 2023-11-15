@@ -30,12 +30,6 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
     // which is the only method to change currentPlayer. Also enforced by
     // constructor at construction.
     private Player currentPlayer;
-    // the number of consecutive passed turns.
-    // INVARIENT: consectivePassedTurns must be a non-negative integer. Enforced by
-    // passTurn(), which only adds to the consectivePassedTurns counter. Also
-    // enforced by constructor at construction by instantiating
-    // consectivePassedTurns to 0.
-    private int consectivePassedTurns;
     // whether or not the game has started
     private boolean gameStarted;
     // the log of the game
@@ -61,7 +55,6 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
         this.playerWhite = new GamePlayer(PlayerType.WHITE);
         this.width = width;
         this.currentPlayer = this.playerBlack;
-        this.consectivePassedTurns = 0;
         this.gameStarted = false;
         this.log = new StringBuilder();
 
@@ -96,7 +89,6 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
         this.playerWhite = new GamePlayer(PlayerType.WHITE);
         this.width = width;
         this.currentPlayer = currentPlayer;
-        this.consectivePassedTurns = 0;
         this.gameStarted = false;
         this.log = new StringBuilder();
 
@@ -116,7 +108,6 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
         this.playerWhite = new GamePlayer(PlayerType.WHITE);
         this.width = 11;
         this.currentPlayer = this.playerBlack;
-        this.consectivePassedTurns = 0;
         this.gameStarted = false;
         this.log = new StringBuilder();
 
