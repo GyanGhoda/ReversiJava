@@ -33,7 +33,7 @@ public class AvoidCellsNextToCorner implements ReversiStrategy {
             }
         }
 
-        HashMap<PositionAxial, Integer> scoresNoCorners = new HashMap<PositionAxial, Integer>(scores);
+        HashMap<PositionAxial, Integer> scoresNoCorners = new HashMap<PositionAxial, Integer>();
 
         for (PositionAxial posn : scores.keySet()) {
             if (!this.isNextToCorner(model, posn)) {
@@ -55,11 +55,11 @@ public class AvoidCellsNextToCorner implements ReversiStrategy {
         int middleY = (model.getNumRows() - 1) / 2;
 
         // Check if the position is next to any of the six corners
-        return (posn.getQ() == middleY && Math.abs(posn.getR()) == middleY - 1) ||
-                (posn.getR() == middleY && Math.abs(posn.getS()) == middleY - 1) ||
-                (posn.getS() == middleY && Math.abs(posn.getQ()) == middleY - 1) ||
-                (posn.getQ() == -middleY && Math.abs(posn.getR()) == middleY - 1) ||
-                (posn.getR() == -middleY && Math.abs(posn.getS()) == middleY - 1) ||
-                (posn.getS() == -middleY && Math.abs(posn.getQ()) == middleY - 1);
+        return (Math.abs(posn.getQ()) == middleY && Math.abs(posn.getR()) == middleY - 1) ||
+                (Math.abs(posn.getR()) == middleY && Math.abs(posn.getS()) == middleY - 1) ||
+                (Math.abs(posn.getS()) == middleY && Math.abs(posn.getQ()) == middleY - 1) ||
+                (Math.abs(posn.getR()) == middleY && Math.abs(posn.getQ()) == middleY - 1) ||
+                (Math.abs(posn.getS()) == middleY && Math.abs(posn.getR()) == middleY - 1) ||
+                (Math.abs(posn.getQ()) == middleY && Math.abs(posn.getS()) == middleY - 1);
     }
 }
