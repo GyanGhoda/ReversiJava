@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import cs3500.reversi.controller.GamePlayer;
 import cs3500.reversi.controller.PlayerType;
+import cs3500.reversi.model.BasicReversiModel;
 import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.CellType;
 import cs3500.reversi.model.GameCell;
@@ -28,7 +29,6 @@ public class MinimizeNextOpponentMove implements ReversiStrategy {
 
         for (PositionAxial posn : scores.keySet()) {
             HashMap<PositionAxial, Cell> futureBoard = model.getBoardCopy();
-            HashMap<PositionAxial, Integer> futureScores = new HashMap<PositionAxial, Integer>();
 
             Cell cellToAdd = new GameCell(CellType.Player);
 
@@ -40,23 +40,18 @@ public class MinimizeNextOpponentMove implements ReversiStrategy {
                     new TryTwoStrategies(new AvoidCellsNextToCorner(), new CaptureMostPieces()))
                     .chooseMove(model, this.getOppositePlayerType(playerTurn));
 
-            if (this.getHighestScore(futureScores) < lowestScore) {
-                lowestScore = this.getHighestScore(futureScores);
-                bestPosn = posn;
-            }
-        }
-    }
+            ReversiModel futureModel = new BasicReversiModel(model.getNumRows(), futureBoard,
+                    new GamePlayer(playerTurn).getOppositePlayer());
 
-    private int getHighestScore(HashMap<PositionAxial, Integer> scores) {
-        int highestScore = 0;
-
-        for (PositionAxial posn : scores.keySet()) {
-            if (scores.get(posn) > highestScore) {
-                highestScore = scores.get(posn);
+            if (!bestNextTurn.containsCoordinate(model.getBoardSize())) {
+                if (futureModel.getScoreForMove(bestNextTurn) < lowestScore) {
+                    lowestScore = futureModel.getScoreForMove(bestNextTurn);
+                    bestPosn = posn;
+                }
             }
         }
 
-        return highestScore;
+        return bestPosn;
     }
 
     private PlayerType getOppositePlayerType(PlayerType playerTurn) {
