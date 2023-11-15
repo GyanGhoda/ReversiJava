@@ -457,48 +457,11 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
     }
 
     /**
-     * Changes the ownership of all cells between the specified positions to the
-     * current player.
-     *
-     * @param posnBetween A list of positions between which cell ownership should be
-     *                    changed.
-     */
-    private void changeAllCellsBetween(List<PositionAxial> posnBetween) {
-
-        for (PositionAxial posn : posnBetween) {
-            this.board.get(posn).setCellToPlayer(this.getCurrentTurn());
-        }
-    }
-
-    /**
      * Passes the turn to the next player.
-     *
-     * @throws IllegalStateException if the game has not started.
      */
     @Override
     public void passTurn() {
-
-        gameStartedHelper();
-
-        // add to consectivePassedTurns counter. Enforced invarient by only adding a
-        // positive number.
-        this.consectivePassedTurns += 1;
-
-        // change the active player's turn.
-        this.changeTurns();
-    }
-
-    /**
-     * Changes the active player's turn.
-     */
-    private void changeTurns() {
-        // change the active player's turn. Enforces the invarient by
-        // only changing currentPlayer to playerBlack or playerWhite.
-        if (this.currentPlayer.equals(this.playerBlack)) {
-            this.currentPlayer = this.playerWhite;
-        } else {
-            this.currentPlayer = this.playerBlack;
-        }
+        // Empty as mock does not need to passTurn()
     }
 
     /**
@@ -508,18 +471,8 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
      */
     @Override
     public boolean isGameOver() {
-        if (this.consectivePassedTurns >= 2) {
-            return true;
-        }
-
-        for (PositionAxial posn : this.board.keySet()) {
-            if (this.getCellAt(posn).sameCellType(CellType.Empty)
-                    && !(this.isValidMoveForPlayer(posn, this.getCurrentTurn()).isEmpty())) {
-                return false;
-            }
-        }
-
-        return true;
+        // Empty as mock does not need isGameOver
+        return false;
     }
 
     /**
@@ -635,13 +588,6 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
         List<PositionAxial> validTiles = this.isValidMoveForPlayer(posn, this.getCurrentTurn());
 
         return validTiles.size();
-    }
-
-    // helper for making sure game is started
-    private void gameStartedHelper() {
-        if (!gameStarted) {
-            throw new IllegalStateException("Game not started yet");
-        }
     }
 
     // helper that handles if the given position does not exist in this game.
