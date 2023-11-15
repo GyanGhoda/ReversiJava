@@ -17,6 +17,7 @@ import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.strategies.AvoidCellsNextToCorner;
 import cs3500.reversi.strategies.CaptureCellsInCorner;
 import cs3500.reversi.strategies.CaptureMostPieces;
+import cs3500.reversi.strategies.MinimizeNextOpponentMove;
 import cs3500.reversi.strategies.ReversiStrategy;
 import cs3500.reversi.strategies.TryTwoStrategies;
 import cs3500.reversi.textualview.ReversiTextualView;
@@ -242,5 +243,41 @@ public class TestStrategies {
             + "getScoreForMove(Q: 1, R: -2, S: 1)\n" + "getScoreForMove(Q: -2, R: 1, S: 1)\n"
             + "getScoreForMove(Q: 1, R: 1, S: -2)\n" + "getScoreForMove(Q: -1, R: -1, S: 2)\n"
             + "getScoreForMove(Q: 2, R: -1, S: -1)\n" + "getScoreForMove(Q: -1, R: 2, S: -1)\n");
+
+    Assert.assertEquals(stratPosn, new PositionAxial(3, -3, 0));
+  }
+  
+  // Test that minimizeNextOpponentMove works as intended when there is one move
+  // that will minimize the next opponent move
+  @Test
+  public void testMinimizeNextOpponentMoveOneMoveStartGame() {
+
+    Cell blackCell = new GameCell(CellType.Player);
+    Player player = new GamePlayer(PlayerType.BLACK);
+    blackCell.setCellToPlayer(player);
+
+    HashMap<PositionAxial, Cell> boardToAdd = new HashMap<PositionAxial, Cell>();
+    boardToAdd.put(new PositionAxial(2, -2, 0), blackCell);
+
+    BasicReversiModelMockTranscript model =
+        new BasicReversiModelMockTranscript(7, boardToAdd, new GamePlayer(PlayerType.WHITE));
+
+    ReversiStrategy strat = new MinimizeNextOpponentMove();
+
+    PositionAxial stratPosn = strat.chooseMove(model, PlayerType.WHITE);
+
+    Assert.assertEquals(model.getLog(), 
+        
+    "getScoreForMove(Q: 3, R: -3, S: 0)" + "\n" + 
+    "getScoreForMove(Q: 1, R: -2, S: 1)" + "\n" +
+    "getScoreForMove(Q: -2, R: 1, S: 1)" + "\n" +
+    "getScoreForMove(Q: 1, R: 1, S: -2)" + "\n" +
+    "getScoreForMove(Q: -1, R: -1, S: 2)" + "\n" +
+    "getScoreForMove(Q: 2, R: -1, S: -1)" + "\n" +
+            "getScoreForMove(Q: -1, R: 2, S: -1)\n");
+    Assert.assertEquals(stratPosn, new PositionAxial(3, -3, 0));
+    
+
+  }
 
 }

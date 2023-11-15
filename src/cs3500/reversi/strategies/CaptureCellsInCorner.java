@@ -35,6 +35,7 @@ public class CaptureCellsInCorner implements ReversiStrategy {
             }
         }
 
+        // finding moves in corners
         HashMap<PositionAxial, Integer> scoresCorners = new HashMap<PositionAxial, Integer>();
 
         for (PositionAxial posn : scores.keySet()) {
@@ -43,8 +44,11 @@ public class CaptureCellsInCorner implements ReversiStrategy {
             }
         }
 
-        PositionAxial bestPosn = new PositionAxial(model.getBoardSize(), model.getBoardSize(), model.getBoardSize());
+        // if there are no moves in the corner, return the boardsize for each coordinate as a pass
+        PositionAxial bestPosn =
+                new PositionAxial(model.getBoardSize(), model.getBoardSize(), model.getBoardSize());
 
+        // choose the best move of those in the corner
         if (!scoresCorners.isEmpty()) {
             bestPosn = new CaptureMostPieces().getHighestScorePosn(scoresCorners);
         }
@@ -56,6 +60,7 @@ public class CaptureCellsInCorner implements ReversiStrategy {
     private boolean isCorner(ReversiModel model, PositionAxial posn) {
         int middleY = (model.getNumRows() - 1) / 2;
 
+        // math for the corners
         return (Math.abs(posn.getQ()) == middleY && Math.abs(posn.getS()) == middleY && posn.getR() == 0) ||
                 (Math.abs(posn.getS()) == middleY && Math.abs(posn.getR()) == middleY && posn.getQ() == 0) ||
                 (Math.abs(posn.getR()) == middleY && Math.abs(posn.getQ()) == middleY && posn.getS() == 0);
