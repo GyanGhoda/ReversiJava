@@ -25,7 +25,7 @@ public class MinimizeNextOpponentMove implements ReversiStrategy {
         }
 
         PositionAxial bestPosn = new PositionAxial(model.getBoardSize(), model.getBoardSize(), model.getBoardSize());
-        int lowestScore = 0;
+        int lowestScore = Integer.MAX_VALUE;
 
         for (PositionAxial posn : scores.keySet()) {
             HashMap<PositionAxial, Cell> futureBoard = model.getBoardCopy();
@@ -61,5 +61,4 @@ public class MinimizeNextOpponentMove implements ReversiStrategy {
             return PlayerType.BLACK;
         }
     }
-
 }
