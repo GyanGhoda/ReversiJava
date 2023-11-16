@@ -28,27 +28,7 @@ The codebase includes a test suite inside the test/cs3500/reversi directory. The
 
 ## Quick Start
 
-```
-// Test that can be used to play the game for the time being. An example move is provided along with an example pass turn.
-// More moves and passes can be played by the user in order to play a full game.
-@Test
-public void testModelExampleGame() {
-    ReversiModel model = new BasicReversiModel(7);  // Create a BasicReversiModel with a board size of your choosing.
-                                                    // A board size of 7 is used in this example.
-
-    model.startGame(); // Start the game.
-
-    model.addPieceToCoordinates(new PositionAxial(1, -2, 1)); // Add a piece to the board at the specified coordinates.
-                                                              // The piece will be added to the cell at the specified
-                                                              // coordinates.
-
-    model.passTurn(); // Pass the turn to the next player.
-
-    TextualView modelView = new ReversiTextualView(model); // Create a textual view of the model.
-
-    System.out.println(modelView.toString()); // Print the textual view of the model to see the game.
-}
-```
+Using the jar file provided in the root directory, you can run the jar file and play the game in its current state without a controller. The hexagons you click on will have their coordinates printed out onto the console and you can press "m" to move and "p" to pass. Both of these actions will also print to the console. Currently, without a controller, the keys do not do anything other than print out to the console.
 
 ## Key Components and Subcomponents
 
@@ -69,6 +49,7 @@ public void testModelExampleGame() {
 ### Visual (GUI) View (`src/cs3500/reversi/visualview`)
 - `HexagonalFrame`: Represents the frame of hexagonal buttons.
 - `HexagonalPanel`: Represents the panel of hexagonal buttons.
+- 'HexagonPanelMock': Represents a mock of the hexagonal panel to test key and mouse events.
 - `HexagonSpace`: Represents a singular hexagon.
 - `ReversiPanel`: Interface representing the panel for the game.
 - `ReversiVisualView`: Interface representing the visual view for the game.
@@ -94,6 +75,7 @@ public void testModelExampleGame() {
 - `TestController`: Test cases for the controller component.
 - `TestTextualView`: Test cases for the textual view component.
 - 'TestStrategies': Test cases for strategies.
+- 'TestVisualView': Test key events and mouse events in the visual view.
 
 Reversi.java: main class that instantiates a model, instantiates a view using that model, and tells the view to get started
 

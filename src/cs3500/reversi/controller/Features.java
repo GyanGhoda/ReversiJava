@@ -8,7 +8,7 @@ import cs3500.reversi.model.PositionAxial;
 public interface Features {
 
   /**
-   * Moves the current player;s piece to the given position.
+   * Moves the current player's piece to the given position.
    *
    * @param posn the position to move to
    */

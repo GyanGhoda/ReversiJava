@@ -52,7 +52,7 @@ public class GameCell implements Cell {
    *
    * @param otherType The CellType to compare with.
    * @return true if the cell has the same type as the given CellType, false
-   * otherwise.
+   *      otherwise.
    */
   @Override
   public boolean sameCellType(CellType otherType) {
@@ -63,7 +63,7 @@ public class GameCell implements Cell {
    * Get the owner of the cell.
    *
    * @return The player that owns the cell, or "" if the cell is empty as a
-   * String.
+   *     String.
    */
   @Override
   public String getCellOwner() {
@@ -78,7 +78,7 @@ public class GameCell implements Cell {
    * The string representation of the cell. If the cell is empty, it returns "_"
    *
    * @return The string representation of the cell, which is either "_" or the
-   * cellOwner as a String
+   *     cellOwner as a String
    */
   @Override
   public String toString() {

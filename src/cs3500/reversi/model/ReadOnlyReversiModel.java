@@ -56,7 +56,7 @@ public interface ReadOnlyReversiModel {
    *
    * @param posn The position to check for valid moves.
    * @return true if the current player has valid moves at the given position,
-   * false otherwise.
+   *     false otherwise.
    */
   boolean doesCurrentPlayerHaveValidMovesPosn(PositionAxial posn, Player playerTurn);
 

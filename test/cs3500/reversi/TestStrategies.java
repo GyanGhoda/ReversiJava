@@ -20,6 +20,9 @@ import cs3500.reversi.strategies.MinimizeNextOpponentMove;
 import cs3500.reversi.strategies.ReversiStrategy;
 import cs3500.reversi.strategies.TryTwoStrategies;
 
+/**
+ * Tests the strategies for playing Reversi.
+ */
 public class TestStrategies {
 
   // Test that the strategy chooses the uppermost-leftmost move that will capture
@@ -35,8 +38,10 @@ public class TestStrategies {
 
     Assert.assertEquals(model.getLog(),
             "getScoreForMove(Q: 1, R: -2, S: 1)\n" + "getScoreForMove(Q: -2, R: 1, S: 1)\n"
-                    + "getScoreForMove(Q: 1, R: 1, S: -2)\n" + "getScoreForMove(Q: -1, R: -1, S: 2)\n"
-                    + "getScoreForMove(Q: 2, R: -1, S: -1)\n" + "getScoreForMove(Q: -1, R: 2, S: -1)\n");
+                    + "getScoreForMove(Q: 1, R: 1, S: -2)\n"
+                    + "getScoreForMove(Q: -1, R: -1, S: 2)\n"
+                    + "getScoreForMove(Q: 2, R: -1, S: -1)\n"
+                    + "getScoreForMove(Q: -1, R: 2, S: -1)\n");
     Assert.assertEquals(stratPosn, new PositionAxial(-1, -1, 2));
   }
 
@@ -52,19 +57,55 @@ public class TestStrategies {
     HashMap<PositionAxial, Cell> boardToAdd = new HashMap<PositionAxial, Cell>();
     boardToAdd.put(new PositionAxial(1, -2, 1), blackCell);
 
-    BasicReversiModelMockTranscript model =
-            new BasicReversiModelMockTranscript(7, boardToAdd, new GamePlayer(PlayerType.WHITE));
+    BasicReversiModelMockTranscript model = new BasicReversiModelMockTranscript(7, boardToAdd,
+            new GamePlayer(PlayerType.WHITE));
 
     ReversiStrategy strat = new CaptureMostPieces();
 
     PositionAxial stratPosn = strat.chooseMove(model, PlayerType.WHITE);
 
     Assert.assertEquals(model.getLog(),
-            "getScoreForMove(Q: -2, R: 1, S: 1)\n" + "getScoreForMove(Q: 1, R: 1, S: -2)\n"
-                    + "getScoreForMove(Q: -1, R: -1, S: 2)\n" + "getScoreForMove(Q: 2, R: -1, S: -1)\n"
-                    + "getScoreForMove(Q: -1, R: 2, S: -1)\n" + "getScoreForMove(Q: 1, R: -3, S: 2)\n"
+            "getScoreForMove(Q: -2, R: 1, S: 1)\n"
+                    + "getScoreForMove(Q: 1, R: 1, S: -2)\n"
+                    + "getScoreForMove(Q: -1, R: -1, S: 2)\n"
+                    + "getScoreForMove(Q: 2, R: -1, S: -1)\n"
+                    + "getScoreForMove(Q: -1, R: 2, S: -1)\n"
+                    + "getScoreForMove(Q: 1, R: -3, S: 2)\n"
                     + "getScoreForMove(Q: 2, R: -3, S: 1)\n");
     Assert.assertEquals(stratPosn, new PositionAxial(2, -3, 1));
+  }
+
+  // Tests that the strategy is model-dependent and listens to the model
+  @Test
+  public void testCaptureMostStrategyMockListensToModel() {
+
+    Cell blackCell = new GameCell(CellType.Player);
+    Player player = new GamePlayer(PlayerType.BLACK);
+    blackCell.setCellToPlayer(player);
+
+    HashMap<PositionAxial, Cell> boardToAdd = new HashMap<PositionAxial, Cell>();
+    boardToAdd.put(new PositionAxial(1, 1, -2), blackCell);
+
+    BasicReversiModelMockTranscript model =
+            new BasicReversiModelMockTranscript(7, boardToAdd,
+                    new GamePlayer(PlayerType.WHITE));
+
+    ReversiStrategy strat = new CaptureMostPieces();
+
+    PositionAxial stratPosn = strat.chooseMove(model, PlayerType.WHITE);
+
+    Assert.assertEquals(model.getLog(),
+            "getScoreForMove(Q: 1, R: -2, S: 1)\n"
+                    + "getScoreForMove(Q: -2, R: 1, S: 1)\n"
+                    + "getScoreForMove(Q: -1, R: -1, S: 2)\n"
+                    + "getScoreForMove(Q: 2, R: -1, S: -1)\n"
+                    + "getScoreForMove(Q: -1, R: 2, S: -1)\n"
+                    + "getScoreForMove(Q: 2, R: 1, S: -3)\n"
+                    + "getScoreForMove(Q: 1, R: 2, S: -3)\n");
+    // Correct logical move would be (1, 2, -3) but the mock tells the strategy
+    // that move is not valid, so the strategy correctly listens to the mock
+    // and chooses a different move
+    Assert.assertEquals(stratPosn, new PositionAxial(-1, -1, 2));
   }
 
   // Test that the strategy that chooses the uppermost-leftmost move that will pass
@@ -85,7 +126,8 @@ public class TestStrategies {
     boardToAdd.put(new PositionAxial(2, -1, -1), blackCell);
 
     BasicReversiModelMockTranscript model =
-            new BasicReversiModelMockTranscript(5, boardToAdd, new GamePlayer(PlayerType.WHITE));
+            new BasicReversiModelMockTranscript(5, boardToAdd,
+                    new GamePlayer(PlayerType.WHITE));
 
     ReversiStrategy strat = new CaptureMostPieces();
 
@@ -115,9 +157,12 @@ public class TestStrategies {
     PositionAxial stratPosn = strat.chooseMove(model, PlayerType.WHITE);
 
     Assert.assertEquals(model.getLog(),
-            "getScoreForMove(Q: -2, R: 1, S: 1)\n" + "getScoreForMove(Q: 1, R: 1, S: -2)\n"
-                    + "getScoreForMove(Q: -1, R: -1, S: 2)\n" + "getScoreForMove(Q: 2, R: -1, S: -1)\n"
-                    + "getScoreForMove(Q: -1, R: 2, S: -1)\n" + "getScoreForMove(Q: 1, R: -3, S: 2)\n"
+            "getScoreForMove(Q: -2, R: 1, S: 1)\n"
+                    + "getScoreForMove(Q: 1, R: 1, S: -2)\n"
+                    + "getScoreForMove(Q: -1, R: -1, S: 2)\n"
+                    + "getScoreForMove(Q: 2, R: -1, S: -1)\n"
+                    + "getScoreForMove(Q: -1, R: 2, S: -1)\n"
+                    + "getScoreForMove(Q: 1, R: -3, S: 2)\n"
                     + "getScoreForMove(Q: 2, R: -3, S: 1)\n");
     Assert.assertEquals(stratPosn, new PositionAxial(-1, -1, 2));
   }
@@ -142,9 +187,12 @@ public class TestStrategies {
     PositionAxial stratPosn = strat.chooseMove(model, PlayerType.WHITE);
 
     Assert.assertEquals(model.getLog(),
-            "getScoreForMove(Q: -2, R: 1, S: 1)\n" + "getScoreForMove(Q: 1, R: 1, S: -2)\n"
-                    + "getScoreForMove(Q: -1, R: -1, S: 2)\n" + "getScoreForMove(Q: 2, R: -1, S: -1)\n"
-                    + "getScoreForMove(Q: -1, R: 2, S: -1)\n" + "getScoreForMove(Q: 1, R: -3, S: 2)\n"
+            "getScoreForMove(Q: -2, R: 1, S: 1)\n"
+                    + "getScoreForMove(Q: 1, R: 1, S: -2)\n"
+                    + "getScoreForMove(Q: -1, R: -1, S: 2)\n"
+                    + "getScoreForMove(Q: 2, R: -1, S: -1)\n"
+                    + "getScoreForMove(Q: -1, R: 2, S: -1)\n"
+                    + "getScoreForMove(Q: 1, R: -3, S: 2)\n"
                     + "getScoreForMove(Q: 2, R: -3, S: 1)\n");
     Assert.assertEquals(stratPosn, new PositionAxial(37, 37, 37));
   }
@@ -162,16 +210,20 @@ public class TestStrategies {
     boardToAdd.put(new PositionAxial(2, -2, 0), blackCell);
 
     BasicReversiModelMockTranscript model =
-            new BasicReversiModelMockTranscript(7, boardToAdd, new GamePlayer(PlayerType.WHITE));
+            new BasicReversiModelMockTranscript(7, boardToAdd,
+                    new GamePlayer(PlayerType.WHITE));
 
     ReversiStrategy strat = new CaptureCellsInCorner();
 
     PositionAxial stratPosn = strat.chooseMove(model, PlayerType.WHITE);
 
     Assert.assertEquals(model.getLog(),
-            "getScoreForMove(Q: 3, R: -3, S: 0)\n" + "getScoreForMove(Q: 1, R: -2, S: 1)\n"
-                    + "getScoreForMove(Q: -2, R: 1, S: 1)\n" + "getScoreForMove(Q: 1, R: 1, S: -2)\n"
-                    + "getScoreForMove(Q: -1, R: -1, S: 2)\n" + "getScoreForMove(Q: 2, R: -1, S: -1)\n"
+            "getScoreForMove(Q: 3, R: -3, S: 0)\n"
+                    + "getScoreForMove(Q: 1, R: -2, S: 1)\n"
+                    + "getScoreForMove(Q: -2, R: 1, S: 1)\n"
+                    + "getScoreForMove(Q: 1, R: 1, S: -2)\n"
+                    + "getScoreForMove(Q: -1, R: -1, S: 2)\n"
+                    + "getScoreForMove(Q: 2, R: -1, S: -1)\n"
                     + "getScoreForMove(Q: -1, R: 2, S: -1)\n");
     Assert.assertEquals(stratPosn, new PositionAxial(3, -3, 0));
   }
@@ -189,7 +241,8 @@ public class TestStrategies {
     boardToAdd.put(new PositionAxial(2, -2, 0), blackCell);
 
     BasicReversiModelMockTranscript model =
-            new BasicReversiModelMockTranscript(7, boardToAdd, new GamePlayer(PlayerType.WHITE));
+            new BasicReversiModelMockTranscript(7, boardToAdd,
+                    new GamePlayer(PlayerType.WHITE));
 
     ReversiStrategy strat1 = new CaptureMostPieces();
     ReversiStrategy strat2 = new CaptureCellsInCorner();
@@ -198,13 +251,20 @@ public class TestStrategies {
     PositionAxial stratPosn = strat.chooseMove(model, PlayerType.WHITE);
 
     Assert.assertEquals(model.getLog(),
-            "getScoreForMove(Q: 3, R: -3, S: 0)\n" + "getScoreForMove(Q: 1, R: -2, S: 1)\n"
-                    + "getScoreForMove(Q: -2, R: 1, S: 1)\n" + "getScoreForMove(Q: 1, R: 1, S: -2)\n"
-                    + "getScoreForMove(Q: -1, R: -1, S: 2)\n" + "getScoreForMove(Q: 2, R: -1, S: -1)\n"
-                    + "getScoreForMove(Q: -1, R: 2, S: -1)\n" + "getScoreForMove(Q: 3, R: -3, S: 0)\n"
-                    + "getScoreForMove(Q: 1, R: -2, S: 1)\n" + "getScoreForMove(Q: -2, R: 1, S: 1)\n"
-                    + "getScoreForMove(Q: 1, R: 1, S: -2)\n" + "getScoreForMove(Q: -1, R: -1, S: 2)\n"
-                    + "getScoreForMove(Q: 2, R: -1, S: -1)\n" + "getScoreForMove(Q: -1, R: 2, S: -1)\n");
+            "getScoreForMove(Q: 3, R: -3, S: 0)\n"
+                    + "getScoreForMove(Q: 1, R: -2, S: 1)\n"
+                    + "getScoreForMove(Q: -2, R: 1, S: 1)\n"
+                    + "getScoreForMove(Q: 1, R: 1, S: -2)\n"
+                    + "getScoreForMove(Q: -1, R: -1, S: 2)\n"
+                    + "getScoreForMove(Q: 2, R: -1, S: -1)\n"
+                    + "getScoreForMove(Q: -1, R: 2, S: -1)\n"
+                    + "getScoreForMove(Q: 3, R: -3, S: 0)\n"
+                    + "getScoreForMove(Q: 1, R: -2, S: 1)\n"
+                    + "getScoreForMove(Q: -2, R: 1, S: 1)\n"
+                    + "getScoreForMove(Q: 1, R: 1, S: -2)\n"
+                    + "getScoreForMove(Q: -1, R: -1, S: 2)\n"
+                    + "getScoreForMove(Q: 2, R: -1, S: -1)\n"
+                    + "getScoreForMove(Q: -1, R: 2, S: -1)\n");
 
     Assert.assertEquals(stratPosn, new PositionAxial(-1, -1, 2));
   }
@@ -222,7 +282,8 @@ public class TestStrategies {
     boardToAdd.put(new PositionAxial(2, -2, 0), blackCell);
 
     BasicReversiModelMockTranscript model =
-            new BasicReversiModelMockTranscript(7, boardToAdd, new GamePlayer(PlayerType.WHITE));
+            new BasicReversiModelMockTranscript(7, boardToAdd,
+                    new GamePlayer(PlayerType.WHITE));
 
     ReversiStrategy strat1 = new CaptureCellsInCorner();
     ReversiStrategy strat2 = new CaptureMostPieces();
@@ -231,13 +292,20 @@ public class TestStrategies {
     PositionAxial stratPosn = strat.chooseMove(model, PlayerType.WHITE);
 
     Assert.assertEquals(model.getLog(),
-            "getScoreForMove(Q: 3, R: -3, S: 0)\n" + "getScoreForMove(Q: 1, R: -2, S: 1)\n"
-                    + "getScoreForMove(Q: -2, R: 1, S: 1)\n" + "getScoreForMove(Q: 1, R: 1, S: -2)\n"
-                    + "getScoreForMove(Q: -1, R: -1, S: 2)\n" + "getScoreForMove(Q: 2, R: -1, S: -1)\n"
-                    + "getScoreForMove(Q: -1, R: 2, S: -1)\n" + "getScoreForMove(Q: 3, R: -3, S: 0)\n"
-                    + "getScoreForMove(Q: 1, R: -2, S: 1)\n" + "getScoreForMove(Q: -2, R: 1, S: 1)\n"
-                    + "getScoreForMove(Q: 1, R: 1, S: -2)\n" + "getScoreForMove(Q: -1, R: -1, S: 2)\n"
-                    + "getScoreForMove(Q: 2, R: -1, S: -1)\n" + "getScoreForMove(Q: -1, R: 2, S: -1)\n");
+            "getScoreForMove(Q: 3, R: -3, S: 0)\n"
+                    + "getScoreForMove(Q: 1, R: -2, S: 1)\n"
+                    + "getScoreForMove(Q: -2, R: 1, S: 1)\n"
+                    + "getScoreForMove(Q: 1, R: 1, S: -2)\n"
+                    + "getScoreForMove(Q: -1, R: -1, S: 2)\n"
+                    + "getScoreForMove(Q: 2, R: -1, S: -1)\n"
+                    + "getScoreForMove(Q: -1, R: 2, S: -1)\n"
+                    + "getScoreForMove(Q: 3, R: -3, S: 0)\n"
+                    + "getScoreForMove(Q: 1, R: -2, S: 1)\n"
+                    + "getScoreForMove(Q: -2, R: 1, S: 1)\n"
+                    + "getScoreForMove(Q: 1, R: 1, S: -2)\n"
+                    + "getScoreForMove(Q: -1, R: -1, S: 2)\n"
+                    + "getScoreForMove(Q: 2, R: -1, S: -1)\n"
+                    + "getScoreForMove(Q: -1, R: 2, S: -1)\n");
 
     Assert.assertEquals(stratPosn, new PositionAxial(3, -3, 0));
   }
@@ -255,7 +323,8 @@ public class TestStrategies {
     boardToAdd.put(new PositionAxial(2, -2, 0), blackCell);
 
     BasicReversiModelMockTranscript model =
-            new BasicReversiModelMockTranscript(7, boardToAdd, new GamePlayer(PlayerType.WHITE));
+            new BasicReversiModelMockTranscript(7, boardToAdd,
+                    new GamePlayer(PlayerType.WHITE));
 
     ReversiStrategy strat = new MinimizeNextOpponentMove();
 
@@ -263,10 +332,14 @@ public class TestStrategies {
 
     Assert.assertEquals(model.getLog(),
 
-            "getScoreForMove(Q: 3, R: -3, S: 0)" + "\n" + "getScoreForMove(Q: 1, R: -2, S: 1)" + "\n"
-                    + "getScoreForMove(Q: -2, R: 1, S: 1)" + "\n" + "getScoreForMove(Q: 1, R: 1, S: -2)"
-                    + "\n" + "getScoreForMove(Q: -1, R: -1, S: 2)" + "\n"
-                    + "getScoreForMove(Q: 2, R: -1, S: -1)" + "\n"
+            "getScoreForMove(Q: 3, R: -3, S: 0)" + "\n"
+                    + "getScoreForMove(Q: 1, R: -2, S: 1)" + "\n"
+                    + "getScoreForMove(Q: -2, R: 1, S: 1)" + "\n"
+                    + "getScoreForMove(Q: 1, R: 1, S: -2)"
+                    + "\n" + "getScoreForMove(Q: -1, R: -1, S: 2)"
+                    + "\n"
+                    + "getScoreForMove(Q: 2, R: -1, S: -1)"
+                    + "\n"
                     + "getScoreForMove(Q: -1, R: 2, S: -1)\n");
     Assert.assertEquals(stratPosn, new PositionAxial(-1, 2, -1));
 
@@ -291,7 +364,8 @@ public class TestStrategies {
     boardToAdd.put(new PositionAxial(2, -1, -1), blackCell);
 
     BasicReversiModelMockTranscript model =
-            new BasicReversiModelMockTranscript(5, boardToAdd, new GamePlayer(PlayerType.WHITE));
+            new BasicReversiModelMockTranscript(5, boardToAdd,
+                    new GamePlayer(PlayerType.WHITE));
 
     ReversiStrategy strat = new MinimizeNextOpponentMove();
 
@@ -314,9 +388,12 @@ public class TestStrategies {
     PositionAxial stratPosn = strat.chooseMove(model, PlayerType.BLACK);
 
     Assert.assertEquals(model.getLog(),
-            "getScoreForMove(Q: 1, R: -2, S: 1)\n" + "getScoreForMove(Q: -2, R: 1, S: 1)\n"
-                    + "getScoreForMove(Q: 1, R: 1, S: -2)\n" + "getScoreForMove(Q: -1, R: -1, S: 2)\n"
-                    + "getScoreForMove(Q: 2, R: -1, S: -1)\n" + "getScoreForMove(Q: -1, R: 2, S: -1)\n");
+            "getScoreForMove(Q: 1, R: -2, S: 1)\n"
+                    + "getScoreForMove(Q: -2, R: 1, S: 1)\n"
+                    + "getScoreForMove(Q: 1, R: 1, S: -2)\n"
+                    + "getScoreForMove(Q: -1, R: -1, S: 2)\n"
+                    + "getScoreForMove(Q: 2, R: -1, S: -1)\n"
+                    + "getScoreForMove(Q: -1, R: 2, S: -1)\n");
     Assert.assertEquals(stratPosn, new PositionAxial(-1, 2, -1));
   }
 }

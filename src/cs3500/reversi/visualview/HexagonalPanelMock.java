@@ -1,5 +1,17 @@
 package cs3500.reversi.visualview;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.HashMap;
+
 import javax.swing.JPanel;
 
 import cs3500.reversi.controller.Features;
@@ -7,23 +19,10 @@ import cs3500.reversi.controller.ReversiFeatures;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.ComponentListener;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.event.ComponentEvent;
-
-import java.util.HashMap;
-
 /**
  * Represents a panel of hexagonal buttons.
  */
-public class HexagonalPanel extends JPanel implements ReversiPanel {
+public class HexagonalPanelMock extends JPanel implements ReversiPanel {
   private final HashMap<PositionAxial, HexagonSpace> hexagonButtons =
           new HashMap<PositionAxial, HexagonSpace>();
   private final ReadOnlyReversiModel model;
@@ -31,14 +30,16 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
   private int height;
   private final Features features;
 
+  private final StringBuilder log;
+
   /**
    * Constructs a new HexagonalPanel with the given number of rows and columns.
    *
-   * @param model The model to render.
-   * @param width The width of the panel.
+   * @param model  The model to render.
+   * @param width  The width of the panel.
    * @param height The height of the panel.
    */
-  public HexagonalPanel(ReadOnlyReversiModel model, int width, int height) {
+  public HexagonalPanelMock(ReadOnlyReversiModel model, int width, int height) {
 
     setLayout(null); // Use absolute positioning
     if (model == null) {
@@ -48,6 +49,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     this.width = width;
     this.height = height;
     this.features = new ReversiFeatures();
+    this.log = new StringBuilder();
 
     addMouseListener(new MouseListenerReversi());
     addKeyListener(new KeyListenerReversi());
@@ -151,7 +153,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
      */
     @Override
     public void mouseClicked(MouseEvent e) {
-     mouseClickUpdateView(e);
+      mouseClickUpdateView(e.getX(), e.getY());
     }
 
     // Other mouse event methods...
@@ -188,7 +190,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
      */
     @Override
     public void keyPressed(KeyEvent e) {
-      keyClickUpdateView(e);
+      keyClickUpdateView(e.getKeyCode());
     }
 
     @Override
@@ -231,9 +233,11 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     }
   }
 
-  private void keyClickUpdateView(KeyEvent e) {
+  // handles all keyboard clicks when playing
+  private void keyClickUpdateView(int keyCode) {
     // Check if the user has pressed the 'm' key, which makes a move
-    if (e.getKeyCode() == KeyEvent.VK_M) {
+    if (keyCode == KeyEvent.VK_M) {
+      this.log.append("User has pressed m key to move");
       for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
         HexagonSpace hexagon = entry.getValue();
         if (hexagon.getState()) {
@@ -243,16 +247,16 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     }
 
     // Check if the user has pressed the 'p' key, which passes the turn
-    if (e.getKeyCode() == KeyEvent.VK_P) {
+    if (keyCode == KeyEvent.VK_P) {
+      this.log.append("User has pressed p key to pass");
       features.passTurn();
     }
 
     repaint();
   }
 
-  private void mouseClickUpdateView(MouseEvent e) {
-    int mouseX = e.getX();
-    int mouseY = e.getY();
+  // handles all mouse clicks when playing
+  private void mouseClickUpdateView(int mouseX, int mouseY) {
 
     // Check if the mouse click is inside a hexagon and highlight it accordingly
     for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
@@ -262,11 +266,41 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
       if (hexagon.contains(mouseX, mouseY) && !hexagon.getState()) {
         System.out.println("Clicked on hexagon at:\nQ: " + entry.getKey().getQ()
                 + "\nR: " + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
+        this.log.append("Clicked on hexagon at:\nQ: " + entry.getKey().getQ()
+                + "\nR: " + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
         hexagon.setState(!hexagon.getState());
       } else {
         hexagon.setState(false);
       }
     }
     repaint();
+  }
+
+  /**
+   * Returns the log as a String.
+   *
+   * @return the log as a String.
+   */
+  public String getLog() {
+    return log.toString();
+  }
+
+  /**
+   * Induces a mouse event of our choice in this mock for testing purposes.
+   *
+   * @param mouseX - the mouse event's X coordinate.
+   * @param mouseY - the mouse event's Y coordinate.
+   */
+  public void induceMouseEvent(int mouseX, int mouseY) {
+    this.mouseClickUpdateView(mouseX, mouseY);
+  }
+
+  /**
+   * Induces a key event of our choice in this mock for testing purposes.
+   *
+   * @param keyCode - the keycode of the event's key.
+   */
+  public void induceKeyEvent(int keyCode) {
+    this.keyClickUpdateView(keyCode);
   }
 }

@@ -252,9 +252,9 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
    * Checks for cells that allow for valid moves for a player.
    *
    * @param givenPosn  The position to check for a valid move.
-   * @param playerTurn
+   * @param playerTurn The player whose turn it currently is.
    * @return A list of positions that represent valid moves, or an empty list if
-   * the move is invalid.
+   *     the move is invalid.
    */
   private List<PositionAxial> isValidMoveForPlayer(PositionAxial givenPosn, Player playerTurn) {
     Player otherPlayer = playerTurn.getOppositePlayer();
@@ -293,7 +293,7 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
    * @param posn        The ending position.
    * @param otherPlayer The player to check for a valid line.
    * @return A list of positions forming a valid line between the given positions,
-   * or an empty list if no valid line exists.
+   *     or an empty list if no valid line exists.
    */
   private List<PositionAxial> checkValidLineMade(PositionAxial givenPosn, PositionAxial posn,
                                                  Player otherPlayer) {
@@ -491,7 +491,7 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
    * Checks if the current player has any valid moves at the given position.
    *
    * @return true if the current player has valid moves at the given position,
-   * false otherwise
+   *     false otherwise
    */
   @Override
   public boolean doesCurrentPlayerHaveValidMovesPosn(PositionAxial posn, Player playerTurn) {
@@ -574,6 +574,11 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
   @Override
   public int getScoreForMove(PositionAxial posn) {
     this.log.append("getScoreForMove(" + posn.toString() + ")\n");
+    
+    // If the position is (1, 2, -3), return 0 (used for testing purposes).
+    if (posn.equals(new PositionAxial(1, 2, -3))) {
+      return 0;
+    }
 
     // Get the list of valid positions to add a piece to on this move.
     List<PositionAxial> validTiles = this.isValidMoveForPlayer(posn, this.getCurrentTurn());

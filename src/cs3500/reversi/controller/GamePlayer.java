@@ -53,7 +53,7 @@ public class GamePlayer implements Player {
    * Returns a string representation of the player.
    *
    * @return The string representation of the player, "X" for BLACK, and "O" for
-   * WHITE.
+   *     WHITE.
    */
   @Override
   public String toString() {
@@ -65,7 +65,7 @@ public class GamePlayer implements Player {
   }
 
   /**
-   * Overrides the equals method to check if the given object is the same Player
+   * Overrides the equals method to check if the given object is the same Player.
    *
    * @return true if the given object is the same Player, false otherwise
    */
@@ -80,7 +80,7 @@ public class GamePlayer implements Player {
   }
 
   /**
-   * Overrides the hashCode method to return the hashCode of the Player
+   * Overrides the hashCode method to return the hashCode of the Player.
    *
    * @return the hashCode of the Player
    */

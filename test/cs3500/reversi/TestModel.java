@@ -495,7 +495,8 @@ public class TestModel {
   public void testModelDoesCurrentPlayerHaveValidMovesPosnTrue() {
     ReversiModel model = new BasicReversiModel(7);
 
-    Assert.assertEquals(model.doesCurrentPlayerHaveValidMovesPosn(new PositionAxial(2, -1, -1), playerBlack), true);
+    Assert.assertEquals(model.doesCurrentPlayerHaveValidMovesPosn(
+            new PositionAxial(2, -1, -1), playerBlack), true);
   }
 
   // Tests that doesCurrentPlayerHaveValidMovesPosn returns false when the current
@@ -511,7 +512,8 @@ public class TestModel {
     model.addPieceToCoordinates(new PositionAxial(1, 1, -2), playerBlack);
     model.addPieceToCoordinates(new PositionAxial(1, -2, 1), playerWhite);
 
-    Assert.assertEquals(model.doesCurrentPlayerHaveValidMovesPosn(new PositionAxial(0, 0, 0), playerBlack),
+    Assert.assertEquals(model.doesCurrentPlayerHaveValidMovesPosn(
+            new PositionAxial(0, 0, 0), playerBlack),
             false);
   }
 

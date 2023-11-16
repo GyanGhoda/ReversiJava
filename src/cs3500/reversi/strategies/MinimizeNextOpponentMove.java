@@ -41,7 +41,8 @@ public class MinimizeNextOpponentMove implements ReversiStrategy {
 
     // Represents the best possible move to minimize the opponents next move.
     // Defualts to pass turn if there are no valid moves.
-    PositionAxial bestPosn = new PositionAxial(model.getBoardSize(), model.getBoardSize(), model.getBoardSize());
+    PositionAxial bestPosn = new PositionAxial(model.getBoardSize(), model.getBoardSize(),
+            model.getBoardSize());
     // The lowest possible score for the opponents next move.
     int lowestScore = Integer.MAX_VALUE;
 
