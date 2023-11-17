@@ -22,7 +22,12 @@ public class BasicReversiController implements Features {
      */
     @Override
     public void moveToCoordinate(PositionAxial posn) {
-        this.model.addPieceToCoordinates(posn, player);
+        PositionAxial posnToMove = this.player.requestMove(this.model, posn);
+        if (posnToMove.containsCoordinate(this.model.getBoardSize())) {
+            this.passTurn();
+        } else {
+            this.model.addPieceToCoordinates(posnToMove, player);
+        }
         System.out.println("User has requested to move to:\nQ: " + posn.getQ() + "\nR: "
                 + posn.getR() + "\nS: " + posn.getS());
     }
@@ -38,6 +43,11 @@ public class BasicReversiController implements Features {
 
     public void notifyToRefresh(String currentTurn) {
         this.view.refresh(currentTurn.equals(this.player.toString()));
+        if (currentTurn.equals(this.player.toString())) {
+            if (!this.player.notifyYourTurn(model).equals(new PositionAxial(0, 0, 0))) {
+                this.moveToCoordinate(new PositionAxial(0, 0, 0));
+            }
+        }
     }
 
     @Override

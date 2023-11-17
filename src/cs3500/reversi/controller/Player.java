@@ -10,12 +10,15 @@ import cs3500.reversi.model.ReversiModel;
  */
 public interface Player {
   /**
-   * Plays a move for the player using the strategy given to the player.
+   * Requests a move from the player. Either employs a strategy if it is a
+   * ComputerPlayer or returns the selected position
    *
-   * @param model - the model to play the move on
+   * @param posn  - The selected position to move to
+   * @param model - The model to move to
+   * 
    * @return the position that is chosen to move to
    */
-  public PositionAxial playMove(ReversiModel model);
+  public PositionAxial requestMove(ReversiModel model, PositionAxial posn);
 
   /**
    * Returns a Player that is the the other player.
@@ -23,4 +26,6 @@ public interface Player {
    * @return the opposite player
    */
   public Player getOppositePlayer();
+
+  public PositionAxial notifyYourTurn(ReversiModel model);
 }

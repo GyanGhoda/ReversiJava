@@ -19,15 +19,17 @@ public class HumanPlayer implements Player {
     }
 
     /**
-     * Plays a move for the player.
+     * requests a move from the player. Since this is a human player, return the
+     * posn that they selected.
      *
-     * @param model - the model to play the move on
+     * @param posn  - The position selected by the player.
+     * @param model - The model to move to
+     * 
      * @return the position that is chosen to move to
      */
     @Override
-    public PositionAxial playMove(ReversiModel model) {
-        // What do I do here?
-        return null;
+    public PositionAxial requestMove(ReversiModel model, PositionAxial posn) {
+        return posn;
     }
 
     /**
@@ -85,6 +87,13 @@ public class HumanPlayer implements Player {
         } else {
             return new ComputerPlayer(PlayerType.BLACK);
         }
+    }
+
+    @Override
+    public PositionAxial notifyYourTurn(ReversiModel model) {
+        return new PositionAxial(0, 0, 0);
+        // Do nothing as this is a human player and the controller is simply waiting on
+        // player input.
     }
 
 }
