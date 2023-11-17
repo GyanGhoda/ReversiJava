@@ -11,29 +11,29 @@ import cs3500.reversi.strategies.ReversiStrategy;
  * Represents a human player in a Reversi game. It implements the Player
  * interface. Generalized to allow for different types of players (AI and human)
  */
-public class GamePlayer implements Player {
+public class ComputerPlayer implements Player {
 
   // The type of the player, which can be BLACK or WHITE.
-  private final PlayerType type;
+  final PlayerType type;
   private final ReversiStrategy strategy;
 
   /**
-   * Constructs a new HumanPlayer with the given player type.
+   * Constructs a new ComputerPlayer with the given player type.
    *
    * @param type The type of the player, which can be BLACK or WHITE.
    */
-  public GamePlayer(PlayerType type) {
+  public ComputerPlayer(PlayerType type) {
     this.type = Objects.requireNonNull(type);
     this.strategy = new CaptureMostPieces();
   }
 
   /**
-   * Constructs a new HumanPlayer with the given player type and strategy.
+   * Constructs a new ComputerPlayer with the given player type and strategy.
    *
    * @param type     The type of the player, which can be BLACK or WHITE.
    * @param strategy The strategy of the player, which can be ADD HERE
    */
-  public GamePlayer(PlayerType type, ReversiStrategy strategy) {
+  public ComputerPlayer(PlayerType type, ReversiStrategy strategy) {
     this.type = Objects.requireNonNull(type);
     this.strategy = strategy;
   }
@@ -53,7 +53,7 @@ public class GamePlayer implements Player {
    * Returns a string representation of the player.
    *
    * @return The string representation of the player, "X" for BLACK, and "O" for
-   *     WHITE.
+   *         WHITE.
    */
   @Override
   public String toString() {
@@ -71,10 +71,10 @@ public class GamePlayer implements Player {
    */
   @Override
   public boolean equals(Object other) {
-    if (!(other instanceof GamePlayer)) {
+    if (!(other instanceof ComputerPlayer)) {
       return false;
     } else {
-      GamePlayer that = (GamePlayer) other;
+      ComputerPlayer that = (ComputerPlayer) other;
       return this.type.equals(that.type);
     }
   }
@@ -100,9 +100,9 @@ public class GamePlayer implements Player {
    */
   public Player getOppositePlayer() {
     if (this.type.equals(PlayerType.BLACK)) {
-      return new GamePlayer(PlayerType.WHITE);
+      return new ComputerPlayer(PlayerType.WHITE);
     } else {
-      return new GamePlayer(PlayerType.BLACK);
+      return new ComputerPlayer(PlayerType.BLACK);
     }
   }
 }

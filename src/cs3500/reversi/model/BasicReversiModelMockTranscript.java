@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import cs3500.reversi.controller.Features;
-import cs3500.reversi.controller.GamePlayer;
+import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.Player;
 import cs3500.reversi.controller.PlayerType;
 
@@ -54,8 +54,8 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
       throw new IllegalArgumentException("Width must be odd and at least three.");
     }
     this.board = new HashMap<>();
-    this.playerBlack = new GamePlayer(PlayerType.BLACK);
-    this.playerWhite = new GamePlayer(PlayerType.WHITE);
+    this.playerBlack = new ComputerPlayer(PlayerType.BLACK);
+    this.playerWhite = new ComputerPlayer(PlayerType.WHITE);
     this.width = width;
     this.currentPlayer = this.playerBlack;
     this.gameStarted = false;
@@ -86,8 +86,8 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
     }
 
     this.board = new HashMap<>();
-    this.playerBlack = new GamePlayer(PlayerType.BLACK);
-    this.playerWhite = new GamePlayer(PlayerType.WHITE);
+    this.playerBlack = new ComputerPlayer(PlayerType.BLACK);
+    this.playerWhite = new ComputerPlayer(PlayerType.WHITE);
     this.width = width;
     this.currentPlayer = currentPlayer;
     this.gameStarted = false;
@@ -103,8 +103,8 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
    */
   public BasicReversiModelMockTranscript() {
     this.board = new HashMap<>();
-    this.playerBlack = new GamePlayer(PlayerType.BLACK);
-    this.playerWhite = new GamePlayer(PlayerType.WHITE);
+    this.playerBlack = new ComputerPlayer(PlayerType.BLACK);
+    this.playerWhite = new ComputerPlayer(PlayerType.WHITE);
     this.width = 11;
     this.currentPlayer = this.playerBlack;
     this.gameStarted = false;
@@ -174,10 +174,10 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
    */
   private void addStartingPieces() {
     Cell whiteCell = new GameCell(CellType.Player);
-    whiteCell.setCellToPlayer(new GamePlayer(PlayerType.WHITE));
+    whiteCell.setCellToPlayer(new ComputerPlayer(PlayerType.WHITE));
 
     Cell blackCell = new GameCell(CellType.Player);
-    blackCell.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
+    blackCell.setCellToPlayer(new ComputerPlayer(PlayerType.BLACK));
 
     // setting initial player positions
     this.initializeCell(-1, 0, 1, PlayerType.WHITE);
@@ -191,7 +191,7 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
   // helper for initializing a cell to be occupied by a player
   private void initializeCell(int q, int r, int s, PlayerType type) {
     this.board.put(new PositionAxial(q, r, s), new GameCell(CellType.Player));
-    this.board.get(new PositionAxial(q, r, s)).setCellToPlayer(new GamePlayer(type));
+    this.board.get(new PositionAxial(q, r, s)).setCellToPlayer(new ComputerPlayer(type));
   }
 
   public void addFeaturesListener(Features feature) {
@@ -215,9 +215,9 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
 
       if (cell.sameCellType(CellType.Player)) {
         if (cell.getCellOwner().equals("X")) {
-          cellCopy.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
+          cellCopy.setCellToPlayer(new ComputerPlayer(PlayerType.BLACK));
         } else {
-          cellCopy.setCellToPlayer(new GamePlayer(PlayerType.WHITE));
+          cellCopy.setCellToPlayer(new ComputerPlayer(PlayerType.WHITE));
         }
       }
 
@@ -532,9 +532,9 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
     // proper player
     if (cellAtPosn.sameCellType(CellType.Player)) {
       if (cellAtPosn.getCellOwner().equals("X")) {
-        cellToReturn.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
+        cellToReturn.setCellToPlayer(new ComputerPlayer(PlayerType.BLACK));
       } else {
-        cellToReturn.setCellToPlayer(new GamePlayer(PlayerType.WHITE));
+        cellToReturn.setCellToPlayer(new ComputerPlayer(PlayerType.WHITE));
       }
     }
 
@@ -564,7 +564,7 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
     // iterate over the board and count the number of cells owned by the given
     for (Cell cell : this.board.values()) {
       if (cell.getCellType().equals(CellType.Player)
-          && cell.getCellOwner().equals(new GamePlayer(playerType).toString())) {
+          && cell.getCellOwner().equals(new ComputerPlayer(playerType).toString())) {
         score += 1;
       }
     }

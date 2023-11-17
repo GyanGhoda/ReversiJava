@@ -2,7 +2,7 @@ package cs3500.reversi.strategies;
 
 import java.util.HashMap;
 
-import cs3500.reversi.controller.GamePlayer;
+import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.PositionAxial;
@@ -31,14 +31,13 @@ public class AvoidCellsNextToCorner implements ReversiStrategy {
 
     // Get the scores for each move
     for (PositionAxial posn : board.keySet()) {
-      if (model.doesCurrentPlayerHaveValidMovesPosn(posn, new GamePlayer(playerTurn))) {
+      if (model.doesCurrentPlayerHaveValidMovesPosn(posn, new ComputerPlayer(playerTurn))) {
         scores.put(posn, model.getScoreForMove(posn));
       }
     }
 
     // getting rid of moves next to corners
-    HashMap<PositionAxial, Integer> scoresNoNextToCorners =
-            new HashMap<PositionAxial, Integer>();
+    HashMap<PositionAxial, Integer> scoresNoNextToCorners = new HashMap<PositionAxial, Integer>();
 
     for (PositionAxial posn : scores.keySet()) {
       if (!this.isNextToCorner(model, posn)) {
@@ -47,9 +46,7 @@ public class AvoidCellsNextToCorner implements ReversiStrategy {
     }
 
     // Passing is represented by returning the boardsize for each coordinate
-    PositionAxial bestPosn =
-            new PositionAxial(model.getBoardSize(), model.getBoardSize(), model.getBoardSize());
-
+    PositionAxial bestPosn = new PositionAxial(model.getBoardSize(), model.getBoardSize(), model.getBoardSize());
 
     // choose the best move of those not next to the corner
     if (!scoresNoNextToCorners.isEmpty()) {
@@ -65,10 +62,10 @@ public class AvoidCellsNextToCorner implements ReversiStrategy {
 
     // Check if the position is next to any of the six corners
     return (Math.abs(posn.getQ()) == middleY && Math.abs(posn.getR()) == middleY - 1) ||
-            (Math.abs(posn.getR()) == middleY && Math.abs(posn.getS()) == middleY - 1) ||
-            (Math.abs(posn.getS()) == middleY && Math.abs(posn.getQ()) == middleY - 1) ||
-            (Math.abs(posn.getR()) == middleY && Math.abs(posn.getQ()) == middleY - 1) ||
-            (Math.abs(posn.getS()) == middleY && Math.abs(posn.getR()) == middleY - 1) ||
-            (Math.abs(posn.getQ()) == middleY && Math.abs(posn.getS()) == middleY - 1);
+        (Math.abs(posn.getR()) == middleY && Math.abs(posn.getS()) == middleY - 1) ||
+        (Math.abs(posn.getS()) == middleY && Math.abs(posn.getQ()) == middleY - 1) ||
+        (Math.abs(posn.getR()) == middleY && Math.abs(posn.getQ()) == middleY - 1) ||
+        (Math.abs(posn.getS()) == middleY && Math.abs(posn.getR()) == middleY - 1) ||
+        (Math.abs(posn.getQ()) == middleY && Math.abs(posn.getS()) == middleY - 1);
   }
 }

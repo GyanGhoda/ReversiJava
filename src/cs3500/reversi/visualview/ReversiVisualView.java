@@ -14,7 +14,7 @@ public interface ReversiVisualView {
    */
   void makeVisible();
 
-  void refresh(ReadOnlyReversiModel model);
+  void refresh(boolean b);
 
   void setUpFeatures(Features features);
 }

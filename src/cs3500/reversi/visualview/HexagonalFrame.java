@@ -3,7 +3,6 @@ package cs3500.reversi.visualview;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import cs3500.reversi.controller.Features;
 import cs3500.reversi.model.ReadOnlyReversiModel;
@@ -49,8 +48,8 @@ public class HexagonalFrame extends JFrame implements ReversiVisualView {
   }
 
   @Override
-  public void refresh(ReadOnlyReversiModel model) {
-    this.panel.refresh(model);
+  public void refresh(boolean currentTurn) {
+    this.panel.refresh(currentTurn);
   }
 
   @Override

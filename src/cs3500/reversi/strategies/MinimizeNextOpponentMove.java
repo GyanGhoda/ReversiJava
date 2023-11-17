@@ -2,7 +2,7 @@ package cs3500.reversi.strategies;
 
 import java.util.HashMap;
 
-import cs3500.reversi.controller.GamePlayer;
+import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.BasicReversiModel;
 import cs3500.reversi.model.Cell;
@@ -34,7 +34,7 @@ public class MinimizeNextOpponentMove implements ReversiStrategy {
 
     // For every position on the board, see if it is a valid move and, if so, add it
     for (PositionAxial posn : board.keySet()) {
-      if (model.doesCurrentPlayerHaveValidMovesPosn(posn, new GamePlayer(playerTurn))) {
+      if (model.doesCurrentPlayerHaveValidMovesPosn(posn, new ComputerPlayer(playerTurn))) {
         scores.put(posn, model.getScoreForMove(posn));
       }
     }
@@ -42,7 +42,7 @@ public class MinimizeNextOpponentMove implements ReversiStrategy {
     // Represents the best possible move to minimize the opponents next move.
     // Defualts to pass turn if there are no valid moves.
     PositionAxial bestPosn = new PositionAxial(model.getBoardSize(), model.getBoardSize(),
-            model.getBoardSize());
+        model.getBoardSize());
     // The lowest possible score for the opponents next move.
     int lowestScore = Integer.MAX_VALUE;
 
@@ -53,18 +53,18 @@ public class MinimizeNextOpponentMove implements ReversiStrategy {
 
       Cell cellToAdd = new GameCell(CellType.Player);
 
-      cellToAdd.setCellToPlayer(new GamePlayer(playerTurn));
+      cellToAdd.setCellToPlayer(new ComputerPlayer(playerTurn));
 
       futureBoard.put(posn, cellToAdd);
 
       // The model one move in the future
       ReversiModel futureModel = new BasicReversiModel(model.getNumRows(), futureBoard,
-              new GamePlayer(playerTurn).getOppositePlayer());
+          new ComputerPlayer(playerTurn).getOppositePlayer());
 
       // Get the best move for the opponent for the model in the future
       PositionAxial bestNextTurn = new TryTwoStrategies(new CaptureCellsInCorner(),
-              new TryTwoStrategies(new AvoidCellsNextToCorner(), new CaptureMostPieces()))
-              .chooseMove(futureModel, this.getOppositePlayerType(playerTurn));
+          new TryTwoStrategies(new AvoidCellsNextToCorner(), new CaptureMostPieces()))
+          .chooseMove(futureModel, this.getOppositePlayerType(playerTurn));
 
       // If the best move for the opponent is off the board, then the best move for
       // them is to pass, which is the best possible case for the player

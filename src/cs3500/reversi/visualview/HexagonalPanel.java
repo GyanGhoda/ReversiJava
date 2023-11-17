@@ -30,6 +30,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
   private int height;
   private Features features;
   PositionAxial selectedPosn;
+  boolean currentTurn;
 
   /**
    * Constructs a new HexagonalPanel with the given number of rows and columns.
@@ -47,6 +48,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     this.model = model;
     this.width = width;
     this.height = height;
+    this.currentTurn = false;
 
     addMouseListener(new MouseListenerReversi());
     addKeyListener(new KeyListenerReversi());
@@ -147,11 +149,17 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
       g2d.setFont(new Font("Serif", Font.BOLD, 20));
       g2d.setColor(Color.BLACK);
       g2d.drawString("Player: " + this.features.getPlayer(), 0, 30);
+
+      if (this.currentTurn) {
+        g2d.drawString("It is your turn!", this.width / 2, 30);
+      } else {
+        g2d.drawString("Please wait for the other player.", this.width / 2, 30);
+      }
     }
   }
 
-  public void refresh(ReadOnlyReversiModel model) {
-    this.model = model;
+  public void refresh(boolean currentTurn) {
+    this.currentTurn = currentTurn;
     this.initializeHexagons();
     repaint();
   }
@@ -277,6 +285,9 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
               + "\nR: " + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
           hexagon.setState(!hexagon.getState());
           selectedPosn = entry.getKey();
+        } else if (hexagon.contains(mouseX, mouseY)) {
+          hexagon.setState(!hexagon.getState());
+          selectedPosn = null;
         } else {
           hexagon.setState(false);
         }

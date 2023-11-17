@@ -20,7 +20,7 @@ public interface Features {
    */
   public void passTurn();
 
-  public void notifyToRefresh();
+  public void notifyToRefresh(String currentTurn);
 
   public String getPlayer();
 }

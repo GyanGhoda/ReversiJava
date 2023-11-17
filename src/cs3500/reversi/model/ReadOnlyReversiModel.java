@@ -1,6 +1,5 @@
 package cs3500.reversi.model;
 
-import cs3500.reversi.controller.Features;
 import cs3500.reversi.controller.Player;
 import cs3500.reversi.controller.PlayerType;
 

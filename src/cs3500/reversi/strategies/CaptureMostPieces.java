@@ -3,7 +3,7 @@ package cs3500.reversi.strategies;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import cs3500.reversi.controller.GamePlayer;
+import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.PositionAxial;
@@ -30,7 +30,7 @@ public class CaptureMostPieces implements ReversiStrategy {
 
     // Get the scores for each move
     for (PositionAxial posn : board.keySet()) {
-      if (model.doesCurrentPlayerHaveValidMovesPosn(posn, new GamePlayer(playerTurn))) {
+      if (model.doesCurrentPlayerHaveValidMovesPosn(posn, new ComputerPlayer(playerTurn))) {
         scores.put(posn, model.getScoreForMove(posn));
       }
     }

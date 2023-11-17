@@ -2,7 +2,7 @@ package cs3500.reversi.strategies;
 
 import java.util.HashMap;
 
-import cs3500.reversi.controller.GamePlayer;
+import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.PositionAxial;
@@ -30,7 +30,7 @@ public class CaptureCellsInCorner implements ReversiStrategy {
 
     // Get the scores for each move
     for (PositionAxial posn : board.keySet()) {
-      if (model.doesCurrentPlayerHaveValidMovesPosn(posn, new GamePlayer(playerTurn))) {
+      if (model.doesCurrentPlayerHaveValidMovesPosn(posn, new ComputerPlayer(playerTurn))) {
         scores.put(posn, model.getScoreForMove(posn));
       }
     }
@@ -44,9 +44,9 @@ public class CaptureCellsInCorner implements ReversiStrategy {
       }
     }
 
-    // if there are no moves in the corner, return the boardsize for each coordinate as a pass
-    PositionAxial bestPosn =
-            new PositionAxial(model.getBoardSize(), model.getBoardSize(), model.getBoardSize());
+    // if there are no moves in the corner, return the boardsize for each coordinate
+    // as a pass
+    PositionAxial bestPosn = new PositionAxial(model.getBoardSize(), model.getBoardSize(), model.getBoardSize());
 
     // choose the best move of those in the corner
     if (!scoresCorners.isEmpty()) {
@@ -62,10 +62,11 @@ public class CaptureCellsInCorner implements ReversiStrategy {
 
     // math for the corners
     return (Math.abs(posn.getQ()) == middleY && Math.abs(posn.getS()) == middleY
-            && posn.getR() == 0) ||
-            (Math.abs(posn.getS()) == middleY && Math.abs(posn.getR()) == middleY
-                    && posn.getQ() == 0) ||
-            (Math.abs(posn.getR()) == middleY && Math.abs(posn.getQ()) == middleY
-                    && posn.getS() == 0);
+        && posn.getR() == 0) ||
+        (Math.abs(posn.getS()) == middleY && Math.abs(posn.getR()) == middleY
+            && posn.getQ() == 0)
+        ||
+        (Math.abs(posn.getR()) == middleY && Math.abs(posn.getQ()) == middleY
+            && posn.getS() == 0);
   }
 }

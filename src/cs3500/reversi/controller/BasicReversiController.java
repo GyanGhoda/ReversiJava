@@ -25,7 +25,6 @@ public class BasicReversiController implements Features {
         this.model.addPieceToCoordinates(posn, player);
         System.out.println("User has requested to move to:\nQ: " + posn.getQ() + "\nR: "
                 + posn.getR() + "\nS: " + posn.getS());
-        this.updateView();
     }
 
     /**
@@ -35,15 +34,10 @@ public class BasicReversiController implements Features {
     public void passTurn() {
         this.model.passTurn();
         System.out.println("User has requested to pass turn.");
-        this.updateView();
     }
 
-    public void notifyToRefresh() {
-        this.updateView();
-    }
-
-    private void updateView() {
-        this.view.refresh(this.model);
+    public void notifyToRefresh(String currentTurn) {
+        this.view.refresh(currentTurn.equals(this.player.toString()));
     }
 
     @Override

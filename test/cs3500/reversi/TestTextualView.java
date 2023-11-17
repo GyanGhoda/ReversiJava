@@ -3,7 +3,7 @@ package cs3500.reversi;
 import org.junit.Assert;
 import org.junit.Test;
 
-import cs3500.reversi.controller.GamePlayer;
+import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.Player;
 import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.BasicReversiModel;
@@ -25,12 +25,12 @@ public class TestTextualView {
     TextualView modelView = new ReversiTextualView(model);
 
     Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
-            "  _ _ _ _ _\n" + //
-            " _ _ X O _ _\n" + //
-            "_ _ O _ X _ _\n" + //
-            " _ _ X O _ _\n" + //
-            "  _ _ _ _ _\n" + //
-            "   _ _ _ _\n");
+        "  _ _ _ _ _\n" + //
+        " _ _ X O _ _\n" + //
+        "_ _ O _ X _ _\n" + //
+        " _ _ X O _ _\n" + //
+        "  _ _ _ _ _\n" + //
+        "   _ _ _ _\n");
   }
 
   // Test that the TextualView has initialized correctly with a correct starting
@@ -43,8 +43,8 @@ public class TestTextualView {
     TextualView modelView = new ReversiTextualView(model);
 
     Assert.assertEquals(modelView.toString(), " X O\n" + //
-            "O _ X\n" + //
-            " X O\n");
+        "O _ X\n" + //
+        " X O\n");
   }
 
   // Test that the TextualView has rendered the board correctly with a starting
@@ -52,21 +52,21 @@ public class TestTextualView {
   @Test
   public void testModelTextualViewMoveOneMove() {
 
-    Player player = new GamePlayer(PlayerType.BLACK);
+    Player player = new ComputerPlayer(PlayerType.BLACK);
 
-    ReversiModel model = new BasicReversiModel(7, player, new GamePlayer(PlayerType.WHITE));
+    ReversiModel model = new BasicReversiModel(7, player, new ComputerPlayer(PlayerType.WHITE));
 
     model.addPieceToCoordinates(new PositionAxial(1, -2, 1), player);
 
     TextualView modelView = new ReversiTextualView(model);
 
     Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
-            "  _ _ X _ _\n" + //
-            " _ _ X X _ _\n" + //
-            "_ _ O _ X _ _\n" + //
-            " _ _ X O _ _\n" + //
-            "  _ _ _ _ _\n" + //
-            "   _ _ _ _\n");
+        "  _ _ X _ _\n" + //
+        " _ _ X X _ _\n" + //
+        "_ _ O _ X _ _\n" + //
+        " _ _ X O _ _\n" + //
+        "  _ _ _ _ _\n" + //
+        "   _ _ _ _\n");
   }
 
   // Test that the TextualView has rendered the board correctly with a starting
@@ -74,8 +74,8 @@ public class TestTextualView {
   @Test
   public void testModelTextualViewMoveMultipleMoves() {
 
-    Player playerBlack = new GamePlayer(PlayerType.BLACK);
-    Player playerWhite = new GamePlayer(PlayerType.WHITE);
+    Player playerBlack = new ComputerPlayer(PlayerType.BLACK);
+    Player playerWhite = new ComputerPlayer(PlayerType.WHITE);
 
     ReversiModel model = new BasicReversiModel(7, playerBlack, playerWhite);
 
@@ -87,11 +87,11 @@ public class TestTextualView {
     TextualView modelView = new ReversiTextualView(model);
 
     Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
-            "  _ _ X _ _\n" + //
-            " _ _ X X _ _\n" + //
-            "_ _ X _ X _ _\n" + //
-            " O O O O _ _\n" + //
-            "  X _ _ _ _\n" + //
-            "   _ _ _ _\n");
+        "  _ _ X _ _\n" + //
+        " _ _ X X _ _\n" + //
+        "_ _ X _ X _ _\n" + //
+        " O O O O _ _\n" + //
+        "  X _ _ _ _\n" + //
+        "   _ _ _ _\n");
   }
 }

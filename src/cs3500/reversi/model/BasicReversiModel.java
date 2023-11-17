@@ -1,12 +1,11 @@
 package cs3500.reversi.model;
 
-import java.awt.Taskbar.Feature;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import cs3500.reversi.controller.Features;
-import cs3500.reversi.controller.GamePlayer;
+import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.Player;
 import cs3500.reversi.controller.PlayerType;
 
@@ -58,8 +57,8 @@ public class BasicReversiModel implements ReversiModel {
       throw new IllegalArgumentException("Width must be odd and at least three.");
     }
     this.board = new HashMap<>();
-    this.playerBlack = new GamePlayer(PlayerType.BLACK);
-    this.playerWhite = new GamePlayer(PlayerType.WHITE);
+    this.playerBlack = new ComputerPlayer(PlayerType.BLACK);
+    this.playerWhite = new ComputerPlayer(PlayerType.WHITE);
     this.width = width;
     this.currentPlayer = this.playerBlack;
     this.consectivePassedTurns = 0;
@@ -127,8 +126,8 @@ public class BasicReversiModel implements ReversiModel {
     }
 
     this.board = new HashMap<>();
-    this.playerBlack = new GamePlayer(PlayerType.BLACK);
-    this.playerWhite = new GamePlayer(PlayerType.WHITE);
+    this.playerBlack = new ComputerPlayer(PlayerType.BLACK);
+    this.playerWhite = new ComputerPlayer(PlayerType.WHITE);
     this.width = width;
     this.currentPlayer = currentPlayer;
     this.consectivePassedTurns = 0;
@@ -150,8 +149,8 @@ public class BasicReversiModel implements ReversiModel {
    */
   public BasicReversiModel() {
     this.board = new HashMap<>();
-    this.playerBlack = new GamePlayer(PlayerType.BLACK);
-    this.playerWhite = new GamePlayer(PlayerType.WHITE);
+    this.playerBlack = new ComputerPlayer(PlayerType.BLACK);
+    this.playerWhite = new ComputerPlayer(PlayerType.WHITE);
     this.width = 11;
     this.currentPlayer = this.playerBlack;
     this.consectivePassedTurns = 0;
@@ -172,6 +171,10 @@ public class BasicReversiModel implements ReversiModel {
 
     // set the game to has started
     this.gameStarted = true;
+
+    for (Features f : this.controllers) {
+      f.notifyToRefresh(this.getCurrentTurn());
+    }
   }
 
   public void addFeaturesListener(Features feature) {
@@ -227,10 +230,10 @@ public class BasicReversiModel implements ReversiModel {
    */
   private void addStartingPieces() {
     Cell whiteCell = new GameCell(CellType.Player);
-    whiteCell.setCellToPlayer(new GamePlayer(PlayerType.WHITE));
+    whiteCell.setCellToPlayer(new ComputerPlayer(PlayerType.WHITE));
 
     Cell blackCell = new GameCell(CellType.Player);
-    blackCell.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
+    blackCell.setCellToPlayer(new ComputerPlayer(PlayerType.BLACK));
 
     // setting initial player positions
     this.initializeCell(-1, 0, 1, PlayerType.WHITE);
@@ -244,7 +247,7 @@ public class BasicReversiModel implements ReversiModel {
   // helper for initializing a cell to be occupied by a player
   private void initializeCell(int q, int r, int s, PlayerType type) {
     this.board.put(new PositionAxial(q, r, s), new GameCell(CellType.Player));
-    this.board.get(new PositionAxial(q, r, s)).setCellToPlayer(new GamePlayer(type));
+    this.board.get(new PositionAxial(q, r, s)).setCellToPlayer(new ComputerPlayer(type));
   }
 
   /**
@@ -264,9 +267,9 @@ public class BasicReversiModel implements ReversiModel {
 
       if (cell.sameCellType(CellType.Player)) {
         if (cell.getCellOwner().equals("X")) {
-          cellCopy.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
+          cellCopy.setCellToPlayer(new ComputerPlayer(PlayerType.BLACK));
         } else {
-          cellCopy.setCellToPlayer(new GamePlayer(PlayerType.WHITE));
+          cellCopy.setCellToPlayer(new ComputerPlayer(PlayerType.WHITE));
         }
       }
 
@@ -304,7 +307,7 @@ public class BasicReversiModel implements ReversiModel {
       Cell playerCell = new GameCell(CellType.Player);
 
       // set the owner of the player cell to the current player.
-      playerCell.setCellToPlayer(this.getCurrentTurn());
+      playerCell.setCellToPlayer(this.currentPlayer);
 
       // place the player cell on the game board at the specified position.
       this.board.put(posn, playerCell);
@@ -321,7 +324,7 @@ public class BasicReversiModel implements ReversiModel {
       this.consectivePassedTurns = 0;
 
       for (Features f : this.controllers) {
-        f.notifyToRefresh();
+        f.notifyToRefresh(this.getCurrentTurn());
       }
     } else {
       throw new IllegalStateException("Move cannot be made");
@@ -329,8 +332,8 @@ public class BasicReversiModel implements ReversiModel {
   }
 
   // return the player whose turn it currently is
-  private Player getCurrentTurn() {
-    return this.currentPlayer;
+  public String getCurrentTurn() {
+    return this.currentPlayer.toString();
   }
 
   /**
@@ -542,7 +545,7 @@ public class BasicReversiModel implements ReversiModel {
   private void changeAllCellsBetween(List<PositionAxial> posnBetween) {
 
     for (PositionAxial posn : posnBetween) {
-      this.board.get(posn).setCellToPlayer(this.getCurrentTurn());
+      this.board.get(posn).setCellToPlayer(this.currentPlayer);
     }
   }
 
@@ -564,7 +567,7 @@ public class BasicReversiModel implements ReversiModel {
     this.changeTurns();
 
     for (Features f : this.controllers) {
-      f.notifyToRefresh();
+      f.notifyToRefresh(this.getCurrentTurn());
     }
   }
 
@@ -594,7 +597,7 @@ public class BasicReversiModel implements ReversiModel {
 
     for (PositionAxial posn : this.board.keySet()) {
       if (this.getCellAt(posn).sameCellType(CellType.Empty)
-          && !(this.isValidMoveForPlayer(posn, this.getCurrentTurn()).isEmpty())) {
+          && !(this.isValidMoveForPlayer(posn, this.currentPlayer).isEmpty())) {
         return false;
       }
     }
@@ -613,7 +616,7 @@ public class BasicReversiModel implements ReversiModel {
     // moves
     for (PositionAxial posn : this.board.keySet()) {
       if (this.getCellAt(posn).sameCellType(CellType.Empty)
-          && !(this.isValidMoveForPlayer(posn, this.getCurrentTurn()).isEmpty())) {
+          && !(this.isValidMoveForPlayer(posn, this.currentPlayer).isEmpty())) {
         // if the current player has a valid move, return true
         return true;
       }
@@ -667,9 +670,9 @@ public class BasicReversiModel implements ReversiModel {
     // proper player
     if (cellAtPosn.sameCellType(CellType.Player)) {
       if (cellAtPosn.getCellOwner().equals("X")) {
-        cellToReturn.setCellToPlayer(new GamePlayer(PlayerType.BLACK));
+        cellToReturn.setCellToPlayer(new ComputerPlayer(PlayerType.BLACK));
       } else {
-        cellToReturn.setCellToPlayer(new GamePlayer(PlayerType.WHITE));
+        cellToReturn.setCellToPlayer(new ComputerPlayer(PlayerType.WHITE));
       }
     }
 
@@ -699,7 +702,7 @@ public class BasicReversiModel implements ReversiModel {
     // iterate over the board and count the number of cells owned by the given
     for (Cell cell : this.board.values()) {
       if (cell.getCellType().equals(CellType.Player)
-          && cell.getCellOwner().equals(new GamePlayer(playerType).toString())) {
+          && cell.getCellOwner().equals(new ComputerPlayer(playerType).toString())) {
         score += 1;
       }
     }
@@ -710,7 +713,7 @@ public class BasicReversiModel implements ReversiModel {
   @Override
   public int getScoreForMove(PositionAxial posn) {
     // Get the list of valid positions to add a piece to on this move.
-    List<PositionAxial> validTiles = this.isValidMoveForPlayer(posn, this.getCurrentTurn());
+    List<PositionAxial> validTiles = this.isValidMoveForPlayer(posn, this.currentPlayer);
 
     return validTiles.size();
   }

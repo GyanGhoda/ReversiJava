@@ -1,6 +1,6 @@
 package cs3500.reversi;
 
-import cs3500.reversi.controller.GamePlayer;
+import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.Player;
 import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.BasicReversiModel;
@@ -24,8 +24,8 @@ public class Examples {
   PlayerType white = PlayerType.WHITE;
 
   // Examples of the GamePlayer class
-  Player gamePlayerBlack = new GamePlayer(PlayerType.BLACK);
-  Player gamePlayerWhite = new GamePlayer(PlayerType.WHITE);
+  Player gamePlayerBlack = new ComputerPlayer(PlayerType.BLACK);
+  Player gamePlayerWhite = new ComputerPlayer(PlayerType.WHITE);
 
   // Examples of the BasicReversiModel class
   ReversiModel basicReversiModel3 = new BasicReversiModel(3);
