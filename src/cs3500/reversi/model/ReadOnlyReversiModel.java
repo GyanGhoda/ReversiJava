@@ -1,5 +1,6 @@
 package cs3500.reversi.model;
 
+import cs3500.reversi.controller.Features;
 import cs3500.reversi.controller.Player;
 import cs3500.reversi.controller.PlayerType;
 
@@ -56,7 +57,7 @@ public interface ReadOnlyReversiModel {
    *
    * @param posn The position to check for valid moves.
    * @return true if the current player has valid moves at the given position,
-   *     false otherwise.
+   *         false otherwise.
    */
   boolean doesCurrentPlayerHaveValidMovesPosn(PositionAxial posn, Player playerTurn);
 

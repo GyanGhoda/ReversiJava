@@ -1,5 +1,8 @@
 package cs3500.reversi.visualview;
 
+import cs3500.reversi.controller.Features;
+import cs3500.reversi.model.ReadOnlyReversiModel;
+
 /**
  * Represents a visual view of the Reversi game.
  * Describes what the frame should be capable of doing, which
@@ -10,4 +13,8 @@ public interface ReversiVisualView {
    * Makes the view visible.
    */
   void makeVisible();
+
+  void refresh(ReadOnlyReversiModel model);
+
+  void setUpFeatures(Features features);
 }

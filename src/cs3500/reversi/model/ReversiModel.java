@@ -2,6 +2,7 @@ package cs3500.reversi.model;
 
 import java.util.HashMap;
 
+import cs3500.reversi.controller.Features;
 import cs3500.reversi.controller.Player;
 import cs3500.reversi.controller.PlayerType;
 
@@ -12,6 +13,10 @@ import cs3500.reversi.controller.PlayerType;
  * startGame, addPieceToCoordinates, and passTurn.
  */
 public interface ReversiModel extends ReadOnlyReversiModel {
+
+  public void addFeaturesListener(Features feature);
+
+  void startGame();
 
   /**
    * Creates a deep copy of the board of this Reversi game.
@@ -53,7 +58,7 @@ public interface ReversiModel extends ReadOnlyReversiModel {
    *
    * @param posn The position to check for valid moves.
    * @return true if the current player has valid moves at the given position,
-   *     false otherwise.
+   *         false otherwise.
    */
   boolean doesCurrentPlayerHaveValidMovesPosn(PositionAxial posn, Player playerTurn);
 

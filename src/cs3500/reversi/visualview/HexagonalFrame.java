@@ -3,7 +3,9 @@ package cs3500.reversi.visualview;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
+import cs3500.reversi.controller.Features;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
 /**
@@ -12,6 +14,7 @@ import cs3500.reversi.model.ReadOnlyReversiModel;
 public class HexagonalFrame extends JFrame implements ReversiVisualView {
 
   private final ReadOnlyReversiModel model;
+  private final HexagonalPanel panel;
 
   /**
    * Constructs a frame of hexagonal buttons.
@@ -26,6 +29,7 @@ public class HexagonalFrame extends JFrame implements ReversiVisualView {
     setLocationRelativeTo(null); // Center the frame
     setVisible(true); // Make the frame visible
 
+    this.panel = new HexagonalPanel(this.model, 800, 800);
     this.render(); // Render the frame
   }
 
@@ -33,8 +37,7 @@ public class HexagonalFrame extends JFrame implements ReversiVisualView {
    * Renders the frame.
    */
   private void render() {
-    HexagonalPanel panel = new HexagonalPanel(this.model, 800, 800);
-    panel.setBounds(400, 400, 800, 800);
+    this.panel.setBounds(400, 400, 800, 800);
     add(panel, BorderLayout.CENTER);
   }
 
@@ -43,5 +46,15 @@ public class HexagonalFrame extends JFrame implements ReversiVisualView {
    */
   public void makeVisible() {
     this.setVisible(true);
+  }
+
+  @Override
+  public void refresh(ReadOnlyReversiModel model) {
+    this.panel.refresh(model);
+  }
+
+  @Override
+  public void setUpFeatures(Features features) {
+    this.panel.setUpFeatures(features);
   }
 }

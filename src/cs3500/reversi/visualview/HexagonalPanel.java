@@ -3,7 +3,6 @@ package cs3500.reversi.visualview;
 import javax.swing.JPanel;
 
 import cs3500.reversi.controller.Features;
-import cs3500.reversi.controller.ReversiFeatures;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
@@ -13,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.ComponentListener;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -24,18 +24,18 @@ import java.util.HashMap;
  * Represents a panel of hexagonal buttons.
  */
 public class HexagonalPanel extends JPanel implements ReversiPanel {
-  private final HashMap<PositionAxial, HexagonSpace> hexagonButtons =
-          new HashMap<PositionAxial, HexagonSpace>();
-  private final ReadOnlyReversiModel model;
+  private final HashMap<PositionAxial, HexagonSpace> hexagonButtons = new HashMap<PositionAxial, HexagonSpace>();
+  private ReadOnlyReversiModel model;
   private int width;
   private int height;
-  private final Features features;
+  private Features features;
+  PositionAxial selectedPosn;
 
   /**
    * Constructs a new HexagonalPanel with the given number of rows and columns.
    *
-   * @param model The model to render.
-   * @param width The width of the panel.
+   * @param model  The model to render.
+   * @param width  The width of the panel.
    * @param height The height of the panel.
    */
   public HexagonalPanel(ReadOnlyReversiModel model, int width, int height) {
@@ -47,7 +47,6 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     this.model = model;
     this.width = width;
     this.height = height;
-    this.features = new ReversiFeatures();
 
     addMouseListener(new MouseListenerReversi());
     addKeyListener(new KeyListenerReversi());
@@ -60,10 +59,16 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     this.initializeHexagons();
   }
 
+  public void setUpFeatures(Features features) {
+    this.features = features;
+  }
+
   /**
    * Initializes the hexagons in the panel.
    */
   private void initializeHexagons() {
+    this.hexagonButtons.clear();
+
     int distance = Math.min(this.width, this.height) / this.model.getNumRows();
     double buttonSize = (distance / Math.sqrt(3));
 
@@ -86,7 +91,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
 
       // Adjust starting positions with offsets
       double startingX = offsetX + (((buttonSize * Math.sqrt(3)) / 2) * Math.abs(currentR))
-              + (((buttonSize * Math.sqrt(3))) / 2);
+          + (((buttonSize * Math.sqrt(3))) / 2);
       double startingY = offsetY + ((buttonSize * 3) / 2) * (rowsMade + 1);
 
       for (int currentS = currentRowStartingS; currentS >= currentRowStartingQ; currentS -= 1) {
@@ -95,7 +100,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
 
         // create a new hexagon button
         HexagonSpace hexagon = new HexagonSpace(buttonSize, startingX, startingY,
-                this.model.getCellAt(posn));
+            this.model.getCellAt(posn));
 
         // create empty cell and add it to the board at the current poisiton
         hexagonButtons.put(posn, hexagon);
@@ -137,6 +142,18 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
 
       hexagon.drawSpaceOwner(g2d);
     }
+
+    if (!(this.features == null)) {
+      g2d.setFont(new Font("Serif", Font.BOLD, 20));
+      g2d.setColor(Color.BLACK);
+      g2d.drawString("Player: " + this.features.getPlayer(), 0, 30);
+    }
+  }
+
+  public void refresh(ReadOnlyReversiModel model) {
+    this.model = model;
+    this.initializeHexagons();
+    repaint();
   }
 
   /**
@@ -233,39 +250,38 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
 
   // handles all keyboard clicks when playing
   private void keyClickUpdateView(int keyCode) {
-    // Check if the user has pressed the 'm' key, which makes a move
-    if (keyCode == KeyEvent.VK_M) {
-      for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
-        HexagonSpace hexagon = entry.getValue();
-        if (hexagon.getState()) {
-          features.moveToCoordinate(entry.getKey());
-        }
+    if (!(this.features == null)) {
+      // Check if the user has pressed the 'm' key, which makes a move
+      if (keyCode == KeyEvent.VK_M) {
+        this.features.moveToCoordinate(selectedPosn);
       }
-    }
+      // Check if the user has pressed the 'p' key, which passes the turn
+      if (keyCode == KeyEvent.VK_P) {
+        this.features.passTurn();
+      }
 
-    // Check if the user has pressed the 'p' key, which passes the turn
-    if (keyCode == KeyEvent.VK_P) {
-      features.passTurn();
+      repaint();
     }
-
-    repaint();
   }
 
   // handles all mouse clicks when playing
   private void mouseClickUpdateView(int mouseX, int mouseY) {
-    // Check if the mouse click is inside a hexagon and highlight it accordingly
-    for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
-      HexagonSpace hexagon = entry.getValue();
+    if (!(this.features == null)) {
+      // Check if the mouse click is inside a hexagon and highlight it accordingly
+      for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
+        HexagonSpace hexagon = entry.getValue();
 
-      // print out the coordinates of the hexagon that was clicked on
-      if (hexagon.contains(mouseX, mouseY) && !hexagon.getState()) {
-        System.out.println("Clicked on hexagon at:\nQ: " + entry.getKey().getQ()
-                + "\nR: " + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
-        hexagon.setState(!hexagon.getState());
-      } else {
-        hexagon.setState(false);
+        // print out the coordinates of the hexagon that was clicked on
+        if (hexagon.contains(mouseX, mouseY) && !hexagon.getState()) {
+          System.out.println("Clicked on hexagon at:\nQ: " + entry.getKey().getQ()
+              + "\nR: " + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
+          hexagon.setState(!hexagon.getState());
+          selectedPosn = entry.getKey();
+        } else {
+          hexagon.setState(false);
+        }
       }
+      repaint();
     }
-    repaint();
   }
 }

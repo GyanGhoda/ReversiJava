@@ -3,7 +3,8 @@ package cs3500.reversi.controller;
 import cs3500.reversi.model.PositionAxial;
 
 /**
- * Represents the features that the controller can use to interact with the model.
+ * Represents the features that the controller can use to interact with the
+ * model.
  */
 public interface Features {
 
@@ -18,4 +19,8 @@ public interface Features {
    * Passes the turn to the next player.
    */
   public void passTurn();
+
+  public void notifyToRefresh();
+
+  public String getPlayer();
 }

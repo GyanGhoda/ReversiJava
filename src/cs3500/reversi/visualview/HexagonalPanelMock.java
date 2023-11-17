@@ -15,7 +15,6 @@ import java.util.HashMap;
 import javax.swing.JPanel;
 
 import cs3500.reversi.controller.Features;
-import cs3500.reversi.controller.ReversiFeatures;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
@@ -23,12 +22,11 @@ import cs3500.reversi.model.ReadOnlyReversiModel;
  * Represents a panel of hexagonal buttons.
  */
 public class HexagonalPanelMock extends JPanel implements ReversiPanel {
-  private final HashMap<PositionAxial, HexagonSpace> hexagonButtons =
-          new HashMap<PositionAxial, HexagonSpace>();
+  private final HashMap<PositionAxial, HexagonSpace> hexagonButtons = new HashMap<PositionAxial, HexagonSpace>();
   private final ReadOnlyReversiModel model;
   private int width;
   private int height;
-  private final Features features;
+  private Features features;
 
   private final StringBuilder log;
 
@@ -48,7 +46,6 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
     this.model = model;
     this.width = width;
     this.height = height;
-    this.features = new ReversiFeatures();
     this.log = new StringBuilder();
 
     addMouseListener(new MouseListenerReversi());
@@ -60,6 +57,10 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
     requestFocusInWindow();
 
     this.initializeHexagons();
+  }
+
+  public void setUpFeatures(Features features) {
+    this.features = features;
   }
 
   /**
@@ -88,7 +89,7 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
 
       // Adjust starting positions with offsets
       double startingX = offsetX + (((buttonSize * Math.sqrt(3)) / 2) * Math.abs(currentR))
-              + (((buttonSize * Math.sqrt(3))) / 2);
+          + (((buttonSize * Math.sqrt(3))) / 2);
       double startingY = offsetY + ((buttonSize * 3) / 2) * (rowsMade + 1);
 
       for (int currentS = currentRowStartingS; currentS >= currentRowStartingQ; currentS -= 1) {
@@ -97,7 +98,7 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
 
         // create a new hexagon button
         HexagonSpace hexagon = new HexagonSpace(buttonSize, startingX, startingY,
-                this.model.getCellAt(posn));
+            this.model.getCellAt(posn));
 
         // create empty cell and add it to the board at the current poisiton
         hexagonButtons.put(posn, hexagon);
@@ -235,45 +236,48 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
 
   // handles all keyboard clicks when playing
   private void keyClickUpdateView(int keyCode) {
-    // Check if the user has pressed the 'm' key, which makes a move
-    if (keyCode == KeyEvent.VK_M) {
-      this.log.append("User has pressed m key to move");
-      for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
-        HexagonSpace hexagon = entry.getValue();
-        if (hexagon.getState()) {
-          features.moveToCoordinate(entry.getKey());
+    if (!(this.features == null)) {
+      // Check if the user has pressed the 'm' key, which makes a move
+      if (keyCode == KeyEvent.VK_M) {
+        this.log.append("User has pressed m key to move");
+        for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
+          HexagonSpace hexagon = entry.getValue();
+          if (hexagon.getState()) {
+            features.moveToCoordinate(entry.getKey());
+          }
         }
       }
-    }
 
-    // Check if the user has pressed the 'p' key, which passes the turn
-    if (keyCode == KeyEvent.VK_P) {
-      this.log.append("User has pressed p key to pass");
-      features.passTurn();
-    }
+      // Check if the user has pressed the 'p' key, which passes the turn
+      if (keyCode == KeyEvent.VK_P) {
+        this.log.append("User has pressed p key to pass");
+        features.passTurn();
+      }
 
-    repaint();
+      repaint();
+    }
   }
 
   // handles all mouse clicks when playing
   private void mouseClickUpdateView(int mouseX, int mouseY) {
+    if (!(this.features == null)) {
+      // Check if the mouse click is inside a hexagon and highlight it accordingly
+      for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
+        HexagonSpace hexagon = entry.getValue();
 
-    // Check if the mouse click is inside a hexagon and highlight it accordingly
-    for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
-      HexagonSpace hexagon = entry.getValue();
-
-      // print out the coordinates of the hexagon that was clicked on
-      if (hexagon.contains(mouseX, mouseY) && !hexagon.getState()) {
-        System.out.println("Clicked on hexagon at:\nQ: " + entry.getKey().getQ()
-                + "\nR: " + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
-        this.log.append("Clicked on hexagon at:\nQ: " + entry.getKey().getQ()
-                + "\nR: " + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
-        hexagon.setState(!hexagon.getState());
-      } else {
-        hexagon.setState(false);
+        // print out the coordinates of the hexagon that was clicked on
+        if (hexagon.contains(mouseX, mouseY) && !hexagon.getState()) {
+          System.out.println("Clicked on hexagon at:\nQ: " + entry.getKey().getQ()
+              + "\nR: " + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
+          this.log.append("Clicked on hexagon at:\nQ: " + entry.getKey().getQ()
+              + "\nR: " + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
+          hexagon.setState(!hexagon.getState());
+        } else {
+          hexagon.setState(false);
+        }
       }
+      repaint();
     }
-    repaint();
   }
 
   /**
