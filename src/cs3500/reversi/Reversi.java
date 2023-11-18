@@ -25,7 +25,7 @@ public final class Reversi {
     ReversiVisualView view2 = new HexagonalFrame(model);
 
     Features controller1 = new BasicReversiController(model, new HumanPlayer(PlayerType.BLACK), view1);
-    Features controller2 = new BasicReversiController(model, new ComputerPlayer(PlayerType.WHITE), view2);
+    Features controller2 = new BasicReversiController(model, new HumanPlayer(PlayerType.WHITE), view2);
 
     model.addFeaturesListener(controller1);
     model.addFeaturesListener(controller2);
