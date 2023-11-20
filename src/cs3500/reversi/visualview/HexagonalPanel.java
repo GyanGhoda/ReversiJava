@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.FontMetrics;
 import java.awt.event.ComponentListener;
 import java.awt.Color;
 import java.awt.Font;
@@ -130,6 +131,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
   @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
+    FontMetrics fm = g.getFontMetrics();
 
     Graphics2D g2d = (Graphics2D) g;
 
@@ -147,18 +149,30 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     }
 
     if (this.model.hasGameStarted()) {
-      g2d.setFont(new Font("Serif", Font.BOLD, 20));
+      // Calculate new font size based on panel size
+      int fontSize = Math.max(10, Math.min(width, height) / 30);
+      int topY = this.height - (this.height - fontSize);
+
+      g2d.setFont(new Font("Serif", Font.BOLD, fontSize));
       g2d.setColor(Color.BLACK);
-      g2d.drawString("Player: " + this.features.getPlayer(), 0, 30);
+      g2d.drawString("Player: " + this.features.getPlayer(), 0, topY);
+
+      String turnString = "";
 
       if (this.currentTurn) {
-        g2d.drawString("It is your turn!", this.width / 2, 30);
+        turnString = "It is your turn!";
       } else {
-        g2d.drawString("Please wait for the other player.", this.width / 2 - 120, 30);
+        turnString = "Please wait for the other player.";
       }
-      g2d.drawString("Black: " + this.model.getCurrentScore(PlayerType.BLACK), this.width - 150, 30);
-      g2d.drawString("White: " + this.model.getCurrentScore(PlayerType.WHITE), this.width - 150, 60);
 
+      int centerX = this.width / 2 - fm.stringWidth(turnString);
+      g2d.drawString(turnString, centerX, topY);
+
+      String blackScore = "Black: " + this.model.getCurrentScore(PlayerType.BLACK);
+      String whiteScore = "White: " + this.model.getCurrentScore(PlayerType.WHITE);
+
+      g2d.drawString(blackScore, this.width - fm.stringWidth(blackScore) * 3, topY);
+      g2d.drawString(whiteScore, this.width - fm.stringWidth(whiteScore) * 3, topY * 2);
     }
   }
 
