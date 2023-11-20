@@ -1,6 +1,6 @@
 package cs3500.reversi.visualview;
 
-import cs3500.reversi.controller.Features;
+import cs3500.reversi.controller.PlayerActionFeatures;
 
 /**
  * Represents a visual view of the Reversi game.
@@ -15,5 +15,5 @@ public interface ReversiVisualView {
 
   void refresh(boolean currentTurn);
 
-  void setUpFeatures(Features features);
+  void setUpFeatures(PlayerActionFeatures features);
 }

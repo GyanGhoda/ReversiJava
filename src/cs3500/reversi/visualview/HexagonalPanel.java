@@ -3,7 +3,7 @@ package cs3500.reversi.visualview;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import cs3500.reversi.controller.Features;
+import cs3500.reversi.controller.PlayerActionFeatures;
 import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReadOnlyReversiModel;
@@ -31,7 +31,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
   private ReadOnlyReversiModel model;
   private int width;
   private int height;
-  private Features features;
+  private PlayerActionFeatures features;
   private PositionAxial selectedPosn;
   private boolean currentTurn;
 
@@ -64,7 +64,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     this.initializeHexagons();
   }
 
-  public void setUpFeatures(Features features) {
+  public void setUpFeatures(PlayerActionFeatures features) {
     this.features = features;
   }
 

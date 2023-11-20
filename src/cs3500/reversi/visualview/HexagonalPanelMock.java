@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
-import cs3500.reversi.controller.Features;
+import cs3500.reversi.controller.PlayerActionFeatures;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
@@ -26,7 +26,7 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
   private final ReadOnlyReversiModel model;
   private int width;
   private int height;
-  private Features features;
+  private PlayerActionFeatures features;
 
   private final StringBuilder log;
 
@@ -59,7 +59,7 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
     this.initializeHexagons();
   }
 
-  public void setUpFeatures(Features features) {
+  public void setUpFeatures(PlayerActionFeatures features) {
     this.features = features;
   }
 

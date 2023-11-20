@@ -6,7 +6,7 @@ import cs3500.reversi.model.PositionAxial;
  * Represents the features that the controller can use to interact with the
  * model.
  */
-public interface Features {
+public interface PlayerActionFeatures {
 
   /**
    * Moves the current player's piece to the given position.
@@ -19,8 +19,6 @@ public interface Features {
    * Passes the turn to the next player.
    */
   public void passTurn();
-
-  public void notifyToRefresh(String currentTurn);
 
   public String getPlayer();
 }

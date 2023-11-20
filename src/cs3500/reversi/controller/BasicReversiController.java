@@ -4,7 +4,7 @@ import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.visualview.ReversiVisualView;
 
-public class BasicReversiController implements Features {
+public class BasicReversiController implements PlayerActionFeatures, ModelStatusFeatures {
     private final ReversiModel model;
     private final Player player;
     private final ReversiVisualView view;

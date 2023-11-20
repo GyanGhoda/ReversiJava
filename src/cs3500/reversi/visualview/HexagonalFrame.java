@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-import cs3500.reversi.controller.Features;
+import cs3500.reversi.controller.PlayerActionFeatures;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
 /**
@@ -53,7 +53,7 @@ public class HexagonalFrame extends JFrame implements ReversiVisualView {
   }
 
   @Override
-  public void setUpFeatures(Features features) {
+  public void setUpFeatures(PlayerActionFeatures features) {
     this.panel.setUpFeatures(features);
   }
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import cs3500.reversi.controller.Features;
+import cs3500.reversi.controller.ModelStatusFeatures;
 import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.Player;
 import cs3500.reversi.controller.PlayerType;
@@ -36,7 +36,7 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
   // the log of the game
   final StringBuilder log;
 
-  private List<Features> controllers;
+  private List<ModelStatusFeatures> controllers;
 
   /**
    * Constructs a new BasicReversiModelMockTranscript with the specified width.
@@ -194,7 +194,7 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
     this.board.get(new PositionAxial(q, r, s)).setCellToPlayer(new ComputerPlayer(type));
   }
 
-  public void addFeaturesListener(Features feature) {
+  public void addFeaturesListener(ModelStatusFeatures feature) {
     this.controllers.add(feature);
   }
 

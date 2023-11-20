@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import cs3500.reversi.controller.Features;
+import cs3500.reversi.controller.ModelStatusFeatures;
 import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.Player;
 import cs3500.reversi.controller.PlayerType;
@@ -40,7 +40,7 @@ public class BasicReversiModel implements ReversiModel {
   // whether or not the game has started
   private boolean gameStarted;
 
-  private final List<Features> controllers;
+  private final List<ModelStatusFeatures> controllers;
 
   /**
    * Constructs a new BasicReversiModel with the specified width. The game can
@@ -172,12 +172,12 @@ public class BasicReversiModel implements ReversiModel {
     // set the game to has started
     this.gameStarted = true;
 
-    for (Features f : this.controllers) {
+    for (ModelStatusFeatures f : this.controllers) {
       f.notifyToRefresh(this.getCurrentTurn());
     }
   }
 
-  public void addFeaturesListener(Features feature) {
+  public void addFeaturesListener(ModelStatusFeatures feature) {
     this.controllers.add(feature);
   }
 
@@ -323,7 +323,7 @@ public class BasicReversiModel implements ReversiModel {
       // integer.
       this.consectivePassedTurns = 0;
 
-      for (Features f : this.controllers) {
+      for (ModelStatusFeatures f : this.controllers) {
         f.notifyToRefresh(this.getCurrentTurn());
       }
     } else {
@@ -570,7 +570,7 @@ public class BasicReversiModel implements ReversiModel {
     // change the active player's turn.
     this.changeTurns();
 
-    for (Features f : this.controllers) {
+    for (ModelStatusFeatures f : this.controllers) {
       f.notifyToRefresh(this.getCurrentTurn());
     }
   }

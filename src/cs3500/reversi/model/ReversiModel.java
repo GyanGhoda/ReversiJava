@@ -2,7 +2,7 @@ package cs3500.reversi.model;
 
 import java.util.HashMap;
 
-import cs3500.reversi.controller.Features;
+import cs3500.reversi.controller.ModelStatusFeatures;
 import cs3500.reversi.controller.Player;
 import cs3500.reversi.controller.PlayerType;
 
@@ -14,7 +14,7 @@ import cs3500.reversi.controller.PlayerType;
  */
 public interface ReversiModel extends ReadOnlyReversiModel {
 
-  public void addFeaturesListener(Features feature);
+  public void addFeaturesListener(ModelStatusFeatures feature);
 
   void startGame();
 
