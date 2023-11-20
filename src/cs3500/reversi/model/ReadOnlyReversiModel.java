@@ -68,4 +68,6 @@ public interface ReadOnlyReversiModel {
   int getBoardSize();
 
   boolean hasGameStarted();
+
+  String getCurrentWinner();
 }

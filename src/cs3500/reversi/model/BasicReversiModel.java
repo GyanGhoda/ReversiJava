@@ -743,4 +743,15 @@ public class BasicReversiModel implements ReversiModel {
   public boolean hasGameStarted() {
     return this.gameStarted;
   }
+
+  @Override
+  public String getCurrentWinner() {
+    if (this.getCurrentScore(PlayerType.BLACK) > this.getCurrentScore(PlayerType.WHITE)) {
+      return this.playerBlack.toString();
+    } else if (this.getCurrentScore(PlayerType.BLACK) == this.getCurrentScore(PlayerType.WHITE)) {
+      return "Tie";
+    } else {
+      return this.playerWhite.toString();
+    }
+  }
 }

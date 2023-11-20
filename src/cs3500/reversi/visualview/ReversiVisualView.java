@@ -14,7 +14,7 @@ public interface ReversiVisualView {
    */
   void makeVisible();
 
-  void refresh(boolean b);
+  void refresh(boolean currentTurn, boolean isGameOver);
 
   void setUpFeatures(Features features);
 }

@@ -110,4 +110,6 @@ public interface ReversiModel extends ReadOnlyReversiModel {
   int getNumRows();
 
   boolean hasGameStarted();
+
+  String getCurrentWinner();
 }

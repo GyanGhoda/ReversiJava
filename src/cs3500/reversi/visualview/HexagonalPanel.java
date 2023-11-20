@@ -31,8 +31,9 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
   private int width;
   private int height;
   private Features features;
-  PositionAxial selectedPosn;
-  boolean currentTurn;
+  private PositionAxial selectedPosn;
+  private boolean currentTurn;
+  private boolean gameOver;
 
   /**
    * Constructs a new HexagonalPanel with the given number of rows and columns.
@@ -51,6 +52,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     this.width = width;
     this.height = height;
     this.currentTurn = false;
+    this.gameOver = false;
 
     addMouseListener(new MouseListenerReversi());
     addKeyListener(new KeyListenerReversi());
@@ -131,7 +133,6 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
   @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
-    FontMetrics fm = g.getFontMetrics();
 
     Graphics2D g2d = (Graphics2D) g;
 
@@ -154,30 +155,48 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
       int topY = this.height - (this.height - fontSize);
 
       g2d.setFont(new Font("Serif", Font.BOLD, fontSize));
+      FontMetrics fm = g2d.getFontMetrics();
       g2d.setColor(Color.BLACK);
       g2d.drawString("Player: " + this.features.getPlayer(), 0, topY);
 
       String turnString = "";
 
-      if (this.currentTurn) {
-        turnString = "It is your turn!";
-      } else {
-        turnString = "Please wait for the other player.";
+      if (!this.gameOver) {
+        if (this.currentTurn) {
+          turnString = "It is your turn!";
+        } else {
+          turnString = "Please wait for the other player.";
+        }
       }
 
-      int centerX = this.width / 2 - fm.stringWidth(turnString);
+      int centerX = this.width / 2 - fm.stringWidth(turnString) / 2;
       g2d.drawString(turnString, centerX, topY);
 
       String blackScore = "Black: " + this.model.getCurrentScore(PlayerType.BLACK);
       String whiteScore = "White: " + this.model.getCurrentScore(PlayerType.WHITE);
 
-      g2d.drawString(blackScore, this.width - fm.stringWidth(blackScore) * 3, topY);
-      g2d.drawString(whiteScore, this.width - fm.stringWidth(whiteScore) * 3, topY * 2);
+      g2d.drawString(blackScore, this.width - fm.stringWidth(blackScore), topY);
+      g2d.drawString(whiteScore, this.width - fm.stringWidth(whiteScore), topY * 2);
+
+      if (this.gameOver) {
+        String winner = this.model.getCurrentWinner();
+        String gameOverString = "Game is Over. Winner: " + winner;
+
+        fontSize = Math.max(10, Math.min(width, height) / 20);
+
+        g2d.setFont(new Font("Serif", Font.BOLD, fontSize));
+        fm = g2d.getFontMetrics();
+
+        centerX = this.width / 2 - fm.stringWidth(gameOverString) / 2;
+
+        g2d.drawString(gameOverString, centerX, this.height / 2);
+      }
     }
   }
 
-  public void refresh(boolean currentTurn) {
+  public void refresh(boolean currentTurn, boolean isGameOver) {
     this.currentTurn = currentTurn;
+    this.gameOver = isGameOver;
     this.initializeHexagons();
     repaint();
   }

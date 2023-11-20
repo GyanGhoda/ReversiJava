@@ -42,11 +42,15 @@ public class BasicReversiController implements Features {
     }
 
     public void notifyToRefresh(String currentTurn) {
-        this.view.refresh(currentTurn.equals(this.player.toString()));
+        this.view.refresh(currentTurn.equals(this.player.toString()), false);
         if (currentTurn.equals(this.player.toString())) {
             if (!this.player.notifyYourTurn(model).equals(new PositionAxial(0, 0, 0))) {
                 this.moveToCoordinate(new PositionAxial(0, 0, 0));
             }
+        }
+
+        if (this.model.isGameOver()) {
+            this.view.refresh(false, true);
         }
     }
 
