@@ -1,7 +1,6 @@
 package cs3500.reversi.visualview;
 
 import cs3500.reversi.controller.Features;
-import cs3500.reversi.model.ReadOnlyReversiModel;
 
 /**
  * Represents a visual view of the Reversi game.
