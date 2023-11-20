@@ -106,7 +106,7 @@ public class TestModel {
   public void testModelPassTurn() {
     ReversiModel model = new BasicReversiModel(7, playerBlack, playerWhite);
 
-    model.passTurn();
+    model.passTurn(playerBlack);
     model.addPieceToCoordinates(new PositionAxial(-2, 1, 1), playerWhite);
 
     TextualView modelView = new ReversiTextualView(model);
@@ -127,8 +127,8 @@ public class TestModel {
   public void testModelPassTurnWithIsGameOverWorks() {
     ReversiModel model = new BasicReversiModel(7);
 
-    model.passTurn();
-    model.passTurn();
+    model.passTurn(playerBlack);
+    model.passTurn(playerWhite);
 
     Assert.assertEquals(model.isGameOver(), true);
   }
@@ -186,9 +186,9 @@ public class TestModel {
   public void testModelIsGameNotOverWithTwoPasses() {
     ReversiModel model = new BasicReversiModel(5, playerBlack, playerWhite);
 
-    model.passTurn();
+    model.passTurn(playerBlack);
     model.addPieceToCoordinates(new PositionAxial(2, -1, -1), playerWhite);
-    model.passTurn();
+    model.passTurn(playerBlack);
 
     Assert.assertEquals(model.isGameOver(), false);
   }

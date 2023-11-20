@@ -450,9 +450,12 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
 
   /**
    * Passes the turn to the next player.
+   *
+   * @param player - the player to pass the turn for
+   * 
    */
   @Override
-  public void passTurn() {
+  public void passTurn(Player player) {
     // Empty as mock does not need to passTurn()
   }
 

@@ -48,8 +48,8 @@ public class HexagonalFrame extends JFrame implements ReversiVisualView {
   }
 
   @Override
-  public void refresh(boolean currentTurn, boolean isGameOver) {
-    this.panel.refresh(currentTurn, isGameOver);
+  public void refresh(boolean currentTurn) {
+    this.panel.refresh(currentTurn);
   }
 
   @Override

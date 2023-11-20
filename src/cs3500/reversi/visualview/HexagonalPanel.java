@@ -1,5 +1,6 @@
 package cs3500.reversi.visualview;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import cs3500.reversi.controller.Features;
@@ -33,7 +34,6 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
   private Features features;
   private PositionAxial selectedPosn;
   private boolean currentTurn;
-  private boolean gameOver;
 
   /**
    * Constructs a new HexagonalPanel with the given number of rows and columns.
@@ -52,7 +52,6 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     this.width = width;
     this.height = height;
     this.currentTurn = false;
-    this.gameOver = false;
 
     addMouseListener(new MouseListenerReversi());
     addKeyListener(new KeyListenerReversi());
@@ -161,7 +160,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
 
       String turnString = "";
 
-      if (!this.gameOver) {
+      if (!this.model.isGameOver()) {
         if (this.currentTurn) {
           turnString = "It is your turn!";
         } else {
@@ -178,7 +177,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
       g2d.drawString(blackScore, this.width - fm.stringWidth(blackScore), topY);
       g2d.drawString(whiteScore, this.width - fm.stringWidth(whiteScore), topY * 2);
 
-      if (this.gameOver) {
+      if (this.model.isGameOver()) {
         String winner = this.model.getCurrentWinner();
         String gameOverString = "Game is Over. Winner: " + winner;
 
@@ -194,9 +193,8 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     }
   }
 
-  public void refresh(boolean currentTurn, boolean isGameOver) {
+  public void refresh(boolean currentTurn) {
     this.currentTurn = currentTurn;
-    this.gameOver = isGameOver;
     this.initializeHexagons();
     repaint();
   }
@@ -298,11 +296,19 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     if (!(this.features == null)) {
       // Check if the user has pressed the 'm' key, which makes a move
       if (keyCode == KeyEvent.VK_M) {
-        this.features.moveToCoordinate(selectedPosn);
+        try {
+          this.features.moveToCoordinate(selectedPosn);
+        } catch (IllegalStateException e) {
+          JOptionPane.showMessageDialog(this, e.getMessage(), "Illegal Move Made", JOptionPane.ERROR_MESSAGE);
+        }
       }
       // Check if the user has pressed the 'p' key, which passes the turn
       if (keyCode == KeyEvent.VK_P) {
-        this.features.passTurn();
+        try {
+          this.features.passTurn();
+        } catch (IllegalStateException e) {
+          JOptionPane.showMessageDialog(this, e.getMessage(), "Illegal Move Made", JOptionPane.ERROR_MESSAGE);
+        }
       }
 
       repaint();

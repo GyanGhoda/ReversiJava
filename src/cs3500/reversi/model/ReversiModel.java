@@ -42,9 +42,12 @@ public interface ReversiModel extends ReadOnlyReversiModel {
   /**
    * Passes the turn to the next player.
    *
-   * @throws IllegalStateException if the game has not started.
+   * @param player - the player to pass the turn for
+   * 
+   * @throws IllegalStateException if the game has not started or if it is not the
+   *                               player's turn.
    */
-  void passTurn();
+  void passTurn(Player player);
 
   /**
    * Checks if the current player has any valid moves.

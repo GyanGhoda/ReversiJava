@@ -22,14 +22,16 @@ public class BasicReversiController implements Features {
      */
     @Override
     public void moveToCoordinate(PositionAxial posn) {
-        PositionAxial posnToMove = this.player.requestMove(this.model, posn);
-        if (posnToMove.containsCoordinate(this.model.getBoardSize())) {
-            this.passTurn();
-        } else {
-            this.model.addPieceToCoordinates(posnToMove, player);
+        if (!this.model.isGameOver()) {
+            PositionAxial posnToMove = this.player.requestMove(this.model, posn);
+            if (posnToMove.containsCoordinate(this.model.getBoardSize())) {
+                this.passTurn();
+            } else {
+                this.model.addPieceToCoordinates(posnToMove, this.player);
+            }
+            System.out.println("User has requested to move to:\nQ: " + posn.getQ() + "\nR: "
+                    + posn.getR() + "\nS: " + posn.getS());
         }
-        System.out.println("User has requested to move to:\nQ: " + posn.getQ() + "\nR: "
-                + posn.getR() + "\nS: " + posn.getS());
     }
 
     /**
@@ -37,20 +39,18 @@ public class BasicReversiController implements Features {
      */
     @Override
     public void passTurn() {
-        this.model.passTurn();
-        System.out.println("User has requested to pass turn.");
+        if (!this.model.isGameOver()) {
+            this.model.passTurn(this.player);
+            System.out.println("User has requested to pass turn.");
+        }
     }
 
     public void notifyToRefresh(String currentTurn) {
-        this.view.refresh(currentTurn.equals(this.player.toString()), false);
+        this.view.refresh(currentTurn.equals(this.player.toString()));
         if (currentTurn.equals(this.player.toString())) {
             if (!this.player.notifyYourTurn(model).equals(new PositionAxial(0, 0, 0))) {
                 this.moveToCoordinate(new PositionAxial(0, 0, 0));
             }
-        }
-
-        if (this.model.isGameOver()) {
-            this.view.refresh(false, true);
         }
     }
 

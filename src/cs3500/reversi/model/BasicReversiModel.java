@@ -552,12 +552,16 @@ public class BasicReversiModel implements ReversiModel {
   /**
    * Passes the turn to the next player.
    *
-   * @throws IllegalStateException if the game has not started.
+   * @param player - the player to pass the turn for
+   * 
+   * @throws IllegalStateException if the game has not started or if it is not the
+   *                               player's turn.
    */
   @Override
-  public void passTurn() {
+  public void passTurn(Player player) {
 
     gameStartedHelper();
+    currentTurnCorrect(player);
 
     // add to consectivePassedTurns counter. Enforced invarient by only adding a
     // positive number.
