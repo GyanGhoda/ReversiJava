@@ -738,4 +738,9 @@ public class BasicReversiModel implements ReversiModel {
       throw new IllegalArgumentException("Nonexistant position in this game");
     }
   }
+
+  @Override
+  public boolean hasGameStarted() {
+    return this.gameStarted;
+  }
 }

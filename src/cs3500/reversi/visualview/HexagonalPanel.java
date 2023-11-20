@@ -3,6 +3,7 @@ package cs3500.reversi.visualview;
 import javax.swing.JPanel;
 
 import cs3500.reversi.controller.Features;
+import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
@@ -145,7 +146,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
       hexagon.drawSpaceOwner(g2d);
     }
 
-    if (!(this.features == null)) {
+    if (this.model.hasGameStarted()) {
       g2d.setFont(new Font("Serif", Font.BOLD, 20));
       g2d.setColor(Color.BLACK);
       g2d.drawString("Player: " + this.features.getPlayer(), 0, 30);
@@ -153,8 +154,11 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
       if (this.currentTurn) {
         g2d.drawString("It is your turn!", this.width / 2, 30);
       } else {
-        g2d.drawString("Please wait for the other player.", this.width / 2, 30);
+        g2d.drawString("Please wait for the other player.", this.width / 2 - 120, 30);
       }
+      g2d.drawString("Black: " + this.model.getCurrentScore(PlayerType.BLACK), this.width - 150, 30);
+      g2d.drawString("White: " + this.model.getCurrentScore(PlayerType.WHITE), this.width - 150, 60);
+
     }
   }
 

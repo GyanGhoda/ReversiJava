@@ -602,4 +602,9 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
   public String getLog() {
     return this.log.toString();
   }
+
+  @Override
+  public boolean hasGameStarted() {
+    return this.gameStarted;
+  }
 }

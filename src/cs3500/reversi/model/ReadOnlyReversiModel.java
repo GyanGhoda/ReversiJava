@@ -66,4 +66,6 @@ public interface ReadOnlyReversiModel {
    * @return The size of the game board.
    */
   int getBoardSize();
+
+  boolean hasGameStarted();
 }

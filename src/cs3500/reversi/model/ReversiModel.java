@@ -108,4 +108,6 @@ public interface ReversiModel extends ReadOnlyReversiModel {
    * @return The number of rows in the game board.
    */
   int getNumRows();
+
+  boolean hasGameStarted();
 }
