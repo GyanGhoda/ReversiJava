@@ -1,7 +1,6 @@
 package cs3500.reversi;
 
 import cs3500.reversi.controller.BasicReversiController;
-import cs3500.reversi.controller.PlayerActionFeatures;
 import cs3500.reversi.controller.HumanPlayer;
 import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.PlayerType;
@@ -24,8 +23,8 @@ public final class Reversi {
     ReversiVisualView view1 = new HexagonalFrame(model);
     ReversiVisualView view2 = new HexagonalFrame(model);
 
-    PlayerActionFeatures controller1 = new BasicReversiController(model, new HumanPlayer(PlayerType.BLACK), view1);
-    PlayerActionFeatures controller2 = new BasicReversiController(model, new HumanPlayer(PlayerType.WHITE), view2);
+    BasicReversiController controller1 = new BasicReversiController(model, new HumanPlayer(PlayerType.BLACK), view1);
+    BasicReversiController controller2 = new BasicReversiController(model, new HumanPlayer(PlayerType.WHITE), view2);
 
     model.addFeaturesListener(controller1);
     model.addFeaturesListener(controller2);
