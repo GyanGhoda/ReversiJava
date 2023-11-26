@@ -20,5 +20,10 @@ public interface PlayerActionFeatures {
    */
   public void passTurn();
 
+  /**
+   * Gets the player that is currently playing
+   * 
+   * @return the player that is currently playing
+   */
   public String getPlayer();
 }

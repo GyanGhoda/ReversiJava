@@ -14,8 +14,18 @@ import cs3500.reversi.controller.PlayerType;
  */
 public interface ReversiModel extends ReadOnlyReversiModel {
 
-  public void addFeaturesListener(ModelStatusFeatures feature);
+  /**
+   * Adds a listener to the model.
+   *
+   * @param feature - the feature to add
+   */
+  void addFeaturesListener(ModelStatusFeatures feature);
 
+  /**
+   * Starts the game of Reversi.
+   *
+   * @throws IllegalStateException if the game has already started.
+   */
   void startGame();
 
   /**
@@ -112,7 +122,5 @@ public interface ReversiModel extends ReadOnlyReversiModel {
    */
   int getNumRows();
 
-  boolean hasGameStarted();
-
-  String getCurrentWinner();
+  
 }

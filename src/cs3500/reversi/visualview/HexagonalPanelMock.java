@@ -27,6 +27,7 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
   private int width;
   private int height;
   private PlayerActionFeatures features;
+  private boolean currentTurn;
 
   private final StringBuilder log;
 
@@ -47,6 +48,7 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
     this.width = width;
     this.height = height;
     this.log = new StringBuilder();
+    this.currentTurn = false;
 
     addMouseListener(new MouseListenerReversi());
     addKeyListener(new KeyListenerReversi());
@@ -59,8 +61,21 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
     this.initializeHexagons();
   }
 
+  @Override
   public void setUpFeatures(PlayerActionFeatures features) {
     this.features = features;
+  }
+
+  /**
+   * Refreshes the panel.
+   *
+   * @param currentTurn - whether or not it is the current player's turn
+   */
+  @Override
+  public void refresh(boolean currentTurn) {
+    this.currentTurn = currentTurn;
+    this.initializeHexagons();
+    repaint();
   }
 
   /**

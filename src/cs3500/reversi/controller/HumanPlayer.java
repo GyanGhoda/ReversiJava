@@ -5,6 +5,9 @@ import java.util.Objects;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReversiModel;
 
+/**
+ * Represents a human player in the game of Reversi.
+ */
 public class HumanPlayer implements Player {
     // The type of the player, which can be BLACK or WHITE.
     final PlayerType type;

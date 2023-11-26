@@ -67,7 +67,18 @@ public interface ReadOnlyReversiModel {
    */
   int getBoardSize();
 
+  /**
+   * Determines whether the game has started.
+   *
+   * @return true if the game has started, false if not.
+   */
   boolean hasGameStarted();
 
+  /**
+   * Gets the winner of the game in the current stage. If the game is tied, returns the white player
+   * because black moves first.
+   *
+   * @return The current winning player of the game.
+   */
   String getCurrentWinner();
 }

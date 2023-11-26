@@ -111,6 +111,12 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
     this.log = new StringBuilder();
   }
 
+  /**
+   * Starts the game by initializing the board and adding the starting pieces.
+   *
+   * @throws IllegalStateException if the game has already started.
+   */
+  @Override
   public void startGame() {
 
     if (gameStarted) {
@@ -194,6 +200,7 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
     this.board.get(new PositionAxial(q, r, s)).setCellToPlayer(new ComputerPlayer(type));
   }
 
+  @Override
   public void addFeaturesListener(ModelStatusFeatures feature) {
     this.controllers.add(feature);
   }

@@ -43,15 +43,26 @@ public class HexagonalFrame extends JFrame implements ReversiVisualView {
   /**
    * Makes the frame visible.
    */
+  @Override
   public void makeVisible() {
     this.setVisible(true);
   }
 
+  /**
+   * Refreshes the view.
+   *
+   * @param currentTurn - whether or not it is the current player's turn
+   */
   @Override
   public void refresh(boolean currentTurn) {
     this.panel.refresh(currentTurn);
   }
 
+  /**
+   * Sets up the features of the view.
+   *
+   * @param features - the features to set up
+   */
   @Override
   public void setUpFeatures(PlayerActionFeatures features) {
     this.panel.setUpFeatures(features);

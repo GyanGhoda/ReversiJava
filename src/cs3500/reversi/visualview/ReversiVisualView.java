@@ -13,7 +13,17 @@ public interface ReversiVisualView {
    */
   void makeVisible();
 
+  /**
+   * Refreshes the view.
+   *
+   * @param currentTurn - whether or not it is the current player's turn
+   */
   void refresh(boolean currentTurn);
 
+  /**
+   * Sets up the features of the view.
+   *
+   * @param features - the features to set up
+   */
   void setUpFeatures(PlayerActionFeatures features);
 }

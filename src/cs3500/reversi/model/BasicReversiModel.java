@@ -163,6 +163,12 @@ public class BasicReversiModel implements ReversiModel {
     this.addStartingPieces();
   }
 
+  /**
+   * Starts the game.
+   *
+   * @throws IllegalStateException if the game has already started.
+   */
+  @Override
   public void startGame() {
 
     if (gameStarted) {
@@ -172,11 +178,13 @@ public class BasicReversiModel implements ReversiModel {
     // set the game to has started
     this.gameStarted = true;
 
+    // notify the controller to refresh the views
     for (ModelStatusFeatures f : this.controllers) {
       f.notifyToRefresh(this.getCurrentTurn());
     }
   }
 
+  @Override
   public void addFeaturesListener(ModelStatusFeatures feature) {
     this.controllers.add(feature);
   }
@@ -750,6 +758,8 @@ public class BasicReversiModel implements ReversiModel {
 
   @Override
   public String getCurrentWinner() {
+
+    // returns the current winning player, white player if tied because black goes first
     if (this.getCurrentScore(PlayerType.BLACK) > this.getCurrentScore(PlayerType.WHITE)) {
       return this.playerBlack.toString();
     } else if (this.getCurrentScore(PlayerType.BLACK) == this.getCurrentScore(PlayerType.WHITE)) {

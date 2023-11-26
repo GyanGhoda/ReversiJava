@@ -64,6 +64,12 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     this.initializeHexagons();
   }
 
+  /**
+   * Sets up the features of the panel.
+   *
+   * @param features - the features to set up
+   */
+  @Override
   public void setUpFeatures(PlayerActionFeatures features) {
     this.features = features;
   }
@@ -193,6 +199,11 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     }
   }
 
+  /**
+   * Refreshes the panel.
+   *
+   * @param currentTurn - whether or not it is the current player's turn
+   */
   public void refresh(boolean currentTurn) {
     this.currentTurn = currentTurn;
     this.initializeHexagons();

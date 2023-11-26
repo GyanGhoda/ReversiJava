@@ -4,11 +4,21 @@ import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.visualview.ReversiVisualView;
 
+/**
+ * Represents a controller for the game of Reversi.
+ */
 public class BasicReversiController implements PlayerActionFeatures, ModelStatusFeatures {
     private final ReversiModel model;
     private final Player player;
     private final ReversiVisualView view;
 
+    /**
+     * Constructs a new BasicReversiController with the given model, player, and view.
+     *
+     * @param model  the model to use
+     * @param player the player to use
+     * @param view   the view to use
+     */
     public BasicReversiController(ReversiModel model, Player player, ReversiVisualView view) {
         this.model = model;
         this.player = player;
@@ -22,6 +32,8 @@ public class BasicReversiController implements PlayerActionFeatures, ModelStatus
      */
     @Override
     public void moveToCoordinate(PositionAxial posn) {
+
+        // if the game is not over, add the piece to the board.
         if (!this.model.isGameOver()) {
             PositionAxial posnToMove = this.player.requestMove(this.model, posn);
             if (posnToMove.containsCoordinate(this.model.getBoardSize())) {
@@ -45,8 +57,13 @@ public class BasicReversiController implements PlayerActionFeatures, ModelStatus
         }
     }
 
+    @Override
     public void notifyToRefresh(String currentTurn) {
+        
+        // repaints the appropriate frame 
         this.view.refresh(currentTurn.equals(this.player.toString()));
+
+        // if it is the player's turn, notify them
         if (currentTurn.equals(this.player.toString())) {
             if (!this.player.notifyYourTurn(model).equals(new PositionAxial(0, 0, 0))) {
                 this.moveToCoordinate(new PositionAxial(0, 0, 0));

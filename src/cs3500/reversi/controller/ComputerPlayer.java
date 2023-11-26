@@ -41,7 +41,7 @@ public class ComputerPlayer implements Player {
   /**
    * Plays a move for the player using the strategy given to the player.
    * 
-   * @param posn  - The position to move to
+   * @param posn  - The position requested
    * @param model - the model to play the move on
    * 
    * @return the position that is chosen to move to
@@ -110,6 +110,8 @@ public class ComputerPlayer implements Player {
 
   @Override
   public PositionAxial notifyYourTurn(ReversiModel model) {
+
+    // requests the move according to the appropriate strategy
     return this.requestMove(model, new PositionAxial(0, 0, 0));
   }
 }
