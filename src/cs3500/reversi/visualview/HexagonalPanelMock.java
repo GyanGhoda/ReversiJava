@@ -22,7 +22,8 @@ import cs3500.reversi.model.ReadOnlyReversiModel;
  * Represents a panel of hexagonal buttons.
  */
 public class HexagonalPanelMock extends JPanel implements ReversiPanel {
-  private final HashMap<PositionAxial, HexagonSpace> hexagonButtons = new HashMap<PositionAxial, HexagonSpace>();
+  private final HashMap<PositionAxial, HexagonSpace> hexagonButtons 
+  = new HashMap<PositionAxial, HexagonSpace>();
   private final ReadOnlyReversiModel model;
   private int width;
   private int height;
@@ -248,7 +249,7 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
 
   // handles all keyboard clicks when playing
   private void keyClickUpdateView(int keyCode) {
-    if (!(this.features == null)) {
+    if (this.features != null) {
       // Check if the user has pressed the 'm' key, which makes a move
       if (keyCode == KeyEvent.VK_M) {
         this.log.append("User has pressed m key to move");
@@ -272,7 +273,7 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
 
   // handles all mouse clicks when playing
   private void mouseClickUpdateView(int mouseX, int mouseY) {
-    if (!(this.features == null)) {
+    if (this.features != null) {
       // Check if the mouse click is inside a hexagon and highlight it accordingly
       for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
         HexagonSpace hexagon = entry.getValue();

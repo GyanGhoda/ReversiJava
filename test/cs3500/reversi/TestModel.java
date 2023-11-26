@@ -434,7 +434,8 @@ public class TestModel {
     ReversiModel model = new BasicReversiModel(7);
 
     Assert.assertThrows(IllegalStateException.class, () -> {
-      model.addPieceToCoordinates(new PositionAxial(0, -1, 1), new ComputerPlayer(PlayerType.BLACK));
+      model.addPieceToCoordinates(new PositionAxial(0, -1, 1),
+      new ComputerPlayer(PlayerType.BLACK));
     });
   }
 

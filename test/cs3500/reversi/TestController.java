@@ -10,6 +10,7 @@ import cs3500.reversi.controller.PlayerType;
  * Tests the public methods in the controller package.
  */
 public class TestController {
+
   // Test that toString correctly returns "X" for a black player
   @Test
   public void testPlayerToStringBlack() {
@@ -25,4 +26,7 @@ public class TestController {
 
     Assert.assertEquals(whitePlayer.toString(), "O");
   }
+
+
+
 }

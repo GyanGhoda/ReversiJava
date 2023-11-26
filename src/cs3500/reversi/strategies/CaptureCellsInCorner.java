@@ -46,7 +46,9 @@ public class CaptureCellsInCorner implements ReversiStrategy {
 
     // if there are no moves in the corner, return the boardsize for each coordinate
     // as a pass
-    PositionAxial bestPosn = new PositionAxial(model.getBoardSize(), model.getBoardSize(), model.getBoardSize());
+    PositionAxial bestPosn =
+        new PositionAxial(model.getBoardSize(), 
+    model.getBoardSize(), model.getBoardSize());
 
     // choose the best move of those in the corner
     if (!scoresCorners.isEmpty()) {

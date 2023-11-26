@@ -27,7 +27,8 @@ import java.util.HashMap;
  * Represents a panel of hexagonal buttons.
  */
 public class HexagonalPanel extends JPanel implements ReversiPanel {
-  private final HashMap<PositionAxial, HexagonSpace> hexagonButtons = new HashMap<PositionAxial, HexagonSpace>();
+  private final HashMap<PositionAxial, HexagonSpace> hexagonButtons 
+  = new HashMap<PositionAxial, HexagonSpace>();
   private ReadOnlyReversiModel model;
   private int width;
   private int height;
@@ -304,13 +305,14 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
 
   // handles all keyboard clicks when playing
   private void keyClickUpdateView(int keyCode) {
-    if (!(this.features == null)) {
+    if (this.features != null) {
       // Check if the user has pressed the 'm' key, which makes a move
       if (keyCode == KeyEvent.VK_M) {
         try {
           this.features.moveToCoordinate(selectedPosn);
         } catch (IllegalStateException e) {
-          JOptionPane.showMessageDialog(this, e.getMessage(), "Illegal Move Made", JOptionPane.ERROR_MESSAGE);
+          JOptionPane.showMessageDialog(this, e.getMessage(), "Illegal Move Made",
+          JOptionPane.ERROR_MESSAGE);
         }
       }
       // Check if the user has pressed the 'p' key, which passes the turn
@@ -318,7 +320,8 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
         try {
           this.features.passTurn();
         } catch (IllegalStateException e) {
-          JOptionPane.showMessageDialog(this, e.getMessage(), "Illegal Move Made", JOptionPane.ERROR_MESSAGE);
+          JOptionPane.showMessageDialog(this, e.getMessage(), "Illegal Move Made",
+          JOptionPane.ERROR_MESSAGE);
         }
       }
 
@@ -328,7 +331,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
 
   // handles all mouse clicks when playing
   private void mouseClickUpdateView(int mouseX, int mouseY) {
-    if (!(this.features == null)) {
+    if (this.features != null) {
       // Check if the mouse click is inside a hexagon and highlight it accordingly
       for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
         HexagonSpace hexagon = entry.getValue();

@@ -46,7 +46,9 @@ public class AvoidCellsNextToCorner implements ReversiStrategy {
     }
 
     // Passing is represented by returning the boardsize for each coordinate
-    PositionAxial bestPosn = new PositionAxial(model.getBoardSize(), model.getBoardSize(), model.getBoardSize());
+    PositionAxial bestPosn =
+        new PositionAxial(model.getBoardSize(), 
+    model.getBoardSize(), model.getBoardSize());
 
     // choose the best move of those not next to the corner
     if (!scoresNoNextToCorners.isEmpty()) {
