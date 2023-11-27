@@ -56,6 +56,8 @@ public class TestTextualView {
 
     ReversiModel model = new BasicReversiModel(7, player, new ComputerPlayer(PlayerType.WHITE));
 
+    model.startGame();
+
     model.addPieceToCoordinates(new PositionAxial(1, -2, 1), player);
 
     TextualView modelView = new ReversiTextualView(model);
@@ -78,6 +80,8 @@ public class TestTextualView {
     Player playerWhite = new ComputerPlayer(PlayerType.WHITE);
 
     ReversiModel model = new BasicReversiModel(7, playerBlack, playerWhite);
+
+    model.startGame();
 
     model.addPieceToCoordinates(new PositionAxial(1, -2, 1), playerBlack);
     model.addPieceToCoordinates(new PositionAxial(-2, 1, 1), playerWhite);
