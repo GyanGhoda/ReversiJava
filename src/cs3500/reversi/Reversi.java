@@ -80,6 +80,7 @@ public final class Reversi {
           break;
         case "strategy4":
           player2 = new ComputerPlayer(PlayerType.WHITE, new MinimizeNextOpponentMove());
+          break;
         case "combined":
           player2 = new ComputerPlayer(PlayerType.WHITE,
               new TryTwoStrategies(getStrategy(args[argCounter + 1]), getStrategy(args[argCounter + 2])));
@@ -92,7 +93,7 @@ public final class Reversi {
       throw new IllegalArgumentException("Game not created: " + e.getMessage());
     }
 
-    ReversiModel model = new BasicReversiModel(7);
+    ReversiModel model = new BasicReversiModel(7, player1, player2);
 
     ReversiVisualView view1 = new HexagonalFrame(model);
     ReversiVisualView view2 = new HexagonalFrame(model);
