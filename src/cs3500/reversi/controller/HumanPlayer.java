@@ -57,10 +57,10 @@ public class HumanPlayer implements Player {
      */
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof ComputerPlayer)) {
+        if (!(other instanceof HumanPlayer)) {
             return false;
         } else {
-            ComputerPlayer that = (ComputerPlayer) other;
+            HumanPlayer that = (HumanPlayer) other;
             return this.type.equals(that.type);
         }
     }
@@ -86,9 +86,9 @@ public class HumanPlayer implements Player {
      */
     public Player getOppositePlayer() {
         if (this.type.equals(PlayerType.BLACK)) {
-            return new ComputerPlayer(PlayerType.WHITE);
+            return new HumanPlayer(PlayerType.WHITE);
         } else {
-            return new ComputerPlayer(PlayerType.BLACK);
+            return new HumanPlayer(PlayerType.BLACK);
         }
     }
 
