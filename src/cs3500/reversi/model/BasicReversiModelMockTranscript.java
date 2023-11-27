@@ -3,7 +3,6 @@ package cs3500.reversi.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import org.junit.runner.Computer;
 import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.HumanPlayer;
 import cs3500.reversi.controller.ModelStatusFeatures;
