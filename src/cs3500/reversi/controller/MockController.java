@@ -38,17 +38,6 @@ public class MockController implements PlayerActionFeatures, ModelStatusFeatures
 
       this.log.append("Requested move to coordinate: " + posn.toString() + "\n");
 
-        // if the game is not over, add the piece to the board.
-        // if (!this.model.isGameOver()) {
-        //     PositionAxial posnToMove = this.player.requestMove(this.model, posn);
-        //     if (posnToMove.containsCoordinate(this.model.getBoardSize())) {
-        //         this.passTurn();
-        //     } else {
-        //         this.model.addPieceToCoordinates(posnToMove, this.player);
-        //     }
-        //     System.out.println("User has requested to move to:\nQ: " + posn.getQ() + "\nR: "
-        //             + posn.getR() + "\nS: " + posn.getS());
-        // }
     }
 
     /**
@@ -58,11 +47,6 @@ public class MockController implements PlayerActionFeatures, ModelStatusFeatures
     public void passTurn() {
 
       this.log.append("Requested to pass turn.\n");
-
-      // if (!this.model.isGameOver()) {
-      //   this.model.passTurn(this.player);
-      //   System.out.println("User has requested to pass turn.");
-      // }
         
     }
 
@@ -71,15 +55,6 @@ public class MockController implements PlayerActionFeatures, ModelStatusFeatures
 
       this.log.append("Notified to refresh.\n");
         
-        // // repaints the appropriate frame 
-        // this.view.refresh(currentTurn.equals(this.player.toString()));
-
-        // // if it is the player's turn, notify them
-        // if (currentTurn.equals(this.player.toString())) {
-        //     if (!this.player.notifyYourTurn(model).equals(new PositionAxial(0, 0, 0))) {
-        //         this.moveToCoordinate(new PositionAxial(0, 0, 0));
-        //     }
-        // }
     }
 
     @Override
