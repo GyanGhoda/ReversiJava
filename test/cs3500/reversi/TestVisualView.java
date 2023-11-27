@@ -2,10 +2,15 @@ package cs3500.reversi;
 
 import org.junit.Assert;
 import org.junit.Test;
-
+import cs3500.reversi.controller.BasicReversiController;
+import cs3500.reversi.controller.ComputerPlayer;
+import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.BasicReversiModel;
 import cs3500.reversi.model.ReadOnlyReversiModel;
+import cs3500.reversi.model.ReversiModel;
+import cs3500.reversi.visualview.HexagonalFrame;
 import cs3500.reversi.visualview.HexagonalPanelMock;
+import cs3500.reversi.visualview.ReversiVisualView;
 
 /**
  * Tests for the visual view.
@@ -15,8 +20,10 @@ public class TestVisualView {
   // tests that the mouse returns proper output when clicking (200, 200)
   @Test
   public void testMouse200200() {
-    ReadOnlyReversiModel model = new BasicReversiModel(7);
+    ReversiModel model = new BasicReversiModel(7);
     HexagonalPanelMock mockPanel = new HexagonalPanelMock(model, 800, 800);
+    ReversiVisualView view = new HexagonalFrame(model);
+    mockPanel.setUpFeatures(new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK), view));
 
     mockPanel.induceMouseEvent(200, 200);
 
@@ -40,8 +47,10 @@ public class TestVisualView {
   // tests that the mouse returns proper output when clicking (400, 400)
   @Test
   public void testMouse400400() {
-    ReadOnlyReversiModel model = new BasicReversiModel(7);
+    ReversiModel model = new BasicReversiModel(7);
     HexagonalPanelMock mockPanel = new HexagonalPanelMock(model, 800, 800);
+    ReversiVisualView view = new HexagonalFrame(model);
+    mockPanel.setUpFeatures(new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK), view));
 
     mockPanel.induceMouseEvent(400, 400);
 
@@ -54,8 +63,10 @@ public class TestVisualView {
   // tests that the m key signals moves properly
   @Test
   public void testKeyMove() {
-    ReadOnlyReversiModel model = new BasicReversiModel(7);
+    ReversiModel model = new BasicReversiModel(7);
     HexagonalPanelMock mockPanel = new HexagonalPanelMock(model, 800, 800);
+    ReversiVisualView view = new HexagonalFrame(model);
+    mockPanel.setUpFeatures(new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK), view));
 
     mockPanel.induceKeyEvent(77);
 
@@ -65,8 +76,11 @@ public class TestVisualView {
   // tests that the p key signals passes properly
   @Test
   public void testKeyPass() {
-    ReadOnlyReversiModel model = new BasicReversiModel(7);
+    ReversiModel model = new BasicReversiModel(7);
+    model.startGame();
     HexagonalPanelMock mockPanel = new HexagonalPanelMock(model, 800, 800);
+    ReversiVisualView view = new HexagonalFrame(model);
+    mockPanel.setUpFeatures(new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK), view));
 
     mockPanel.induceKeyEvent(80);
 
