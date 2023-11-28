@@ -91,6 +91,7 @@ public final class Reversi {
       if (args[argCounter].equals("human") || args[argCounter].equals("computer")) {
         return argCounter;
       }
+      argCounter += 1;
     }
     throw new IllegalArgumentException("No player 2 specified");
   }
@@ -117,6 +118,7 @@ public final class Reversi {
         default:
           throw new IllegalArgumentException("Invalid argument given");
       }
+      argCounter += 1;
     }
 
     if (strats.isEmpty()) {
