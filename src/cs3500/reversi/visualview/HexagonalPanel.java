@@ -104,7 +104,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
 
       // Adjust starting positions with offsets
       double startingX = offsetX + (((buttonSize * Math.sqrt(3)) / 2) * Math.abs(currentR))
-              + (((buttonSize * Math.sqrt(3))) / 2);
+          + (((buttonSize * Math.sqrt(3))) / 2);
       double startingY = offsetY + ((buttonSize * 3) / 2) * (rowsMade + 1);
 
       for (int currentS = currentRowStartingS; currentS >= currentRowStartingQ; currentS -= 1) {
@@ -113,7 +113,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
 
         // create a new hexagon button
         HexagonSpace hexagon = new HexagonSpace(buttonSize, startingX, startingY,
-                this.model.getCellAt(posn));
+            this.model.getCellAt(posn));
 
         // create empty cell and add it to the board at the current poisiton
         newHexagonButtons.put(posn, hexagon);
@@ -228,6 +228,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     @Override
     public void mouseClicked(MouseEvent e) {
       mouseClickUpdateView(e.getX(), e.getY());
+      requestFocusInWindow();
     }
 
     // Other mouse event methods...
@@ -316,7 +317,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
           this.features.moveToCoordinate(selectedPosn);
         } catch (IllegalStateException e) {
           JOptionPane.showMessageDialog(this, e.getMessage(), "Illegal Move Made",
-                  JOptionPane.ERROR_MESSAGE);
+              JOptionPane.ERROR_MESSAGE);
         }
       }
       // Check if the user has pressed the 'p' key, which passes the turn
@@ -325,7 +326,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
           this.features.passTurn();
         } catch (IllegalStateException e) {
           JOptionPane.showMessageDialog(this, e.getMessage(), "Illegal Move Made",
-                  JOptionPane.ERROR_MESSAGE);
+              JOptionPane.ERROR_MESSAGE);
         }
       }
 
@@ -343,7 +344,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
         // print out the coordinates of the hexagon that was clicked on
         if (hexagon.contains(mouseX, mouseY) && !hexagon.getState()) {
           System.out.println("Clicked on hexagon at:\nQ: " + entry.getKey().getQ()
-                  + "\nR: " + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
+              + "\nR: " + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
           hexagon.setState(!hexagon.getState());
           selectedPosn = entry.getKey();
         } else if (hexagon.contains(mouseX, mouseY)) {
