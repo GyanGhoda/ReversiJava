@@ -1,8 +1,6 @@
 package cs3500.reversi.controller;
 
 import cs3500.reversi.model.PositionAxial;
-import cs3500.reversi.model.ReversiModel;
-import cs3500.reversi.visualview.ReversiVisualView;
 
 /**
  * Represents a controller for the game of Reversi.

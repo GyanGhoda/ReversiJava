@@ -12,7 +12,6 @@ import cs3500.reversi.model.ReadOnlyReversiModel;
  */
 public class HexagonalFrame extends JFrame implements ReversiVisualView {
 
-  private final ReadOnlyReversiModel model;
   private final HexagonalPanel panel;
 
   /**
@@ -21,14 +20,13 @@ public class HexagonalFrame extends JFrame implements ReversiVisualView {
    * @param model the model to render
    */
   public HexagonalFrame(ReadOnlyReversiModel model) {
-    this.model = model;
     setTitle("2 Player Reversi Game"); // Set the title
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close the program when the frame is closed
     setSize(800, 800); // Set the size of the frame
     setLocationRelativeTo(null); // Center the frame
     setVisible(true); // Make the frame visible
 
-    this.panel = new HexagonalPanel(this.model, 800, 800);
+    this.panel = new HexagonalPanel(model, 800, 800);
     this.render(); // Render the frame
   }
 
