@@ -61,6 +61,7 @@ public final class Reversi {
         default:
           throw new IllegalArgumentException("Player type not supported");
       }
+
     } catch (Exception e) {
       throw new IllegalArgumentException("Game not created: " + e.getMessage());
     }
