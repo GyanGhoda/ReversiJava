@@ -1,30 +1,22 @@
 package cs3500.reversi.controller;
 
 import cs3500.reversi.model.PositionAxial;
-import cs3500.reversi.model.ReversiModel;
-import cs3500.reversi.visualview.ReversiVisualView;
 
 /**
  * Represents a controller for the game of Reversi.
  */
 public class MockController implements PlayerActionFeatures, ModelStatusFeatures {
-  private final ReversiModel model;
   private final Player player;
-  private final ReversiVisualView view;
   // the log of the controller
   final StringBuilder log;
 
   /**
    * Constructs a new BasicReversiController with the given model, player, and view.
    *
-   * @param model  the model to use
    * @param player the player to use
-   * @param view   the view to use
    */
-  public MockController(ReversiModel model, Player player, ReversiVisualView view) {
-    this.model = model;
+  public MockController(Player player) {
     this.player = player;
-    this.view = view;
     this.log = new StringBuilder();
   }
 

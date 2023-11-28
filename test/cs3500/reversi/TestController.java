@@ -171,7 +171,7 @@ public class TestController {
     HumanPlayer blackPlayer = new HumanPlayer(PlayerType.BLACK);
     ReversiVisualView view = new HexagonalFrame(model);
 
-    MockController controller = new MockController(model, blackPlayer, view);
+    MockController controller = new MockController(blackPlayer);
     controller.moveToCoordinate(new PositionAxial(0, 0, 0));
     Assert.assertEquals(controller.getLog(), "Requested move to coordinate: Q: 0, R: 0, S: 0\n");
   }
@@ -184,7 +184,7 @@ public class TestController {
     ComputerPlayer blackPlayer = new ComputerPlayer(PlayerType.BLACK);
     ReversiVisualView view = new HexagonalFrame(model);
 
-    MockController controller = new MockController(model, blackPlayer, view);
+    MockController controller = new MockController(blackPlayer);
     controller.moveToCoordinate(new PositionAxial(0, 0, 0));
     Assert.assertEquals(controller.getLog(), "Requested move to coordinate: Q: 0, R: 0, S: 0\n");
   }
@@ -197,7 +197,7 @@ public class TestController {
     HumanPlayer blackPlayer = new HumanPlayer(PlayerType.BLACK);
     ReversiVisualView view = new HexagonalFrame(model);
 
-    MockController controller = new MockController(model, blackPlayer, view);
+    MockController controller = new MockController(blackPlayer);
     controller.passTurn();
     Assert.assertEquals(controller.getLog(), "Requested to pass turn.\n");
   }
@@ -210,7 +210,7 @@ public class TestController {
     HumanPlayer blackPlayer = new HumanPlayer(PlayerType.BLACK);
     ReversiVisualView view = new HexagonalFrame(model);
 
-    MockController controller = new MockController(model, blackPlayer, view);
+    MockController controller = new MockController(blackPlayer);
     controller.notifyToRefresh("X");
     Assert.assertEquals(controller.getLog(), "Notified to refresh.\n");
   }
