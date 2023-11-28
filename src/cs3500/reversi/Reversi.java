@@ -41,6 +41,9 @@ public final class Reversi {
     if (!args[argCounter].equals("human") && !args[argCounter].equals("computer")) {
       try {
         boardLength = Integer.valueOf(args[argCounter]);
+        if (boardLength % 2 == 0) {
+          throw new NumberFormatException();
+        }
         argCounter += 1;
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException("Invalid board size or invalid argument given");

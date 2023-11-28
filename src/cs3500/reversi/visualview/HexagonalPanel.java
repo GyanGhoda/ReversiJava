@@ -22,12 +22,13 @@ import java.awt.Rectangle;
 import java.awt.event.ComponentEvent;
 
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Represents a panel of hexagonal buttons.
  */
 public class HexagonalPanel extends JPanel implements ReversiPanel {
-  private final HashMap<PositionAxial, HexagonSpace> hexagonButtons;
+  private final ConcurrentHashMap<PositionAxial, HexagonSpace> hexagonButtons;
   private ReadOnlyReversiModel model;
   private int width;
   private int height;
@@ -53,7 +54,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     this.width = width;
     this.height = height;
     this.currentTurn = false;
-    this.hexagonButtons = new HashMap<PositionAxial, HexagonSpace>();
+    this.hexagonButtons = new ConcurrentHashMap<PositionAxial, HexagonSpace>();
     this.initializeHexagons();
 
     addMouseListener(new MouseListenerReversi());
