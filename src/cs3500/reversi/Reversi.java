@@ -36,6 +36,16 @@ public final class Reversi {
     Player player1;
     Player player2;
     int argCounter = 0;
+    int boardLength = 7;
+
+    if (!args[argCounter].equals("human") && !args[argCounter].equals("computer")) {
+      try {
+        boardLength = Integer.valueOf(args[argCounter]);
+        argCounter += 1;
+      } catch (NumberFormatException e) {
+        throw new IllegalArgumentException("Invalid board size or invalid argument given");
+      }
+    }
 
     try {
       switch (args[argCounter]) {
@@ -66,7 +76,7 @@ public final class Reversi {
       throw new IllegalArgumentException("Game not created: " + e.getMessage());
     }
 
-    ReversiModel model = new BasicReversiModel(7, player1, player2);
+    ReversiModel model = new BasicReversiModel(boardLength, player1, player2);
 
     ReversiVisualView view1 = new HexagonalFrame(model);
     ReversiVisualView view2 = new HexagonalFrame(model);
