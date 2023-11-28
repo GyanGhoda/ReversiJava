@@ -39,12 +39,12 @@ public class TestModel {
     TextualView modelView = new ReversiTextualView(model);
 
     Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
-        "  _ _ _ _ _\n" + //
-        " _ _ X O _ _\n" + //
-        "_ _ O _ X _ _\n" + //
-        " _ _ X O _ _\n" + //
-        "  _ _ _ _ _\n" + //
-        "   _ _ _ _\n");
+            "  _ _ _ _ _\n" + //
+            " _ _ X O _ _\n" + //
+            "_ _ O _ X _ _\n" + //
+            " _ _ X O _ _\n" + //
+            "  _ _ _ _ _\n" + //
+            "   _ _ _ _\n");
   }
 
   // Test that the model has initialized correctly with a correct starting board
@@ -56,8 +56,8 @@ public class TestModel {
     TextualView modelView = new ReversiTextualView(model);
 
     Assert.assertEquals(modelView.toString(), " X O\n" + //
-        "O _ X\n" + //
-        " X O\n");
+            "O _ X\n" + //
+            " X O\n");
   }
 
   // Tests that one valid move made on the model correctly works as intended.
@@ -73,12 +73,12 @@ public class TestModel {
     TextualView modelView = new ReversiTextualView(model);
 
     Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
-        "  _ _ X _ _\n" + //
-        " _ _ X X _ _\n" + //
-        "_ _ O _ X _ _\n" + //
-        " _ _ X O _ _\n" + //
-        "  _ _ _ _ _\n" + //
-        "   _ _ _ _\n");
+            "  _ _ X _ _\n" + //
+            " _ _ X X _ _\n" + //
+            "_ _ O _ X _ _\n" + //
+            " _ _ X O _ _\n" + //
+            "  _ _ _ _ _\n" + //
+            "   _ _ _ _\n");
   }
 
   // Tests that multiple valid moves on the model work as intended.
@@ -96,12 +96,12 @@ public class TestModel {
     TextualView modelView = new ReversiTextualView(model);
 
     Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
-        "  _ _ X _ _\n" + //
-        " _ _ X X _ _\n" + //
-        "_ _ X _ X _ _\n" + //
-        " O O O O _ _\n" + //
-        "  X _ _ _ _\n" + //
-        "   _ _ _ _\n");
+            "  _ _ X _ _\n" + //
+            " _ _ X X _ _\n" + //
+            "_ _ X _ X _ _\n" + //
+            " O O O O _ _\n" + //
+            "  X _ _ _ _\n" + //
+            "   _ _ _ _\n");
   }
 
   // Tests that passTurn correctly passes the turn from black to white without
@@ -118,12 +118,12 @@ public class TestModel {
     TextualView modelView = new ReversiTextualView(model);
 
     Assert.assertEquals(modelView.toString(), "   _ _ _ _\n" + //
-        "  _ _ _ _ _\n" + //
-        " _ _ X O _ _\n" + //
-        "_ _ O _ X _ _\n" + //
-        " _ O O O _ _\n" + //
-        "  _ _ _ _ _\n" + //
-        "   _ _ _ _\n");
+            "  _ _ _ _ _\n" + //
+            " _ _ X O _ _\n" + //
+            "_ _ O _ X _ _\n" + //
+            " _ O O O _ _\n" + //
+            "  _ _ _ _ _\n" + //
+            "   _ _ _ _\n");
   }
 
   // Since pass turn cannot be directly tested, it is tested with isGameOver to
@@ -455,7 +455,7 @@ public class TestModel {
 
     Assert.assertThrows(IllegalStateException.class, () -> {
       model.addPieceToCoordinates(new PositionAxial(0, -1, 1),
-      new ComputerPlayer(PlayerType.BLACK));
+              new ComputerPlayer(PlayerType.BLACK));
     });
   }
 
@@ -519,7 +519,7 @@ public class TestModel {
     ReversiModel model = new BasicReversiModel(7);
 
     Assert.assertEquals(model.doesCurrentPlayerHaveValidMovesPosn(
-        new PositionAxial(2, -1, -1), playerBlack), true);
+            new PositionAxial(2, -1, -1), playerBlack), true);
   }
 
   // Tests that doesCurrentPlayerHaveValidMovesPosn returns false when the current
@@ -538,8 +538,8 @@ public class TestModel {
     model.addPieceToCoordinates(new PositionAxial(1, -2, 1), playerWhite);
 
     Assert.assertEquals(model.doesCurrentPlayerHaveValidMovesPosn(
-        new PositionAxial(0, 0, 0), playerBlack),
-        false);
+                    new PositionAxial(0, 0, 0), playerBlack),
+            false);
   }
 
   // Tests that getBoardCopy returns a copy of the board.

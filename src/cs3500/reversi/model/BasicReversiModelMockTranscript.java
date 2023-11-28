@@ -3,8 +3,8 @@ package cs3500.reversi.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import cs3500.reversi.controller.ComputerPlayer;
-import cs3500.reversi.controller.HumanPlayer;
 import cs3500.reversi.controller.ModelStatusFeatures;
 import cs3500.reversi.controller.Player;
 import cs3500.reversi.controller.PlayerType;
@@ -454,13 +454,6 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
   }
 
   /**
-   * Passes the turn to the next player.
-   */
-  public void passTurn() {
-    // Empty as mock does not need to passTurn()
-  }
-
-  /**
    * Checks if the Reversi game is over.
    *
    * @return true if the game is over, false otherwise.
@@ -579,7 +572,7 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
   @Override
   public int getScoreForMove(PositionAxial posn) {
     this.log.append("getScoreForMove(" + posn.toString() + ")\n");
-    
+
     // If the position is (1, 2, -3), return 0 (used for testing purposes).
     if (posn.equals(new PositionAxial(1, 2, -3))) {
       return 0;

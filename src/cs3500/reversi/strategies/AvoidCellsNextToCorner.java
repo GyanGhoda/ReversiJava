@@ -47,8 +47,8 @@ public class AvoidCellsNextToCorner implements ReversiStrategy {
 
     // Passing is represented by returning the boardsize for each coordinate
     PositionAxial bestPosn =
-        new PositionAxial(model.getBoardSize(), 
-    model.getBoardSize(), model.getBoardSize());
+            new PositionAxial(model.getBoardSize(),
+                    model.getBoardSize(), model.getBoardSize());
 
     // choose the best move of those not next to the corner
     if (!scoresNoNextToCorners.isEmpty()) {
@@ -64,10 +64,10 @@ public class AvoidCellsNextToCorner implements ReversiStrategy {
 
     // Check if the position is next to any of the six corners
     return (Math.abs(posn.getQ()) == middleY && Math.abs(posn.getR()) == middleY - 1) ||
-        (Math.abs(posn.getR()) == middleY && Math.abs(posn.getS()) == middleY - 1) ||
-        (Math.abs(posn.getS()) == middleY && Math.abs(posn.getQ()) == middleY - 1) ||
-        (Math.abs(posn.getR()) == middleY && Math.abs(posn.getQ()) == middleY - 1) ||
-        (Math.abs(posn.getS()) == middleY && Math.abs(posn.getR()) == middleY - 1) ||
-        (Math.abs(posn.getQ()) == middleY && Math.abs(posn.getS()) == middleY - 1);
+            (Math.abs(posn.getR()) == middleY && Math.abs(posn.getS()) == middleY - 1) ||
+            (Math.abs(posn.getS()) == middleY && Math.abs(posn.getQ()) == middleY - 1) ||
+            (Math.abs(posn.getR()) == middleY && Math.abs(posn.getQ()) == middleY - 1) ||
+            (Math.abs(posn.getS()) == middleY && Math.abs(posn.getR()) == middleY - 1) ||
+            (Math.abs(posn.getQ()) == middleY && Math.abs(posn.getS()) == middleY - 1);
   }
 }

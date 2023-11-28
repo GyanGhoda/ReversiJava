@@ -58,7 +58,7 @@ public final class Reversi {
           break;
         case "combined":
           player1 = new ComputerPlayer(PlayerType.BLACK,
-              new TryTwoStrategies(getStrategy(args[1]), getStrategy(args[2])));
+                  new TryTwoStrategies(getStrategy(args[1]), getStrategy(args[2])));
           argCounter = 3;
           break;
         default:
@@ -83,7 +83,8 @@ public final class Reversi {
           break;
         case "combined":
           player2 = new ComputerPlayer(PlayerType.WHITE,
-              new TryTwoStrategies(getStrategy(args[argCounter + 1]), getStrategy(args[argCounter + 2])));
+                  new TryTwoStrategies(getStrategy(args[argCounter + 1]),
+                          getStrategy(args[argCounter + 2])));
           break;
         default:
           throw new IllegalArgumentException("Player type not supported");
@@ -112,7 +113,7 @@ public final class Reversi {
 
     model.startGame();
   }
-  
+
   // helper for switch statement when combining strategies
   private static ReversiStrategy getStrategy(String strategy) {
     switch (strategy) {

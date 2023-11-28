@@ -23,7 +23,8 @@ public class TestVisualView {
     ReversiModel model = new BasicReversiModel(7);
     HexagonalPanelMock mockPanel = new HexagonalPanelMock(model, 800, 800);
     ReversiVisualView view = new HexagonalFrame(model);
-    mockPanel.setUpFeatures(new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK), view));
+    mockPanel.setUpFeatures(new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK),
+            view));
 
     mockPanel.induceMouseEvent(200, 200);
 
@@ -50,7 +51,8 @@ public class TestVisualView {
     ReversiModel model = new BasicReversiModel(7);
     HexagonalPanelMock mockPanel = new HexagonalPanelMock(model, 800, 800);
     ReversiVisualView view = new HexagonalFrame(model);
-    mockPanel.setUpFeatures(new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK), view));
+    mockPanel.setUpFeatures(new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK),
+            view));
 
     mockPanel.induceMouseEvent(400, 400);
 
@@ -66,7 +68,8 @@ public class TestVisualView {
     ReversiModel model = new BasicReversiModel(7);
     HexagonalPanelMock mockPanel = new HexagonalPanelMock(model, 800, 800);
     ReversiVisualView view = new HexagonalFrame(model);
-    mockPanel.setUpFeatures(new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK), view));
+    mockPanel.setUpFeatures(new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK),
+            view));
 
     mockPanel.induceKeyEvent(77);
 
@@ -80,7 +83,8 @@ public class TestVisualView {
     model.startGame();
     HexagonalPanelMock mockPanel = new HexagonalPanelMock(model, 800, 800);
     ReversiVisualView view = new HexagonalFrame(model);
-    mockPanel.setUpFeatures(new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK), view));
+    mockPanel.setUpFeatures(new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK),
+            view));
 
     mockPanel.induceKeyEvent(80);
 

@@ -176,7 +176,7 @@ public class TestController {
     Assert.assertEquals(controller.getLog(), "Requested move to coordinate: Q: 0, R: 0, S: 0\n");
   }
 
-  // Test that controller moveToCoordinate correctly attempts to move the piece for a computer player
+  // Test that controller moveToCoordinate correctly attempts to move the piece for computer player
   @Test
   public void testControllerMoveToCoordinateComputer() {
 
