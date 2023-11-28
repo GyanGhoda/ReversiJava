@@ -27,8 +27,7 @@ import java.util.HashMap;
  * Represents a panel of hexagonal buttons.
  */
 public class HexagonalPanel extends JPanel implements ReversiPanel {
-  private final HashMap<PositionAxial, HexagonSpace> hexagonButtons
-          = new HashMap<PositionAxial, HexagonSpace>();
+  private final HashMap<PositionAxial, HexagonSpace> hexagonButtons;
   private ReadOnlyReversiModel model;
   private int width;
   private int height;
@@ -49,10 +48,13 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     if (model == null) {
       throw new IllegalArgumentException("Model cannot be null");
     }
+
     this.model = model;
     this.width = width;
     this.height = height;
     this.currentTurn = false;
+    this.hexagonButtons = new HashMap<PositionAxial, HexagonSpace>();
+    this.initializeHexagons();
 
     addMouseListener(new MouseListenerReversi());
     addKeyListener(new KeyListenerReversi());
@@ -61,8 +63,6 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     // Set the panel to be focusable
     setFocusable(true);
     requestFocusInWindow();
-
-    this.initializeHexagons();
   }
 
   /**
@@ -79,7 +79,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
    * Initializes the hexagons in the panel.
    */
   private void initializeHexagons() {
-    this.hexagonButtons.clear();
+    HashMap<PositionAxial, HexagonSpace> newHexagonButtons = new HashMap<>();
 
     int distance = Math.min(this.width, this.height) / this.model.getNumRows();
     double buttonSize = (distance / Math.sqrt(3));
@@ -115,7 +115,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
                 this.model.getCellAt(posn));
 
         // create empty cell and add it to the board at the current poisiton
-        hexagonButtons.put(posn, hexagon);
+        newHexagonButtons.put(posn, hexagon);
         hexagon.moveTo(startingX, startingY);
 
         startingX += Math.sqrt(3) * buttonSize;
@@ -129,6 +129,9 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
       }
       currentR += 1;
     }
+
+    this.hexagonButtons.clear();
+    this.hexagonButtons.putAll(newHexagonButtons);
   }
 
   /**
