@@ -28,55 +28,54 @@ public final class Reversi {
    * Main class that instantiates a model and view.
    */
   public static void main(String[] args) {
-
-    if (args.length < 1) {
-      throw new IllegalArgumentException("Not enough arguments given");
-    }
-
-    Player player1;
-    Player player2;
+    Player player1 = new HumanPlayer(PlayerType.BLACK);
+    Player player2 = new HumanPlayer(PlayerType.WHITE);
     int argCounter = 0;
     int boardLength = 7;
 
-    if (!args[argCounter].equals("human") && !args[argCounter].equals("computer")) {
-      try {
-        boardLength = Integer.valueOf(args[argCounter]);
-        if (boardLength % 2 == 0) {
-          throw new NumberFormatException();
-        }
-        argCounter += 1;
-      } catch (NumberFormatException e) {
-        throw new IllegalArgumentException("Invalid board size or invalid argument given");
-      }
-    }
-
-    try {
-      switch (args[argCounter]) {
-        case "human":
+    if (args.length >= 1) {
+      if (!args[argCounter].equals("human") && !args[argCounter].equals("computer")) {
+        try {
+          boardLength = Integer.valueOf(args[argCounter]);
+          if (boardLength % 2 == 0) {
+            throw new NumberFormatException();
+          }
           argCounter += 1;
-          player1 = new HumanPlayer(PlayerType.BLACK);
-          break;
-        case "computer":
-          argCounter = getToNextPlayer(args, argCounter + 1);
-          player1 = setUpComputer(args, argCounter, PlayerType.BLACK);
-          break;
-        default:
-          throw new IllegalArgumentException("Player type not supported");
+        } catch (NumberFormatException e) {
+          throw new IllegalArgumentException("Invalid board size or invalid argument given");
+        }
       }
 
-      switch (args[argCounter]) {
-        case "human":
-          player2 = new HumanPlayer(PlayerType.WHITE);
-          break;
-        case "computer":
-          player2 = setUpComputer(args, argCounter, PlayerType.WHITE);
-          break;
-        default:
-          throw new IllegalArgumentException("Player type not supported");
-      }
+      if (args.length > argCounter) {
+        try {
+          switch (args[argCounter]) {
+            case "human":
+              argCounter += 1;
+              player1 = new HumanPlayer(PlayerType.BLACK);
+              break;
+            case "computer":
+              argCounter = getToNextPlayer(args, argCounter + 1);
+              player1 = setUpComputer(args, argCounter, PlayerType.BLACK);
+              break;
+            default:
+              throw new IllegalArgumentException("Player type not supported");
+          }
 
-    } catch (Exception e) {
-      throw new IllegalArgumentException("Game not created: " + e.getMessage());
+          switch (args[argCounter]) {
+            case "human":
+              player2 = new HumanPlayer(PlayerType.WHITE);
+              break;
+            case "computer":
+              player2 = setUpComputer(args, argCounter, PlayerType.WHITE);
+              break;
+            default:
+              throw new IllegalArgumentException("Player type not supported");
+          }
+
+        } catch (Exception e) {
+          throw new IllegalArgumentException("Invalid arguments given");
+        }
+      }
     }
 
     ReversiModel model = new BasicReversiModel(boardLength, player1, player2);
