@@ -314,7 +314,11 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
       // Check if the user has pressed the 'm' key, which makes a move
       if (keyCode == KeyEvent.VK_M) {
         try {
-          this.features.moveToCoordinate(selectedPosn);
+          // If there is a selectedPosn, then attempt to move to it. Null is used as null represents
+          // the lack of a posn selected by a player.
+          if (selectedPosn != null) {
+            this.features.moveToCoordinate(selectedPosn);
+          }
         } catch (IllegalStateException e) {
           JOptionPane.showMessageDialog(this, e.getMessage(), "Illegal Move Made",
               JOptionPane.ERROR_MESSAGE);

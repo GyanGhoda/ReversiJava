@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import cs3500.reversi.controller.HumanPlayer;
 import cs3500.reversi.controller.ModelStatusFeatures;
 import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.Player;
@@ -388,6 +387,7 @@ public class BasicReversiModel implements ReversiModel {
    *
    * @param givenPosn   The starting position.
    * @param posn        The ending position.
+   * @param playerTurn  The player whose turn it currently is.
    * @return A list of positions forming a valid line between the given positions,
    *         or an empty list if no valid line exists.
    */
@@ -603,10 +603,13 @@ public class BasicReversiModel implements ReversiModel {
    */
   @Override
   public boolean isGameOver() {
+
+    // if two or more passes made, game should end
     if (this.consectivePassedTurns >= 2) {
       return true;
     }
 
+    // for every position on the board, check if the current player has any valid moves
     for (PositionAxial posn : this.board.keySet()) {
       if (this.getCellAt(posn).sameCellType(CellType.Empty)
           && (!this.isValidMoveForPlayer(posn, this.playerBlack).isEmpty()
