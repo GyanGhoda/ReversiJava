@@ -39,7 +39,7 @@ public class CaptureMostPieces implements ReversiStrategy {
     // is off the board
     // with each of the coordinates being the size of the board. This is the same as
     // passing the turn,
-    // and will be handeled in the controller when made.
+    // and will be handled in the controller when made.
     if (scores.isEmpty()) {
       return new PositionAxial(model.getBoardSize(), model.getBoardSize(), model.getBoardSize());
     }
@@ -93,7 +93,7 @@ public class CaptureMostPieces implements ReversiStrategy {
       if (posn.getS() >= leftUpperMost.getS()) {
         if (posn.getR() <= 0) {
           leftUpperMost = posn;
-        } else if (posn.getQ() <= leftUpperMost.getQ() && posn.getR() > 0) {
+        } else if (posn.getQ() <= leftUpperMost.getQ()) {
           leftUpperMost = posn;
         }
       }

@@ -41,8 +41,6 @@ public class BasicReversiController implements PlayerActionFeatures, ModelStatus
       } else {
         this.model.addPieceToCoordinates(posnToMove, this.player);
       }
-      System.out.println("User has requested to move to:\nQ: " + posn.getQ() + "\nR: "
-              + posn.getR() + "\nS: " + posn.getS());
     }
   }
 
@@ -53,7 +51,6 @@ public class BasicReversiController implements PlayerActionFeatures, ModelStatus
   public void passTurn() {
     if (!this.model.isGameOver()) {
       this.model.passTurn(this.player);
-      System.out.println("User has requested to pass turn.");
     }
   }
 
