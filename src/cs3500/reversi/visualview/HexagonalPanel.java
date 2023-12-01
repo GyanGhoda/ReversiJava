@@ -343,8 +343,6 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
 
         // print out the coordinates of the hexagon that was clicked on
         if (hexagon.contains(mouseX, mouseY) && !hexagon.getState()) {
-          System.out.println("Clicked on hexagon at:\nQ: " + entry.getKey().getQ()
-              + "\nR: " + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
           hexagon.setState(!hexagon.getState());
           selectedPosn = entry.getKey();
         } else if (hexagon.contains(mouseX, mouseY)) {

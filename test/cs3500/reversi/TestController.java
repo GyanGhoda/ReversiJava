@@ -189,9 +189,9 @@ public class TestController {
     Assert.assertEquals(controller.getLog(), "Requested move to coordinate: Q: 0, R: 0, S: 0\n");
   }
 
-  // Test that controller passTurn correctly attempts to pass the turn 
+  // Test that controller passTurn correctly attempts to pass the turn for human player
   @Test
-  public void testControllerPassTurn() {
+  public void testControllerPassTurnHuman() {
 
     ReversiModel model = new BasicReversiModel(5);
     HumanPlayer blackPlayer = new HumanPlayer(PlayerType.BLACK);
@@ -202,12 +202,38 @@ public class TestController {
     Assert.assertEquals(controller.getLog(), "Requested to pass turn.\n");
   }
 
-  // Test that controller notifyToRefresh correctly attempts to refresh the view
+  // Test that controller passTurn correctly attempts to pass the turn for computer player
   @Test
-  public void testControllerNotifyToRefresh() {
+  public void testControllerPassTurnComputer() {
+
+    ReversiModel model = new BasicReversiModel(5);
+    ComputerPlayer blackPlayer = new ComputerPlayer(PlayerType.BLACK);
+    ReversiVisualView view = new HexagonalFrame(model);
+
+    MockController controller = new MockController(blackPlayer);
+    controller.passTurn();
+    Assert.assertEquals(controller.getLog(), "Requested to pass turn.\n");
+  }
+
+  // Test that controller notifyToRefresh correctly attempts to refresh the view for human player
+  @Test
+  public void testControllerNotifyToRefreshHuman() {
 
     ReversiModel model = new BasicReversiModel(5);
     HumanPlayer blackPlayer = new HumanPlayer(PlayerType.BLACK);
+    ReversiVisualView view = new HexagonalFrame(model);
+
+    MockController controller = new MockController(blackPlayer);
+    controller.notifyToRefresh("X");
+    Assert.assertEquals(controller.getLog(), "Notified to refresh.\n");
+  }
+
+  // Test that controller notifyToRefresh correctly attempts to refresh the view for computer player
+  @Test
+  public void testControllerNotifyToRefreshComputer() {
+
+    ReversiModel model = new BasicReversiModel(5);
+    ComputerPlayer blackPlayer = new ComputerPlayer(PlayerType.BLACK);
     ReversiVisualView view = new HexagonalFrame(model);
 
     MockController controller = new MockController(blackPlayer);

@@ -1,3 +1,32 @@
+## Changes for Part 3 from initial design:
+
+No changes were made to the initial design. All other changes involved adding new classes, interfaces, and packages as per the assignment instructions. The details of those can be viewed below in the Key Components and Subcomponents section.
+
+## Main class command line explanation:
+Optionally, a board size can be entered as the first argument. It must be an integer that is odd and at least 3.
+If no board size is chosen, a default size of 7 is assumed. After this, you must specify player one. Also optional
+and next, you can enter 'human' for a human player and 'computer' for a computer player. If not entered, a two
+human player game is created. If the computer player is chosen, you can then list strategies that you want the
+computer to follow, as seen below.
+Strategies:
+- 'strategy1' - CaptureMostPieces
+- 'strategy2' - AvoidCellsNextToCorner
+- 'strategy3' - CaptureCellsInCorner
+- 'strategy4' - MinimizeNextOpponentMove
+Multiple strategies can be chosen by simply listing them after each other. The primary strategy will be the first one
+entered, and so on. For instance, 'computer strategy2 strategy3 strategy1' represents an AI player that primarily attempts strategy2,
+and it will default to strategy3 then strategy1 in that order. If no strategies are specified, an AI player following strategy1 will
+be created. After this if player one was specified, player two must be specified using the same 'human' or 'computer' with strategies
+arguments.
+
+Examples:
+- '' - two player game (two humans) with board size of 7
+- '9' - two player game (two humans) with board size of 9
+- 'human human' - two player game (two humans) with board size of 7
+- '15 human human' - two player game (two humans) with board size of 15
+- 'human computer strategy4 strategy3 strategy2 strategy1' - one human player and one computer player utilizing all strategies with board size 7
+- 'computer strategy4 strategy3 strategy2 strategy1 computer strategy4 strategy3 strategy2 strategy1' - two computer players both utilizing all strategies with board size 7
+
 ## Extra credit:
 
 ### Strategies (`src/cs3500/reversi/strategies`)
@@ -35,7 +64,7 @@ Using the jar file provided in the root directory, you can run the jar file and 
 ### Model (`src/cs3500/reversi/model`)
 - `BasicReversiModel`: Implements game logic and state management. Methods include `addPieceToCoordinates` for making a move and `getCellAt` for retrieving the state of a specific cell.
 - `ReversiModel`: Interface defining essential game model methods, excluding observation methods.
-- 'BsaicReversiModelMockTranscript': Mock class used to test strategies.
+- 'BasicReversiModelMockTranscript': Mock class used to test strategies.
 - `GameCell`: Represents a cell on the game board, implements `Cell`, and adds game-specific properties.
 - `CellType`: Enumeration of cell types (e.g., EMPTY, PLAYER).
 - `PositionAxial`: Represents positions in an axial coordinate system.
@@ -55,11 +84,14 @@ Using the jar file provided in the root directory, you can run the jar file and 
 - `ReversiVisualView`: Interface representing the visual view for the game.
 
 ### Controller (`src/cs3500/reversi/controller`)
-- `GamePlayer`: Manages players in the game, handling turns and interactions. Implements or extends `Player`.
+- 'BasicReversiController': Controller for playing Reversi.
+- 'ComputerPlayer': Represents AI computer players in a game of Reversi.
+- 'HumanPlayer': Represents human players in a game of Reversi.
+- 'MockController': Used for testing to make sure controller calls methods properly.
+- 'ModelStatusFeatures': Represents the features that the controller can use to update the view according to the model.
+- 'PlayerActionFeatures': Represents the features that the controller can use to interact with the model.
 - `Player`: Represents a player, encapsulating player-specific data and behaviors.
 - `PlayerType`: Enumeration of player types (e.g., HUMAN, AI).
-- 'Features': Interface representing the features that the controller can use to interact with the model.
-- 'ReversiFeatures': Class that allows controller to execute methods interacting with the model.
 
 ### Strategies (`src/cs3500/reversi/strategies`)
 - `AvoidCellsNextToCorner`: Strategy that avoids cells next to the corner and breaks ties by choosing the uppermost-leftmost move.
