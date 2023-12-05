@@ -1,7 +1,6 @@
 package cs3500.reversi.controller;
 
 import cs3500.reversi.model.GamePosition;
-import cs3500.reversi.model.PositionAxial;
 
 /**
  * Represents the features that the controller can use to interact with the

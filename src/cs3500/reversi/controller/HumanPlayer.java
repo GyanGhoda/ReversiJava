@@ -2,6 +2,7 @@ package cs3500.reversi.controller;
 
 import java.util.Objects;
 
+import cs3500.reversi.model.GamePosition;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReversiModel;
 
@@ -30,7 +31,7 @@ public class HumanPlayer implements Player {
    * @return the position that is chosen to move to
    */
   @Override
-  public PositionAxial requestMove(ReversiModel model, PositionAxial posn) {
+  public GamePosition requestMove(ReversiModel model, GamePosition posn) {
     return posn;
   }
 
@@ -38,7 +39,7 @@ public class HumanPlayer implements Player {
    * Returns a string representation of the player.
    *
    * @return The string representation of the player, "X" for BLACK, and "O" for
-   *     WHITE.
+   *         WHITE.
    */
   @Override
   public String toString() {
