@@ -92,13 +92,7 @@ public class CaptureMostPieces implements ReversiStrategy {
 
     // Find the left uppermost position axial
     for (GamePosition posn : bestPosns) {
-      if (posn.getS() >= leftUpperMost.getS()) {
-        if (posn.getR() <= 0) {
-          leftUpperMost = posn;
-        } else if (posn.getQ() <= leftUpperMost.getQ()) {
-          leftUpperMost = posn;
-        }
-      }
+      leftUpperMost = posn.checkLeftUpperMost(leftUpperMost);
     }
 
     return leftUpperMost;

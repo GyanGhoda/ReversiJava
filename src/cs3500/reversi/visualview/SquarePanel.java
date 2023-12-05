@@ -90,22 +90,24 @@ public class SquarePanel extends JPanel implements ReversiPanel {
         double totalGridWidth = (this.model.getNumRows()) * buttonSize;
 
         // Calculate offset to center the grid
-        double offset = (this.width - totalGridWidth) / 2;
+        double offsetX = (this.width - totalGridWidth) / 2;
+        double offsetY = (this.height - totalGridWidth) / 2;
 
-        double centerX = offset;
-        double centerY = offset;
+        double centerX = offsetX;
+        double centerY = offsetY;
 
-        for (int x = 0; x < this.model.getNumRows(); x += 1) {
-            for (int y = 0; y < this.model.getNumRows(); y += 1) {
+        for (int y = 0; y < this.model.getNumRows(); y += 1) {
+            for (int x = 0; x < this.model.getNumRows(); x += 1) {
                 Position2D posn = new Position2D(x, y);
                 SquareSpace square = new SquareSpace(buttonSize, centerX, centerY,
                         this.model.getCellAt(posn));
 
                 square.moveTo(centerX, centerY);
                 newSquareButtons.put(posn, square);
-                centerX += offset;
+                centerX += buttonSize;
             }
-            centerY += offset;
+            centerX = offsetX;
+            centerY += buttonSize;
         }
 
         this.squareButtons.clear();
@@ -346,6 +348,7 @@ public class SquarePanel extends JPanel implements ReversiPanel {
                     square.setState(false);
                 }
             }
+            System.out.println(selectedPosn);
             repaint();
         }
     }

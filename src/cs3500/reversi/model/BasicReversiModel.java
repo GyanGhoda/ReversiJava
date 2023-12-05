@@ -118,7 +118,7 @@ public class BasicReversiModel implements ReversiModel {
    * @throws IllegalArgumentException If the provided width is not an odd number
    *                                  or is less than three.
    */
-  public BasicReversiModel(int width, HashMap<PositionAxial, Cell> board, Player currentPlayer) {
+  public BasicReversiModel(int width, HashMap<GamePosition, Cell> board, Player currentPlayer) {
 
     // Enforced invarient by checking if width is odd and at least three.
     if (width < 3 || width % 2 == 0) {
@@ -139,7 +139,7 @@ public class BasicReversiModel implements ReversiModel {
     // add the starting pieces
     this.addStartingPieces();
 
-    for (PositionAxial posn : board.keySet()) {
+    for (GamePosition posn : board.keySet()) {
       this.board.put(posn, board.get(posn));
     }
   }

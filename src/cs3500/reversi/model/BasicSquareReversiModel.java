@@ -22,7 +22,7 @@ public class BasicSquareReversiModel implements ReversiModel {
   private final Player playerBlack;
   private final Player playerWhite;
   // the width of the game board
-  // INVARIENT: Width must be odd and at least three. Enforced by constructor at
+  // INVARIENT: Width must be even and positive. Enforced by constructor at
   // construction of BasicSquareReversiModel.
   private final int width;
   // the turn of the current player
@@ -53,7 +53,7 @@ public class BasicSquareReversiModel implements ReversiModel {
    *                                  or is less than three.
    */
   public BasicSquareReversiModel(int width) {
-    // Enforced invarient by checking if width is odd and at least three.
+    // Enforced invarient by checking if width is even and positive.
     if (width < 0 || width % 2 != 0) {
       throw new IllegalArgumentException("Width must be even and positive.");
     }
@@ -86,9 +86,9 @@ public class BasicSquareReversiModel implements ReversiModel {
    *                                  or is less than three.
    */
   public BasicSquareReversiModel(int width, Player playerBlack, Player playerWhite) {
-    // Enforced invarient by checking if width is odd and at least three.
-    if (width < 3 || width % 2 == 0) {
-      throw new IllegalArgumentException("Width must be odd and at least three.");
+    // Enforced invarient by checking if width is even and positive.
+    if (width < 0 || width % 2 != 0) {
+      throw new IllegalArgumentException("Width must be even and positive.");
     }
     this.board = new HashMap<>();
     this.playerBlack = playerBlack;
@@ -121,11 +121,10 @@ public class BasicSquareReversiModel implements ReversiModel {
    * @throws IllegalArgumentException If the provided width is not an odd number
    *                                  or is less than three.
    */
-  public BasicSquareReversiModel(int width, HashMap<Position2D, Cell> board, Player currentPlayer) {
-
-    // Enforced invarient by checking if width is odd and at least three.
-    if (width < 3 || width % 2 == 0) {
-      throw new IllegalArgumentException("Width must be odd and at least three.");
+  public BasicSquareReversiModel(int width, HashMap<GamePosition, Cell> board, Player currentPlayer) {
+    // Enforced invarient by checking if width is even and positive.
+    if (width < 0 || width % 2 != 0) {
+      throw new IllegalArgumentException("Width must be even and positive.");
     }
 
     this.board = new HashMap<>();
@@ -142,7 +141,7 @@ public class BasicSquareReversiModel implements ReversiModel {
     // add the starting pieces
     this.addStartingPieces();
 
-    for (Position2D posn : board.keySet()) {
+    for (GamePosition posn : board.keySet()) {
       this.board.put(posn, board.get(posn));
     }
   }
@@ -154,7 +153,7 @@ public class BasicSquareReversiModel implements ReversiModel {
     this.board = new HashMap<>();
     this.playerBlack = new ComputerPlayer(PlayerType.BLACK);
     this.playerWhite = new ComputerPlayer(PlayerType.WHITE);
-    this.width = 11;
+    this.width = 12;
     this.currentPlayer = this.playerBlack;
     this.consectivePassedTurns = 0;
     this.gameStarted = false;
@@ -198,9 +197,9 @@ public class BasicSquareReversiModel implements ReversiModel {
    */
   private void initializeBoard() {
     // iterate over the rows of the board
-    for (int x = 0; x < this.width; x += 1) {
+    for (int y = 0; y < this.width; y += 1) {
       // iterate over the columns of the board
-      for (int y = 0; y < this.width; y += 1) {
+      for (int x = 0; x < this.width; x += 1) {
         // create a new position for the current cell
         Position2D posn = new Position2D(x, y);
 
@@ -282,6 +281,8 @@ public class BasicSquareReversiModel implements ReversiModel {
    */
   @Override
   public void addPieceToCoordinates(GamePosition posn, Player player) {
+
+    // System.out.println("hy");
 
     currentTurnCorrect(player);
     gameStartedHelper();
@@ -379,15 +380,15 @@ public class BasicSquareReversiModel implements ReversiModel {
       }
     }
 
-    //
+    // If the given and ending positions share Y coordinates, check for a valid line
     else if (givenPosn.getY() == posn.getY()) {
       // Go forwards along the possible line
       if (givenPosn.getX() > posn.getX()) {
-        this.goDownLine(givenPosn.getX(), cellsBetween, "x", givenPosn.getX(), false, playerTurn);
+        this.goDownLine(givenPosn.getX(), cellsBetween, "x", givenPosn.getY(), false, playerTurn);
       }
       // Go backwards along the possible line
       else {
-        this.goDownLine(givenPosn.getX(), cellsBetween, "x", givenPosn.getX(), true, playerTurn);
+        this.goDownLine(givenPosn.getX(), cellsBetween, "x", givenPosn.getY(), true, playerTurn);
       }
     }
 
@@ -448,14 +449,22 @@ public class BasicSquareReversiModel implements ReversiModel {
   // a proper move
   private void goDownLine(int incrementStartingPostion,
       ArrayList<Position2D> cellsBetween, String row, int constantPosition,
-      boolean foward, Player playerTurn) {
+      boolean forward, Player playerTurn) {
     // iterate through the range of coordinates and check for valid positions.
     while (true) {
-      if (foward) {
+      if (forward) {
         incrementStartingPostion += 1;
       } else {
         incrementStartingPostion -= 1;
       }
+
+      // if (forward && row == "x") {
+      // incrementStartingPostion += 1;
+      // } else if (!forward && row == "y") {
+      // incrementStartingPostion += 1;
+      // } else if (!forward && row == "x") {
+      // incrementStartingPostion -= 1;
+      // }
 
       // calculate current position based on direction
       Position2D currentPosition = this.calculateStartingPosition(row,
@@ -489,9 +498,9 @@ public class BasicSquareReversiModel implements ReversiModel {
       int incrementStartingPostion, int constantPosition) {
     // calculate current position based on row
     if (row.toLowerCase().equals("x")) {
-      return new Position2D(constantPosition, incrementStartingPostion);
-    } else if (row.toLowerCase().equals("y")) {
       return new Position2D(incrementStartingPostion, constantPosition);
+    } else if (row.toLowerCase().equals("y")) {
+      return new Position2D(constantPosition, incrementStartingPostion);
     } else {
       throw new IllegalArgumentException("Invalid row given");
     }
@@ -511,7 +520,6 @@ public class BasicSquareReversiModel implements ReversiModel {
 
       if (posn.isNextTo(givenPosn)) {
         surroundingCells.add(posn2D);
-
       }
     }
 

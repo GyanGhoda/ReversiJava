@@ -36,30 +36,27 @@ public class SquareSpace extends Path2D.Double {
         this.isHighlighted = false;
         this.representingCell = representingCell;
 
-        this.constructsquare();
+        this.constructSquare();
     }
 
     /**
      * Constructs the square.
      */
-    private void constructsquare() {
+    private void constructSquare() {
+        // Start at the top left corner of the square
+        moveTo(currentX, currentY);
 
-        for (int i = 0; i < 4; i++) {
-            // Calculate the angle, dividing by 4 for a square
-            double angle = 2 * Math.PI / 4 * i + Math.PI / 4;
-            // Calculate the x and y points
-            double xPoint = this.currentX + this.size * Math.cos(angle);
-            double yPoint = this.currentY + this.size * Math.sin(angle);
+        // Draw line to the top right corner
+        lineTo(currentX + size, currentY);
 
-            if (i == 0) {
-                moveTo(xPoint, yPoint); // Move to the first point
-            } else {
-                lineTo(xPoint, yPoint); // Draw line to next point
-            }
-        }
+        // Draw line to the bottom right corner
+        lineTo(currentX + size, currentY + size);
 
-        this.closePath(); // Close the path to complete the square
+        // Draw line to the bottom left corner
+        lineTo(currentX, currentY + size);
 
+        // Close the path to complete the square
+        closePath();
     }
 
     /**
@@ -117,12 +114,12 @@ public class SquareSpace extends Path2D.Double {
             double circleRadius = this.size * 0.45;
 
             // Construct circle path
-            circlePath.moveTo(this.currentX + circleRadius, this.currentY);
+            circlePath.moveTo(this.currentX + (this.size / 2) + circleRadius, this.currentY + (this.size / 2));
 
             for (int i = 0; i <= 360; i++) {
                 double rad = Math.toRadians(i);
-                double xCircle = this.currentX + circleRadius * Math.cos(rad);
-                double yCircle = this.currentY + circleRadius * Math.sin(rad);
+                double xCircle = this.currentX + (this.size / 2) + circleRadius * Math.cos(rad);
+                double yCircle = this.currentY + (this.size / 2) + circleRadius * Math.sin(rad);
                 circlePath.lineTo(xCircle, yCircle);
             }
 

@@ -9,6 +9,7 @@ import cs3500.reversi.controller.Player;
 import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.BasicReversiModel;
+import cs3500.reversi.model.BasicSquareReversiModel;
 import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.strategies.AvoidCellsNextToCorner;
 import cs3500.reversi.strategies.CaptureCellsInCorner;
@@ -18,6 +19,7 @@ import cs3500.reversi.strategies.ReversiStrategy;
 import cs3500.reversi.strategies.TryTwoStrategies;
 import cs3500.reversi.visualview.HexagonalFrame;
 import cs3500.reversi.visualview.ReversiVisualView;
+import cs3500.reversi.visualview.SquareFrame;
 
 /**
  * Main class that instantiates a model and view.
@@ -31,7 +33,7 @@ public final class Reversi {
     Player player1 = new HumanPlayer(PlayerType.BLACK);
     Player player2 = new HumanPlayer(PlayerType.WHITE);
     int argCounter = 0;
-    int boardLength = 7;
+    int boardLength = 8;
 
     if (args.length >= 1) {
       if (!args[argCounter].equals("human") && !args[argCounter].equals("computer")) {
@@ -78,10 +80,31 @@ public final class Reversi {
       }
     }
 
-    ReversiModel model = new BasicReversiModel(boardLength, player1, player2);
+    // ReversiModel model = new BasicReversiModel(boardLength, player1, player2);
 
-    ReversiVisualView view1 = new HexagonalFrame(model);
-    ReversiVisualView view2 = new HexagonalFrame(model);
+    // ReversiVisualView view1 = new HexagonalFrame(model);
+    // ReversiVisualView view2 = new HexagonalFrame(model);
+
+    // BasicReversiController controller1 = new BasicReversiController(model,
+    // player1, view1);
+    // BasicReversiController controller2 = new BasicReversiController(model,
+    // player2, view2);
+
+    // model.addFeaturesListener(controller1);
+    // model.addFeaturesListener(controller2);
+
+    // view1.setUpFeatures(controller1);
+    // view2.setUpFeatures(controller2);
+
+    // view1.makeVisible();
+    // view2.makeVisible();
+
+    // model.startGame();
+
+    ReversiModel model = new BasicSquareReversiModel(boardLength, player1, player2);
+
+    ReversiVisualView view1 = new SquareFrame(model);
+    ReversiVisualView view2 = new SquareFrame(model);
 
     BasicReversiController controller1 = new BasicReversiController(model, player1, view1);
     BasicReversiController controller2 = new BasicReversiController(model, player2, view2);

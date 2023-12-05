@@ -5,6 +5,7 @@ import java.util.HashMap;
 import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.Cell;
+import cs3500.reversi.model.GamePosition;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReversiModel;
 
@@ -24,21 +25,21 @@ public class CaptureCellsInCorner implements ReversiStrategy {
    * @return the position axial of the move to make
    */
   @Override
-  public PositionAxial chooseMove(ReversiModel model, PlayerType playerTurn) {
-    HashMap<PositionAxial, Cell> board = model.getBoardCopy();
-    HashMap<PositionAxial, Integer> scores = new HashMap<PositionAxial, Integer>();
+  public GamePosition chooseMove(ReversiModel model, PlayerType playerTurn) {
+    HashMap<GamePosition, Cell> board = model.getBoardCopy();
+    HashMap<GamePosition, Integer> scores = new HashMap<GamePosition, Integer>();
 
     // Get the scores for each move
-    for (PositionAxial posn : board.keySet()) {
+    for (GamePosition posn : board.keySet()) {
       if (model.doesCurrentPlayerHaveValidMovesPosn(posn, new ComputerPlayer(playerTurn))) {
         scores.put(posn, model.getScoreForMove(posn));
       }
     }
 
     // finding moves in corners
-    HashMap<PositionAxial, Integer> scoresCorners = new HashMap<PositionAxial, Integer>();
+    HashMap<GamePosition, Integer> scoresCorners = new HashMap<GamePosition, Integer>();
 
-    for (PositionAxial posn : scores.keySet()) {
+    for (GamePosition posn : scores.keySet()) {
       if (this.isCorner(model, posn)) {
         scoresCorners.put(posn, scores.get(posn));
       }
@@ -46,9 +47,8 @@ public class CaptureCellsInCorner implements ReversiStrategy {
 
     // if there are no moves in the corner, return the boardsize for each coordinate
     // as a pass
-    PositionAxial bestPosn =
-            new PositionAxial(model.getBoardSize(),
-                    model.getBoardSize(), model.getBoardSize());
+    GamePosition bestPosn = new PositionAxial(model.getBoardSize(), model.getBoardSize(),
+        model.getBoardSize());
 
     // choose the best move of those in the corner
     if (!scoresCorners.isEmpty()) {
@@ -59,16 +59,7 @@ public class CaptureCellsInCorner implements ReversiStrategy {
   }
 
   // Returns true if the given position is a corner position
-  private boolean isCorner(ReversiModel model, PositionAxial posn) {
-    int middleY = (model.getNumRows() - 1) / 2;
-
-    // math for the corners
-    return (Math.abs(posn.getQ()) == middleY && Math.abs(posn.getS()) == middleY
-            && posn.getR() == 0) ||
-            (Math.abs(posn.getS()) == middleY && Math.abs(posn.getR()) == middleY
-                    && posn.getQ() == 0)
-            ||
-            (Math.abs(posn.getR()) == middleY && Math.abs(posn.getQ()) == middleY
-                    && posn.getS() == 0);
+  private boolean isCorner(ReversiModel model, GamePosition posn) {
+    return posn.checkCorner(model.getNumRows());
   }
 }

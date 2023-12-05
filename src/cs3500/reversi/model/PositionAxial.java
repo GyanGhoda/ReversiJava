@@ -198,7 +198,7 @@ public final class PositionAxial implements GamePosition {
    * @return true if this PositionAxial is in the corner of the board
    */
   @Override
-  public boolean checkCorner(int numRows) {
+  public boolean checkNextToCorner(int numRows) {
     int middleY = (numRows - 1) / 2;
 
     // Check if the position is next to any of the six corners
@@ -208,5 +208,66 @@ public final class PositionAxial implements GamePosition {
         (Math.abs(this.getR()) == middleY && Math.abs(this.getQ()) == middleY - 1) ||
         (Math.abs(this.getS()) == middleY && Math.abs(this.getR()) == middleY - 1) ||
         (Math.abs(this.getQ()) == middleY && Math.abs(this.getS()) == middleY - 1);
+  }
+
+  /**
+   * Checks if this PositionAxial is a corner of the board
+   * 
+   * @param numRows - the number of rows in the board
+   * @return true if this PositionAxial is a corner of the board
+   */
+  @Override
+  public boolean checkCorner(int numRows) {
+    int middleY = (numRows - 1) / 2;
+
+    // math for the corners
+    return (Math.abs(this.getQ()) == middleY && Math.abs(this.getS()) == middleY
+        && this.getR() == 0) ||
+        (Math.abs(this.getS()) == middleY && Math.abs(this.getR()) == middleY
+            && this.getQ() == 0)
+        ||
+        (Math.abs(this.getR()) == middleY && Math.abs(this.getQ()) == middleY
+            && this.getS() == 0);
+  }
+
+  /**
+   * Checks if this GamePosition is the leftuppermost position on the board
+   * 
+   * @param other - the other GamePosition to compare with
+   * @return the leftuppermost GamePosition
+   */
+  @Override
+  public GamePosition checkLeftUpperMost(GamePosition other) {
+    return other.checkLeftUpperMostAxial(this);
+  }
+
+  /**
+   * Checks if this Position2D is the leftuppermost position on the board
+   * 
+   * @param other - the other Position2D to compare with
+   * @return the leftuppermost Position2D
+   */
+  @Override
+  public GamePosition checkLeftUpperMost2D(Position2D other) {
+    throw new IllegalArgumentException("PositionAxial given for Position2D method");
+  }
+
+  /**
+   * Checks if this PositionAxial is the leftuppermost position on the board
+   * 
+   * @param other - the other PositionAxial to compare with
+   * @return the leftuppermost PositionAxial
+   */
+  @Override
+  public GamePosition checkLeftUpperMostAxial(PositionAxial other) {
+    if (this.getS() >= other.getS()) {
+      if (this.getR() <= 0) {
+        return this;
+      } else if (this.getQ() <= other.getQ()) {
+        return this;
+      }
+    }
+
+    return other;
   }
 }
