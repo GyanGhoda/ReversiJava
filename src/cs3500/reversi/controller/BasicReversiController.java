@@ -1,5 +1,6 @@
 package cs3500.reversi.controller;
 
+import cs3500.reversi.model.GamePosition;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.visualview.ReversiVisualView;
@@ -13,7 +14,8 @@ public class BasicReversiController implements PlayerActionFeatures, ModelStatus
   private final ReversiVisualView view;
 
   /**
-   * Constructs a new BasicReversiController with the given model, player, and view.
+   * Constructs a new BasicReversiController with the given model, player, and
+   * view.
    *
    * @param model  the model to use
    * @param player the player to use
@@ -31,11 +33,11 @@ public class BasicReversiController implements PlayerActionFeatures, ModelStatus
    * @param posn the position to move to
    */
   @Override
-  public void moveToCoordinate(PositionAxial posn) {
+  public void moveToCoordinate(GamePosition posn) {
 
     // if the game is not over, add the piece to the board.
     if (!this.model.isGameOver()) {
-      PositionAxial posnToMove = this.player.requestMove(this.model, posn);
+      GamePosition posnToMove = this.player.requestMove(this.model, posn);
       if (posnToMove.containsCoordinate(this.model.getBoardSize())) {
         this.passTurn();
       } else {

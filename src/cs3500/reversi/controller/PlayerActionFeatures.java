@@ -1,5 +1,6 @@
 package cs3500.reversi.controller;
 
+import cs3500.reversi.model.GamePosition;
 import cs3500.reversi.model.PositionAxial;
 
 /**
@@ -13,7 +14,7 @@ public interface PlayerActionFeatures {
    *
    * @param posn the position to move to
    */
-  public void moveToCoordinate(PositionAxial posn);
+  public void moveToCoordinate(GamePosition posn);
 
   /**
    * Passes the turn to the next player.

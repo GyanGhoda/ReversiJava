@@ -5,6 +5,7 @@ import java.util.HashMap;
 import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.Cell;
+import cs3500.reversi.model.GamePosition;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReversiModel;
 
@@ -24,31 +25,30 @@ public class AvoidCellsNextToCorner implements ReversiStrategy {
    * @return the position axial of the move to make
    */
   @Override
-  public PositionAxial chooseMove(ReversiModel model, PlayerType playerTurn) {
+  public GamePosition chooseMove(ReversiModel model, PlayerType playerTurn) {
 
-    HashMap<PositionAxial, Cell> board = model.getBoardCopy(); // Get the board
-    HashMap<PositionAxial, Integer> scores = new HashMap<PositionAxial, Integer>();
+    HashMap<GamePosition, Cell> board = model.getBoardCopy(); // Get the board
+    HashMap<GamePosition, Integer> scores = new HashMap<GamePosition, Integer>();
 
     // Get the scores for each move
-    for (PositionAxial posn : board.keySet()) {
+    for (GamePosition posn : board.keySet()) {
       if (model.doesCurrentPlayerHaveValidMovesPosn(posn, new ComputerPlayer(playerTurn))) {
         scores.put(posn, model.getScoreForMove(posn));
       }
     }
 
     // getting rid of moves next to corners
-    HashMap<PositionAxial, Integer> scoresNoNextToCorners = new HashMap<PositionAxial, Integer>();
+    HashMap<GamePosition, Integer> scoresNoNextToCorners = new HashMap<GamePosition, Integer>();
 
-    for (PositionAxial posn : scores.keySet()) {
+    for (GamePosition posn : scores.keySet()) {
       if (!this.isNextToCorner(model, posn)) {
         scoresNoNextToCorners.put(posn, scores.get(posn));
       }
     }
 
     // Passing is represented by returning the boardsize for each coordinate
-    PositionAxial bestPosn =
-            new PositionAxial(model.getBoardSize(),
-                    model.getBoardSize(), model.getBoardSize());
+    GamePosition bestPosn = new PositionAxial(model.getBoardSize(),
+        model.getBoardSize(), model.getBoardSize());
 
     // choose the best move of those not next to the corner
     if (!scoresNoNextToCorners.isEmpty()) {
@@ -59,15 +59,15 @@ public class AvoidCellsNextToCorner implements ReversiStrategy {
   }
 
   // Returns true if the given position is next to a corner position
-  private boolean isNextToCorner(ReversiModel model, PositionAxial posn) {
+  private boolean isNextToCorner(ReversiModel model, GamePosition posn) {
     int middleY = (model.getNumRows() - 1) / 2;
 
     // Check if the position is next to any of the six corners
     return (Math.abs(posn.getQ()) == middleY && Math.abs(posn.getR()) == middleY - 1) ||
-            (Math.abs(posn.getR()) == middleY && Math.abs(posn.getS()) == middleY - 1) ||
-            (Math.abs(posn.getS()) == middleY && Math.abs(posn.getQ()) == middleY - 1) ||
-            (Math.abs(posn.getR()) == middleY && Math.abs(posn.getQ()) == middleY - 1) ||
-            (Math.abs(posn.getS()) == middleY && Math.abs(posn.getR()) == middleY - 1) ||
-            (Math.abs(posn.getQ()) == middleY && Math.abs(posn.getS()) == middleY - 1);
+        (Math.abs(posn.getR()) == middleY && Math.abs(posn.getS()) == middleY - 1) ||
+        (Math.abs(posn.getS()) == middleY && Math.abs(posn.getQ()) == middleY - 1) ||
+        (Math.abs(posn.getR()) == middleY && Math.abs(posn.getQ()) == middleY - 1) ||
+        (Math.abs(posn.getS()) == middleY && Math.abs(posn.getR()) == middleY - 1) ||
+        (Math.abs(posn.getQ()) == middleY && Math.abs(posn.getS()) == middleY - 1);
   }
 }

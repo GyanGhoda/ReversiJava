@@ -6,6 +6,7 @@ import java.util.HashMap;
 import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.Cell;
+import cs3500.reversi.model.GamePosition;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReversiModel;
 
@@ -23,13 +24,13 @@ public class CaptureMostPieces implements ReversiStrategy {
    * @return the position axial of the move to make
    */
   @Override
-  public PositionAxial chooseMove(ReversiModel model, PlayerType playerTurn) {
+  public GamePosition chooseMove(ReversiModel model, PlayerType playerTurn) {
 
-    HashMap<PositionAxial, Cell> board = model.getBoardCopy();
-    HashMap<PositionAxial, Integer> scores = new HashMap<PositionAxial, Integer>();
+    HashMap<GamePosition, Cell> board = model.getBoardCopy();
+    HashMap<GamePosition, Integer> scores = new HashMap<GamePosition, Integer>();
 
     // Get the scores for each move
-    for (PositionAxial posn : board.keySet()) {
+    for (GamePosition posn : board.keySet()) {
       if (model.doesCurrentPlayerHaveValidMovesPosn(posn, new ComputerPlayer(playerTurn))) {
         scores.put(posn, model.getScoreForMove(posn));
       }
@@ -53,13 +54,13 @@ public class CaptureMostPieces implements ReversiStrategy {
    * @param scores the scores of the moves
    * @return the position axial with the highest score
    */
-  protected PositionAxial getHighestScorePosn(HashMap<PositionAxial, Integer> scores) {
+  protected GamePosition getHighestScorePosn(HashMap<GamePosition, Integer> scores) {
 
     int bestScore = 0;
-    PositionAxial bestPosn = new PositionAxial(0, 0, 0);
+    GamePosition bestPosn;
 
     // Get the highest score
-    for (PositionAxial posn : scores.keySet()) {
+    for (GamePosition posn : scores.keySet()) {
       if (scores.get(posn) > bestScore) {
         bestScore = scores.get(posn);
         bestPosn = posn;
@@ -67,10 +68,10 @@ public class CaptureMostPieces implements ReversiStrategy {
     }
 
     int count = 0;
-    ArrayList<PositionAxial> bestPosns = new ArrayList<PositionAxial>();
+    ArrayList<GamePosition> bestPosns = new ArrayList<GamePosition>();
 
     // Get the positions with the highest score
-    for (HashMap.Entry<PositionAxial, Integer> entry : scores.entrySet()) {
+    for (HashMap.Entry<GamePosition, Integer> entry : scores.entrySet()) {
       if (entry.getValue() == bestScore) {
         bestPosns.add(entry.getKey());
         count += 1;
@@ -85,11 +86,11 @@ public class CaptureMostPieces implements ReversiStrategy {
   }
 
   // Gets the left uppermost positionaxial from the given list of positions axial
-  private PositionAxial getLeftUpperMost(ArrayList<PositionAxial> bestPosns) {
-    PositionAxial leftUpperMost = bestPosns.get(0);
+  private GamePosition getLeftUpperMost(ArrayList<GamePosition> bestPosns) {
+    GamePosition leftUpperMost = bestPosns.get(0);
 
     // Find the left uppermost position axial
-    for (PositionAxial posn : bestPosns) {
+    for (GamePosition posn : bestPosns) {
       if (posn.getS() >= leftUpperMost.getS()) {
         if (posn.getR() <= 0) {
           leftUpperMost = posn;

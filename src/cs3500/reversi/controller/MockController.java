@@ -1,5 +1,6 @@
 package cs3500.reversi.controller;
 
+import cs3500.reversi.model.GamePosition;
 import cs3500.reversi.model.PositionAxial;
 
 /**
@@ -11,7 +12,8 @@ public class MockController implements PlayerActionFeatures, ModelStatusFeatures
   final StringBuilder log;
 
   /**
-   * Constructs a new BasicReversiController with the given model, player, and view.
+   * Constructs a new BasicReversiController with the given model, player, and
+   * view.
    *
    * @param player the player to use
    */
@@ -26,7 +28,7 @@ public class MockController implements PlayerActionFeatures, ModelStatusFeatures
    * @param posn the position to move to
    */
   @Override
-  public void moveToCoordinate(PositionAxial posn) {
+  public void moveToCoordinate(GamePosition posn) {
 
     this.log.append("Requested move to coordinate: " + posn.toString() + "\n");
 

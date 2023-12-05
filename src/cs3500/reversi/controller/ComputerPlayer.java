@@ -2,6 +2,7 @@ package cs3500.reversi.controller;
 
 import java.util.Objects;
 
+import cs3500.reversi.model.GamePosition;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.strategies.CaptureMostPieces;
@@ -47,7 +48,7 @@ public class ComputerPlayer implements Player {
    * @return the position that is chosen to move to
    */
   @Override
-  public PositionAxial requestMove(ReversiModel model, PositionAxial posn) {
+  public GamePosition requestMove(ReversiModel model, GamePosition posn) {
     return this.strategy.chooseMove(model, this.type);
   }
 
@@ -109,7 +110,7 @@ public class ComputerPlayer implements Player {
   }
 
   @Override
-  public PositionAxial notifyYourTurn(ReversiModel model) {
+  public GamePosition notifyYourTurn(ReversiModel model) {
 
     // requests the move according to the appropriate strategy
     return this.requestMove(model, new PositionAxial(0, 0, 0));
