@@ -67,4 +67,12 @@ public interface GamePosition {
      * @return true if this PositionAxial is adjacent to the other PositionAxial;
      */
     public boolean isNextToAxial(PositionAxial other);
+
+    /**
+     * Checks if this GamePosition is in the corner of the board
+     * 
+     * @param numRows - the number of rows in the board
+     * @return true if this GamePosition is in the corner of the board
+     */
+    public boolean checkCorner(int numRows);
 }

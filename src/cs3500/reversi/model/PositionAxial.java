@@ -190,4 +190,23 @@ public final class PositionAxial implements GamePosition {
   public String toString() {
     return "Q: " + this.q + ", R: " + this.r + ", S: " + this.s;
   }
+
+  /**
+   * Checks if this PositionAxial is in the corner of the board
+   * 
+   * @param numRows - the number of rows in the board
+   * @return true if this PositionAxial is in the corner of the board
+   */
+  @Override
+  public boolean checkCorner(int numRows) {
+    int middleY = (numRows - 1) / 2;
+
+    // Check if the position is next to any of the six corners
+    return (Math.abs(this.getQ()) == middleY && Math.abs(this.getR()) == middleY - 1) ||
+        (Math.abs(this.getR()) == middleY && Math.abs(this.getS()) == middleY - 1) ||
+        (Math.abs(this.getS()) == middleY && Math.abs(this.getQ()) == middleY - 1) ||
+        (Math.abs(this.getR()) == middleY && Math.abs(this.getQ()) == middleY - 1) ||
+        (Math.abs(this.getS()) == middleY && Math.abs(this.getR()) == middleY - 1) ||
+        (Math.abs(this.getQ()) == middleY && Math.abs(this.getS()) == middleY - 1);
+  }
 }

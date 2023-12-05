@@ -17,7 +17,7 @@ import cs3500.reversi.controller.PlayerType;
 public class BasicSquareReversiModel implements ReversiModel {
 
   // the game board, represented as a HashMap of positions to cells
-  private final HashMap<Position2D, Cell> board;
+  private final HashMap<GamePosition, Cell> board;
   // the players in the game
   private final Player playerBlack;
   private final Player playerWhite;
@@ -248,8 +248,9 @@ public class BasicSquareReversiModel implements ReversiModel {
     HashMap<GamePosition, Cell> boardCopy = new HashMap<>();
 
     // iterate over the board and create a deep copy of each cell
-    for (Position2D posn : this.board.keySet()) {
-      Position2D posnCopy = new Position2D(posn.getX(), posn.getY());
+    for (GamePosition posn : this.board.keySet()) {
+      Position2D posn2D = (Position2D) posn;
+      Position2D posnCopy = new Position2D(posn2D.getX(), posn2D.getY());
       Cell cell = this.board.get(posn);
       Cell cellCopy = new GameCell(cell.getCellType());
 
@@ -366,54 +367,78 @@ public class BasicSquareReversiModel implements ReversiModel {
       Player playerTurn) {
     ArrayList<Position2D> cellsBetween = new ArrayList<>();
 
-    // check if given and ending positions share Q coordinates
-    if (givenPosn.getQ() == posn.getQ()) {
-
-      if (givenPosn.getR() < posn.getR()) {
-        // determine the range of R and S coordinates between the two positions.
-        int startingPositionR = Math.min(givenPosn.getR(), posn.getR());
-        int startingPositionS = Math.max(givenPosn.getS(), posn.getS());
-        this.goDownLine(startingPositionR, startingPositionS, cellsBetween, "q",
-            givenPosn.getQ(), true, playerTurn);
-      } else {
-        int startingPositionR = Math.max(givenPosn.getR(), posn.getR());
-        int startingPositionS = Math.min(givenPosn.getS(), posn.getS());
-        this.goDownLine(startingPositionS, startingPositionR, cellsBetween, "q",
-            givenPosn.getQ(), false, playerTurn);
+    // If the given and ending positions share X coordinates, check for a valid line
+    if (givenPosn.getX() == posn.getX()) {
+      // Go forwards along the possible line
+      if (givenPosn.getY() > posn.getY()) {
+        this.goDownLine(givenPosn.getY(), cellsBetween, "y", givenPosn.getX(), false, playerTurn);
+      }
+      // Go backwards along the possible line
+      else {
+        this.goDownLine(givenPosn.getY(), cellsBetween, "y", givenPosn.getX(), true, playerTurn);
       }
     }
 
-    // check if given and ending positions share R coordinates
-    if (givenPosn.getR() == posn.getR()) {
-      if (givenPosn.getQ() < posn.getQ()) {
-        // determine the range of Q and S coordinates between the two positions.
-        int startingPositionQ = Math.min(givenPosn.getQ(), posn.getQ());
-        int startingPositionS = Math.max(givenPosn.getS(), posn.getS());
-        this.goDownLine(startingPositionQ, startingPositionS, cellsBetween, "r",
-            givenPosn.getR(), true, playerTurn);
-      } else {
-        int startingPositionQ = Math.max(givenPosn.getQ(), posn.getQ());
-        int startingPositionS = Math.min(givenPosn.getS(), posn.getS());
-        this.goDownLine(startingPositionS, startingPositionQ, cellsBetween, "r",
-            givenPosn.getR(), false, playerTurn);
+    //
+    else if (givenPosn.getY() == posn.getY()) {
+      // Go forwards along the possible line
+      if (givenPosn.getX() > posn.getX()) {
+        this.goDownLine(givenPosn.getX(), cellsBetween, "x", givenPosn.getX(), false, playerTurn);
+      }
+      // Go backwards along the possible line
+      else {
+        this.goDownLine(givenPosn.getX(), cellsBetween, "x", givenPosn.getX(), true, playerTurn);
       }
     }
 
-    // check if given and ending positions share S coordinates
-    if (givenPosn.getS() == posn.getS()) {
-      if (givenPosn.getQ() < posn.getQ()) {
-        // determine the range of Q and R coordinates between the two positions.
-        int startingPositionQ = Math.min(givenPosn.getQ(), posn.getQ());
-        int startingPositionR = Math.max(givenPosn.getR(), posn.getR());
-        this.goDownLine(startingPositionQ, startingPositionR, cellsBetween, "s",
-            givenPosn.getS(), true, playerTurn);
-      } else {
-        int startingPositionQ = Math.max(givenPosn.getQ(), posn.getQ());
-        int startingPositionR = Math.min(givenPosn.getR(), posn.getR());
-        this.goDownLine(startingPositionR, startingPositionQ, cellsBetween, "s",
-            givenPosn.getS(), false, playerTurn);
-      }
-    }
+    // // check if given and ending positions share Q coordinates
+    // if (givenPosn.getQ() == posn.getQ()) {
+
+    // if (givenPosn.getR() < posn.getR()) {
+    // // determine the range of R and S coordinates between the two positions.
+    // int startingPositionR = Math.min(givenPosn.getR(), posn.getR());
+    // int startingPositionS = Math.max(givenPosn.getS(), posn.getS());
+    // this.goDownLine(startingPositionR, startingPositionS, cellsBetween, "q",
+    // givenPosn.getQ(), true, playerTurn);
+    // } else {
+    // int startingPositionR = Math.max(givenPosn.getR(), posn.getR());
+    // int startingPositionS = Math.min(givenPosn.getS(), posn.getS());
+    // this.goDownLine(startingPositionS, startingPositionR, cellsBetween, "q",
+    // givenPosn.getQ(), false, playerTurn);
+    // }
+    // }
+
+    // // check if given and ending positions share R coordinates
+    // if (givenPosn.getR() == posn.getR()) {
+    // if (givenPosn.getQ() < posn.getQ()) {
+    // // determine the range of Q and S coordinates between the two positions.
+    // int startingPositionQ = Math.min(givenPosn.getQ(), posn.getQ());
+    // int startingPositionS = Math.max(givenPosn.getS(), posn.getS());
+    // this.goDownLine(startingPositionQ, startingPositionS, cellsBetween, "r",
+    // givenPosn.getR(), true, playerTurn);
+    // } else {
+    // int startingPositionQ = Math.max(givenPosn.getQ(), posn.getQ());
+    // int startingPositionS = Math.min(givenPosn.getS(), posn.getS());
+    // this.goDownLine(startingPositionS, startingPositionQ, cellsBetween, "r",
+    // givenPosn.getR(), false, playerTurn);
+    // }
+    // }
+
+    // // check if given and ending positions share S coordinates
+    // if (givenPosn.getS() == posn.getS()) {
+    // if (givenPosn.getQ() < posn.getQ()) {
+    // // determine the range of Q and R coordinates between the two positions.
+    // int startingPositionQ = Math.min(givenPosn.getQ(), posn.getQ());
+    // int startingPositionR = Math.max(givenPosn.getR(), posn.getR());
+    // this.goDownLine(startingPositionQ, startingPositionR, cellsBetween, "s",
+    // givenPosn.getS(), true, playerTurn);
+    // } else {
+    // int startingPositionQ = Math.max(givenPosn.getQ(), posn.getQ());
+    // int startingPositionR = Math.min(givenPosn.getR(), posn.getR());
+    // this.goDownLine(startingPositionR, startingPositionQ, cellsBetween, "s",
+    // givenPosn.getS(), false, playerTurn);
+    // }
+    // }
 
     return cellsBetween;
   }
@@ -421,21 +446,22 @@ public class BasicSquareReversiModel implements ReversiModel {
   // traverses positions on the game board based on the direction and row type
   // and adds it to the list if it will be converted by the current player with
   // a proper move
-  private void goDownLine(int incrementStartingPostion, int decrementStartingPosition,
+  private void goDownLine(int incrementStartingPostion,
       ArrayList<Position2D> cellsBetween, String row, int constantPosition,
       boolean foward, Player playerTurn) {
     // iterate through the range of coordinates and check for valid positions.
     while (true) {
-      incrementStartingPostion += 1;
-      decrementStartingPosition -= 1;
+      if (foward) {
+        incrementStartingPostion += 1;
+      } else {
+        incrementStartingPostion -= 1;
+      }
 
       // calculate current position based on direction
-      Position2D currentPosition = this.calculateStartingPosition(foward, row,
-          incrementStartingPostion, decrementStartingPosition, constantPosition);
+      Position2D currentPosition = this.calculateStartingPosition(row,
+          incrementStartingPostion, constantPosition);
 
-      // check if the position exists on the board and is owned by the other player.
-      // if so, clear the list
-      // if not, add the current position to the list
+      // check if the position exists on the board
       if (!this.board.containsKey(currentPosition)) {
         cellsBetween.clear();
         break;
@@ -459,39 +485,15 @@ public class BasicSquareReversiModel implements ReversiModel {
 
   // return the starting position for the line being made, depending on direction
   // given
-  private Position2D calculateStartingPosition(boolean foward, String row,
-      int incrementStartingPostion,
-      int decrementStartingPosition,
-      int constantPosition) {
-    // calculate current position based on forward direction
-    if (foward) {
-      if (row.toLowerCase().equals("s")) {
-        return new Position2D(incrementStartingPostion, decrementStartingPosition,
-            constantPosition);
-      } else if (row.toLowerCase().equals("r")) {
-        return new Position2D(incrementStartingPostion, constantPosition,
-            decrementStartingPosition);
-      } else if (row.toLowerCase().equals("q")) {
-        return new Position2D(constantPosition, incrementStartingPostion,
-            decrementStartingPosition);
-      } else {
-        throw new IllegalArgumentException("Invalid row given");
-      }
-    }
-    // calculate current position based on backward direction
-    else {
-      if (row.toLowerCase().equals("s")) {
-        return new Position2D(decrementStartingPosition, incrementStartingPostion,
-            constantPosition);
-      } else if (row.toLowerCase().equals("r")) {
-        return new Position2D(decrementStartingPosition, constantPosition,
-            incrementStartingPostion);
-      } else if (row.toLowerCase().equals("q")) {
-        return new Position2D(constantPosition, decrementStartingPosition,
-            incrementStartingPostion);
-      } else {
-        throw new IllegalArgumentException("Invalid row given");
-      }
+  private Position2D calculateStartingPosition(String row,
+      int incrementStartingPostion, int constantPosition) {
+    // calculate current position based on row
+    if (row.toLowerCase().equals("x")) {
+      return new Position2D(constantPosition, incrementStartingPostion);
+    } else if (row.toLowerCase().equals("y")) {
+      return new Position2D(incrementStartingPostion, constantPosition);
+    } else {
+      throw new IllegalArgumentException("Invalid row given");
     }
   }
 
@@ -504,9 +506,11 @@ public class BasicSquareReversiModel implements ReversiModel {
   private List<Position2D> getSurroundingCells(Position2D givenPosn) {
     ArrayList<Position2D> surroundingCells = new ArrayList<>();
 
-    for (Position2D posn : this.board.keySet()) {
+    for (GamePosition posn : this.board.keySet()) {
+      Position2D posn2D = (Position2D) posn;
+
       if (posn.isNextTo(givenPosn)) {
-        surroundingCells.add(posn);
+        surroundingCells.add(posn2D);
 
       }
     }
@@ -582,10 +586,12 @@ public class BasicSquareReversiModel implements ReversiModel {
 
     // for every position on the board, check if the current player has any valid
     // moves
-    for (Position2D posn : this.board.keySet()) {
+    for (GamePosition posn : this.board.keySet()) {
+      Position2D posn2D = (Position2D) posn;
+
       if (this.getCellAt(posn).sameCellType(CellType.Empty)
-          && (!this.isValidMoveForPlayer(posn, this.playerBlack).isEmpty()
-              || !this.isValidMoveForPlayer(posn, this.playerWhite).isEmpty())) {
+          && (!this.isValidMoveForPlayer(posn2D, this.playerBlack).isEmpty()
+              || !this.isValidMoveForPlayer(posn2D, this.playerWhite).isEmpty())) {
         return false;
       }
     }
@@ -602,9 +608,10 @@ public class BasicSquareReversiModel implements ReversiModel {
   public boolean doesCurrentPlayerHaveValidMoves() {
     // for every position on the board, check if the current player has any valid
     // moves
-    for (Position2D posn : this.board.keySet()) {
+    for (GamePosition posn : this.board.keySet()) {
+      Position2D posn2D = (Position2D) posn;
       if (this.getCellAt(posn).sameCellType(CellType.Empty)
-          && !(this.isValidMoveForPlayer(posn, this.currentPlayer).isEmpty())) {
+          && !(this.isValidMoveForPlayer(posn2D, this.currentPlayer).isEmpty())) {
         // if the current player has a valid move, return true
         return true;
       }

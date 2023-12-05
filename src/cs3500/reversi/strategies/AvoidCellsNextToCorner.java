@@ -60,14 +60,7 @@ public class AvoidCellsNextToCorner implements ReversiStrategy {
 
   // Returns true if the given position is next to a corner position
   private boolean isNextToCorner(ReversiModel model, GamePosition posn) {
-    int middleY = (model.getNumRows() - 1) / 2;
 
-    // Check if the position is next to any of the six corners
-    return (Math.abs(posn.getQ()) == middleY && Math.abs(posn.getR()) == middleY - 1) ||
-        (Math.abs(posn.getR()) == middleY && Math.abs(posn.getS()) == middleY - 1) ||
-        (Math.abs(posn.getS()) == middleY && Math.abs(posn.getQ()) == middleY - 1) ||
-        (Math.abs(posn.getR()) == middleY && Math.abs(posn.getQ()) == middleY - 1) ||
-        (Math.abs(posn.getS()) == middleY && Math.abs(posn.getR()) == middleY - 1) ||
-        (Math.abs(posn.getQ()) == middleY && Math.abs(posn.getS()) == middleY - 1);
+    return posn.checkCorner(model.getNumRows());
   }
 }

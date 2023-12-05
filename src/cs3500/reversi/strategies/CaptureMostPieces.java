@@ -7,6 +7,7 @@ import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.GamePosition;
+import cs3500.reversi.model.Position2D;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReversiModel;
 
@@ -57,7 +58,7 @@ public class CaptureMostPieces implements ReversiStrategy {
   protected GamePosition getHighestScorePosn(HashMap<GamePosition, Integer> scores) {
 
     int bestScore = 0;
-    GamePosition bestPosn;
+    GamePosition bestPosn = new PositionAxial(0, 0, 0);
 
     // Get the highest score
     for (GamePosition posn : scores.keySet()) {

@@ -17,7 +17,7 @@ import cs3500.reversi.controller.PlayerType;
 public class BasicReversiModel implements ReversiModel {
 
   // the game board, represented as a HashMap of positions to cells
-  private final HashMap<PositionAxial, Cell> board;
+  private final HashMap<GamePosition, Cell> board;
   // the players in the game
   private final Player playerBlack;
   private final Player playerWhite;
@@ -268,8 +268,9 @@ public class BasicReversiModel implements ReversiModel {
     HashMap<GamePosition, Cell> boardCopy = new HashMap<>();
 
     // iterate over the board and create a deep copy of each cell
-    for (PositionAxial posn : this.board.keySet()) {
-      PositionAxial posnCopy = new PositionAxial(posn.getQ(), posn.getR(), posn.getS());
+    for (GamePosition posn : this.board.keySet()) {
+      PositionAxial posnAxial = (PositionAxial) posn;
+      PositionAxial posnCopy = new PositionAxial(posnAxial.getQ(), posnAxial.getR(), posnAxial.getS());
       Cell cell = this.board.get(posn);
       Cell cellCopy = new GameCell(cell.getCellType());
 
@@ -524,9 +525,10 @@ public class BasicReversiModel implements ReversiModel {
   private List<PositionAxial> getSurroundingCells(PositionAxial givenPosn) {
     ArrayList<PositionAxial> surroundingCells = new ArrayList<>();
 
-    for (PositionAxial posn : this.board.keySet()) {
-      if (posn.isNextTo(givenPosn)) {
-        surroundingCells.add(posn);
+    for (GamePosition posn : this.board.keySet()) {
+      PositionAxial posnAxial = (PositionAxial) posn;
+      if (posnAxial.isNextTo(givenPosn)) {
+        surroundingCells.add(posnAxial);
 
       }
     }
@@ -602,10 +604,12 @@ public class BasicReversiModel implements ReversiModel {
 
     // for every position on the board, check if the current player has any valid
     // moves
-    for (PositionAxial posn : this.board.keySet()) {
-      if (this.getCellAt(posn).sameCellType(CellType.Empty)
-          && (!this.isValidMoveForPlayer(posn, this.playerBlack).isEmpty()
-              || !this.isValidMoveForPlayer(posn, this.playerWhite).isEmpty())) {
+    for (GamePosition posn : this.board.keySet()) {
+      PositionAxial posnAxial = (PositionAxial) posn;
+
+      if (this.getCellAt(posnAxial).sameCellType(CellType.Empty)
+          && (!this.isValidMoveForPlayer(posnAxial, this.playerBlack).isEmpty()
+              || !this.isValidMoveForPlayer(posnAxial, this.playerWhite).isEmpty())) {
         return false;
       }
     }
@@ -622,9 +626,11 @@ public class BasicReversiModel implements ReversiModel {
   public boolean doesCurrentPlayerHaveValidMoves() {
     // for every position on the board, check if the current player has any valid
     // moves
-    for (PositionAxial posn : this.board.keySet()) {
+    for (GamePosition posn : this.board.keySet()) {
+      PositionAxial posnAxial = (PositionAxial) posn;
+
       if (this.getCellAt(posn).sameCellType(CellType.Empty)
-          && !(this.isValidMoveForPlayer(posn, this.currentPlayer).isEmpty())) {
+          && !(this.isValidMoveForPlayer(posnAxial, this.currentPlayer).isEmpty())) {
         // if the current player has a valid move, return true
         return true;
       }

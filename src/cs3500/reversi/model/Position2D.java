@@ -167,4 +167,15 @@ public final class Position2D implements GamePosition {
   public String toString() {
     return "X: " + this.x + ", Y: " + this.y;
   }
+
+  /**
+   * Checks if this Position2D is in the corner of the board
+   * 
+   * @param numRows - the number of rows in the board
+   * @return true if this Position2D is in the corner of the board
+   */
+  @Override
+  public boolean checkCorner(int numRows) {
+    return ((Math.abs(this.x) == numRows - 1) || this.x == 0) && ((Math.abs(this.y) == numRows - 1) || this.y == 0);
+  }
 }
