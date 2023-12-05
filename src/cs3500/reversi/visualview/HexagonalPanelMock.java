@@ -22,8 +22,7 @@ import cs3500.reversi.model.ReadOnlyReversiModel;
  * Represents a panel of hexagonal buttons.
  */
 public class HexagonalPanelMock extends JPanel implements ReversiPanel {
-  private final HashMap<PositionAxial, HexagonSpace> hexagonButtons
-          = new HashMap<PositionAxial, HexagonSpace>();
+  private final HashMap<PositionAxial, HexagonSpace> hexagonButtons = new HashMap<PositionAxial, HexagonSpace>();
   private final ReadOnlyReversiModel model;
   private int width;
   private int height;
@@ -102,7 +101,7 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
 
       // Adjust starting positions with offsets
       double startingX = offsetX + (((buttonSize * Math.sqrt(3)) / 2) * Math.abs(currentR))
-              + (((buttonSize * Math.sqrt(3))) / 2);
+          + (((buttonSize * Math.sqrt(3))) / 2);
       double startingY = offsetY + ((buttonSize * 3) / 2) * (rowsMade + 1);
 
       for (int currentS = currentRowStartingS; currentS >= currentRowStartingQ; currentS -= 1) {
@@ -111,7 +110,7 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
 
         // create a new hexagon button
         HexagonSpace hexagon = new HexagonSpace(buttonSize, startingX, startingY,
-                this.model.getCellAt(posn));
+            this.model.getCellAt(posn));
 
         // create empty cell and add it to the board at the current poisiton
         hexagonButtons.put(posn, hexagon);
@@ -151,7 +150,7 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
       g2d.setColor(Color.BLACK);
       g2d.draw(hexagon);
 
-      hexagon.drawSpaceOwner(g2d);
+      hexagon.drawSpaceOwner(g2d, false, 0);
     }
   }
 
@@ -281,7 +280,7 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
         // print out the coordinates of the hexagon that was clicked on
         if (hexagon.contains(mouseX, mouseY) && !hexagon.getState()) {
           this.log.append("Clicked on hexagon at:\nQ: " + entry.getKey().getQ()
-                  + "\nR: " + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
+              + "\nR: " + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
           hexagon.setState(!hexagon.getState());
         } else {
           hexagon.setState(false);

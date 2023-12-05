@@ -35,6 +35,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
   private PlayerActionFeatures features;
   private PositionAxial selectedPosn;
   private boolean currentTurn;
+  private boolean hints;
 
   /**
    * Constructs a new HexagonalPanel with the given number of rows and columns.
@@ -54,6 +55,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     this.width = width;
     this.height = height;
     this.currentTurn = false;
+    this.hints = false;
     this.hexagonButtons = new ConcurrentHashMap<PositionAxial, HexagonSpace>();
     this.initializeHexagons();
 
@@ -150,13 +152,16 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     g2d.fill(new Rectangle(this.width, this.height));
 
     // Draw the hexagons
-    for (HexagonSpace hexagon : hexagonButtons.values()) {
+    for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
+      HexagonSpace hexagon = entry.getValue();
+      PositionAxial posn = entry.getKey();
+
       g2d.setColor(hexagon.getColor());
       g2d.fill(hexagon);
       g2d.setColor(Color.BLACK);
       g2d.draw(hexagon);
 
-      hexagon.drawSpaceOwner(g2d);
+      hexagon.drawSpaceOwner(g2d, this.hints, this.model.getScoreForMove(posn));
     }
 
     if (this.model.hasGameStarted()) {
@@ -314,7 +319,8 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
       // Check if the user has pressed the 'm' key, which makes a move
       if (keyCode == KeyEvent.VK_M) {
         try {
-          // If there is a selectedPosn, then attempt to move to it. Null is used as null represents
+          // If there is a selectedPosn, then attempt to move to it. Null is used as null
+          // represents
           // the lack of a posn selected by a player.
           if (selectedPosn != null) {
             this.features.moveToCoordinate(selectedPosn);
@@ -334,6 +340,11 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
         }
       }
 
+      // Check if the user has pressed the 'h' key, which toggles hints
+      if (keyCode == KeyEvent.VK_H) {
+        this.hints = !this.hints;
+      }
+
       repaint();
     }
   }
@@ -347,7 +358,11 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
 
         // print out the coordinates of the hexagon that was clicked on
         if (hexagon.contains(mouseX, mouseY) && !hexagon.getState()) {
-          hexagon.setState(!hexagon.getState());
+          if (this.hints) {
+            hexagon.setState(!hexagon.getState());
+          } else {
+            hexagon.setState(!hexagon.getState());
+          }
           selectedPosn = entry.getKey();
         } else if (hexagon.contains(mouseX, mouseY)) {
           hexagon.setState(!hexagon.getState());

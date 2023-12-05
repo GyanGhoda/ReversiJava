@@ -264,8 +264,8 @@ public class BasicReversiModel implements ReversiModel {
    * @return A deep copy of the board of this Reversi game.
    */
   @Override
-  public HashMap<PositionAxial, Cell> getBoardCopy() {
-    HashMap<PositionAxial, Cell> boardCopy = new HashMap<>();
+  public HashMap<GamePosition, Cell> getBoardCopy() {
+    HashMap<GamePosition, Cell> boardCopy = new HashMap<>();
 
     // iterate over the board and create a deep copy of each cell
     for (PositionAxial posn : this.board.keySet()) {
@@ -300,14 +300,14 @@ public class BasicReversiModel implements ReversiModel {
    * @throws IllegalArgumentException if the position does not exist in this game.
    */
   @Override
-  public void addPieceToCoordinates(PositionAxial posn, Player player) {
+  public void addPieceToCoordinates(GamePosition posn, Player player) {
 
     currentTurnCorrect(player);
     gameStartedHelper();
     doesPosnExist(posn);
 
     // Get the list of valid positions to add a piece to on this move.
-    List<PositionAxial> validTiles = this.isValidMoveForPlayer(posn, player);
+    List<PositionAxial> validTiles = this.isValidMoveForPlayer((PositionAxial) posn, player);
 
     if (!validTiles.isEmpty()) {
 
@@ -318,7 +318,7 @@ public class BasicReversiModel implements ReversiModel {
       playerCell.setCellToPlayer(this.currentPlayer);
 
       // place the player cell on the game board at the specified position.
-      this.board.put(posn, playerCell);
+      this.board.put((PositionAxial) posn, playerCell);
 
       // change the ownership of cells between the specified positions.
       this.changeAllCellsBetween(validTiles);
@@ -372,27 +372,18 @@ public class BasicReversiModel implements ReversiModel {
     return allCellsBetween;
   }
 
-  // gets the player whose turn it is next
-  private Player getNextTurn() {
-    if (this.currentPlayer.equals(this.playerBlack)) {
-      return this.playerWhite;
-    } else {
-      return this.playerBlack;
-    }
-  }
-
   /**
    * Checks and retrieves a list of positions between the given position and
    * another position that form a valid line made by the player.
    *
-   * @param givenPosn   The starting position.
-   * @param posn        The ending position.
-   * @param playerTurn  The player whose turn it currently is.
+   * @param givenPosn  The starting position.
+   * @param posn       The ending position.
+   * @param playerTurn The player whose turn it currently is.
    * @return A list of positions forming a valid line between the given positions,
    *         or an empty list if no valid line exists.
    */
   private List<PositionAxial> checkValidLineMade(PositionAxial givenPosn, PositionAxial posn,
-                                                 Player playerTurn) {
+      Player playerTurn) {
     ArrayList<PositionAxial> cellsBetween = new ArrayList<>();
 
     // check if given and ending positions share Q coordinates
@@ -609,7 +600,8 @@ public class BasicReversiModel implements ReversiModel {
       return true;
     }
 
-    // for every position on the board, check if the current player has any valid moves
+    // for every position on the board, check if the current player has any valid
+    // moves
     for (PositionAxial posn : this.board.keySet()) {
       if (this.getCellAt(posn).sameCellType(CellType.Empty)
           && (!this.isValidMoveForPlayer(posn, this.playerBlack).isEmpty()
@@ -649,9 +641,9 @@ public class BasicReversiModel implements ReversiModel {
    *         false otherwise
    */
   @Override
-  public boolean doesCurrentPlayerHaveValidMovesPosn(PositionAxial posn, Player playerTurn) {
+  public boolean doesCurrentPlayerHaveValidMovesPosn(GamePosition posn, Player playerTurn) {
     if (this.getCellAt(posn).sameCellType(CellType.Empty)) {
-      return !(this.isValidMoveForPlayer(posn, playerTurn).isEmpty());
+      return !(this.isValidMoveForPlayer((PositionAxial) posn, playerTurn).isEmpty());
     } else {
       return false;
     }
@@ -676,7 +668,7 @@ public class BasicReversiModel implements ReversiModel {
    * @throws IllegalArgumentException if the position does not exist in this game.
    */
   @Override
-  public Cell getCellAt(PositionAxial posn) {
+  public Cell getCellAt(GamePosition posn) {
     doesPosnExist(posn);
 
     Cell cellAtPosn = this.board.get(posn);
@@ -727,9 +719,9 @@ public class BasicReversiModel implements ReversiModel {
   }
 
   @Override
-  public int getScoreForMove(PositionAxial posn) {
+  public int getScoreForMove(GamePosition posn) {
     // Get the list of valid positions to add a piece to on this move.
-    List<PositionAxial> validTiles = this.isValidMoveForPlayer(posn, this.currentPlayer);
+    List<PositionAxial> validTiles = this.isValidMoveForPlayer((PositionAxial) posn, this.currentPlayer);
 
     return validTiles.size();
   }
@@ -749,7 +741,7 @@ public class BasicReversiModel implements ReversiModel {
   }
 
   // helper that handles if the given position does not exist in this game.
-  private void doesPosnExist(PositionAxial posn) {
+  private void doesPosnExist(GamePosition posn) {
     if (!board.containsKey(posn)) {
       throw new IllegalArgumentException("Nonexistant position in this game");
     }
@@ -763,7 +755,8 @@ public class BasicReversiModel implements ReversiModel {
   @Override
   public String getCurrentWinner() {
 
-    // returns the current winning player, white player if tied because black goes first
+    // returns the current winning player, white player if tied because black goes
+    // first
     if (this.getCurrentScore(PlayerType.BLACK) > this.getCurrentScore(PlayerType.WHITE)) {
       return this.playerBlack.toString();
     } else if (this.getCurrentScore(PlayerType.BLACK) == this.getCurrentScore(PlayerType.WHITE)) {

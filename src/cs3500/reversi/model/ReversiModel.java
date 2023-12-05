@@ -33,7 +33,7 @@ public interface ReversiModel extends ReadOnlyReversiModel {
    *
    * @return a deep copy of the board of this Reversi game.
    */
-  HashMap<PositionAxial, Cell> getBoardCopy();
+  HashMap<GamePosition, Cell> getBoardCopy();
 
   /**
    * Adds a player's piece to the specified position on the board and updates the
@@ -47,7 +47,7 @@ public interface ReversiModel extends ReadOnlyReversiModel {
    *                                  a move.
    * @throws IllegalArgumentException if the position does not exist in this game.
    */
-  void addPieceToCoordinates(PositionAxial posn, Player player);
+  void addPieceToCoordinates(GamePosition posn, Player player);
 
   /**
    * Passes the turn to the next player.
@@ -73,14 +73,14 @@ public interface ReversiModel extends ReadOnlyReversiModel {
    * @return true if the current player has valid moves at the given position,
    *         false otherwise.
    */
-  boolean doesCurrentPlayerHaveValidMovesPosn(PositionAxial posn, Player playerTurn);
+  boolean doesCurrentPlayerHaveValidMovesPosn(GamePosition posn, Player playerTurn);
 
   /**
    * Gets the score for the given move if it was played.
    *
    * @param posn The position to get the score for.
    */
-  int getScoreForMove(PositionAxial posn);
+  int getScoreForMove(GamePosition posn);
 
   /**
    * Gets the size of the game board (number of cells).
@@ -91,13 +91,13 @@ public interface ReversiModel extends ReadOnlyReversiModel {
 
   /**
    * Gets the cell at the specified coordinates on the game board using a
-   * PositionAxial.
+   * GamePosition.
    *
-   * @param posn The PositionAxial to get the cell at
+   * @param posn The GamePosition to get the cell at
    * @return The cell at the specified coordinates.
    * @throws IllegalArgumentException if the position does not exist in this game.
    */
-  Cell getCellAt(PositionAxial posn);
+  Cell getCellAt(GamePosition posn);
 
   /**
    * Checks if the Reversi game is over.
@@ -121,6 +121,4 @@ public interface ReversiModel extends ReadOnlyReversiModel {
    * @return The number of rows in the game board.
    */
   int getNumRows();
-
-  
 }

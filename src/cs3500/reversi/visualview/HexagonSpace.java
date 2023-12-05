@@ -1,6 +1,8 @@
 package cs3500.reversi.visualview;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
 
@@ -89,11 +91,20 @@ public class HexagonSpace extends Path2D.Double {
 
   /**
    * Draw the owner of the hexagon space.
-   * The owner is represented by a small white or black circle inside the hexagon space.
+   * The owner is represented by a small white or black circle inside the hexagon
+   * space.
    *
    * @param g2d The graphics object.
    */
-  public void drawSpaceOwner(Graphics2D g2d) {
+  public void drawSpaceOwner(Graphics2D g2d, boolean hints, int score) {
+
+    if (hints && this.isHighlighted) {
+      FontMetrics fm = g2d.getFontMetrics();
+      double centerX = this.currentX - fm.stringWidth(Integer.toString(score));
+      double centerY = this.currentY + fm.getHeight() / 4;
+      g2d.setFont(new Font("Serif", Font.BOLD, (int) this.size / 2));
+      g2d.drawString(Integer.toString(score), (int) centerX, (int) centerY);
+    }
 
     // if the cell type is not empty, draw the owner
     if (!representingCell.sameCellType(CellType.Empty)) {

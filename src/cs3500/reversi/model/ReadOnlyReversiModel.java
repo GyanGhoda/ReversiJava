@@ -20,13 +20,13 @@ public interface ReadOnlyReversiModel {
 
   /**
    * Gets the cell at the specified coordinates on the game board using a
-   * PositionAxial.
+   * GamePosition.
    *
-   * @param posn The PositionAxial to get the cell at
+   * @param posn The GamePosition to get the cell at
    * @return The cell at the specified coordinates.
    * @throws IllegalArgumentException if the position does not exist in this game.
    */
-  Cell getCellAt(PositionAxial posn);
+  Cell getCellAt(GamePosition posn);
 
   /**
    * Checks if the Reversi game is over.
@@ -58,7 +58,7 @@ public interface ReadOnlyReversiModel {
    * @return true if the current player has valid moves at the given position,
    *         false otherwise.
    */
-  boolean doesCurrentPlayerHaveValidMovesPosn(PositionAxial posn, Player playerTurn);
+  boolean doesCurrentPlayerHaveValidMovesPosn(GamePosition posn, Player playerTurn);
 
   /**
    * Gets the size of the game board (number of cells).
@@ -75,10 +75,19 @@ public interface ReadOnlyReversiModel {
   boolean hasGameStarted();
 
   /**
-   * Gets the winner of the game in the current stage. If the game is tied, returns the white player
+   * Gets the winner of the game in the current stage. If the game is tied,
+   * returns the white player
    * because black moves first.
    *
    * @return The current winning player of the game.
    */
   String getCurrentWinner();
+
+  /**
+   * Gets the score for the given move if it was played.
+   * 
+   * @param posn The position to get the score for.
+   * @return The score for the given move if it was played.
+   */
+  int getScoreForMove(GamePosition posn);
 }
