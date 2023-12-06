@@ -33,7 +33,7 @@ public final class Reversi {
     Player player1 = new HumanPlayer(PlayerType.BLACK);
     Player player2 = new HumanPlayer(PlayerType.WHITE);
     int argCounter = 0;
-    int boardLength = 7;
+    int boardLength = 8;
     boolean square = false;
     boolean boardLengthSpecified = false;
 
