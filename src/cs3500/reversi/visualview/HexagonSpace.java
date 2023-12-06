@@ -12,7 +12,7 @@ import cs3500.reversi.model.CellType;
 /**
  * Represents a hexagon space in the Reversi game board.
  */
-public class HexagonSpace extends Path2D.Double {
+public class HexagonSpace extends Path2D.Double implements ISpaceDecorator {
 
   private final double size;
   private final double currentX;
@@ -135,5 +135,20 @@ public class HexagonSpace extends Path2D.Double {
 
       g2d.fill(circlePath);
     }
+  }
+
+  @Override
+  public double getSize() {
+    return this.size;
+  }
+
+  @Override
+  public double getCurrentX() {
+    return this.currentX;
+  }
+
+  @Override
+  public double getCurrentY() {
+    return this.currentY;
   }
 }

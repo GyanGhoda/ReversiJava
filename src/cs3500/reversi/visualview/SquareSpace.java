@@ -12,7 +12,7 @@ import cs3500.reversi.model.CellType;
 /**
  * Represents a square space in the Reversi game board.
  */
-public class SquareSpace extends Path2D.Double {
+public class SquareSpace extends Path2D.Double implements ISpaceDecorator {
 
     private final double size;
     private final double currentX;
@@ -99,8 +99,8 @@ public class SquareSpace extends Path2D.Double {
 
         if (hints && this.isHighlighted) {
             FontMetrics fm = g2d.getFontMetrics();
-            double centerX = this.currentX - fm.stringWidth(Integer.toString(score));
-            double centerY = this.currentY + fm.getHeight() / 4;
+            double centerX = this.currentX - fm.stringWidth(Integer.toString(score)) + this.size / 2;
+            double centerY = this.currentY + fm.getHeight() / 4 + this.size / 2;
             g2d.setFont(new Font("Serif", Font.BOLD, (int) this.size / 2));
             g2d.drawString(Integer.toString(score), (int) centerX, (int) centerY);
         }
@@ -134,5 +134,20 @@ public class SquareSpace extends Path2D.Double {
 
             g2d.fill(circlePath);
         }
+    }
+
+    @Override
+    public double getSize() {
+        return this.size;
+    }
+
+    @Override
+    public double getCurrentX() {
+        return this.currentX;
+    }
+
+    @Override
+    public double getCurrentY() {
+        return this.currentY;
     }
 }

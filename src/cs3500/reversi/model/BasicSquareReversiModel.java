@@ -466,7 +466,7 @@ public class BasicSquareReversiModel implements ReversiModel {
       if (incrementX) {
         startingXPosition += 1;
       } else {
-        startingYPosition -= 1;
+        startingXPosition -= 1;
       }
 
       if (incrementY) {
@@ -496,7 +496,6 @@ public class BasicSquareReversiModel implements ReversiModel {
       } else {
         cellsBetween.add(currentPosition);
       }
-      break;
     }
   }
 
