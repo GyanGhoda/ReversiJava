@@ -38,7 +38,7 @@ public final class Reversi {
     boolean boardLengthSpecified = false;
 
     if (args.length >= 1) {
-      if (!args[argCounter].equals("square")) {
+      if (args[argCounter].equals("square")) {
         square = true;
         argCounter += 1;
       }
