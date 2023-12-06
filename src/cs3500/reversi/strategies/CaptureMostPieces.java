@@ -7,7 +7,6 @@ import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.GamePosition;
-import cs3500.reversi.model.Position2D;
 import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReversiModel;
 

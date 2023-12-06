@@ -1,7 +1,6 @@
 package cs3500.reversi.textualview;
 
 import cs3500.reversi.model.Position2D;
-import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReversiModel;
 
 public class SquareReversiTextualView implements TextualView {
