@@ -341,7 +341,6 @@ public class BasicSquareReversiModel implements ReversiModel {
 
     // iterate over the surrounding positions adjacent to the given position
     for (Position2D posn : surroundingCells) {
-
       // see if the cell at the surrounding position is owned by the other player
       // and if there is a valid line of cells after it, all cells in this line are
       // returned
@@ -381,7 +380,7 @@ public class BasicSquareReversiModel implements ReversiModel {
     }
 
     // If the given and ending positions share Y coordinates, check for a valid line
-    else if (givenPosn.getY() == posn.getY()) {
+    if (givenPosn.getY() == posn.getY()) {
       // Go forwards along the possible line
       if (givenPosn.getX() > posn.getX()) {
         this.goDownLine(givenPosn.getX(), cellsBetween, "x", givenPosn.getY(), false, playerTurn);
@@ -389,6 +388,23 @@ public class BasicSquareReversiModel implements ReversiModel {
       // Go backwards along the possible line
       else {
         this.goDownLine(givenPosn.getX(), cellsBetween, "x", givenPosn.getY(), true, playerTurn);
+      }
+    }
+
+    // Check for a valid line along the diagonal
+    if (Math.abs(givenPosn.getX() - posn.getX()) == 1 && Math.abs(givenPosn.getY() - posn.getY()) == 1) {
+      if (givenPosn.getX() > posn.getX()) {
+        if (givenPosn.getY() > posn.getY()) {
+          this.goDownLineDiagonal(givenPosn.getX(), givenPosn.getY(), false, false, cellsBetween, playerTurn);
+        } else {
+          this.goDownLineDiagonal(givenPosn.getX(), givenPosn.getY(), false, true, cellsBetween, playerTurn);
+        }
+      } else {
+        if (givenPosn.getY() > posn.getY()) {
+          this.goDownLineDiagonal(givenPosn.getX(), givenPosn.getY(), true, false, cellsBetween, playerTurn);
+        } else {
+          this.goDownLineDiagonal(givenPosn.getX(), givenPosn.getY(), true, true, cellsBetween, playerTurn);
+        }
       }
     }
 
@@ -442,6 +458,46 @@ public class BasicSquareReversiModel implements ReversiModel {
     // }
 
     return cellsBetween;
+  }
+
+  private void goDownLineDiagonal(int startingXPosition, int startingYPosition, boolean incrementX, boolean incrementY,
+      ArrayList<Position2D> cellsBetween, Player playerTurn) {
+    while (true) {
+      if (incrementX) {
+        startingXPosition += 1;
+      } else {
+        startingYPosition -= 1;
+      }
+
+      if (incrementY) {
+        startingYPosition += 1;
+      } else {
+        startingYPosition -= 1;
+      }
+
+      Position2D currentPosition = new Position2D(startingXPosition, startingYPosition);
+
+      // check if the position exists on the board
+      if (!this.board.containsKey(currentPosition)) {
+        cellsBetween.clear();
+        break;
+      }
+
+      // if cell is owned by player with next turn, add it to list
+      if (!this.getCellAt(currentPosition).getCellOwner()
+          .equals(playerTurn.getOppositePlayer().toString())) {
+        if (this.getCellAt(currentPosition).getCellOwner()
+            .equals(playerTurn.toString())) {
+          break;
+        } else {
+          cellsBetween.clear();
+          break;
+        }
+      } else {
+        cellsBetween.add(currentPosition);
+      }
+      break;
+    }
   }
 
   // traverses positions on the game board based on the direction and row type

@@ -143,7 +143,9 @@ public final class Position2D implements GamePosition {
    */
   public boolean isNextTo2D(Position2D other) {
     if (Math.abs(this.x - other.x) <= 1 && Math.abs(this.y - other.y) <= 1) {
-      return true;
+      if (this.x != other.x || this.y != other.y) {
+        return true;
+      }
     }
 
     return false;
