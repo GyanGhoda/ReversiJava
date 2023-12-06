@@ -33,9 +33,18 @@ public final class Reversi {
     Player player1 = new HumanPlayer(PlayerType.BLACK);
     Player player2 = new HumanPlayer(PlayerType.WHITE);
     int argCounter = 0;
-    int boardLength = 8;
+    int boardLength = 7;
+    boolean square = false;
+    boolean boardLengthSpecified = false;
 
     if (args.length >= 1) {
+      if (!args[argCounter].equals("square")) {
+        square = true;
+        argCounter += 1;
+      }
+    }
+
+    if (args.length > argCounter) {
       if (!args[argCounter].equals("human") && !args[argCounter].equals("computer")) {
         try {
           boardLength = Integer.valueOf(args[argCounter]);
@@ -43,6 +52,7 @@ public final class Reversi {
             throw new NumberFormatException();
           }
           argCounter += 1;
+          boardLengthSpecified = true;
         } catch (NumberFormatException e) {
           throw new IllegalArgumentException("Invalid board size or invalid argument given");
         }
@@ -80,31 +90,26 @@ public final class Reversi {
       }
     }
 
-    // ReversiModel model = new BasicReversiModel(boardLength, player1, player2);
+    ReversiModel model;
+    ReversiVisualView view1;
+    ReversiVisualView view2;
 
-    // ReversiVisualView view1 = new HexagonalFrame(model);
-    // ReversiVisualView view2 = new HexagonalFrame(model);
+    if (square && !boardLengthSpecified) {
+      model = new BasicSquareReversiModel(8, player1, player2);
 
-    // BasicReversiController controller1 = new BasicReversiController(model,
-    // player1, view1);
-    // BasicReversiController controller2 = new BasicReversiController(model,
-    // player2, view2);
+      view1 = new SquareFrame(model);
+      view2 = new SquareFrame(model);
+    } else if (square) {
+      model = new BasicSquareReversiModel(boardLength, player1, player2);
 
-    // model.addFeaturesListener(controller1);
-    // model.addFeaturesListener(controller2);
+      view1 = new SquareFrame(model);
+      view2 = new SquareFrame(model);
+    } else {
+      model = new BasicReversiModel(boardLength, player1, player2);
 
-    // view1.setUpFeatures(controller1);
-    // view2.setUpFeatures(controller2);
-
-    // view1.makeVisible();
-    // view2.makeVisible();
-
-    // model.startGame();
-
-    ReversiModel model = new BasicSquareReversiModel(boardLength, player1, player2);
-
-    ReversiVisualView view1 = new SquareFrame(model);
-    ReversiVisualView view2 = new SquareFrame(model);
+      view1 = new HexagonalFrame(model);
+      view2 = new HexagonalFrame(model);
+    }
 
     BasicReversiController controller1 = new BasicReversiController(model, player1, view1);
     BasicReversiController controller2 = new BasicReversiController(model, player2, view2);
