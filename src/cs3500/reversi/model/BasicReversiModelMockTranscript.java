@@ -584,6 +584,13 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
     return validTiles.size();
   }
 
+  @Override
+  public int getScoreForMovePlayer(GamePosition posn, String player) {
+    this.log.append("getScoreForMove(" + posn.toString() + ") for player: + " + player + "\n");
+
+    return 0;
+  }
+
   // helper that handles if the given position does not exist in this game.
   private void doesPosnExist(GamePosition posn) {
     if (!board.containsKey(posn)) {

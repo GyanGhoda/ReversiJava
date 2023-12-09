@@ -28,7 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Represents a panel of square buttons.
  */
 public class SquarePanel extends JPanel implements ReversiPanel {
-    private final ConcurrentHashMap<Position2D, SquareSpace> squareButtons;
+    private final ConcurrentHashMap<Position2D, ISpaceDecorator> squareButtons;
     private ReadOnlyReversiModel model;
     private int width;
     private int height;
@@ -56,7 +56,7 @@ public class SquarePanel extends JPanel implements ReversiPanel {
         this.height = height;
         this.currentTurn = false;
         this.hints = false;
-        this.squareButtons = new ConcurrentHashMap<Position2D, SquareSpace>();
+        this.squareButtons = new ConcurrentHashMap<Position2D, ISpaceDecorator>();
         this.initializeSquares();
 
         addMouseListener(new MouseListenerReversi());
@@ -82,7 +82,7 @@ public class SquarePanel extends JPanel implements ReversiPanel {
      * Initializes the squares in the panel.
      */
     private void initializeSquares() {
-        HashMap<Position2D, SquareSpace> newSquareButtons = new HashMap<>();
+        HashMap<Position2D, ISpaceDecorator> newSquareButtons = new HashMap<>();
 
         int buttonSize = Math.min(this.width, this.height) / this.model.getNumRows();
 
@@ -99,8 +99,8 @@ public class SquarePanel extends JPanel implements ReversiPanel {
         for (int y = 0; y < this.model.getNumRows(); y += 1) {
             for (int x = 0; x < this.model.getNumRows(); x += 1) {
                 Position2D posn = new Position2D(x, y);
-                SquareSpace square = new SquareSpace(buttonSize, centerX, centerY,
-                        this.model.getCellAt(posn));
+                ISpaceDecorator square = new HintsDecorator(new SquareSpace(buttonSize, centerX, centerY,
+                        this.model.getCellAt(posn)));
 
                 square.moveTo(centerX, centerY);
                 newSquareButtons.put(posn, square);
@@ -129,16 +129,16 @@ public class SquarePanel extends JPanel implements ReversiPanel {
         g2d.fill(new Rectangle(this.width, this.height));
 
         // Draw the squares
-        for (HashMap.Entry<Position2D, SquareSpace> entry : squareButtons.entrySet()) {
-            SquareSpace square = entry.getValue();
+        for (HashMap.Entry<Position2D, ISpaceDecorator> entry : squareButtons.entrySet()) {
+            ISpaceDecorator square = entry.getValue();
             Position2D posn = entry.getKey();
 
-            g2d.setColor(square.getColor());
-            g2d.fill(square);
-            g2d.setColor(Color.BLACK);
-            g2d.draw(square);
+            square.drawFillColor(g2d);
 
-            square.drawSpaceOwner(g2d, this.hints, this.model.getScoreForMove(posn));
+            if (this.model.hasGameStarted()) {
+                square.drawSpaceOwner(g2d, this.hints, this.model.getScoreForMovePlayer(posn,
+                        this.features.getPlayer()));
+            }
         }
 
         if (this.model.hasGameStarted()) {
@@ -330,8 +330,8 @@ public class SquarePanel extends JPanel implements ReversiPanel {
     private void mouseClickUpdateView(int mouseX, int mouseY) {
         if (this.features != null) {
             // Check if the mouse click is inside a square and highlight it accordingly
-            for (HashMap.Entry<Position2D, SquareSpace> entry : squareButtons.entrySet()) {
-                SquareSpace square = entry.getValue();
+            for (HashMap.Entry<Position2D, ISpaceDecorator> entry : squareButtons.entrySet()) {
+                ISpaceDecorator square = entry.getValue();
 
                 // print out the coordinates of the square that was clicked on
                 if (square.contains(mouseX, mouseY) && !square.getState()) {
@@ -348,7 +348,6 @@ public class SquarePanel extends JPanel implements ReversiPanel {
                     square.setState(false);
                 }
             }
-            System.out.println(selectedPosn);
             repaint();
         }
     }

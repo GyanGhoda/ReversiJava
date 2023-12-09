@@ -90,4 +90,13 @@ public interface ReadOnlyReversiModel {
    * @return The score for the given move if it was played.
    */
   int getScoreForMove(GamePosition posn);
+
+  /**
+   * Gets the score for the given move if it was played.
+   *
+   * @param posn The position to get the score for.
+   * @param player The String representing the player
+   * @return The score for the given move if it was played.
+   */
+  int getScoreForMovePlayer(GamePosition posn, String player);
 }

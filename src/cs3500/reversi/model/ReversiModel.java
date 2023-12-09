@@ -76,13 +76,6 @@ public interface ReversiModel extends ReadOnlyReversiModel {
   boolean doesCurrentPlayerHaveValidMovesPosn(GamePosition posn, Player playerTurn);
 
   /**
-   * Gets the score for the given move if it was played.
-   *
-   * @param posn The position to get the score for.
-   */
-  int getScoreForMove(GamePosition posn);
-
-  /**
    * Gets the size of the game board (number of cells).
    *
    * @return The size of the game board.

@@ -319,7 +319,7 @@ public class BasicReversiModel implements ReversiModel {
       playerCell.setCellToPlayer(this.currentPlayer);
 
       // place the player cell on the game board at the specified position.
-      this.board.put((PositionAxial) posn, playerCell);
+      this.board.put(posn, playerCell);
 
       // change the ownership of cells between the specified positions.
       this.changeAllCellsBetween(validTiles);
@@ -729,6 +729,20 @@ public class BasicReversiModel implements ReversiModel {
     // Get the list of valid positions to add a piece to on this move.
     List<PositionAxial> validTiles = this.isValidMoveForPlayer((PositionAxial) posn, this.currentPlayer);
 
+    return validTiles.size();
+  }
+
+  @Override
+  public int getScoreForMovePlayer(GamePosition posn, String player) {
+    List<PositionAxial> validTiles;
+    if (player.equals("X")) {
+      validTiles = this.isValidMoveForPlayer((PositionAxial) posn, this.playerBlack);
+    }
+    else {
+      validTiles = this.isValidMoveForPlayer((PositionAxial) posn, this.playerWhite);
+    }
+
+    // Get the list of valid positions to add a piece to on this move.
     return validTiles.size();
   }
 

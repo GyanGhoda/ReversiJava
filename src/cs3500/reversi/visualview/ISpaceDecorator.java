@@ -15,4 +15,12 @@ public interface ISpaceDecorator {
     double getCurrentY();
 
     boolean getState();
+
+    void moveTo(double startingX, double startingY);
+
+    boolean contains(int mouseX, int mouseY);
+
+    void setState(boolean b);
+
+    void drawFillColor(Graphics2D g2d);
 }
