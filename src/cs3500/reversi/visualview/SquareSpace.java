@@ -18,7 +18,7 @@ public class SquareSpace extends Path2D.Double implements ISpaceDecorator {
     private final double currentX;
     private final double currentY;
     private boolean isHighlighted;
-    private Cell representingCell;
+    private final Cell representingCell;
 
     /**
      * Constructs a new SquareSpace with the given size, currentX, currentY, and
@@ -79,6 +79,14 @@ public class SquareSpace extends Path2D.Double implements ISpaceDecorator {
         this.isHighlighted = state;
     }
 
+    @Override
+    public void drawFillColor(Graphics2D g2d) {
+        g2d.setColor(this.getColor());
+        g2d.fill(this);
+        g2d.setColor(Color.BLACK);
+        g2d.draw(this);
+    }
+
     /**
      * Get the highlighted state of the square space.
      *
@@ -86,6 +94,11 @@ public class SquareSpace extends Path2D.Double implements ISpaceDecorator {
      */
     public boolean getState() {
         return this.isHighlighted;
+    }
+
+    @Override
+    public boolean contains(int mouseX, int mouseY) {
+        return super.contains(mouseX, mouseY);
     }
 
     /**
@@ -96,14 +109,6 @@ public class SquareSpace extends Path2D.Double implements ISpaceDecorator {
      * @param g2d The graphics object.
      */
     public void drawSpaceOwner(Graphics2D g2d, boolean hints, int score) {
-
-        if (hints && this.isHighlighted) {
-            FontMetrics fm = g2d.getFontMetrics();
-            double centerX = this.currentX - fm.stringWidth(Integer.toString(score)) + this.size / 2;
-            double centerY = this.currentY + fm.getHeight() / 4 + this.size / 2;
-            g2d.setFont(new Font("Serif", Font.BOLD, (int) this.size / 2));
-            g2d.drawString(Integer.toString(score), (int) centerX, (int) centerY);
-        }
 
         // if the cell type is not empty, draw the owner
         if (!representingCell.sameCellType(CellType.Empty)) {
@@ -138,16 +143,16 @@ public class SquareSpace extends Path2D.Double implements ISpaceDecorator {
 
     @Override
     public double getSize() {
-        return this.size;
+        return this.size * 2 / 3;
     }
 
     @Override
     public double getCurrentX() {
-        return this.currentX;
+        return this.currentX + this.size / 2;
     }
 
     @Override
     public double getCurrentY() {
-        return this.currentY;
+        return this.currentY + this.size / 2;
     }
 }

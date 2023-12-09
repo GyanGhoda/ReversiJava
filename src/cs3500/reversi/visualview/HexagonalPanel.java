@@ -28,7 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Represents a panel of hexagonal buttons.
  */
 public class HexagonalPanel extends JPanel implements ReversiPanel {
-  private final ConcurrentHashMap<PositionAxial, HexagonSpace> hexagonButtons;
+  private final ConcurrentHashMap<PositionAxial, ISpaceDecorator> hexagonButtons;
   private ReadOnlyReversiModel model;
   private int width;
   private int height;
@@ -56,7 +56,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     this.height = height;
     this.currentTurn = false;
     this.hints = false;
-    this.hexagonButtons = new ConcurrentHashMap<PositionAxial, HexagonSpace>();
+    this.hexagonButtons = new ConcurrentHashMap<PositionAxial, ISpaceDecorator>();
     this.initializeHexagons();
 
     addMouseListener(new MouseListenerReversi());
@@ -82,7 +82,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
    * Initializes the hexagons in the panel.
    */
   private void initializeHexagons() {
-    HashMap<PositionAxial, HexagonSpace> newHexagonButtons = new HashMap<>();
+    HashMap<PositionAxial, ISpaceDecorator> newHexagonButtons = new HashMap<>();
 
     int distance = Math.min(this.width, this.height) / this.model.getNumRows();
     double buttonSize = (distance / Math.sqrt(3));
@@ -114,8 +114,8 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
         PositionAxial posn = new PositionAxial(currentQ, currentR, currentS);
 
         // create a new hexagon button
-        HexagonSpace hexagon = new HexagonSpace(buttonSize, startingX, startingY,
-            this.model.getCellAt(posn));
+        ISpaceDecorator hexagon = new HintsDecorator(new HexagonSpace(buttonSize, startingX, startingY,
+                this.model.getCellAt(posn)));
 
         // create empty cell and add it to the board at the current poisiton
         newHexagonButtons.put(posn, hexagon);
@@ -152,16 +152,15 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     g2d.fill(new Rectangle(this.width, this.height));
 
     // Draw the hexagons
-    for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
-      HexagonSpace hexagon = entry.getValue();
+    for (HashMap.Entry<PositionAxial, ISpaceDecorator> entry : hexagonButtons.entrySet()) {
+      ISpaceDecorator hexagon = entry.getValue();
       PositionAxial posn = entry.getKey();
 
-      g2d.setColor(hexagon.getColor());
-      g2d.fill(hexagon);
-      g2d.setColor(Color.BLACK);
-      g2d.draw(hexagon);
-
-      hexagon.drawSpaceOwner(g2d, this.hints, this.model.getScoreForMove(posn));
+      hexagon.drawFillColor(g2d);
+      if (this.model.hasGameStarted()) {
+        hexagon.drawSpaceOwner(g2d, this.hints, this.model.getScoreForMovePlayer(posn,
+                this.features.getPlayer()));
+      }
     }
 
     if (this.model.hasGameStarted()) {
@@ -353,8 +352,8 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
   private void mouseClickUpdateView(int mouseX, int mouseY) {
     if (this.features != null) {
       // Check if the mouse click is inside a hexagon and highlight it accordingly
-      for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
-        HexagonSpace hexagon = entry.getValue();
+      for (HashMap.Entry<PositionAxial, ISpaceDecorator> entry : hexagonButtons.entrySet()) {
+        ISpaceDecorator hexagon = entry.getValue();
 
         // print out the coordinates of the hexagon that was clicked on
         if (hexagon.contains(mouseX, mouseY) && !hexagon.getState()) {

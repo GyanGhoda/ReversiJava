@@ -283,8 +283,6 @@ public class BasicSquareReversiModel implements ReversiModel {
   @Override
   public void addPieceToCoordinates(GamePosition posn, Player player) {
 
-    // System.out.println("hy");
-
     currentTurnCorrect(player);
     gameStartedHelper();
     doesPosnExist(posn);
@@ -718,6 +716,20 @@ public class BasicSquareReversiModel implements ReversiModel {
     }
 
     return score;
+  }
+
+  @Override
+  public int getScoreForMovePlayer(GamePosition posn, String player) {
+    List<Position2D> validTiles;
+    if (player.equals("X")) {
+      validTiles = this.isValidMoveForPlayer((Position2D) posn, this.playerBlack);
+    }
+    else {
+      validTiles = this.isValidMoveForPlayer((Position2D) posn, this.playerWhite);
+    }
+
+    // Get the list of valid positions to add a piece to on this move.
+    return validTiles.size();
   }
 
   @Override

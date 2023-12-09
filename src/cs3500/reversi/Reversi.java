@@ -33,7 +33,7 @@ public final class Reversi {
     Player player1 = new HumanPlayer(PlayerType.BLACK);
     Player player2 = new HumanPlayer(PlayerType.WHITE);
     int argCounter = 0;
-    int boardLength = 8;
+    int boardLength = 7;
     boolean square = false;
     boolean boardLengthSpecified = false;
 
@@ -50,8 +50,15 @@ public final class Reversi {
       if (!args[argCounter].equals("human") && !args[argCounter].equals("computer")) {
         try {
           boardLength = Integer.valueOf(args[argCounter]);
-          if (boardLength % 2 == 0) {
-            throw new NumberFormatException();
+          if (square) {
+            if (boardLength % 2 != 0) {
+              throw new NumberFormatException();
+            }
+          }
+          else {
+            if (boardLength % 2 == 0) {
+              throw new NumberFormatException();
+            }
           }
           argCounter += 1;
           boardLengthSpecified = true;
