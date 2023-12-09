@@ -127,6 +127,7 @@ public class BasicSquareReversiModel implements ReversiModel {
       throw new IllegalArgumentException("Width must be even and positive.");
     }
 
+    // initialize the fields
     this.board = new HashMap<>();
     this.playerBlack = new ComputerPlayer(PlayerType.BLACK);
     this.playerWhite = new ComputerPlayer(PlayerType.WHITE);
@@ -392,83 +393,42 @@ public class BasicSquareReversiModel implements ReversiModel {
     }
 
     // Check for a valid line along the diagonal
-    if (Math.abs(givenPosn.getX() - posn.getX()) == 1 && Math.abs(givenPosn.getY() - posn.getY()) == 1) {
+    if (Math.abs(givenPosn.getX() - posn.getX()) == 1
+        && Math.abs(givenPosn.getY() - posn.getY()) == 1) {
       if (givenPosn.getX() > posn.getX()) {
         if (givenPosn.getY() > posn.getY()) {
-          this.goDownLineDiagonal(givenPosn.getX(), givenPosn.getY(), false, false, cellsBetween, playerTurn);
+          this.goDownLineDiagonal(givenPosn.getX(), givenPosn.getY(), false, false, cellsBetween,
+              playerTurn);
         } else {
-          this.goDownLineDiagonal(givenPosn.getX(), givenPosn.getY(), false, true, cellsBetween, playerTurn);
+          this.goDownLineDiagonal(givenPosn.getX(), givenPosn.getY(), false, true, cellsBetween,
+              playerTurn);
         }
       } else {
         if (givenPosn.getY() > posn.getY()) {
-          this.goDownLineDiagonal(givenPosn.getX(), givenPosn.getY(), true, false, cellsBetween, playerTurn);
+          this.goDownLineDiagonal(givenPosn.getX(), givenPosn.getY(), true, false, cellsBetween,
+              playerTurn);
         } else {
-          this.goDownLineDiagonal(givenPosn.getX(), givenPosn.getY(), true, true, cellsBetween, playerTurn);
+          this.goDownLineDiagonal(givenPosn.getX(), givenPosn.getY(), true, true, cellsBetween,
+              playerTurn);
         }
       }
     }
 
-    // // check if given and ending positions share Q coordinates
-    // if (givenPosn.getQ() == posn.getQ()) {
-
-    // if (givenPosn.getR() < posn.getR()) {
-    // // determine the range of R and S coordinates between the two positions.
-    // int startingPositionR = Math.min(givenPosn.getR(), posn.getR());
-    // int startingPositionS = Math.max(givenPosn.getS(), posn.getS());
-    // this.goDownLine(startingPositionR, startingPositionS, cellsBetween, "q",
-    // givenPosn.getQ(), true, playerTurn);
-    // } else {
-    // int startingPositionR = Math.max(givenPosn.getR(), posn.getR());
-    // int startingPositionS = Math.min(givenPosn.getS(), posn.getS());
-    // this.goDownLine(startingPositionS, startingPositionR, cellsBetween, "q",
-    // givenPosn.getQ(), false, playerTurn);
-    // }
-    // }
-
-    // // check if given and ending positions share R coordinates
-    // if (givenPosn.getR() == posn.getR()) {
-    // if (givenPosn.getQ() < posn.getQ()) {
-    // // determine the range of Q and S coordinates between the two positions.
-    // int startingPositionQ = Math.min(givenPosn.getQ(), posn.getQ());
-    // int startingPositionS = Math.max(givenPosn.getS(), posn.getS());
-    // this.goDownLine(startingPositionQ, startingPositionS, cellsBetween, "r",
-    // givenPosn.getR(), true, playerTurn);
-    // } else {
-    // int startingPositionQ = Math.max(givenPosn.getQ(), posn.getQ());
-    // int startingPositionS = Math.min(givenPosn.getS(), posn.getS());
-    // this.goDownLine(startingPositionS, startingPositionQ, cellsBetween, "r",
-    // givenPosn.getR(), false, playerTurn);
-    // }
-    // }
-
-    // // check if given and ending positions share S coordinates
-    // if (givenPosn.getS() == posn.getS()) {
-    // if (givenPosn.getQ() < posn.getQ()) {
-    // // determine the range of Q and R coordinates between the two positions.
-    // int startingPositionQ = Math.min(givenPosn.getQ(), posn.getQ());
-    // int startingPositionR = Math.max(givenPosn.getR(), posn.getR());
-    // this.goDownLine(startingPositionQ, startingPositionR, cellsBetween, "s",
-    // givenPosn.getS(), true, playerTurn);
-    // } else {
-    // int startingPositionQ = Math.max(givenPosn.getQ(), posn.getQ());
-    // int startingPositionR = Math.min(givenPosn.getR(), posn.getR());
-    // this.goDownLine(startingPositionR, startingPositionQ, cellsBetween, "s",
-    // givenPosn.getS(), false, playerTurn);
-    // }
-    // }
-
     return cellsBetween;
   }
 
+  // helper that traverses positions on the game board based on the direction and starting position
   private void goDownLineDiagonal(int startingXPosition, int startingYPosition, boolean incrementX, boolean incrementY,
       ArrayList<Position2D> cellsBetween, Player playerTurn) {
     while (true) {
+      // x direction
       if (incrementX) {
         startingXPosition += 1;
       } else {
         startingXPosition -= 1;
       }
 
+      // y direction
       if (incrementY) {
         startingYPosition += 1;
       } else {
@@ -512,14 +472,6 @@ public class BasicSquareReversiModel implements ReversiModel {
       } else {
         incrementStartingPostion -= 1;
       }
-
-      // if (forward && row == "x") {
-      // incrementStartingPostion += 1;
-      // } else if (!forward && row == "y") {
-      // incrementStartingPostion += 1;
-      // } else if (!forward && row == "x") {
-      // incrementStartingPostion -= 1;
-      // }
 
       // calculate current position based on direction
       Position2D currentPosition = this.calculateStartingPosition(row,

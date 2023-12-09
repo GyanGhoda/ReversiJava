@@ -37,6 +37,7 @@ public final class Reversi {
     boolean square = false;
     boolean boardLengthSpecified = false;
 
+    // Check if the user wants a square board
     if (args.length >= 1) {
       if (args[argCounter].equals("square")) {
         square = true;
@@ -44,6 +45,7 @@ public final class Reversi {
       }
     }
 
+    // Check if the user wants a different board size
     if (args.length > argCounter) {
       if (!args[argCounter].equals("human") && !args[argCounter].equals("computer")) {
         try {
@@ -58,6 +60,7 @@ public final class Reversi {
         }
       }
 
+      // Check if the user wants to specify the players
       if (args.length > argCounter) {
         try {
           switch (args[argCounter]) {
@@ -94,6 +97,7 @@ public final class Reversi {
     ReversiVisualView view1;
     ReversiVisualView view2;
 
+    // Set up the model and views
     if (square && !boardLengthSpecified) {
       model = new BasicSquareReversiModel(8, player1, player2);
 
@@ -126,6 +130,7 @@ public final class Reversi {
     model.startGame();
   }
 
+  // Helper method to get to the next player given 
   private static int getToNextPlayer(String[] args, int argCounter) {
     while (argCounter < args.length) {
       if (args[argCounter].equals("human") || args[argCounter].equals("computer")) {
@@ -136,6 +141,7 @@ public final class Reversi {
     throw new IllegalArgumentException("No player 2 specified");
   }
 
+  // Helper method to set up a computer player
   private static Player setUpComputer(String[] args, int argCounter, PlayerType type) {
     List<ReversiStrategy> strats = new ArrayList<>();
     while (argCounter < args.length) {
@@ -161,6 +167,7 @@ public final class Reversi {
       argCounter += 1;
     }
 
+    // If no strategies are specified, use the default strategy
     if (strats.isEmpty()) {
       return new ComputerPlayer(type, new CaptureMostPieces());
     } else {
@@ -168,6 +175,7 @@ public final class Reversi {
     }
   }
 
+  // Helper method to compose multiple strategies
   private static ReversiStrategy composeAIStrategy(List<ReversiStrategy> strats) {
     ReversiStrategy currentStrategy = strats.get(0);
     for (int i = 1; i < strats.size(); i += 1) {

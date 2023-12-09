@@ -4,11 +4,21 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 
+/**
+ * Represents a decorator for a space that adds hints to the space.
+ */
 public class HintsDecorator extends SpaceDecorator {
     public HintsDecorator(ISpaceDecorator decoratedSpace) {
         super(decoratedSpace);
     }
 
+    /**
+     * Draws the space with hints.
+     *
+     * @param g2d   the graphics to draw with
+     * @param hints whether or not to draw hints
+     * @param score the score to draw
+     */
     public void drawSpaceOwner(Graphics2D g2d, boolean hints, int score) {
         this.decoratedSpace.drawSpaceOwner(g2d, hints, score);
         if (hints && this.decoratedSpace.getState()) {

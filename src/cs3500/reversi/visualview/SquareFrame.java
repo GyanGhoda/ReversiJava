@@ -7,11 +7,14 @@ import javax.swing.JFrame;
 import cs3500.reversi.controller.PlayerActionFeatures;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 
+/**
+ * Represents a frame of square buttons.
+ */
 public class SquareFrame extends JFrame implements ReversiVisualView {
     private final SquarePanel panel;
 
     /**
-     * Constructs a frame of hexagonal buttons.
+     * Constructs a frame of square buttons.
      *
      * @param model the model to render
      */
