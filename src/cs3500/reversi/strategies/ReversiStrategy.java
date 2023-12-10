@@ -16,5 +16,5 @@ public interface ReversiStrategy {
    * @param playerTurn the player whose turn it is
    * @return the position that is chosen to move to
    */
-  public GamePosition chooseMove(ReversiModel model, PlayerType playerTurn);
+  GamePosition chooseMove(ReversiModel model, PlayerType playerTurn);
 }
