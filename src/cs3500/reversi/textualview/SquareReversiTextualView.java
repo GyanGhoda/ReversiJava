@@ -25,6 +25,7 @@ public class SquareReversiTextualView implements TextualView {
     public String toString() {
         String fullBoard = "";
 
+        // for each row, add the string representation of each cell to the full board
         for (int y = 0; y < this.model.getNumRows(); y++) {
             for (int x = 0; x < this.model.getNumRows(); x++) {
                 fullBoard = fullBoard

@@ -74,6 +74,8 @@ public class SquareSpace extends Path2D.Double implements ISpaceDecorator {
 
     /**
      * Change the highlighted state of the square space.
+     * 
+     * @param state The new highlighted state of the square space.
      */
     public void setState(boolean state) {
         this.isHighlighted = state;

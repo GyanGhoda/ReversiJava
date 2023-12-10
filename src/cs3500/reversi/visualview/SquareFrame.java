@@ -6,16 +6,36 @@ import javax.swing.JFrame;
 
 import cs3500.reversi.controller.PlayerActionFeatures;
 import cs3500.reversi.model.ReadOnlyReversiModel;
+import cs3500.reversi.model.ReversiModel;
 
+/**
+ * Represents a frame of square buttons.
+ */
 public class SquareFrame extends JFrame implements ReversiVisualView {
     private final SquarePanel panel;
 
     /**
-     * Constructs a frame of hexagonal buttons.
+     * Constructs a frame of square buttons.
      *
      * @param model the model to render
      */
     public SquareFrame(ReadOnlyReversiModel model) {
+        setTitle("2 Player Reversi Game"); // Set the title
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close the program when the frame is closed
+        setSize(800, 800); // Set the size of the frame
+        setLocationRelativeTo(null); // Center the frame
+        setVisible(true); // Make the frame visible
+
+        this.panel = new SquarePanel(model, 800, 800);
+        this.render(); // Render the frame
+    }
+
+    /**
+     * Constructs a frame of square buttons.
+     *
+     * @param model the model to render
+     */
+    public SquareFrame(ReversiModel model) {
         setTitle("2 Player Reversi Game"); // Set the title
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close the program when the frame is closed
         setSize(800, 800); // Set the size of the frame
