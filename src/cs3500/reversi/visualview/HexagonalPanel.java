@@ -58,7 +58,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     this.hexagonButtons = new ConcurrentHashMap<PositionAxial, HexagonSpace>();
     this.initializeHexagons();
 
-    if (decorated) {
+    if (!decorated) {
       addMouseListener(new MouseListenerReversi());
       addKeyListener(new KeyListenerReversi());
       addComponentListener(new ComponentListenerReversi());
@@ -147,8 +147,6 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
 
-    System.out.println("here");
-
     Graphics2D g2d = (Graphics2D) g;
 
     g2d.setColor(Color.darkGray);
@@ -224,7 +222,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
 
   @Override
   public double getCurrentX() {
-    if (this.model.hasGameStarted()) {
+    if (this.model.hasGameStarted() && this.playerSelected()) {
       return this.hexagonButtons.get(selectedPosn).getCurrentX();
     }
     return 0;
@@ -365,6 +363,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
           // the lack of a posn selected by a player.
           if (selectedPosn != null) {
             this.features.moveToCoordinate(selectedPosn);
+            this.selectedPosn = null;
           }
         } catch (IllegalStateException e) {
           JOptionPane.showMessageDialog(this, e.getMessage(), "Illegal Move Made",
@@ -405,5 +404,10 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
       }
       repaint();
     }
+  }
+
+  @Override
+  public boolean playerSelected() {
+    return !(this.selectedPosn == null);
   }
 }

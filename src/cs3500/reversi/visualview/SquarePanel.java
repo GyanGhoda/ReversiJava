@@ -392,4 +392,9 @@ public class SquarePanel extends JPanel implements ReversiPanel {
             repaint();
         }
     }
+
+    @Override
+    public boolean playerSelected() {
+        return !(this.selectedPosn == null);
+    }
 }

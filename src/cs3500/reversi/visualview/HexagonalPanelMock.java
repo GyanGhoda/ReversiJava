@@ -315,6 +315,11 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
     }
   }
 
+  @Override
+  public boolean playerSelected() {
+    return false;
+  }
+
   /**
    * Returns the log as a String.
    *

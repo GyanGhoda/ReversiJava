@@ -46,11 +46,15 @@ public class HintDecorator extends JPanel implements ReversiPanel {
   }
 
   @Override
+  public boolean playerSelected() {
+    return this.decoratedPanel.playerSelected();
+  }
+
+  @Override
   public void paint(Graphics g) {
     super.paint(g);
 
-    if (showHints) {
-      System.out.println("hey");
+    if (this.showHints && this.playerSelected()) {
       FontMetrics fm = g.getFontMetrics();
       int score = this.decoratedPanel.getScore();
       double centerX = this.decoratedPanel.getCurrentX() - fm.stringWidth(Integer.toString(score));

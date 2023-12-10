@@ -37,4 +37,6 @@ public interface ReversiPanel {
   void resizeComponent();
 
   void mouseClickUpdateView(int mouseX, int mouseY);
+
+  boolean playerSelected();
 }
