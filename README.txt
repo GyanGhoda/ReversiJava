@@ -1,3 +1,37 @@
+## Part 4 Extra Credit Features
+
+Level 0: Hints were added for the hexagonal model. They can be completely
+disabled in the command line by typing in "hintsoff" as the first argument.
+This change was made in the Reversi.java class. If this argument isn't specified,
+hints are turned on and can be toggled for each player by pressing the 'h' key.
+The decorator pattern was used in order to make HintsDecorator.java. Several
+observation methods were added in the ReversiPanel interface. No rendering code was
+modified in HexagonalPanel.java. For HexagonalFrame the constructor was also edited
+in order to accommodate HintsDecorator.
+
+Level 1: We created a new GamePosition interface and a new position class called Position2D
+in order to visualize 2-dimensional coordinates. The already existing PositionAxial also implements
+this interface. This allowed us to create an abstract class called ABasicReversiModel that allowed
+us to abstract all methods that weren't related to board initialization and move logic. A new model
+for square reversi was created called BasicSquareReversiModel. They both coexist in our code at the same
+time and do not need to be commented out. A square game can be created through the command line by
+typing in "square" as the second argument if you specified hintsoff. If hintsoff wasn't included,
+"square" must be the first argument. Immediately after this argument, you can specify the size length
+of the board as an argument. It must be even and above 0.
+
+Level 2: To implement the square-grid visual view, we created a SquareFrame class, which extends
+JFrame and implements ReversiVisualView. We also created SquarePanel, which extends JPanel and implements
+ReversiPanel. We also created SquareSpace, which represents a square on the grid and extends
+Path2D.Double. They coexist properly with the hexagonal view in our code.
+
+Level 3: Due to the way we designed the GamePosition interface and how our views implement the same
+interfaces, there were no changes to the controller needed to get it to work with a square reversi
+game other than abstracting all the positions to GamePositions.
+
+Level 4: Due to the way we designed the GamePosition interface and how our views implement the same
+interfaces, there were no changes to the strategies needed to get them to work with a square reversi
+game other than abstracting all the positions to GamePositions.
+
 ## Changes for Part 3 from initial design:
 
 No changes were made to the initial design. All other changes involved adding new classes, interfaces, and packages as per the assignment instructions. The details of those can be viewed below in the Key Components and Subcomponents section.
