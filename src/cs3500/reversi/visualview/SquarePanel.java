@@ -96,6 +96,7 @@ public class SquarePanel extends JPanel implements ReversiPanel {
         double centerX = offsetX;
         double centerY = offsetY;
 
+        // Create the squares
         for (int y = 0; y < this.model.getNumRows(); y += 1) {
             for (int x = 0; x < this.model.getNumRows(); x += 1) {
                 Position2D posn = new Position2D(x, y);
@@ -170,6 +171,7 @@ public class SquarePanel extends JPanel implements ReversiPanel {
             g2d.drawString(blackScore, this.width - fm.stringWidth(blackScore), topY);
             g2d.drawString(whiteScore, this.width - fm.stringWidth(whiteScore), topY * 2);
 
+            // Draw the game over message
             if (this.model.isGameOver()) {
                 String winner = this.model.getCurrentWinner();
                 String gameOverString = "Game is Over. Winner: " + winner;

@@ -2,10 +2,10 @@ package cs3500.reversi.model;
 
 public interface GamePosition {
     /**
-     * Checks if this PositionAxial contains the specified coordinate value.
+     * Checks if this Position contains the specified coordinate value.
      *
      * @param coordinate The coordinate value to check.
-     * @return true if this PositionAxial contains the given coordinate; false
+     * @return true if this Position contains the given coordinate; false
      *         otherwise.
      */
     public boolean containsCoordinate(int coordinate);
@@ -15,7 +15,7 @@ public interface GamePosition {
      * Position2D.
      *
      * @param other The other GamePosition to compare with.
-     * @return The common coordinate, which can be "q," "r," or "s." If there is no
+     * @return The common coordinate.  If there is no
      *         common coordinate, it returns "NoCommonCoordinate."
      */
     public String commonCoordinate(GamePosition other);
@@ -43,11 +43,11 @@ public interface GamePosition {
     public String commonCoordinateAxial(PositionAxial other);
 
     /**
-     * Checks if this Position2D is adjacent to another Position2D. Adjacency
+     * Checks if this PositionAxial is adjacent to another PositionAxial. Adjacency
      * means sharing a side (not a corner).
      *
-     * @param other The other Position2D to check adjacency with.
-     * @return true if this Position2D is adjacent to the other Position2D;
+     * @param other The other Position to check adjacency with.
+     * @return true if this Position is adjacent to the other Position2D;
      *         false otherwise.
      */
     public boolean isNextTo(GamePosition other);

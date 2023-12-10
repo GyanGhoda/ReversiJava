@@ -14,33 +14,7 @@ import cs3500.reversi.controller.PlayerType;
  * game logic. In our game, the grid is made up of hexagons. The game is played
  * on a regular grid of cells.
  */
-public class BasicReversiModel implements ReversiModel {
-
-  // the game board, represented as a HashMap of positions to cells
-  private final HashMap<GamePosition, Cell> board;
-  // the players in the game
-  private final Player playerBlack;
-  private final Player playerWhite;
-  // the width of the game board
-  // INVARIENT: Width must be odd and at least three. Enforced by constructor at
-  // construction of BasicReversiModel.
-  private final int width;
-  // the turn of the current player
-  // INVARIENT: currentPlayer must be either playerBlack or playerWhite. Enforced
-  // by changeTurns(),
-  // which is the only method to change currentPlayer. Also enforced by
-  // constructor at construction.
-  private Player currentPlayer;
-  // the number of consecutive passed turns.
-  // INVARIENT: consectivePassedTurns must be a non-negative integer. Enforced by
-  // passTurn(), which only adds to the consectivePassedTurns counter. Also
-  // enforced by constructor at construction by instantiating
-  // consectivePassedTurns to 0.
-  private int consectivePassedTurns;
-  // whether or not the game has started
-  private boolean gameStarted;
-
-  private final List<ModelStatusFeatures> controllers;
+public class BasicReversiModel extends ABasicReversiModel {
 
   /**
    * Constructs a new BasicReversiModel with the specified width. The game can
@@ -52,18 +26,7 @@ public class BasicReversiModel implements ReversiModel {
    *                                  or is less than three.
    */
   public BasicReversiModel(int width) {
-    // Enforced invarient by checking if width is odd and at least three.
-    if (width < 3 || width % 2 == 0) {
-      throw new IllegalArgumentException("Width must be odd and at least three.");
-    }
-    this.board = new HashMap<>();
-    this.playerBlack = new ComputerPlayer(PlayerType.BLACK);
-    this.playerWhite = new ComputerPlayer(PlayerType.WHITE);
-    this.width = width;
-    this.currentPlayer = this.playerBlack;
-    this.consectivePassedTurns = 0;
-    this.gameStarted = false;
-    this.controllers = new ArrayList<>();
+    super(width);
 
     // initialize the board
     this.initializeBoard();
@@ -84,18 +47,7 @@ public class BasicReversiModel implements ReversiModel {
    *                                  or is less than three.
    */
   public BasicReversiModel(int width, Player playerBlack, Player playerWhite) {
-    // Enforced invarient by checking if width is odd and at least three.
-    if (width < 3 || width % 2 == 0) {
-      throw new IllegalArgumentException("Width must be odd and at least three.");
-    }
-    this.board = new HashMap<>();
-    this.playerBlack = playerBlack;
-    this.playerWhite = playerWhite;
-    this.width = width;
-    this.currentPlayer = this.playerBlack;
-    this.consectivePassedTurns = 0;
-    this.gameStarted = false;
-    this.controllers = new ArrayList<>();
+    super(width, playerBlack, playerWhite);
 
     // initialize the board
     this.initializeBoard();
@@ -120,20 +72,6 @@ public class BasicReversiModel implements ReversiModel {
    */
   public BasicReversiModel(int width, HashMap<GamePosition, Cell> board, Player currentPlayer) {
 
-    // Enforced invarient by checking if width is odd and at least three.
-    if (width < 3 || width % 2 == 0) {
-      throw new IllegalArgumentException("Width must be odd and at least three.");
-    }
-
-    this.board = new HashMap<>();
-    this.playerBlack = new ComputerPlayer(PlayerType.BLACK);
-    this.playerWhite = new ComputerPlayer(PlayerType.WHITE);
-    this.width = width;
-    this.currentPlayer = currentPlayer;
-    this.consectivePassedTurns = 0;
-    this.gameStarted = false;
-    this.controllers = new ArrayList<>();
-
     // initialize the board
     this.initializeBoard();
     // add the starting pieces
@@ -148,45 +86,12 @@ public class BasicReversiModel implements ReversiModel {
    * Constructs a new BasicReversiModel with a default width of 11.
    */
   public BasicReversiModel() {
-    this.board = new HashMap<>();
-    this.playerBlack = new ComputerPlayer(PlayerType.BLACK);
-    this.playerWhite = new ComputerPlayer(PlayerType.WHITE);
-    this.width = 11;
-    this.currentPlayer = this.playerBlack;
-    this.consectivePassedTurns = 0;
-    this.gameStarted = false;
-    this.controllers = new ArrayList<>();
+
 
     // initialize the board
     this.initializeBoard();
     // add the starting pieces
     this.addStartingPieces();
-  }
-
-  /**
-   * Starts the game.
-   *
-   * @throws IllegalStateException if the game has already started.
-   */
-  @Override
-  public void startGame() {
-
-    if (gameStarted) {
-      throw new IllegalStateException("Game already started");
-    }
-
-    // set the game to has started
-    this.gameStarted = true;
-
-    // notify the controller to refresh the views
-    for (ModelStatusFeatures f : this.controllers) {
-      f.notifyToRefresh(this.getCurrentTurn());
-    }
-  }
-
-  @Override
-  public void addFeaturesListener(ModelStatusFeatures feature) {
-    this.controllers.add(feature);
   }
 
   /**
@@ -338,11 +243,6 @@ public class BasicReversiModel implements ReversiModel {
     } else {
       throw new IllegalStateException("Move cannot be made");
     }
-  }
-
-  // return the player whose turn it currently is
-  public String getCurrentTurn() {
-    return this.currentPlayer.toString();
   }
 
   /**
@@ -536,56 +436,9 @@ public class BasicReversiModel implements ReversiModel {
     return surroundingCells;
   }
 
-  /**
-   * Changes the ownership of all cells between the specified positions to the
-   * current player.
-   *
-   * @param posnBetween A list of positions between which cell ownership should be
-   *                    changed.
-   */
   private void changeAllCellsBetween(List<PositionAxial> posnBetween) {
-
-    for (PositionAxial posn : posnBetween) {
+    for (GamePosition posn : posnBetween) {
       this.board.get(posn).setCellToPlayer(this.currentPlayer);
-    }
-  }
-
-  /**
-   * Passes the turn to the next player.
-   *
-   * @param player - the player to pass the turn for
-   * 
-   * @throws IllegalStateException if the game has not started or if it is not the
-   *                               player's turn.
-   */
-  @Override
-  public void passTurn(Player player) {
-
-    gameStartedHelper();
-    currentTurnCorrect(player);
-
-    // add to consectivePassedTurns counter. Enforced invarient by only adding a
-    // positive number.
-    this.consectivePassedTurns += 1;
-
-    // change the active player's turn.
-    this.changeTurns();
-
-    for (ModelStatusFeatures f : this.controllers) {
-      f.notifyToRefresh(this.getCurrentTurn());
-    }
-  }
-
-  /**
-   * Changes the active player's turn.
-   */
-  private void changeTurns() {
-    // change the active player's turn. Enforces the invarient by
-    // only changing currentPlayer to playerBlack or playerWhite.
-    if (this.currentPlayer.equals(this.playerBlack)) {
-      this.currentPlayer = this.playerWhite;
-    } else {
-      this.currentPlayer = this.playerBlack;
     }
   }
 
@@ -655,75 +508,6 @@ public class BasicReversiModel implements ReversiModel {
     }
   }
 
-  /**
-   * Gets the number of rows on the game board.
-   *
-   * @return The number of rows in the game board.
-   */
-  @Override
-  public int getNumRows() {
-    return this.width;
-  }
-
-  /**
-   * Gets the cell at the specified coordinates on the game board using a
-   * PositionAxial.
-   *
-   * @param posn The PositionAxial to get the cell at
-   * @return The cell at the specified coordinates.
-   * @throws IllegalArgumentException if the position does not exist in this game.
-   */
-  @Override
-  public Cell getCellAt(GamePosition posn) {
-    doesPosnExist(posn);
-
-    Cell cellAtPosn = this.board.get(posn);
-    Cell cellToReturn = new GameCell(cellAtPosn.getCellType());
-
-    // if the cell at the given position is a player cell, set the cell to the
-    // proper player
-    if (cellAtPosn.sameCellType(CellType.Player)) {
-      if (cellAtPosn.getCellOwner().equals("X")) {
-        cellToReturn.setCellToPlayer(new ComputerPlayer(PlayerType.BLACK));
-      } else {
-        cellToReturn.setCellToPlayer(new ComputerPlayer(PlayerType.WHITE));
-      }
-    }
-
-    return cellToReturn;
-  }
-
-  /**
-   * Gets the size of the game board (number of cells).
-   *
-   * @return The size of the game board.
-   */
-  @Override
-  public int getBoardSize() {
-    return this.board.size();
-  }
-
-  /**
-   * Gets the current score of the given PlayerType of this Reversi game. Score is
-   * determined by the number of cells a player occupies.
-   *
-   * @return - The score of the given PlayerType in this game.
-   */
-  @Override
-  public int getCurrentScore(PlayerType playerType) {
-    int score = 0;
-
-    // iterate over the board and count the number of cells owned by the given
-    for (Cell cell : this.board.values()) {
-      if (cell.getCellType().equals(CellType.Player)
-          && cell.getCellOwner().equals(new ComputerPlayer(playerType).toString())) {
-        score += 1;
-      }
-    }
-
-    return score;
-  }
-
   @Override
   public int getScoreForMove(GamePosition posn) {
     // Get the list of valid positions to add a piece to on this move.
@@ -737,8 +521,7 @@ public class BasicReversiModel implements ReversiModel {
     List<PositionAxial> validTiles;
     if (player.equals("X")) {
       validTiles = this.isValidMoveForPlayer((PositionAxial) posn, this.playerBlack);
-    }
-    else {
+    } else {
       validTiles = this.isValidMoveForPlayer((PositionAxial) posn, this.playerWhite);
     }
 
@@ -746,43 +529,10 @@ public class BasicReversiModel implements ReversiModel {
     return validTiles.size();
   }
 
-  // helper for making sure game is started
-  private void gameStartedHelper() {
-    if (!gameStarted) {
-      throw new IllegalStateException("Game not started yet");
-    }
-  }
-
-  // helper for making sure it is the given player's turn
-  private void currentTurnCorrect(Player player) {
-    if (!player.equals(this.currentPlayer)) {
-      throw new IllegalStateException("Not current player's turn");
-    }
-  }
-
-  // helper that handles if the given position does not exist in this game.
-  private void doesPosnExist(GamePosition posn) {
-    if (!board.containsKey(posn)) {
-      throw new IllegalArgumentException("Nonexistant position in this game");
-    }
-  }
-
   @Override
-  public boolean hasGameStarted() {
-    return this.gameStarted;
-  }
-
-  @Override
-  public String getCurrentWinner() {
-
-    // returns the current winning player, white player if tied because black goes
-    // first
-    if (this.getCurrentScore(PlayerType.BLACK) > this.getCurrentScore(PlayerType.WHITE)) {
-      return this.playerBlack.toString();
-    } else if (this.getCurrentScore(PlayerType.BLACK) == this.getCurrentScore(PlayerType.WHITE)) {
-      return "Tie";
-    } else {
-      return this.playerWhite.toString();
+  protected void isWidthCorrect(int width) {
+    if (width < 3 || width % 2 == 0) {
+      throw new IllegalArgumentException("Width must be odd and at least three.");
     }
   }
 }
