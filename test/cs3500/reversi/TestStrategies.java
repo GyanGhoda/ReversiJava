@@ -24,7 +24,7 @@ import cs3500.reversi.strategies.ReversiStrategy;
 import cs3500.reversi.strategies.TryTwoStrategies;
 
 /**
- * Tests the strategies for playing Reversi.
+ * Tests the strategies for playing Reversi for both hexagonal and square models.
  */
 public class TestStrategies {
 
@@ -124,7 +124,7 @@ public class TestStrategies {
                     "getScoreForMove(X: 0, Y: 1)\n" +
                     "getScoreForMove(X: 3, Y: 2)\n" +
                     "getScoreForMove(X: 2, Y: 3)\n");
-    Assert.assertEquals(stratPosn, new Position2D(1, 0));
+    Assert.assertEquals(stratPosn, new Position2D(0, 1));
 
 
   }
@@ -185,7 +185,7 @@ public class TestStrategies {
     // Correct logical move would be (0, 1) but the mock tells the strategy
     // that move is not valid, so the strategy correctly listens to the mock
     // and chooses a different move
-    Assert.assertEquals(stratPosn, new Position2D(1, 0));
+    Assert.assertEquals(stratPosn, new Position2D(0, 1));
   }
 
   // Test that the strategy that chooses the uppermost-leftmost move that will
@@ -268,7 +268,7 @@ public class TestStrategies {
             + "getScoreForMove(Q: -1, R: -1, S: 2)\n" + "getScoreForMove(Q: 2, R: -1, S: -1)\n"
             + "getScoreForMove(Q: -1, R: 2, S: -1)\n" + "getScoreForMove(Q: 1, R: -3, S: 2)\n"
             + "getScoreForMove(Q: 2, R: -3, S: 1)\n");
-    Assert.assertEquals(stratPosn, new PositionAxial(2, -3, 1));
+    Assert.assertEquals(stratPosn, new PositionAxial(-1, -1, 2));
   }
   
   // Test that the strategy that avoids cells next to the corner works as
@@ -295,7 +295,7 @@ public class TestStrategies {
                     "getScoreForMove(X: 0, Y: 1)\n" +
                     "getScoreForMove(X: 3, Y: 2)\n" +
                     "getScoreForMove(X: 2, Y: 3)\n");
-    Assert.assertEquals(stratPosn, new Position2D(1, 0));
+    Assert.assertEquals(stratPosn, new Position2D(0, 1));
   }
 
   // Test that the strategy that captures cells in the corner works as intended
@@ -473,7 +473,7 @@ public class TestStrategies {
                     "getScoreForMove(X: 0, Y: 1)\n" +
                     "getScoreForMove(X: 3, Y: 2)\n" +
                     "getScoreForMove(X: 2, Y: 3)\n");
-    Assert.assertEquals(stratPosn, new Position2D(1, 0));
+    Assert.assertEquals(stratPosn, new Position2D(0, 1));
   }
 
 
@@ -545,7 +545,7 @@ public class TestStrategies {
                     "getScoreForMove(X: 0, Y: 1)\n" +
                     "getScoreForMove(X: 3, Y: 2)\n" +
                     "getScoreForMove(X: 2, Y: 3)\n");
-    Assert.assertEquals(stratPosn, new Position2D(1, 0));
+    Assert.assertEquals(stratPosn, new Position2D(0, 1));
   }
 
   // Test that minimizeNextOpponentMove works as intended when there is one

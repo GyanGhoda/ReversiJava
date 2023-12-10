@@ -6,14 +6,17 @@ import cs3500.reversi.controller.BasicReversiController;
 import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.BasicReversiModel;
+import cs3500.reversi.model.BasicSquareReversiModel;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.visualview.HexagonalFrame;
 import cs3500.reversi.visualview.HexagonalPanelMock;
 import cs3500.reversi.visualview.ReversiVisualView;
+import cs3500.reversi.visualview.SquareFrame;
+import cs3500.reversi.visualview.SquarePanelMock;
 
 /**
- * Tests for the visual view.
+ * Tests for the hexagonal and square visual views.
  */
 public class TestVisualView {
 
@@ -28,10 +31,24 @@ public class TestVisualView {
 
     mockPanel.induceMouseEvent(200, 200);
 
-    Assert.assertEquals(mockPanel.getLog(), "Clicked on hexagon at:\n" +
-            "Q: -1\n" +
-            "R: -2\n" +
-            "S: 3");
+    Assert.assertEquals(mockPanel.getLog(),
+        "Clicked on hexagon at:\n" + "Q: -1\n" + "R: -2\n" + "S: 3");
+  }
+  
+  // tests that the mouse returns proper output when clicking (200, 200)
+  // for square reversi
+  @Test
+  public void testMouse200200Square() {
+    ReversiModel model = new BasicSquareReversiModel(4);
+    SquarePanelMock mockPanel = new SquarePanelMock(model, 800, 800);
+    ReversiVisualView view = new SquareFrame(model);
+    mockPanel.setUpFeatures(
+        new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK), view));
+
+    mockPanel.induceMouseEvent(200, 200);
+
+    Assert.assertEquals(mockPanel.getLog(),
+        "Clicked on square at X: 1, Y: 1\n");
   }
 
   // tests that the mouse returns proper output when clicking (0, 0)
@@ -45,21 +62,47 @@ public class TestVisualView {
     Assert.assertEquals(mockPanel.getLog(), "");
   }
 
+  // tests that the mouse returns proper output when clicking (0, 0)
+  // for square reversi
+  @Test
+  public void testMouse00Square() {
+    ReadOnlyReversiModel model = new BasicSquareReversiModel(4);
+    SquarePanelMock mockPanel = new SquarePanelMock(model, 800, 800);
+
+    mockPanel.induceMouseEvent(0, 0);
+
+    Assert.assertEquals(mockPanel.getLog(), "");
+  }
+
   // tests that the mouse returns proper output when clicking (400, 400)
   @Test
   public void testMouse400400() {
     ReversiModel model = new BasicReversiModel(7);
     HexagonalPanelMock mockPanel = new HexagonalPanelMock(model, 800, 800);
     ReversiVisualView view = new HexagonalFrame(model, false);
-    mockPanel.setUpFeatures(new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK),
-            view));
+    mockPanel.setUpFeatures(
+        new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK), view));
 
     mockPanel.induceMouseEvent(400, 400);
 
-    Assert.assertEquals(mockPanel.getLog(), "Clicked on hexagon at:\n" +
-            "Q: 0\n" +
-            "R: 0\n" +
-            "S: 0");
+    Assert.assertEquals(mockPanel.getLog(),
+        "Clicked on hexagon at:\n" + "Q: 0\n" + "R: 0\n" + "S: 0");
+  }
+  
+  // tests that the mouse returns proper output when clicking (400, 400)
+  // for square reversi
+  @Test
+  public void testMouse400400Square() {
+    ReversiModel model = new BasicSquareReversiModel(4);
+    SquarePanelMock mockPanel = new SquarePanelMock(model, 800, 800);
+    ReversiVisualView view = new SquareFrame(model);
+    mockPanel.setUpFeatures(
+        new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK), view));
+
+    mockPanel.induceMouseEvent(400, 400);
+
+    Assert.assertEquals(mockPanel.getLog(),
+        "Clicked on square at X: 2, Y: 2\n");
   }
 
   // tests that the m key signals moves properly
@@ -68,8 +111,23 @@ public class TestVisualView {
     ReversiModel model = new BasicReversiModel(7);
     HexagonalPanelMock mockPanel = new HexagonalPanelMock(model, 800, 800);
     ReversiVisualView view = new HexagonalFrame(model, false);
-    mockPanel.setUpFeatures(new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK),
-            view));
+    mockPanel.setUpFeatures(
+        new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK), view));
+
+    mockPanel.induceKeyEvent(77);
+
+    Assert.assertEquals(mockPanel.getLog(), "User has pressed m key to move");
+  }
+  
+  // tests that the m key signals moves properly
+  // for square reversi
+  @Test
+  public void testKeyMoveSquare() {
+    ReversiModel model = new BasicSquareReversiModel(4);
+    SquarePanelMock mockPanel = new SquarePanelMock(model, 800, 800);
+    ReversiVisualView view = new SquareFrame(model);
+    mockPanel.setUpFeatures(
+        new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK), view));
 
     mockPanel.induceKeyEvent(77);
 
@@ -83,8 +141,25 @@ public class TestVisualView {
     model.startGame();
     HexagonalPanelMock mockPanel = new HexagonalPanelMock(model, 800, 800);
     ReversiVisualView view = new HexagonalFrame(model, false);
-    BasicReversiController controller = new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK),
-            view);
+    BasicReversiController controller =
+        new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK), view);
+    mockPanel.setUpFeatures(controller);
+
+    mockPanel.induceKeyEvent(80);
+
+    Assert.assertEquals(mockPanel.getLog(), "User has pressed p key to pass");
+  }
+  
+  // tests that the p key signals passes properly
+  // for square reversi
+  @Test
+  public void testKeyPassSquare() {
+    ReversiModel model = new BasicSquareReversiModel(4);
+    model.startGame();
+    SquarePanelMock mockPanel = new SquarePanelMock(model, 800, 800);
+    ReversiVisualView view = new SquareFrame(model);
+    BasicReversiController controller =
+        new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK), view);
     mockPanel.setUpFeatures(controller);
 
     mockPanel.induceKeyEvent(80);
@@ -92,11 +167,40 @@ public class TestVisualView {
     Assert.assertEquals(mockPanel.getLog(), "User has pressed p key to pass");
   }
 
+  // tests that the h key signals hints properly
+  // for square reversi
+  @Test
+  public void testKeyHintSquare() {
+    ReversiModel model = new BasicSquareReversiModel(4);
+    model.startGame();
+    SquarePanelMock mockPanel = new SquarePanelMock(model, 800, 800);
+    ReversiVisualView view = new SquareFrame(model);
+    BasicReversiController controller =
+        new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK), view);
+    mockPanel.setUpFeatures(controller);
+
+    mockPanel.induceKeyEvent(72);
+
+    Assert.assertEquals(mockPanel.getLog(), "User has pressed h key to toggle hints");
+  }
+
   // tests that the a key doesn't do anything
   @Test
   public void testKeyIrrelevant() {
     ReadOnlyReversiModel model = new BasicReversiModel(7);
     HexagonalPanelMock mockPanel = new HexagonalPanelMock(model, 800, 800);
+
+    mockPanel.induceKeyEvent(65);
+
+    Assert.assertEquals(mockPanel.getLog(), "");
+  }
+
+  // tests that the a key doesn't do anything
+  // for square reversi
+  @Test
+  public void testKeyIrrelevantSquare() {
+    ReadOnlyReversiModel model = new BasicSquareReversiModel(4);
+    SquarePanelMock mockPanel = new SquarePanelMock(model, 800, 800);
 
     mockPanel.induceKeyEvent(65);
 
