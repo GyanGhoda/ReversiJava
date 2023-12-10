@@ -244,8 +244,8 @@ public class TestSquareModel {
     public void testGetXGetY() {
         Position2D position = new Position2D(0, 0);
 
-        Assert.assertEquals(position.getX(), 0);
-        Assert.assertEquals(position.getY(), 0);
+        Assert.assertEquals(position.getQ(), 0);
+        Assert.assertEquals(position.getR(), 0);
     }
 
     // Test that Position2D returns that the common coordinate and that

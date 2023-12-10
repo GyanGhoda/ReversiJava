@@ -157,6 +157,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
       PositionAxial posn = entry.getKey();
 
       hexagon.drawFillColor(g2d);
+
       if (this.model.hasGameStarted()) {
         hexagon.drawSpaceOwner(g2d, this.hints, this.model.getScoreForMovePlayer(posn,
                 this.features.getPlayer()));
