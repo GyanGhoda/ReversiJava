@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.PlayerType;
+import cs3500.reversi.model.BasicReversiModel;
 import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.GamePosition;
 import cs3500.reversi.model.PositionAxial;
@@ -61,6 +62,6 @@ public class AvoidCellsNextToCorner implements ReversiStrategy {
   // Returns true if the given position is next to a corner position
   private boolean isNextToCorner(ReversiModel model, GamePosition posn) {
 
-    return posn.checkCorner(model.getNumRows());
+    return posn.checkNextToCorner(model.getNumRows());
   }
 }

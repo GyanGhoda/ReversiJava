@@ -67,7 +67,7 @@ public final class Position2D implements GamePosition {
    *
    * @return The 'x' coordinate.
    */
-  public int getX() {
+  public int getQ() {
     return this.x;
   }
 
@@ -76,8 +76,17 @@ public final class Position2D implements GamePosition {
    *
    * @return The 'y' coordinate.
    */
-  public int getY() {
+  public int getR() {
     return this.y;
+  }
+
+  /**
+   * Get the 's' coordinate of this Position2D. Does not exist so throw an error
+   *
+   * @return - An IllegalStateException as there is no 's' coordinate
+   */
+  public int getS() {
+    throw new IllegalStateException("Invalid coordinate requested");
   }
 
   /**
@@ -101,11 +110,11 @@ public final class Position2D implements GamePosition {
    *         it returns "NoCommonCoordinate."
    */
   public String commonCoordinate2D(Position2D other) {
-    if (this.getX() == other.getX()) {
+    if (this.getQ() == other.getQ()) {
       return "x";
     }
 
-    if (this.getY() == other.getY()) {
+    if (this.getR() == other.getR()) {
       return "y";
     }
 
