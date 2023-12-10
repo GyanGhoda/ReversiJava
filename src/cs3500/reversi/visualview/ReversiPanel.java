@@ -1,9 +1,5 @@
 package cs3500.reversi.visualview;
 
-import java.awt.*;
-
-import javax.swing.*;
-
 import cs3500.reversi.controller.PlayerActionFeatures;
 
 /**
