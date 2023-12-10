@@ -6,14 +6,17 @@ import cs3500.reversi.controller.BasicReversiController;
 import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.BasicReversiModel;
+import cs3500.reversi.model.BasicSquareReversiModel;
 import cs3500.reversi.model.ReadOnlyReversiModel;
 import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.visualview.HexagonalFrame;
 import cs3500.reversi.visualview.HexagonalPanelMock;
 import cs3500.reversi.visualview.ReversiVisualView;
+import cs3500.reversi.visualview.SquareFrame;
+import cs3500.reversi.visualview.SquarePanelMock;
 
 /**
- * Tests for the visual view.
+ * Tests for the hexagonal and square visual views.
  */
 public class TestVisualView {
 
@@ -23,15 +26,29 @@ public class TestVisualView {
     ReversiModel model = new BasicReversiModel(7);
     HexagonalPanelMock mockPanel = new HexagonalPanelMock(model, 800, 800);
     ReversiVisualView view = new HexagonalFrame(model);
-    mockPanel.setUpFeatures(new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK),
-            view));
+    mockPanel.setUpFeatures(
+        new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK), view));
 
     mockPanel.induceMouseEvent(200, 200);
 
-    Assert.assertEquals(mockPanel.getLog(), "Clicked on hexagon at:\n" +
-            "Q: -1\n" +
-            "R: -2\n" +
-            "S: 3");
+    Assert.assertEquals(mockPanel.getLog(),
+        "Clicked on hexagon at:\n" + "Q: -1\n" + "R: -2\n" + "S: 3");
+  }
+  
+  // tests that the mouse returns proper output when clicking (200, 200)
+  // for square reversi
+  @Test
+  public void testMouse200200Square() {
+    ReversiModel model = new BasicSquareReversiModel(4);
+    SquarePanelMock mockPanel = new SquarePanelMock(model, 800, 800);
+    ReversiVisualView view = new SquareFrame(model);
+    mockPanel.setUpFeatures(
+        new BasicReversiController(model, new ComputerPlayer(PlayerType.BLACK), view));
+
+    mockPanel.induceMouseEvent(200, 200);
+
+    Assert.assertEquals(mockPanel.getLog(),
+        "Clicked on square at X: 1, Y: 1\n");
   }
 
   // tests that the mouse returns proper output when clicking (0, 0)
@@ -44,6 +61,8 @@ public class TestVisualView {
 
     Assert.assertEquals(mockPanel.getLog(), "");
   }
+
+  // tests that the mouse returns proper output when clicking (0, 0)
 
   // tests that the mouse returns proper output when clicking (400, 400)
   @Test

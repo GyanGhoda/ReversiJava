@@ -19,7 +19,7 @@ import cs3500.reversi.visualview.ReversiVisualView;
 import cs3500.reversi.visualview.SquareFrame;
 
 /**
-* Tests the public methods in the controller package.
+* Tests the public methods in the controller package for both hexagonal and square models.
 */
 public class TestController {
 
