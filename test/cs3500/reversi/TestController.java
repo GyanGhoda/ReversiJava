@@ -107,7 +107,7 @@ public void testControllerGetPlayerHuman() {
 
   ReversiModel model = new BasicReversiModel(5);
   HumanPlayer blackPlayer = new HumanPlayer(PlayerType.BLACK);
-  ReversiVisualView view = new HexagonalFrame(model);
+  ReversiVisualView view = new HexagonalFrame(model, false);
 
   BasicReversiController controller = new BasicReversiController(model, blackPlayer, view);
   Assert.assertEquals(controller.getPlayer(), "X");
@@ -132,7 +132,7 @@ public void testControllerGetPlayerComputer() {
 
 ReversiModel model = new BasicReversiModel(5);
 ComputerPlayer blackPlayer = new ComputerPlayer(PlayerType.BLACK);
-ReversiVisualView view = new HexagonalFrame(model);
+ReversiVisualView view = new HexagonalFrame(model, false);
 
 BasicReversiController controller = new BasicReversiController(model,
 blackPlayer, view);
@@ -146,7 +146,7 @@ public void testControllerMoveToCoordinateHuman() {
 
   ReversiModel model = new BasicReversiModel(5);
   HumanPlayer blackPlayer = new HumanPlayer(PlayerType.BLACK);
-  ReversiVisualView view = new HexagonalFrame(model);
+  ReversiVisualView view = new HexagonalFrame(model, false);
 
   MockController controller = new MockController(blackPlayer);
   controller.moveToCoordinate(new PositionAxial(0, 0, 0));
@@ -173,7 +173,7 @@ public void testControllerMoveToCoordinateComputer() {
 
   ReversiModel model = new BasicReversiModel(5);
   ComputerPlayer blackPlayer = new ComputerPlayer(PlayerType.BLACK);
-  ReversiVisualView view = new HexagonalFrame(model);
+  ReversiVisualView view = new HexagonalFrame(model, false);
 
   MockController controller = new MockController(blackPlayer);
   controller.moveToCoordinate(new PositionAxial(0, 0, 0));
@@ -200,7 +200,7 @@ public void testControllerPassTurnHuman() {
 
   ReversiModel model = new BasicReversiModel(5);
   HumanPlayer blackPlayer = new HumanPlayer(PlayerType.BLACK);
-  ReversiVisualView view = new HexagonalFrame(model);
+  ReversiVisualView view = new HexagonalFrame(model, false);
 
   MockController controller = new MockController(blackPlayer);
   controller.passTurn();
@@ -228,7 +228,7 @@ public void testControllerPassTurnComputer() {
 
   ReversiModel model = new BasicReversiModel(5);
   ComputerPlayer blackPlayer = new ComputerPlayer(PlayerType.BLACK);
-  ReversiVisualView view = new HexagonalFrame(model);
+  ReversiVisualView view = new HexagonalFrame(model, false);
 
   MockController controller = new MockController(blackPlayer);
   controller.passTurn();
@@ -256,7 +256,7 @@ public void testControllerNotifyToRefreshHuman() {
 
   ReversiModel model = new BasicReversiModel(5);
   HumanPlayer blackPlayer = new HumanPlayer(PlayerType.BLACK);
-  ReversiVisualView view = new HexagonalFrame(model);
+  ReversiVisualView view = new HexagonalFrame(model, false);
 
   MockController controller = new MockController(blackPlayer);
   controller.notifyToRefresh("X");
@@ -284,7 +284,7 @@ public void testControllerNotifyToRefreshComputer() {
 
   ReversiModel model = new BasicReversiModel(5);
   ComputerPlayer blackPlayer = new ComputerPlayer(PlayerType.BLACK);
-  ReversiVisualView view = new HexagonalFrame(model);
+  ReversiVisualView view = new HexagonalFrame(model, false);
 
   MockController controller = new MockController(blackPlayer);
   controller.notifyToRefresh("X");

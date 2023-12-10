@@ -36,9 +36,17 @@ public final class Reversi {
     int boardLength = 7;
     boolean square = false;
     boolean boardLengthSpecified = false;
+    boolean hints = true;
+
+    if (args.length > argCounter) {
+      if (args[argCounter].equals("hintsoff")) {
+        hints = false;
+        argCounter += 1;
+      }
+    }
 
     // Check if the user wants a square board
-    if (args.length >= 1) {
+    if (args.length > argCounter) {
       if (args[argCounter].equals("square")) {
         square = true;
         argCounter += 1;
@@ -118,8 +126,14 @@ public final class Reversi {
     } else {
       model = new BasicReversiModel(boardLength, player1, player2);
 
-      view1 = new HexagonalFrame(model);
-      view2 = new HexagonalFrame(model);
+      if (hints) {
+        view1 = new HexagonalFrame(model, true);
+        view2 = new HexagonalFrame(model, true);
+      }
+      else {
+        view1 = new HexagonalFrame(model, false);
+        view2 = new HexagonalFrame(model, false);
+      }
     }
 
     BasicReversiController controller1 = new BasicReversiController(model, player1, view1);
