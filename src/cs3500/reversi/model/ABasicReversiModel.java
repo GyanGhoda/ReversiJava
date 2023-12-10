@@ -268,6 +268,7 @@ public abstract class ABasicReversiModel implements ReversiModel, ReadOnlyRevers
     }
   }
 
+  // helper for making sure the width is correct
   protected abstract void isWidthCorrect(int width);
 
   @Override
@@ -333,6 +334,7 @@ public abstract class ABasicReversiModel implements ReversiModel, ReadOnlyRevers
     return surroundingCells;
   }
 
+  // helper for changing the ownership of cells between the given positions
   protected void changeAllCellsBetween(List<GamePosition> posnBetween) {
     for (GamePosition posn : posnBetween) {
       this.board.get(posn).setCellToPlayer(this.currentPlayer);
