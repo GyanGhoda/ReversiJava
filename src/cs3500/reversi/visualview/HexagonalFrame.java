@@ -1,8 +1,10 @@
 package cs3500.reversi.visualview;
 
 import java.awt.BorderLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import cs3500.reversi.controller.PlayerActionFeatures;
 import cs3500.reversi.model.ReadOnlyReversiModel;
@@ -12,7 +14,7 @@ import cs3500.reversi.model.ReadOnlyReversiModel;
  */
 public class HexagonalFrame extends JFrame implements ReversiVisualView {
 
-  private final HexagonalPanel panel;
+  private final ReversiPanel panel;
 
   /**
    * Constructs a frame of hexagonal buttons.
@@ -26,16 +28,25 @@ public class HexagonalFrame extends JFrame implements ReversiVisualView {
     setLocationRelativeTo(null); // Center the frame
     setVisible(true); // Make the frame visible
 
-    this.panel = new HexagonalPanel(model, 800, 800);
-    this.render(); // Render the frame
-  }
+    HexagonalPanel hexagonalPanel = new HexagonalPanel(model, 800, 800);
+    HintDecorator hintDecorator = new HintDecorator(hexagonalPanel);
 
-  /**
-   * Renders the frame.
-   */
-  private void render() {
-    this.panel.setBounds(400, 400, 800, 800);
-    add(panel, BorderLayout.CENTER);
+    this.panel = hintDecorator;
+
+    this.add(hintDecorator);
+
+    this.setFocusable(true);
+    this.requestFocusInWindow();
+
+    this.addKeyListener(new KeyAdapter() {
+      @Override
+      public void keyPressed(KeyEvent e) {
+        if (e.getKeyChar() == 'h') {
+          hintDecorator.toggleHints();
+          hintDecorator.repaint();
+        }
+      }
+    });
   }
 
   /**

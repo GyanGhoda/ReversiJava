@@ -75,6 +75,21 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
     repaint();
   }
 
+  @Override
+  public double getCurrentX() {
+    return 0;
+  }
+
+  @Override
+  public double getCurrentY() {
+    return 0;
+  }
+
+  @Override
+  public int getScore() {
+    return 0;
+  }
+
   /**
    * Initializes the hexagons in the panel.
    */
@@ -150,7 +165,7 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
       g2d.setColor(Color.BLACK);
       g2d.draw(hexagon);
 
-      hexagon.drawSpaceOwner(g2d, false, 0);
+      hexagon.drawSpaceOwner(g2d);
     }
   }
 

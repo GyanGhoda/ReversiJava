@@ -12,7 +12,7 @@ import cs3500.reversi.model.CellType;
 /**
  * Represents a hexagon space in the Reversi game board.
  */
-public class HexagonSpace extends Path2D.Double implements ISpaceDecorator {
+public class HexagonSpace extends Path2D.Double {
 
   private final double size;
   private final double currentX;
@@ -80,7 +80,6 @@ public class HexagonSpace extends Path2D.Double implements ISpaceDecorator {
     this.isHighlighted = state;
   }
 
-  @Override
   public void drawFillColor(Graphics2D g2d) {
     g2d.setColor(this.getColor());
     g2d.fill(this);
@@ -97,11 +96,6 @@ public class HexagonSpace extends Path2D.Double implements ISpaceDecorator {
     return this.isHighlighted;
   }
 
-  @Override
-  public boolean contains(int mouseX, int mouseY) {
-    return super.contains(mouseX, mouseY);
-  }
-
   /**
    * Draw the owner of the hexagon space.
    * The owner is represented by a small white or black circle inside the hexagon
@@ -109,7 +103,7 @@ public class HexagonSpace extends Path2D.Double implements ISpaceDecorator {
    *
    * @param g2d The graphics object.
    */
-  public void drawSpaceOwner(Graphics2D g2d, boolean hints, int score) {
+  public void drawSpaceOwner(Graphics2D g2d) {
 
     // if the cell type is not empty, draw the owner
     if (!representingCell.sameCellType(CellType.Empty)) {
@@ -142,17 +136,10 @@ public class HexagonSpace extends Path2D.Double implements ISpaceDecorator {
     }
   }
 
-  @Override
-  public double getSize() {
-    return this.size;
-  }
-
-  @Override
   public double getCurrentX() {
     return this.currentX;
   }
 
-  @Override
   public double getCurrentY() {
     return this.currentY;
   }

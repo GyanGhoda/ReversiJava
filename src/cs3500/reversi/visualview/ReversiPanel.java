@@ -20,5 +20,11 @@ public interface ReversiPanel {
    *
    * @param currentTurn - whether or not it is the current player's turn
    */
-  public void refresh(boolean currentTurn);
+  void refresh(boolean currentTurn);
+
+  double getCurrentX();
+
+  double getCurrentY();
+
+  int getScore();
 }
