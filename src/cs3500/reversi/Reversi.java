@@ -118,8 +118,8 @@ public final class Reversi {
     } else {
       model = new BasicReversiModel(boardLength, player1, player2);
 
-      view1 = new HexagonalFrame(model);
-      view2 = new HexagonalFrame(model);
+      view1 = new HexagonalFrame(model, false);
+      view2 = new HexagonalFrame(model, false);
     }
 
     BasicReversiController controller1 = new BasicReversiController(model, player1, view1);

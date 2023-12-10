@@ -222,6 +222,22 @@ public class SquarePanel extends JPanel implements ReversiPanel {
         return 0;
     }
 
+    @Override
+    public void toggleHints() {
+        //Do nothing as this does not handle hints
+    }
+
+    @Override
+    public void resizeComponent() {
+        // Update the panel size
+        width = getWidth();
+        height = getHeight();
+
+        squareButtons.clear(); // Clear existing hexagons
+        this.initializeSquares(); // Reinitialize hexagons with the new size
+        repaint(); // Repaint the panel
+    }
+
     /**
      * Updates the panel according to mouse actions.
      */
@@ -352,7 +368,7 @@ public class SquarePanel extends JPanel implements ReversiPanel {
     }
 
     // handles all mouse clicks when playing
-    private void mouseClickUpdateView(int mouseX, int mouseY) {
+    public void mouseClickUpdateView(int mouseX, int mouseY) {
         if (this.features != null) {
             // Check if the mouse click is inside a square and highlight it accordingly
             for (HashMap.Entry<Position2D, SquareSpace> entry : squareButtons.entrySet()) {

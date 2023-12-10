@@ -74,7 +74,7 @@ public class SquareSpace extends Path2D.Double {
 
     /**
      * Change the highlighted state of the square space.
-     * 
+     *
      * @param state The new highlighted state of the square space.
      */
     public void setState(boolean state) {
@@ -143,5 +143,4 @@ public class SquareSpace extends Path2D.Double {
     public double getCurrentY() {
         return this.currentY;
     }
-
 }

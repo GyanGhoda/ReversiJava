@@ -1,5 +1,9 @@
 package cs3500.reversi.visualview;
 
+import java.awt.*;
+
+import javax.swing.*;
+
 import cs3500.reversi.controller.PlayerActionFeatures;
 
 /**
@@ -27,4 +31,10 @@ public interface ReversiPanel {
   double getCurrentY();
 
   int getScore();
+
+  void toggleHints();
+
+  void resizeComponent();
+
+  void mouseClickUpdateView(int mouseX, int mouseY);
 }

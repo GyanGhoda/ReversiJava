@@ -90,6 +90,16 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
     return 0;
   }
 
+  @Override
+  public void toggleHints() {
+    //Do nothing as this does not handle hints
+  }
+
+  @Override
+  public void resizeComponent() {
+    //Do nothing as this does not handle resize
+  }
+
   /**
    * Initializes the hexagons in the panel.
    */
@@ -116,7 +126,7 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
 
       // Adjust starting positions with offsets
       double startingX = offsetX + (((buttonSize * Math.sqrt(3)) / 2) * Math.abs(currentR))
-          + (((buttonSize * Math.sqrt(3))) / 2);
+              + (((buttonSize * Math.sqrt(3))) / 2);
       double startingY = offsetY + ((buttonSize * 3) / 2) * (rowsMade + 1);
 
       for (int currentS = currentRowStartingS; currentS >= currentRowStartingQ; currentS -= 1) {
@@ -125,7 +135,7 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
 
         // create a new hexagon button
         HexagonSpace hexagon = new HexagonSpace(buttonSize, startingX, startingY,
-            this.model.getCellAt(posn));
+                this.model.getCellAt(posn));
 
         // create empty cell and add it to the board at the current poisiton
         hexagonButtons.put(posn, hexagon);
@@ -286,7 +296,7 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
   }
 
   // handles all mouse clicks when playing
-  private void mouseClickUpdateView(int mouseX, int mouseY) {
+  public void mouseClickUpdateView(int mouseX, int mouseY) {
     if (this.features != null) {
       // Check if the mouse click is inside a hexagon and highlight it accordingly
       for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
@@ -295,7 +305,7 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
         // print out the coordinates of the hexagon that was clicked on
         if (hexagon.contains(mouseX, mouseY) && !hexagon.getState()) {
           this.log.append("Clicked on hexagon at:\nQ: " + entry.getKey().getQ()
-              + "\nR: " + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
+                  + "\nR: " + entry.getKey().getR() + "\nS: " + entry.getKey().getS());
           hexagon.setState(!hexagon.getState());
         } else {
           hexagon.setState(false);

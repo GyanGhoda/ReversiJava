@@ -43,7 +43,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
    * @param width  The width of the panel.
    * @param height The height of the panel.
    */
-  public HexagonalPanel(ReadOnlyReversiModel model, int width, int height) {
+  public HexagonalPanel(ReadOnlyReversiModel model, int width, int height, boolean decorated) {
 
     setLayout(null); // Use absolute positioning
     if (model == null) {
@@ -58,9 +58,11 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     this.hexagonButtons = new ConcurrentHashMap<PositionAxial, HexagonSpace>();
     this.initializeHexagons();
 
-    addMouseListener(new MouseListenerReversi());
-    addKeyListener(new KeyListenerReversi());
-    addComponentListener(new ComponentListenerReversi());
+    if (decorated) {
+      addMouseListener(new MouseListenerReversi());
+      addKeyListener(new KeyListenerReversi());
+      addComponentListener(new ComponentListenerReversi());
+    }
 
     // Set the panel to be focusable
     setFocusable(true);
@@ -105,7 +107,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
 
       // Adjust starting positions with offsets
       double startingX = offsetX + (((buttonSize * Math.sqrt(3)) / 2) * Math.abs(currentR))
-          + (((buttonSize * Math.sqrt(3))) / 2);
+              + (((buttonSize * Math.sqrt(3))) / 2);
       double startingY = offsetY + ((buttonSize * 3) / 2) * (rowsMade + 1);
 
       for (int currentS = currentRowStartingS; currentS >= currentRowStartingQ; currentS -= 1) {
@@ -144,6 +146,8 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
   @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
+
+    System.out.println("here");
 
     Graphics2D g2d = (Graphics2D) g;
 
@@ -229,7 +233,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
   @Override
   public double getCurrentY() {
     if (this.model.hasGameStarted()) {
-      return this.hexagonButtons.get(selectedPosn).getCurrentX();
+      return this.hexagonButtons.get(selectedPosn).getCurrentY();
     }
     return 0;
   }
@@ -240,6 +244,22 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
               this.features.getPlayer());
     }
     return 0;
+  }
+
+  @Override
+  public void toggleHints() {
+    //Do nothing as this does not handle hints
+  }
+
+  @Override
+  public void resizeComponent() {
+    // Update the panel size
+    width = getWidth();
+    height = getHeight();
+
+    hexagonButtons.clear(); // Clear existing hexagons
+    initializeHexagons(); // Reinitialize hexagons with the new size
+    repaint(); // Repaint the panel
   }
 
   /**
@@ -255,7 +275,6 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
     @Override
     public void mouseClicked(MouseEvent e) {
       mouseClickUpdateView(e.getX(), e.getY());
-      requestFocusInWindow();
     }
 
     // Other mouse event methods...
@@ -336,7 +355,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
   }
 
   // handles all keyboard clicks when playing
-  private void keyClickUpdateView(int keyCode) {
+  protected void keyClickUpdateView(int keyCode) {
     if (this.features != null) {
       // Check if the user has pressed the 'm' key, which makes a move
       if (keyCode == KeyEvent.VK_M) {
@@ -349,7 +368,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
           }
         } catch (IllegalStateException e) {
           JOptionPane.showMessageDialog(this, e.getMessage(), "Illegal Move Made",
-              JOptionPane.ERROR_MESSAGE);
+                  JOptionPane.ERROR_MESSAGE);
         }
       }
       // Check if the user has pressed the 'p' key, which passes the turn
@@ -358,7 +377,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
           this.features.passTurn();
         } catch (IllegalStateException e) {
           JOptionPane.showMessageDialog(this, e.getMessage(), "Illegal Move Made",
-              JOptionPane.ERROR_MESSAGE);
+                  JOptionPane.ERROR_MESSAGE);
         }
       }
 
@@ -367,7 +386,7 @@ public class HexagonalPanel extends JPanel implements ReversiPanel {
   }
 
   // handles all mouse clicks when playing
-  private void mouseClickUpdateView(int mouseX, int mouseY) {
+  public void mouseClickUpdateView(int mouseX, int mouseY) {
     if (this.features != null) {
       // Check if the mouse click is inside a hexagon and highlight it accordingly
       for (HashMap.Entry<PositionAxial, HexagonSpace> entry : hexagonButtons.entrySet()) {
