@@ -7,15 +7,9 @@ import org.junit.Test;
 import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.Player;
 import cs3500.reversi.controller.PlayerType;
-import cs3500.reversi.model.BasicReversiModel;
 import cs3500.reversi.model.BasicSquareReversiModel;
-import cs3500.reversi.model.Cell;
-import cs3500.reversi.model.CellType;
-import cs3500.reversi.model.GameCell;
 import cs3500.reversi.model.Position2D;
-import cs3500.reversi.model.PositionAxial;
 import cs3500.reversi.model.ReversiModel;
-import cs3500.reversi.textualview.ReversiTextualView;
 import cs3500.reversi.textualview.SquareReversiTextualView;
 import cs3500.reversi.textualview.TextualView;
 

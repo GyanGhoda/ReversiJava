@@ -2,13 +2,11 @@ package cs3500.reversi;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.Computer;
 
 import cs3500.reversi.controller.BasicReversiController;
 import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.HumanPlayer;
 import cs3500.reversi.controller.MockController;
-import cs3500.reversi.controller.Player;
 import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.BasicReversiModel;
 import cs3500.reversi.model.BasicSquareReversiModel;

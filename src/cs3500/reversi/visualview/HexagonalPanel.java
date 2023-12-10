@@ -29,7 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class HexagonalPanel extends JPanel implements ReversiPanel {
   private final ConcurrentHashMap<PositionAxial, HexagonSpace> hexagonButtons;
-  private ReadOnlyReversiModel model;
+  private final ReadOnlyReversiModel model;
   private int width;
   private int height;
   private PlayerActionFeatures features;
