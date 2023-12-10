@@ -164,7 +164,6 @@ public class TestStrategies {
   // for square reversi
   @Test
   public void testCaptureMostStrategyMockListensToModelSquare() {
-
     Cell blackCell = new GameCell(CellType.Player);
     Player player = new ComputerPlayer(PlayerType.BLACK);
     blackCell.setCellToPlayer(player);

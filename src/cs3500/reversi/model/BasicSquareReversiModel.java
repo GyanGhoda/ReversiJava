@@ -97,6 +97,30 @@ public class BasicSquareReversiModel extends ABasicReversiModel {
     this.addStartingPieces();
   }
 
+  @Override
+  public HashMap<GamePosition, Cell> getBoardCopy() {
+    HashMap<GamePosition, Cell> boardCopy = new HashMap<>();
+
+    // iterate over the board and create a deep copy of each cell
+    for (GamePosition posn : this.board.keySet()) {
+      GamePosition posnCopy = new Position2D(posn.getQ(), posn.getR());
+      Cell cell = this.board.get(posn);
+      Cell cellCopy = new GameCell(cell.getCellType());
+
+      if (cell.sameCellType(CellType.Player)) {
+        if (cell.getCellOwner().equals("X")) {
+          cellCopy.setCellToPlayer(new ComputerPlayer(PlayerType.BLACK));
+        } else {
+          cellCopy.setCellToPlayer(new ComputerPlayer(PlayerType.WHITE));
+        }
+      }
+
+      boardCopy.put(posnCopy, cellCopy);
+    }
+
+    return boardCopy;
+  }
+
   /**
    * Initializes the game board by creating empty cells for all positions on the
    * board.

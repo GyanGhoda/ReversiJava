@@ -105,6 +105,30 @@ public class BasicSquareReversiModelMock extends ABasicReversiModel {
   }
 
   @Override
+  public HashMap<GamePosition, Cell> getBoardCopy() {
+    HashMap<GamePosition, Cell> boardCopy = new HashMap<>();
+
+    // iterate over the board and create a deep copy of each cell
+    for (GamePosition posn : this.board.keySet()) {
+      GamePosition posnCopy = new Position2D(posn.getQ(), posn.getR());
+      Cell cell = this.board.get(posn);
+      Cell cellCopy = new GameCell(cell.getCellType());
+
+      if (cell.sameCellType(CellType.Player)) {
+        if (cell.getCellOwner().equals("X")) {
+          cellCopy.setCellToPlayer(new ComputerPlayer(PlayerType.BLACK));
+        } else {
+          cellCopy.setCellToPlayer(new ComputerPlayer(PlayerType.WHITE));
+        }
+      }
+
+      boardCopy.put(posnCopy, cellCopy);
+    }
+
+    return boardCopy;
+  }
+
+  @Override
   protected void isWidthCorrect(int width) {
     // Enforced invarient by checking if width is even and positive.
     if (width < 0 || width % 2 != 0) {
@@ -307,6 +331,15 @@ public class BasicSquareReversiModelMock extends ABasicReversiModel {
     } else {
       throw new IllegalArgumentException("Invalid row given");
     }
+  }
+
+  @Override
+  public int getScoreForMove(GamePosition posn) {
+    this.log.append("getScoreForMove(" + posn.toString() + ")\n");
+    // Get the list of valid positions to add a piece to on this move.
+    List<GamePosition> validTiles = this.isValidMoveForPlayer(posn, this.currentPlayer);
+
+    return validTiles.size();
   }
 
   /**
