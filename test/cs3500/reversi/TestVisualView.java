@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import cs3500.reversi.controller.BasicReversiController;
 import cs3500.reversi.controller.ComputerPlayer;
-import cs3500.reversi.controller.HumanPlayer;
 import cs3500.reversi.controller.PlayerType;
 import cs3500.reversi.model.BasicReversiModel;
 import cs3500.reversi.model.ReadOnlyReversiModel;
@@ -103,7 +102,4 @@ public class TestVisualView {
 
     Assert.assertEquals(mockPanel.getLog(), "");
   }
-
-
-
 }

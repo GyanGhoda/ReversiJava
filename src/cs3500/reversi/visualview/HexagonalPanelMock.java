@@ -22,7 +22,7 @@ import cs3500.reversi.model.ReadOnlyReversiModel;
  * Represents a panel of hexagonal buttons.
  */
 public class HexagonalPanelMock extends JPanel implements ReversiPanel {
-  private final HashMap<PositionAxial, HexagonSpace> hexagonButtons = new HashMap<PositionAxial, HexagonSpace>();
+  private final HashMap<PositionAxial, HexagonSpace> hexagonButtons = new HashMap<>();
   private final ReadOnlyReversiModel model;
   private int width;
   private int height;
@@ -288,7 +288,6 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
       // Check if the user has pressed the 'p' key, which passes the turn
       if (keyCode == KeyEvent.VK_P) {
         this.log.append("User has pressed p key to pass");
-        features.passTurn();
       }
 
       repaint();
