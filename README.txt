@@ -30,7 +30,7 @@ game other than abstracting all the positions to GamePositions.
 
 Level 4: Due to the way we designed the GamePosition interface and how our views implement the same
 interfaces, there were no changes to the strategies needed to get them to work with a square reversi
-game other than abstracting all the positions to GamePositions.
+game other than abstracting all the positions to GamePositions
 
 ## Changes for Part 3 from initial design:
 
