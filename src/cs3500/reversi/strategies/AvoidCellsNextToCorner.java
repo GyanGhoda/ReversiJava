@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import cs3500.reversi.controller.ComputerPlayer;
 import cs3500.reversi.controller.PlayerType;
-import cs3500.reversi.model.BasicReversiModel;
 import cs3500.reversi.model.Cell;
 import cs3500.reversi.model.GamePosition;
 import cs3500.reversi.model.PositionAxial;
@@ -29,7 +28,7 @@ public class AvoidCellsNextToCorner implements ReversiStrategy {
   public GamePosition chooseMove(ReversiModel model, PlayerType playerTurn) {
 
     HashMap<GamePosition, Cell> board = model.getBoardCopy(); // Get the board
-    HashMap<GamePosition, Integer> scores = new HashMap<GamePosition, Integer>();
+    HashMap<GamePosition, Integer> scores = new HashMap<>();
 
     // Get the scores for each move
     for (GamePosition posn : board.keySet()) {
@@ -39,7 +38,7 @@ public class AvoidCellsNextToCorner implements ReversiStrategy {
     }
 
     // getting rid of moves next to corners
-    HashMap<GamePosition, Integer> scoresNoNextToCorners = new HashMap<GamePosition, Integer>();
+    HashMap<GamePosition, Integer> scoresNoNextToCorners = new HashMap<>();
 
     for (GamePosition posn : scores.keySet()) {
       if (!this.isNextToCorner(model, posn)) {
