@@ -1,7 +1,6 @@
 package cs3500.reversi.visualview;
 
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import cs3500.reversi.controller.PlayerActionFeatures;
 import cs3500.reversi.controller.PlayerType;
@@ -28,7 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Represents a panel of square buttons.
  */
 public class SquarePanel extends JPanel implements ReversiPanel {
-  private final ConcurrentHashMap<Position2D, ASpace> squareButtons;
+  private final ConcurrentHashMap<Position2D, ASpace> spaceButtons;
   private final ReadOnlyReversiModel model;
   private int width;
   private int height;
@@ -56,7 +55,7 @@ public class SquarePanel extends JPanel implements ReversiPanel {
     this.height = height;
     this.currentTurn = false;
     this.hints = false;
-    this.squareButtons = new ConcurrentHashMap<Position2D, ASpace>();
+    this.spaceButtons = new ConcurrentHashMap<Position2D, ASpace>();
     this.initializeSquares();
 
     addMouseListener(new MouseListenerReversi());
@@ -111,8 +110,8 @@ public class SquarePanel extends JPanel implements ReversiPanel {
       centerY += buttonSize;
     }
 
-    this.squareButtons.clear();
-    this.squareButtons.putAll(newSquareButtons);
+    this.spaceButtons.clear();
+    this.spaceButtons.putAll(newSquareButtons);
   }
 
   /**
@@ -130,7 +129,7 @@ public class SquarePanel extends JPanel implements ReversiPanel {
     g2d.fill(new Rectangle(this.width, this.height));
 
     // Draw the squares
-    for (HashMap.Entry<Position2D, ASpace> entry : squareButtons.entrySet()) {
+    for (HashMap.Entry<Position2D, ASpace> entry : spaceButtons.entrySet()) {
       ASpace square = entry.getValue();
 
       square.drawFillColor(g2d);
@@ -200,7 +199,7 @@ public class SquarePanel extends JPanel implements ReversiPanel {
   @Override
   public double getCurrentX() {
     if (this.model.hasGameStarted()) {
-      return this.squareButtons.get(selectedPosn).getCurrentX();
+      return this.spaceButtons.get(selectedPosn).getCurrentX();
     }
     return 0;
   }
@@ -208,7 +207,7 @@ public class SquarePanel extends JPanel implements ReversiPanel {
   @Override
   public double getCurrentY() {
     if (this.model.hasGameStarted()) {
-      return this.squareButtons.get(selectedPosn).getCurrentY();
+      return this.spaceButtons.get(selectedPosn).getCurrentY();
     }
     return 0;
   }
@@ -232,7 +231,7 @@ public class SquarePanel extends JPanel implements ReversiPanel {
     width = getWidth();
     height = getHeight();
 
-    squareButtons.clear(); // Clear existing hexagons
+    spaceButtons.clear(); // Clear existing hexagons
     this.initializeSquares(); // Reinitialize hexagons with the new size
     repaint(); // Repaint the panel
   }
@@ -309,7 +308,7 @@ public class SquarePanel extends JPanel implements ReversiPanel {
       width = getWidth();
       height = getHeight();
 
-      squareButtons.clear(); // Clear existing squares
+      spaceButtons.clear(); // Clear existing squares
       initializeSquares(); // Reinitialize squares with the new size
       repaint(); // Repaint the panel
     }
@@ -370,7 +369,7 @@ public class SquarePanel extends JPanel implements ReversiPanel {
   public void mouseClickUpdateView(int mouseX, int mouseY) {
     if (this.features != null) {
       // Check if the mouse click is inside a square and highlight it accordingly
-      for (HashMap.Entry<Position2D, ASpace> entry : squareButtons.entrySet()) {
+      for (HashMap.Entry<Position2D, ASpace> entry : spaceButtons.entrySet()) {
         ASpace square = entry.getValue();
 
         // print out the coordinates of the square that was clicked on
