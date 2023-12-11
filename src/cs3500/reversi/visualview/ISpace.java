@@ -1,7 +1,12 @@
 package cs3500.reversi.visualview;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 
+/**
+ * Represents a space on the board.
+ * Can be the space for a square or hexagon.
+ */
 public interface ISpace {
   /**
    * Get the color of the ISpace.
@@ -23,14 +28,14 @@ public interface ISpace {
   boolean getState();
 
   /**
-   * Gets the current X of this ISpace
+   * Gets the current X of this ISpace.
    *
    * @return the current x coordinate as a double
    */
   double getCurrentX();
 
   /**
-   * Gets the current Y of this ISpace
+   * Gets the current Y of this ISpace.
    *
    * @return the current y coordinate as a double
    */

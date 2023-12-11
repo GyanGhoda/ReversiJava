@@ -1,6 +1,9 @@
 package cs3500.reversi.visualview;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
@@ -12,10 +15,19 @@ import javax.swing.JPanel;
 
 import cs3500.reversi.controller.PlayerActionFeatures;
 
+/**
+ * Represents hints using the decorator pattern.
+ * Hints are displayed when the user presses the h key.
+ */
 public class HintDecorator extends JPanel implements ReversiPanel {
   private final HexagonalPanel decoratedPanel;
   private boolean showHints;
 
+  /**
+   * Constructs a HintDecorator.
+   *
+   * @param panel The panel to decorate.
+   */
   public HintDecorator(HexagonalPanel panel) {
     this.decoratedPanel = panel;
     this.showHints = false;

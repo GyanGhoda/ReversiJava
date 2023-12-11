@@ -1,10 +1,15 @@
 package cs3500.reversi.visualview;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
 
 import cs3500.reversi.model.Cell;
 
+/**
+ * Represents a space on the board.
+ * Abstracts the space for a square or hexagon.
+ */
 public abstract class ASpace extends Path2D.Double implements ISpace {
   private final double size;
   private final double currentX;
@@ -12,6 +17,14 @@ public abstract class ASpace extends Path2D.Double implements ISpace {
   private boolean isHighlighted;
   private final Cell representingCell;
 
+  /**
+   * Constructs a space on the board.
+   *
+   * @param size            The size of the space.
+   * @param currentX        The current x position of the space.
+   * @param currentY        The current y position of the space.
+   * @param representingCell The cell that this space represents.
+   */
   public ASpace(double size, double currentX, double currentY, Cell representingCell) {
     this.size = size;
     this.currentX = currentX;

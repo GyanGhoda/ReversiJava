@@ -32,7 +32,7 @@ public interface GamePosition {
    *
    * @param coordinate The coordinate value to check.
    * @return true if this PositionAxial contains the given coordinate; false
-   * otherwise.
+   *     otherwise.
    */
   boolean containsCoordinate(int coordinate);
 
@@ -42,7 +42,7 @@ public interface GamePosition {
    *
    * @param other The other GamePosition to compare with.
    * @return The common coordinate, which can be "q," "r," or "s." If there is no
-   * common coordinate, it returns "NoCommonCoordinate."
+   *     common coordinate, it returns "NoCommonCoordinate."
    */
   String commonCoordinate(GamePosition other);
 
@@ -52,8 +52,7 @@ public interface GamePosition {
    *
    * @param other The other Position2D to compare with.
    * @return The common coordinate, which can be "x" or "y." If there is no common
-   * coordinate,
-   * it returns "NoCommonCoordinate."
+   *     coordinate, it returns "NoCommonCoordinate."
    */
   String commonCoordinate2D(Position2D other);
 
@@ -63,8 +62,7 @@ public interface GamePosition {
    *
    * @param other The other PositionAxial to compare with.
    * @return The common coordinate, which can be "q," "r," or "s." If there is no
-   * common coordinate,
-   * it returns "NoCommonCoordinate."
+   *     common coordinate, it returns "NoCommonCoordinate."
    */
   String commonCoordinateAxial(PositionAxial other);
 
@@ -74,7 +72,7 @@ public interface GamePosition {
    *
    * @param other The other Position2D to check adjacency with.
    * @return true if this Position2D is adjacent to the other Position2D;
-   * false otherwise.
+   *     false otherwise.
    */
   boolean isNextTo(GamePosition other);
 

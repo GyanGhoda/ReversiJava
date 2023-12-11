@@ -294,7 +294,12 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
     }
   }
 
-  // handles all mouse clicks when playing
+  /*
+   * Updates the view according to mouse clicks.
+   * 
+   * @param mouseX - the x coordinate of the mouse click
+   * @param mouseY - the y coordinate of the mouse click
+   */
   public void mouseClickUpdateView(int mouseX, int mouseY) {
     if (this.features != null) {
       // Check if the mouse click is inside a hexagon and highlight it accordingly

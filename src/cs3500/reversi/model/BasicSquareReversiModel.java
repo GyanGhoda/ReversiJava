@@ -200,7 +200,8 @@ public class BasicSquareReversiModel extends ABasicReversiModel {
     if (Math.abs(givenPosn.getQ() - posn.getQ()) == 1
             && Math.abs(givenPosn.getR() - posn.getR()) == 1) {
       this.goDownLineDiagonal(givenPosn.getQ(), givenPosn.getR(),
-              givenPosn.getQ() <= posn.getQ(), givenPosn.getR() <= posn.getR(), cellsBetween, playerTurn);
+              givenPosn.getQ() <= posn.getQ(),
+              givenPosn.getR() <= posn.getR(), cellsBetween, playerTurn);
     }
 
     return cellsBetween;

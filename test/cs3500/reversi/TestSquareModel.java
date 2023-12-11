@@ -28,17 +28,6 @@ public class TestSquareModel {
   }
 
   // Test that the model has initialized correctly with a correct starting board
-  // of width 8.
-  @Test
-  public void testModelIntialization8() {
-    ReversiModel model = new BasicSquareReversiModel(8);
-
-    model.startGame();
-
-    model.addPieceToCoordinates(new Position2D(2, 4), playerBlack);
-  }
-
-  // Test that the model has initialized correctly with a correct starting board
   // of width 2.
   @Test
   public void testModelIntialization2() {

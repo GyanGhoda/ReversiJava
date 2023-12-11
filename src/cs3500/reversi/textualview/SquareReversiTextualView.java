@@ -33,7 +33,8 @@ public class SquareReversiTextualView implements TextualView {
     for (int y = 0; y < this.model.getNumRows(); y++) {
       for (int x = 0; x < this.model.getNumRows(); x++) {
         fullBoard = fullBoard
-                .concat(" ".concat(this.model.getCellAt(new Position2D(x, y)).toString().concat(" ")));
+                .concat(" ".concat(this.model.getCellAt(new Position2D(x, y)).
+                        toString().concat(" ")));
       }
       fullBoard = fullBoard.concat("\n");
     }

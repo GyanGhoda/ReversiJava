@@ -1,8 +1,8 @@
 package cs3500.reversi.visualview;
 
-import java.awt.*;
+import java.awt.Component;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
 import cs3500.reversi.controller.PlayerActionFeatures;
 import cs3500.reversi.model.ReadOnlyReversiModel;

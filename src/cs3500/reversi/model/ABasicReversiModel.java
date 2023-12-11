@@ -11,6 +11,7 @@ import cs3500.reversi.controller.PlayerType;
 
 /*
  * Represents a basic implementation of a ReversiModel.
+ * Abstraction used for hexagonal and square models.
  */
 public abstract class ABasicReversiModel implements ReversiModel, ReadOnlyReversiModel {
   // the game board, represented as a HashMap of positions to cells
@@ -131,7 +132,7 @@ public abstract class ABasicReversiModel implements ReversiModel, ReadOnlyRevers
 
   /**
    * Gets the current turn of the game.
-   * 
+   *
    * @return the current turn of the game as a String
    */
   protected String getCurrentTurn() {
@@ -184,7 +185,7 @@ public abstract class ABasicReversiModel implements ReversiModel, ReadOnlyRevers
     // iterate over the board and count the number of cells owned by the given
     for (Cell cell : this.board.values()) {
       if (cell.getCellType().equals(CellType.Player)
-          && cell.getCellOwner().equals(new ComputerPlayer(playerType).toString())) {
+              && cell.getCellOwner().equals(new ComputerPlayer(playerType).toString())) {
         score += 1;
       }
     }
@@ -288,7 +289,7 @@ public abstract class ABasicReversiModel implements ReversiModel, ReadOnlyRevers
    * @param givenPosn  The position to check for a valid move.
    * @param playerTurn The player whose turn it currently is.
    * @return A list of positions that represent valid moves, or an empty list if
-   *         the move is invalid.
+   * the move is invalid.
    */
   protected List<GamePosition> isValidMoveForPlayer(GamePosition givenPosn, Player playerTurn) {
     Player otherPlayer = playerTurn.getOppositePlayer();
@@ -323,7 +324,7 @@ public abstract class ABasicReversiModel implements ReversiModel, ReadOnlyRevers
   }
 
   protected abstract List<GamePosition> checkValidLineMade(GamePosition givenPosn,
-  GamePosition posn,Player playerTurn);
+                                                           GamePosition posn, Player playerTurn);
 
   protected List<GamePosition> getSurroundingCells(GamePosition givenPosn) {
     ArrayList<GamePosition> surroundingCells = new ArrayList<>();
