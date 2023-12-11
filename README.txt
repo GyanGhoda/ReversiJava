@@ -22,7 +22,8 @@ of the board as an argument. It must be even and above 0.
 Level 2: To implement the square-grid visual view, we created a SquareFrame class, which extends
 JFrame and implements ReversiVisualView. We also created SquarePanel, which extends JPanel and implements
 ReversiPanel. We also created SquareSpace, which represents a square on the grid and extends
-Path2D.Double. They coexist properly with the hexagonal view in our code.
+Path2D.Double. Since SquareSpace and HexagonSpace share a lot of similar code, we created an abstract
+class called AShape that they both extend. They coexist properly with the hexagonal view in our code.
 
 Level 3: Due to the way we designed the GamePosition interface and how our views implement the same
 interfaces, there were no changes to the controller needed to get it to work with a square reversi
