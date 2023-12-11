@@ -65,7 +65,8 @@ public class SquareSpace extends ASpace {
       double circleRadius = this.getSize() * 0.45;
 
       // Construct circle path
-      circlePath.moveTo(this.getCurrentX() + (this.getSize() / 2) + circleRadius, this.getCurrentY() + (this.getSize() / 2));
+      circlePath.moveTo(this.getCurrentX() + (this.getSize() / 2) + circleRadius,
+              this.getCurrentY() + (this.getSize() / 2));
 
       for (int i = 0; i <= 360; i++) {
         double rad = Math.toRadians(i);

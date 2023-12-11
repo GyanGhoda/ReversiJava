@@ -1,6 +1,7 @@
 package cs3500.reversi.visualview;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import cs3500.reversi.controller.PlayerActionFeatures;
 import cs3500.reversi.controller.PlayerType;
@@ -365,7 +366,7 @@ public class SquarePanel extends JPanel implements ReversiPanel {
     }
   }
 
-  /*
+  /**
    * Updates the view according to mouse clicks.
    * 
    * @param mouseX - the x coordinate of the mouse click

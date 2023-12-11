@@ -48,13 +48,13 @@ public class HintDecorator extends JPanel implements ReversiPanel {
   @Override
   public void resizeComponent() {
     this.decoratedPanel.resizeComponent();
-    refresh();
+    refreshIt();
   }
 
   @Override
   public void mouseClickUpdateView(int mouseX, int mouseY) {
     this.decoratedPanel.mouseClickUpdateView(mouseX, mouseY);
-    refresh();
+    refreshIt();
   }
 
   @Override
@@ -77,7 +77,7 @@ public class HintDecorator extends JPanel implements ReversiPanel {
     }
   }
 
-  protected void refresh() {
+  protected void refreshIt() {
     this.repaint();
   }
 
@@ -125,11 +125,11 @@ public class HintDecorator extends JPanel implements ReversiPanel {
     public void keyPressed(KeyEvent e) {
       if (e.getKeyCode() == KeyEvent.VK_H) {
         toggleHints();
-        refresh();
+        refreshIt();
       }
       else {
         keyClickUpdateView(e.getKeyCode());
-        refresh();
+        refreshIt();
       }
     }
 
@@ -180,7 +180,7 @@ public class HintDecorator extends JPanel implements ReversiPanel {
     @Override
     public void mouseClicked(MouseEvent e) {
       mouseClickUpdateView(e.getX(), e.getY());
-      refresh();
+      refreshIt();
     }
 
     // Other mouse event methods...

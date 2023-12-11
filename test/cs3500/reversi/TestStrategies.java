@@ -441,8 +441,7 @@ public class TestStrategies {
   // to capture the most pieces and the second strategy is to capture cells in
   // the corner for hexagonal reversi.
   @Test
-  public void
-  testTryTwoStrategiesCaptureMostPiecesCaptureCellsInCornerStartGame() {
+  public void testTryTwoStrategiesCaptureMostPiecesCaptureCellsInCornerStartGame() {
 
     Cell blackCell = new GameCell(CellType.Player);
     Player player = new ComputerPlayer(PlayerType.BLACK);
@@ -520,8 +519,7 @@ public class TestStrategies {
   // to capture cells in the corner and the second strategy is to capture the
   // most pieces for hexagonal reversi.
   @Test
-  public void
-  testTryTwoStrategiesCaptureCellsInCornerCaptureMostPiecesStartGame() {
+  public void testTryTwoStrategiesCaptureCellsInCornerCaptureMostPiecesStartGame() {
 
     Cell blackCell = new GameCell(CellType.Player);
     Player player = new ComputerPlayer(PlayerType.BLACK);

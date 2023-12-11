@@ -294,7 +294,7 @@ public class HexagonalPanelMock extends JPanel implements ReversiPanel {
     }
   }
 
-  /*
+  /**
    * Updates the view according to mouse clicks.
    * 
    * @param mouseX - the x coordinate of the mouse click

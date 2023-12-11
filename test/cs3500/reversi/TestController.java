@@ -178,7 +178,8 @@ public class TestController {
 
     MockController controller = new MockController(blackPlayer);
     controller.moveToCoordinate(new PositionAxial(0, 0, 0));
-    Assert.assertEquals(controller.getLog(), "Requested move to coordinate: Q: 0, " + "R: 0, S: 0\n");
+    Assert.assertEquals(controller.getLog(),
+            "Requested move to coordinate: Q: 0, " + "R: 0, S: 0\n");
   }
 
   // Test that controller moveToCoordinate correctly attempts to move the piece
