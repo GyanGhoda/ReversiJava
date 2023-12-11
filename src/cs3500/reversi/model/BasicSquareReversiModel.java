@@ -72,7 +72,8 @@ public class BasicSquareReversiModel extends ABasicReversiModel {
    * @throws IllegalArgumentException If the provided width is not an odd number
    *                                  or is less than three.
    */
-  public BasicSquareReversiModel(int width, HashMap<GamePosition, Cell> board, Player currentPlayer) {
+  public BasicSquareReversiModel(int width, HashMap<GamePosition, Cell> board,
+                                 Player currentPlayer) {
     super(width, board, currentPlayer);
 
     // initialize the board
@@ -184,24 +185,29 @@ public class BasicSquareReversiModel extends ABasicReversiModel {
     // If the given and ending positions share X coordinates, check for a valid line
     if (givenPosn.getQ() == posn.getQ()) {
       // Go along along the possible line
-      this.goDownLine(givenPosn.getR(), cellsBetween, "y", givenPosn.getQ(), givenPosn.getR() <= posn.getR(), playerTurn);
+      this.goDownLine(givenPosn.getR(), cellsBetween, "y", givenPosn.getQ(),
+              givenPosn.getR() <= posn.getR(), playerTurn);
     }
 
     // If the given and ending positions share Y coordinates, check for a valid line
     if (givenPosn.getR() == posn.getR()) {
       // Go along the possible line
-      this.goDownLine(givenPosn.getQ(), cellsBetween, "x", givenPosn.getR(), givenPosn.getQ() <= posn.getQ(), playerTurn);
+      this.goDownLine(givenPosn.getQ(), cellsBetween, "x", givenPosn.getR(),
+              givenPosn.getQ() <= posn.getQ(), playerTurn);
     }
 
     // Check for a valid line along the diagonal
-    if (Math.abs(givenPosn.getQ() - posn.getQ()) == 1 && Math.abs(givenPosn.getR() - posn.getR()) == 1) {
-      this.goDownLineDiagonal(givenPosn.getQ(), givenPosn.getR(), givenPosn.getQ() <= posn.getQ(), givenPosn.getR() <= posn.getR(), cellsBetween, playerTurn);
+    if (Math.abs(givenPosn.getQ() - posn.getQ()) == 1
+            && Math.abs(givenPosn.getR() - posn.getR()) == 1) {
+      this.goDownLineDiagonal(givenPosn.getQ(), givenPosn.getR(),
+              givenPosn.getQ() <= posn.getQ(), givenPosn.getR() <= posn.getR(), cellsBetween, playerTurn);
     }
 
     return cellsBetween;
   }
 
-  private void goDownLineDiagonal(int startingXPosition, int startingYPosition, boolean incrementX, boolean incrementY,
+  private void goDownLineDiagonal(int startingXPosition, int startingYPosition,
+                                  boolean incrementX, boolean incrementY,
       ArrayList<GamePosition> cellsBetween, Player playerTurn) {
     while (true) {
       if (incrementX) {

@@ -102,7 +102,7 @@ public final class Position2D implements GamePosition {
   }
 
   /**
-   * Determines the common coordinate between this Position2D and another
+   * Determines the common coordinate between this Position2D and another.
    * 
    * @param other The other Position2D to compare with.
    * @return The common coordinate, which can be "x" or "y." If there is no common
@@ -178,29 +178,31 @@ public final class Position2D implements GamePosition {
   }
 
   /**
-   * Checks if this Position2D is in the corner of the board
+   * Checks if this Position2D is in the corner of the board.
    * 
    * @param numRows - the number of rows in the board
    * @return true if this Position2D is in the corner of the board
    */
   @Override
   public boolean checkNextToCorner(int numRows) {
-    return ((Math.abs(this.x) == numRows - 2) || this.x == 1) && ((Math.abs(this.y) == numRows - 2) || this.y == 1);
+    return ((Math.abs(this.x) == numRows - 2) || this.x == 1)
+            && ((Math.abs(this.y) == numRows - 2) || this.y == 1);
   }
 
   /**
-   * Checks if this GamePosition is a corner of the board
+   * Checks if this GamePosition is a corner of the board.
    * 
    * @param numRows - the number of rows in the board
    * @return true if this GamePosition is a corner of the board
    */
   @Override
   public boolean checkCorner(int numRows) {
-    return ((Math.abs(this.x) == numRows - 1) || this.x == 0) && ((Math.abs(this.y) == numRows - 1) || this.y == 0);
+    return ((Math.abs(this.x) == numRows - 1) || this.x == 0)
+            && ((Math.abs(this.y) == numRows - 1) || this.y == 0);
   }
 
   /**
-   * Checks if this GamePosition is the leftuppermost position on the board
+   * Checks if this GamePosition is the leftuppermost position on the board.
    * 
    * @param other - the other GamePosition to compare with
    * @return the leftuppermost GamePosition
@@ -211,7 +213,7 @@ public final class Position2D implements GamePosition {
   }
 
   /**
-   * Checks if this Position2D is the leftuppermost position on the board
+   * Checks if this Position2D is the leftuppermost position on the board.
    * 
    * @param other - the other Position2D to compare with
    * @return the leftuppermost Position2D
@@ -232,7 +234,7 @@ public final class Position2D implements GamePosition {
   }
 
   /**
-   * Checks if this PositionAxial is the leftuppermost position on the board
+   * Checks if this PositionAxial is the leftuppermost position on the board.
    * 
    * @param other - the other PositionAxial to compare with
    * @return the leftuppermost PositionAxial

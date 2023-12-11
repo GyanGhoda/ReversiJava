@@ -192,7 +192,7 @@ public final class PositionAxial implements GamePosition {
   }
 
   /**
-   * Checks if this PositionAxial is in the corner of the board
+   * Checks if this PositionAxial is in the corner of the board.
    * 
    * @param numRows - the number of rows in the board
    * @return true if this PositionAxial is in the corner of the board
@@ -211,7 +211,7 @@ public final class PositionAxial implements GamePosition {
   }
 
   /**
-   * Checks if this PositionAxial is a corner of the board
+   * Checks if this PositionAxial is a corner of the board.
    * 
    * @param numRows - the number of rows in the board
    * @return true if this PositionAxial is a corner of the board
@@ -231,8 +231,8 @@ public final class PositionAxial implements GamePosition {
   }
 
   /**
-   * Checks if this GamePosition is the leftuppermost position on the board
-   * 
+   * Checks if this GamePosition is the leftuppermost position on the board.
+   *
    * @param other - the other GamePosition to compare with
    * @return the leftuppermost GamePosition
    */
@@ -242,7 +242,7 @@ public final class PositionAxial implements GamePosition {
   }
 
   /**
-   * Checks if this Position2D is the leftuppermost position on the board
+   * Checks if this Position2D is the leftuppermost position on the board.
    * 
    * @param other - the other Position2D to compare with
    * @return the leftuppermost Position2D
@@ -253,7 +253,7 @@ public final class PositionAxial implements GamePosition {
   }
 
   /**
-   * Checks if this PositionAxial is the leftuppermost position on the board
+   * Checks if this PositionAxial is the leftuppermost position on the board.
    * 
    * @param other - the other PositionAxial to compare with
    * @return the leftuppermost PositionAxial

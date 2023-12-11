@@ -9,6 +9,9 @@ import cs3500.reversi.controller.ModelStatusFeatures;
 import cs3500.reversi.controller.Player;
 import cs3500.reversi.controller.PlayerType;
 
+/*
+ * Represents a basic implementation of a ReversiModel.
+ */
 public abstract class ABasicReversiModel implements ReversiModel, ReadOnlyReversiModel {
   // the game board, represented as a HashMap of positions to cells
   protected final HashMap<GamePosition, Cell> board;
@@ -127,7 +130,7 @@ public abstract class ABasicReversiModel implements ReversiModel, ReadOnlyRevers
   }
 
   /**
-   * Gets the current turn of the game
+   * Gets the current turn of the game.
    * 
    * @return the current turn of the game as a String
    */
@@ -319,8 +322,8 @@ public abstract class ABasicReversiModel implements ReversiModel, ReadOnlyRevers
     return validTiles.size();
   }
 
-  protected abstract List<GamePosition> checkValidLineMade(GamePosition givenPosn, GamePosition posn,
-                                                Player playerTurn);
+  protected abstract List<GamePosition> checkValidLineMade(GamePosition givenPosn,
+  GamePosition posn,Player playerTurn);
 
   protected List<GamePosition> getSurroundingCells(GamePosition givenPosn) {
     ArrayList<GamePosition> surroundingCells = new ArrayList<>();

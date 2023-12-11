@@ -298,15 +298,18 @@ public class BasicReversiModel extends ABasicReversiModel {
       int constantPosition) {
     // calculate current position based on forward direction
     if (foward) {
-      return getGamePosition(row, incrementStartingPostion, decrementStartingPosition, constantPosition);
+      return getGamePosition(row, incrementStartingPostion, decrementStartingPosition,
+              constantPosition);
     }
     // calculate current position based on backward direction
     else {
-      return getGamePosition(row, decrementStartingPosition, incrementStartingPostion, constantPosition);
+      return getGamePosition(row, decrementStartingPosition, incrementStartingPostion,
+              constantPosition);
     }
   }
 
-  private GamePosition getGamePosition(String row, int incrementStartingPostion, int decrementStartingPosition, int constantPosition) {
+  private GamePosition getGamePosition(String row, int incrementStartingPostion,
+                                       int decrementStartingPosition, int constantPosition) {
     if (row.equalsIgnoreCase("s")) {
       return new PositionAxial(incrementStartingPostion, decrementStartingPosition,
           constantPosition);

@@ -75,7 +75,8 @@ public class BasicSquareReversiModelMock extends ABasicReversiModel {
    * @throws IllegalArgumentException If the provided width is not an odd number
    *                                  or is less than three.
    */
-  public BasicSquareReversiModelMock(int width, HashMap<GamePosition, Cell> board, Player currentPlayer) {
+  public BasicSquareReversiModelMock(int width, HashMap<GamePosition, Cell> board,
+                                     Player currentPlayer) {
     super(width, board, currentPlayer);
 
     this.log = new StringBuilder();
@@ -220,18 +221,23 @@ public class BasicSquareReversiModelMock extends ABasicReversiModel {
     }
 
     // Check for a valid line along the diagonal
-    if (Math.abs(givenPosn.getQ() - posn.getQ()) == 1 && Math.abs(givenPosn.getR() - posn.getR()) == 1) {
+    if (Math.abs(givenPosn.getQ() - posn.getQ()) == 1
+            && Math.abs(givenPosn.getR() - posn.getR()) == 1) {
       if (givenPosn.getQ() > posn.getQ()) {
         if (givenPosn.getR() > posn.getR()) {
-          this.goDownLineDiagonal(givenPosn.getQ(), givenPosn.getR(), false, false, cellsBetween, playerTurn);
+          this.goDownLineDiagonal(givenPosn.getQ(), givenPosn.getR(),
+                  false, false, cellsBetween, playerTurn);
         } else {
-          this.goDownLineDiagonal(givenPosn.getQ(), givenPosn.getR(), false, true, cellsBetween, playerTurn);
+          this.goDownLineDiagonal(givenPosn.getQ(), givenPosn.getR(),
+                  false, true, cellsBetween, playerTurn);
         }
       } else {
         if (givenPosn.getR() > posn.getR()) {
-          this.goDownLineDiagonal(givenPosn.getQ(), givenPosn.getR(), true, false, cellsBetween, playerTurn);
+          this.goDownLineDiagonal(givenPosn.getQ(), givenPosn.getR(),
+                  true, false, cellsBetween, playerTurn);
         } else {
-          this.goDownLineDiagonal(givenPosn.getQ(), givenPosn.getR(), true, true, cellsBetween, playerTurn);
+          this.goDownLineDiagonal(givenPosn.getQ(), givenPosn.getR(),
+                  true, true, cellsBetween, playerTurn);
         }
       }
     }
@@ -239,7 +245,8 @@ public class BasicSquareReversiModelMock extends ABasicReversiModel {
     return cellsBetween;
   }
 
-  private void goDownLineDiagonal(int startingXPosition, int startingYPosition, boolean incrementX, boolean incrementY,
+  private void goDownLineDiagonal(int startingXPosition, int startingYPosition,
+                                  boolean incrementX, boolean incrementY,
       ArrayList<GamePosition> cellsBetween, Player playerTurn) {
     while (true) {
       if (incrementX) {

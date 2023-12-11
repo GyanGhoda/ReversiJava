@@ -579,7 +579,8 @@ public class BasicReversiModelMockTranscript implements ReversiModel {
     }
 
     // Get the list of valid positions to add a piece to on this move.
-    List<PositionAxial> validTiles = this.isValidMoveForPlayer((PositionAxial) posn, this.getCurrentTurn());
+    List<PositionAxial> validTiles = this.isValidMoveForPlayer((PositionAxial) posn,
+            this.getCurrentTurn());
 
     return validTiles.size();
   }
