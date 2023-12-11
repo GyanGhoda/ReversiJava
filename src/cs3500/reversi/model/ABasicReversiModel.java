@@ -9,7 +9,7 @@ import cs3500.reversi.controller.ModelStatusFeatures;
 import cs3500.reversi.controller.Player;
 import cs3500.reversi.controller.PlayerType;
 
-/*
+/**
  * Represents a basic implementation of a ReversiModel.
  * Abstraction used for hexagonal and square models.
  */
@@ -289,7 +289,7 @@ public abstract class ABasicReversiModel implements ReversiModel, ReadOnlyRevers
    * @param givenPosn  The position to check for a valid move.
    * @param playerTurn The player whose turn it currently is.
    * @return A list of positions that represent valid moves, or an empty list if
-   * the move is invalid.
+   *     the move is invalid.
    */
   protected List<GamePosition> isValidMoveForPlayer(GamePosition givenPosn, Player playerTurn) {
     Player otherPlayer = playerTurn.getOppositePlayer();

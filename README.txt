@@ -17,7 +17,7 @@ for square reversi was created called BasicSquareReversiModel. They both coexist
 time and do not need to be commented out. A square game can be created through the command line by
 typing in "square" as the second argument if you specified hintsoff. If hintsoff wasn't included,
 "square" must be the first argument. Immediately after this argument, you can specify the size length
-of the board as an argument. It must be even and above 0.
+of the board as an argument. It must be even and above 0. Tested in TestSquareModel.java.
 
 Level 2: To implement the square-grid visual view, we created a SquareFrame class, which extends
 JFrame and implements ReversiVisualView. We also created SquarePanel, which extends JPanel and implements
@@ -27,11 +27,11 @@ class called AShape that they both extend. They coexist properly with the hexago
 
 Level 3: Due to the way we designed the GamePosition interface and how our views implement the same
 interfaces, there were no changes to the controller needed to get it to work with a square reversi
-game other than abstracting all the positions to GamePositions.
+game other than abstracting all the positions to GamePositions. Tested in TestController.java.
 
 Level 4: Due to the way we designed the GamePosition interface and how our views implement the same
 interfaces, there were no changes to the strategies needed to get them to work with a square reversi
-game other than abstracting all the positions to GamePositions
+game other than abstracting all the positions to GamePositions. Tested in TestStrategies.java.
 
 ## Changes for Part 3 from initial design:
 
