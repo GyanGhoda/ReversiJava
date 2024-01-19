@@ -1,4 +1,7 @@
-<img src="https://media.giphy.com/media/V25gdutt6iuWc/giphy.gif" alt="drawing" width="250"/>
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHEzejNsYTFucHd1OXl5cHZzbjFqZWZ5ZzJnanFtNGt2dWFheHlnYiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TWwQI3MA8Es3RT5ckB/giphy.gif" alt="drawing" width="750"/>
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMm5xN20yZjl2b2wwdzJzNzIyc2J5cms3aDltcmw5cnBqb3owN2sydSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JGala05DYQm67IpavL/giphy.gif" alt="drawing" width="500"/>
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExN3V0Y3I3aTVwY25qZXd1dG52OXg1eHB1ajBhY2tnc2g3ZnlvZTl3MyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MVcpXmC0eKn1MdavXR/giphy.gif" alt="drawing" width="500"/>
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY3VkcDMyN2J2bTVkeW1ycDhobGoyZXVzZWJjcXV2ZW1mZHB2aWwwcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/jFpfkPMWkR6ssid3Ft/giphy.gif" alt="drawing" width="500"/>
 
 ## Part 4 Extra Credit Features
 
