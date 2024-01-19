@@ -1,5 +1,4 @@
-
-<img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2d1bmY1NDh6ZmNqZm01dDF2ejQ0MTIzM2YxNGw0d3B6ZHZyaWRvNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/kjUXHYWrxNsyQ3YlHE/giphy.gif"/>
+<iframe src="https://giphy.com/embed/kjUXHYWrxNsyQ3YlHE" width="480" height="232" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/kjUXHYWrxNsyQ3YlHE">via GIPHY</a></p>
 
 ## Part 4 Extra Credit Features
 
