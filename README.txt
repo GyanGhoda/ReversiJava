@@ -1,4 +1,4 @@
-<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2d1bmY1NDh6ZmNqZm01dDF2ejQ0MTIzM2YxNGw0d3B6ZHZyaWRvNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/kjUXHYWrxNsyQ3YlHE/giphy.gif"/>
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY2d1bmY1NDh6ZmNqZm01dDF2ejQ0MTIzM2YxNGw0d3B6ZHZyaWRvNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/kjUXHYWrxNsyQ3YlHE/giphy.gif" alt="Alternate text"/>
 
 ## Part 4 Extra Credit Features
 
