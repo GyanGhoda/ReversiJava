@@ -1,5 +1,3 @@
-<img src="https://media.giphy.com/media/V25gdutt6iuWc/giphy.gif" alt="drawing" width="250"/>
-
 ## Part 4 Extra Credit Features
 
 Level 0: Hints were added for the hexagonal model. They can be completely
