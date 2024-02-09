@@ -145,7 +145,7 @@ Using the jar file provided in the root directory, you can run the jar file and 
 - `PlayerType`: Enumeration of player types (e.g., HUMAN, AI).
 
 ### Strategies (`src/cs3500/reversi/strategies`)
-- `AvoidCellsNextToCorner`: Strategy that avoids cells next to the corner and breaks ties by choosing the uppermost-leftmost move.
+- `AvoidCellsNextToCorner`: Strategy that avoids cells next to the corner and breaks ties by choosing the uppermost-leftmost move on the grid.
 - `CaptureCellsInCorner`: Strategy that only focuses on capturing cells in the corner.
 - `CaptureMostPieces`: Strategy that captures the most pieces and breaks ties by choosing the uppermost-leftmost move.
 - `MinimizeNextOpponentMove`: Strategy that leaves opponent with no good moves.
